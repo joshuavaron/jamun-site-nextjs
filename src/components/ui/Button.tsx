@@ -28,9 +28,9 @@ type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-jamun-blue text-white hover:bg-jamun-blue-dark active:bg-jamun-blue-dark",
+    "bg-gradient-to-r from-jamun-blue-light to-jamun-blue text-white hover:from-jamun-blue hover:to-jamun-blue-dark active:from-jamun-blue active:to-jamun-blue-dark shadow-sm hover:shadow-md",
   accent:
-    "bg-jamun-orange text-white hover:bg-jamun-orange-dark active:bg-jamun-orange-dark",
+    "bg-gradient-to-r from-[#dc2626] to-jamun-orange text-white hover:from-[#b91c1c] hover:to-[#ea580c] active:from-[#b91c1c] active:to-[#ea580c] shadow-sm hover:shadow-md",
   outline:
     "border-2 border-jamun-blue text-jamun-blue hover:bg-jamun-blue hover:text-white",
   ghost:
@@ -38,7 +38,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm",
+  sm: "px-4 py-2 text-sm",
   md: "px-5 py-2.5 text-base",
   lg: "px-7 py-3 text-lg",
 };

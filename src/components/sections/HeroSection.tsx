@@ -30,7 +30,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+              className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6"
             >
               JAMUN Makes{" "}
               <span className="relative">

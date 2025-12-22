@@ -1,27 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Heart, Users, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui";
 
 export function CTASection() {
   return (
-    <section className="relative bg-gradient-to-br from-[#0f172a] via-jamun-blue-dark to-purple-900 py-20 md:py-28 overflow-hidden">
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-jamun-orange/10 rounded-full blur-3xl" />
-      </div>
-
-      {/* Grid pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
+    <section className="relative bg-gray-50 py-16 md:py-20 overflow-hidden">
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -30,50 +15,86 @@ export function CTASection() {
         transition={{ duration: 0.6 }}
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        {/* Sparkle badge */}
+        {/* Friendly badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+          transition={{ delay: 0.1 }}
+          className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white rounded-full shadow-sm border border-gray-100"
         >
-          <Sparkles className="w-4 h-4 text-jamun-orange" />
-          <span className="text-sm font-medium text-white/90">Join 500+ students nationwide</span>
+          <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+          <span className="text-sm font-medium text-gray-700">Join 500+ students nationwide</span>
         </motion.div>
 
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-          Ready to Make{" "}
-          <span className="bg-gradient-to-r from-jamun-orange via-pink-400 to-purple-400 bg-clip-text text-transparent">
-            Learning Fun
-          </span>
-          ?
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+          Ready to Start Your{" "}
+          <span className="text-jamun-blue">Journey</span>?
         </h2>
-        <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-          Join thousands of students who are building essential skills through
-          engaging academic competitions. Start your journey today!
+
+        <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Whether you're a student eager to compete, a parent supporting your child,
+          or an educator building a program—we're here to help you succeed.
         </p>
+
+        {/* Feature highlights */}
+        <div className="flex flex-wrap justify-center gap-6 mb-10">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-2 text-gray-600"
+          >
+            <div className="w-8 h-8 rounded-full bg-jamun-blue/10 flex items-center justify-center">
+              <GraduationCap className="w-4 h-4 text-jamun-blue" />
+            </div>
+            <span className="text-sm font-medium">Free resources</span>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center gap-2 text-gray-600"
+          >
+            <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+              <Users className="w-4 h-4 text-purple-600" />
+            </div>
+            <span className="text-sm font-medium">Supportive community</span>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex items-center gap-2 text-gray-600"
+          >
+            <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+              <Heart className="w-4 h-4 text-emerald-600" />
+            </div>
+            <span className="text-sm font-medium">Youth-led nonprofit</span>
+          </motion.div>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
               href="/register"
-              variant="accent"
               size="lg"
-              className="shadow-lg shadow-jamun-orange/40 group"
+              className="group"
             >
-              Register Now
+              Get Started
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
             <Button
-              href="/donate"
+              href="/programs"
               variant="outline"
               size="lg"
-              className="border-white/30 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm"
             >
-              Support Our Mission
+              Explore Programs
             </Button>
           </motion.div>
         </div>
@@ -82,21 +103,18 @@ export function CTASection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-10 text-sm text-gray-400"
+          transition={{ delay: 0.5 }}
+          className="mt-8 text-sm text-gray-500"
         >
-          Questions? Reach out to us at{" "}
+          Questions? We'd love to hear from you at{" "}
           <a
             href="mailto:contact@jamun.org"
-            className="text-jamun-blue-light hover:text-white transition-colors underline underline-offset-2"
+            className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
           >
             contact@jamun.org
           </a>
         </motion.p>
       </motion.div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </section>
   );
 }

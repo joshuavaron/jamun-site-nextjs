@@ -23,7 +23,7 @@ export function Section({
   return (
     <section
       className={cn(
-        "py-16 md:py-20 lg:py-24",
+        "py-8 md:py-10 lg:py-12",
         backgroundStyles[background],
         className
       )}
@@ -59,17 +59,17 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "mb-12 lg:mb-16",
+        "mb-6 lg:mb-8",
         centered && "text-center",
         className
       )}
     >
       {eyebrow && (
-        <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-3 block">
+        <span className="text-jamun-blue font-semibold text-base tracking-widest uppercase mb-3 block">
           {eyebrow}
         </span>
       )}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+      <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-4">
         {title}
       </h2>
       {subtitle && (

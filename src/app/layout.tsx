@@ -37,9 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
         <Header />
-        <main className="min-h-screen pt-14 md:pt-16">{children}</main>
+        <main className="min-h-screen pt-14 md:pt-16 overflow-x-hidden">{children}</main>
         <Footer />
       </body>
     </html>

@@ -80,7 +80,7 @@ export function WhyChooseSection() {
         title="Everything You Need to Excel"
       />
 
-      <div className="space-y-24 lg:space-y-32">
+      <div className="space-y-12 lg:space-y-14">
         {features.map((feature, index) => (
           <motion.div
             key={feature.title}
@@ -168,7 +168,7 @@ export function WhyChooseSection() {
                 {feature.subtitle}
               </motion.span>
 
-              <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h3 className="text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
                 {feature.title}
               </h3>
 

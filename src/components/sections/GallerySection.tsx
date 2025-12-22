@@ -137,14 +137,14 @@ export function GallerySection() {
             >
               {/* Label */}
               <span className={cn(
-                "font-semibold text-sm tracking-widest uppercase mb-4",
+                "font-semibold text-base tracking-widest uppercase mb-4",
                 section.labelColor
               )}>
                 {section.label}
               </span>
 
               {/* Title */}
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
                 {section.title}
               </h2>
 

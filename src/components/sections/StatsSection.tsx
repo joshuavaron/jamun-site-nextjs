@@ -5,7 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { siteConfig } from "@/config/site";
 
-function AnimatedNumber({ value }: { value: string }) {
+function AnimatedNumber({ value, duration = 2000 }: { value: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [displayValue, setDisplayValue] = useState("0");
@@ -26,8 +26,7 @@ function AnimatedNumber({ value }: { value: string }) {
       value.indexOf(numericMatch[0]) + numericMatch[0].length
     );
 
-    const duration = 2000;
-    const steps = 60;
+    const steps = Math.max(30, Math.floor(duration / 33)); // ~30fps
     const stepDuration = duration / steps;
     let currentStep = 0;
 
@@ -46,10 +45,13 @@ function AnimatedNumber({ value }: { value: string }) {
     }, stepDuration);
 
     return () => clearInterval(timer);
-  }, [isInView, value]);
+  }, [isInView, value, duration]);
 
   return <span ref={ref}>{displayValue}</span>;
 }
+
+// Different durations for each stat to create staggered finish effect
+const statDurations = [1400, 1800, 2200, 2600];
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -110,7 +112,7 @@ export function StatsSection() {
 
                 <div className="relative z-10">
                   <div className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-jamun-blue-light to-purple-400 bg-clip-text text-transparent mb-3">
-                    <AnimatedNumber value={stat.value} />
+                    <AnimatedNumber value={stat.value} duration={statDurations[index]} />
                   </div>
                   <div className="text-sm md:text-base text-gray-400 font-medium">
                     {stat.label}

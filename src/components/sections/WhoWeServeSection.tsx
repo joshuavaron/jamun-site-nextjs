@@ -63,7 +63,7 @@ const itemVariants = {
 
 export function WhoWeServeSection() {
   return (
-    <Section background="gray">
+    <Section background="white">
       <SectionHeader
         eyebrow="WHO WE SERVE"
         title="Programs for Students, Parents & Educators"

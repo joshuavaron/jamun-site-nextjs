@@ -8,9 +8,9 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="space-y-8 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-12">
           {/* Brand Column */}
-          <div className="lg:col-span-1">
+          <div>
             <Link href="/" className="flex items-center mb-4">
               <div className="relative h-10 w-44">
                 <Image
@@ -31,55 +31,58 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Programs Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Programs</h3>
-            <ul className="space-y-3">
-              {siteConfig.footer.programs.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Link Columns - always side by side */}
+          <div className="grid grid-cols-3 gap-6 lg:col-span-3 lg:gap-12">
+            {/* Programs Column */}
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Programs</h3>
+              <ul className="space-y-2 sm:space-y-3">
+                {siteConfig.footer.programs.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Organization Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Organization</h3>
-            <ul className="space-y-3">
-              {siteConfig.footer.organization.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Organization Column */}
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Organization</h3>
+              <ul className="space-y-2 sm:space-y-3">
+                {siteConfig.footer.organization.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Resources Column */}
-          <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
-            <ul className="space-y-3">
-              {siteConfig.footer.resources.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Resources Column */}
+            <div>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Resources</h3>
+              <ul className="space-y-2 sm:space-y-3">
+                {siteConfig.footer.resources.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 

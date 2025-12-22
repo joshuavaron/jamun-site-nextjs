@@ -64,12 +64,12 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-14 md:h-16">
           {/* Left side: Explore dropdown + Search */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden nav:flex items-center gap-4">
             {/* Explore Dropdown */}
             <div className="relative" data-explore-dropdown>
               <button
                 onClick={() => setIsExploreOpen(!isExploreOpen)}
-                className="flex items-center gap-1 text-gray-700 hover:text-jamun-blue font-medium transition-colors"
+                className="flex items-center gap-1 text-gray-700 hover:text-jamun-blue font-medium transition-colors cursor-pointer"
               >
                 Explore
                 <ChevronDown
@@ -127,27 +127,27 @@ export function Header() {
             </div>
           </div>
 
-          {/* Center: Logo (absolutely positioned for perfect centering) */}
+          {/* Logo: Left-aligned on mobile, centered on desktop */}
           <Link
             href="/"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center shrink-0"
+            className="flex items-center shrink-0 nav:absolute nav:left-1/2 nav:top-1/2 nav:-translate-x-1/2 nav:-translate-y-1/2"
           >
             <div className="relative h-8 w-40 md:h-9 md:w-52">
               <Image
                 src="/images/logos/jamun-blue-side-logo.svg"
                 alt="The Junior Assembly of the Model United Nations"
                 fill
-                className="object-contain"
+                className="object-contain object-left nav:object-center"
                 priority
               />
             </div>
           </Link>
 
           {/* Right side: CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-3 ml-auto">
+          <div className="hidden nav:flex items-center gap-3 ml-auto">
             <Link
               href="/grants"
-              className="text-gray-700 hover:text-jamun-blue font-medium transition-colors"
+              className="text-gray-700 hover:text-jamun-blue font-medium transition-colors px-4 py-2"
             >
               Grants
             </Link>
@@ -162,7 +162,7 @@ export function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 text-gray-700 hover:text-jamun-blue transition-colors ml-auto"
+            className="nav:hidden p-2 text-gray-700 hover:text-jamun-blue transition-colors ml-auto"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -178,18 +178,19 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t overflow-hidden"
+            className="nav:hidden bg-white border-t overflow-hidden"
           >
             <nav className="max-w-7xl mx-auto px-4 py-6 space-y-4">
-              {/* Mobile Search */}
-              <div className="flex items-center bg-gray-100 rounded-lg mb-4">
+              {/* Mobile Search - matches desktop style */}
+              <div className="flex items-center bg-gray-100 rounded-full h-10 mb-4">
                 <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
                 <input
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+                  className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
+                  style={{ outline: "none", border: "none", boxShadow: "none" }}
                 />
               </div>
 
@@ -204,13 +205,9 @@ export function Header() {
                 </Link>
               ))}
               <div className="pt-4 border-t space-y-3">
-                <Link
-                  href="/grants"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block text-lg text-gray-700 hover:text-jamun-blue font-medium py-2 transition-colors"
-                >
+                <Button href="/grants" variant="ghost" className="w-full bg-gray-100">
                   Grants
-                </Link>
+                </Button>
                 <Button href="/donate" variant="accent" className="w-full">
                   Donate
                 </Button>
