@@ -42,6 +42,7 @@ export function Section({
 }
 
 interface SectionHeaderProps {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   centered?: boolean;
@@ -49,6 +50,7 @@ interface SectionHeaderProps {
 }
 
 export function SectionHeader({
+  eyebrow,
   title,
   subtitle,
   centered = true,
@@ -62,6 +64,11 @@ export function SectionHeader({
         className
       )}
     >
+      {eyebrow && (
+        <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-3 block">
+          {eyebrow}
+        </span>
+      )}
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
         {title}
       </h2>

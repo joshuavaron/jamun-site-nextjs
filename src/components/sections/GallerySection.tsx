@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const sections = [
   {
@@ -28,6 +29,11 @@ const sections = [
       quote: "JAMUN helped my daughter find her voice. She used to be shy about speaking in class, but now she confidently presents to groups of her peers.",
       author: "Parent of 2024 JAMUN Participant",
     },
+    accentColor: "purple",
+    labelColor: "text-purple-600",
+    borderColor: "border-purple-600",
+    numberColor: "text-purple-600",
+    statGradient: "from-purple-600 to-jamun-blue",
   },
   {
     id: "educators",
@@ -51,6 +57,11 @@ const sections = [
       quote: "The resources JAMUN provides made it easy to start our school's first academic competition club. Our students are thriving.",
       author: "Middle School Teacher",
     },
+    accentColor: "emerald",
+    labelColor: "text-emerald-600",
+    borderColor: "border-emerald-600",
+    numberColor: "text-emerald-600",
+    statGradient: "from-emerald-500 to-teal-600",
   },
 ];
 
@@ -59,38 +70,57 @@ export function GallerySection() {
     <section className="bg-white">
       {sections.map((section, sectionIndex) => (
         <div key={section.id} className={sectionIndex > 0 ? "mt-0" : ""}>
-          <div
-            className={`grid lg:grid-cols-2 ${
-              section.imagePosition === "right" ? "" : ""
-            }`}
-          >
+          <div className="grid lg:grid-cols-2">
             {/* Image Column */}
             <motion.div
               initial={{ opacity: 0, x: section.imagePosition === "right" ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}
-              className={`relative min-h-[400px] lg:min-h-[600px] ${
+              className={cn(
+                "relative min-h-[400px] lg:min-h-[600px] overflow-hidden group",
                 section.imagePosition === "right" ? "lg:order-1" : "lg:order-2"
-              }`}
+              )}
             >
               <Image
                 src={section.image}
                 alt={section.title}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {/* Dark overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-              {/* Stat overlay */}
-              <div className="absolute bottom-8 left-8 text-white">
-                <div className="text-5xl md:text-6xl font-bold mb-2">
+              {/* Stat overlay with gradient background */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="absolute bottom-8 left-8 text-white"
+              >
+                <div className={cn(
+                  "text-5xl md:text-6xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
+                  section.statGradient
+                )}>
                   {section.stat.value}
                 </div>
                 <div className="text-sm md:text-base text-white/90 max-w-[200px]">
                   {section.stat.label}
                 </div>
+              </motion.div>
+
+              {/* Decorative corner accent */}
+              <div className={cn(
+                "absolute top-0 w-24 h-24 opacity-30",
+                section.imagePosition === "right" ? "right-0" : "left-0"
+              )}>
+                <div className={cn(
+                  "absolute w-full h-full bg-gradient-to-br",
+                  section.imagePosition === "right"
+                    ? "from-transparent to-purple-500/50 rounded-bl-full"
+                    : "from-transparent to-emerald-500/50 rounded-br-full"
+                )} />
               </div>
             </motion.div>
 
@@ -100,12 +130,16 @@ export function GallerySection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className={`bg-gray-50 p-8 lg:p-12 xl:p-16 flex flex-col justify-center ${
+              className={cn(
+                "bg-gray-50 p-8 lg:p-12 xl:p-16 flex flex-col justify-center relative",
                 section.imagePosition === "right" ? "lg:order-2" : "lg:order-1"
-              }`}
+              )}
             >
               {/* Label */}
-              <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-4">
+              <span className={cn(
+                "font-semibold text-sm tracking-widest uppercase mb-4",
+                section.labelColor
+              )}>
                 {section.label}
               </span>
 
@@ -121,9 +155,19 @@ export function GallerySection() {
 
               {/* Benefits Grid */}
               <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                {section.benefits.slice(0, 6).map((benefit) => (
-                  <div key={benefit.number} className="flex gap-4">
-                    <span className="text-jamun-blue font-semibold text-sm">
+                {section.benefits.slice(0, 6).map((benefit, index) => (
+                  <motion.div
+                    key={benefit.number}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * index }}
+                    className="flex gap-4 group/benefit"
+                  >
+                    <span className={cn(
+                      "font-bold text-sm transition-transform group-hover/benefit:scale-110",
+                      section.numberColor
+                    )}>
                       {benefit.number}
                     </span>
                     <div>
@@ -134,19 +178,28 @@ export function GallerySection() {
                         {benefit.description}
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
               {/* Testimonial */}
-              <div className="border-l-4 border-jamun-blue pl-6 py-2">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className={cn(
+                  "border-l-4 pl-6 py-2 bg-white rounded-r-lg shadow-sm",
+                  section.borderColor
+                )}
+              >
                 <p className="text-gray-700 italic mb-3">
                   &ldquo;{section.testimonial.quote}&rdquo;
                 </p>
                 <p className="text-sm font-semibold text-gray-900">
                   — {section.testimonial.author}
                 </p>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>

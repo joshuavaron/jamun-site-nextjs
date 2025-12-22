@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Section, SectionHeader, Badge } from "@/components/ui";
+import { ArrowRight, Globe, Scale, Calculator } from "lucide-react";
+import { Section, SectionHeader } from "@/components/ui";
+import { cn } from "@/lib/utils";
 
 const programs = [
   {
@@ -15,6 +16,10 @@ const programs = [
     features: ["Beginner-friendly", "Diplomatic skills", "Research & debate"],
     href: "/programs/model-un",
     image: "/images/conferences/model-un.webp",
+    icon: Globe,
+    accentColor: "bg-jamun-blue",
+    badgeColor: "bg-jamun-blue/80",
+    glowColor: "group-hover:shadow-jamun-blue/30",
   },
   {
     id: "mock-trial",
@@ -24,6 +29,10 @@ const programs = [
     features: ["Courtroom simulation", "Legal reasoning", "Cross-examination"],
     href: "/programs/mock-trial",
     image: "/images/conferences/mock-trial.webp",
+    icon: Scale,
+    accentColor: "bg-purple-600",
+    badgeColor: "bg-purple-600/80",
+    glowColor: "group-hover:shadow-purple-500/30",
   },
   {
     id: "mathletes",
@@ -33,6 +42,10 @@ const programs = [
     features: ["Math competitions", "Problem-solving", "Team challenges"],
     href: "/programs/mathletes",
     image: "/images/conferences/mathletes.webp",
+    icon: Calculator,
+    accentColor: "bg-emerald-600",
+    badgeColor: "bg-emerald-600/80",
+    glowColor: "group-hover:shadow-emerald-500/30",
   },
 ];
 
@@ -59,8 +72,8 @@ export function ProgramsSection() {
   return (
     <Section>
       <SectionHeader
-        title="Our Programs"
-        subtitle="Three Paths to Academic Excellence"
+        eyebrow="OUR PROGRAMS"
+        title="Three Paths to Academic Excellence"
       />
 
       <motion.div
@@ -73,41 +86,64 @@ export function ProgramsSection() {
         {programs.map((program) => (
           <motion.div key={program.id} variants={itemVariants}>
             <Link href={program.href} className="group block h-full">
-              <div className="relative h-[480px] md:h-[520px] rounded-2xl overflow-hidden">
+              <div className={cn(
+                "relative h-[480px] md:h-[520px] rounded-2xl overflow-hidden",
+                "shadow-lg transition-all duration-500",
+                "hover:shadow-2xl",
+                program.glowColor
+              )}>
                 {/* Background Image */}
                 <Image
                   src={program.image}
                   alt={program.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
-                {/* Dark Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                {/* Dark Gradient Overlay - enhanced for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20 group-hover:from-black/90 transition-all duration-300" />
+
+                {/* Icon Badge - top left */}
+                <div className={cn(
+                  "absolute top-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center",
+                  "backdrop-blur-sm transition-all duration-300",
+                  "group-hover:scale-110",
+                  program.accentColor
+                )}>
+                  <program.icon className="w-6 h-6 text-white" />
+                </div>
 
                 {/* Arrow Button */}
                 <div className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center transition-all duration-300 group-hover:bg-white group-hover:scale-110">
-                  <ArrowRight className="w-5 h-5 text-white group-hover:text-jamun-blue transition-colors" />
+                  <ArrowRight className="w-5 h-5 text-white group-hover:text-gray-900 transition-colors" />
                 </div>
 
                 {/* Content */}
                 <div className="absolute inset-x-0 bottom-0 p-6">
-                  {/* Accent line */}
-                  <div className="w-12 h-1 bg-jamun-blue mb-4 rounded-full" />
+                  {/* Accent line - colored per program */}
+                  <div className={cn(
+                    "w-12 h-1 mb-4 rounded-full transition-all duration-300",
+                    "group-hover:w-20",
+                    program.accentColor
+                  )} />
 
                   <h3 className="text-2xl font-bold text-white mb-3">
                     {program.title}
                   </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                  <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
                     {program.description}
                   </p>
 
-                  {/* Feature badges */}
+                  {/* Feature badges - colored per program */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.features.map((feature) => (
                       <span
                         key={feature}
-                        className="px-3 py-1 bg-jamun-blue/80 text-white text-xs font-medium rounded-full"
+                        className={cn(
+                          "px-3 py-1 text-white text-xs font-medium rounded-full",
+                          "transition-transform duration-200 hover:scale-105",
+                          program.badgeColor
+                        )}
                       >
                         {feature}
                       </span>
@@ -115,7 +151,7 @@ export function ProgramsSection() {
                   </div>
 
                   {/* CTA */}
-                  <div className="inline-flex items-center text-white font-medium border border-white/30 rounded-lg px-4 py-2 transition-all duration-300 group-hover:bg-white group-hover:text-jamun-blue">
+                  <div className="inline-flex items-center text-white font-medium border border-white/30 rounded-lg px-4 py-2 transition-all duration-300 group-hover:bg-white group-hover:text-gray-900 group-hover:border-white">
                     Explore {program.title.split(" ")[0]}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
