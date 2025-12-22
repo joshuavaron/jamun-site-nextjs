@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  /* JAMUN Brand Colors */
+  --jamun-blue: #397bce;
+  --jamun-blue-light: #5a9be0;
+  --jamun-blue-dark: #2a5fa3;
+
+  --jamun-orange: #f97316;
+  --jamun-orange-light: #fb923c;
+  --jamun-orange-dark: #ea580c;
+
+  /* Neutrals */
+  --warm-white: #fafafa;
+  --warm-gray: #f5f5f4;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  /* Semantic */
+  --success-green: #22c55e;
+  --warning-amber: #f59e0b;
+  --error-red: #ef4444;
+
+  /* Layout */
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-jamun-blue: var(--jamun-blue);
+  --color-jamun-blue-light: var(--jamun-blue-light);
+  --color-jamun-blue-dark: var(--jamun-blue-dark);
+
+  --color-jamun-orange: var(--jamun-orange);
+  --color-jamun-orange-light: var(--jamun-orange-light);
+  --color-jamun-orange-dark: var(--jamun-orange-dark);
+
+  --color-warm-white: var(--warm-white);
+  --color-warm-gray: var(--warm-gray);
+
+  /* Font families */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--jamun-blue);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline from search inputs */
+input[type="text"].focus-visible\:outline-none:focus-visible,
+input[type="search"].focus-visible\:outline-none:focus-visible,
+.no-focus-outline:focus-visible {
+  outline: none;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
