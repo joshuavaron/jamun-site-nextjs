@@ -14,12 +14,12 @@ const impactStats = [
 ];
 
 const donationImpacts = [
-  { amount: "$25", impact: "Provides materials for one student at a competition" },
-  { amount: "$50", impact: "Sponsors a student's registration fee" },
-  { amount: "$100", impact: "Funds coaching for a first-time team" },
+  { amount: "$25", impact: "Sponsors a student's registration fee" },
+  { amount: "$50", impact: "Provides materials for one student at a competition" },
+  { amount: "$100", impact: "Sponsors an entire classroom's participation" },
   { amount: "$250", impact: "Enables a school to attend their first conference" },
-  { amount: "$500", impact: "Covers transportation for a rural school team" },
-  { amount: "$1,000", impact: "Sponsors an entire classroom's participation" },
+  { amount: "$500", impact: "Funds coaching for a first-time team" },
+  { amount: "$1,000", impact: "Covers transportation for an inter-city school team" },
 ];
 
 const reasons = [
