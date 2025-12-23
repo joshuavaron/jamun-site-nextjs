@@ -38,11 +38,11 @@ jamun-site-nextjs/
 │   ├── layout.tsx         # Root layout with navigation/footer
 │   ├── page.tsx           # Homepage
 │   ├── about/             # About page
-│   ├── programs/          # Programs section
-│   │   ├── page.tsx       # Programs overview
-│   │   ├── model-un/      # Model UN details
-│   │   ├── mock-trial/    # Mock Trial details
-│   │   └── mathletes/     # Mathletes details
+│   ├── programs/          # Programs overview page
+│   │   └── page.tsx       # Programs overview
+│   ├── modelun/           # Model UN details
+│   ├── mocktrial/         # Mock Trial details
+│   ├── mathletes/         # Mathletes details
 │   ├── resources/         # Free resources for educators
 │   ├── contact/           # Contact page
 │   ├── donate/            # Donation page
@@ -96,10 +96,24 @@ jamun-site-nextjs/
 - **Warm Orange (#f97316):** High-visibility CTAs (Donate button, urgent actions), accent highlights
 - **Blue + Orange combo:** Creates strong visual contrast; use orange sparingly for maximum impact
 
+### Extended Color Palette (for variety across sections)
+Use these colors to create visual distinction between sections while maintaining warmth:
+- **Purple (#7c3aed / purple-600):** Secondary accent for variety, gradients, and alternating section themes
+- **Emerald (#10b981 / emerald-500):** Third accent color for success states, positive messaging, and variety
+- **Amber (#f59e0b):** Warm accent for highlights and decorative elements
+
+**Color Theming Pattern:** Sections can use different accent colors (blue, purple, emerald) while maintaining the warm, inviting feel. See WhyChooseSection and GallerySection for examples of color variety.
+
 ### Typography
-- **Headings:** Bold, clean sans-serif (Inter or similar)
+- **Headings:** Semibold, clean sans-serif (Inter font via Google Fonts) - prefer `font-semibold` over `font-bold` for a softer feel
 - **Body:** Readable, professional (Inter or system fonts)
 - **Hierarchy:** Clear visual hierarchy with consistent sizing
+
+### Typography Patterns
+- **Gradient text for emphasis:** Use `bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent` for key words
+- **Eyebrow text:** Uppercase, tracking-widest, small text in brand blue above section titles
+- **Section titles:** text-3xl md:text-4xl lg:text-5xl font-semibold
+- **Subtitles:** text-lg text-gray-600, max-w-2xl for readability
 
 ### Component Guidelines
 
@@ -129,6 +143,136 @@ jamun-site-nextjs/
   - Staggered list animations
 - Respect `prefers-reduced-motion`
 
+### Subpage Hero Pattern
+For subpages (About, Programs, etc.), use this full-viewport hero pattern:
+```tsx
+<section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
+  {/* Decorative gradient blobs */}
+  <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
+  <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Text Content */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        {/* Badge */}
+        <motion.span className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20">
+          <Sparkles className="w-4 h-4" />
+          Page Category
+        </motion.span>
+
+        {/* Heading with gradient */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+          Main Headline{" "}
+          <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
+            Highlighted Text
+          </span>
+        </h1>
+
+        {/* Supporting text */}
+        <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+          Subtitle description goes here.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button href="/path" size="lg" className="group">
+            Primary Action
+            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+          </Button>
+          <Button href="/other" variant="outline" size="lg">
+            Secondary Action
+          </Button>
+        </div>
+      </motion.div>
+
+      {/* Image/Visual Side */}
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.8 }}>
+        {/* Content varies: image, card grid, etc. */}
+      </motion.div>
+    </div>
+  </div>
+</section>
+```
+
+### Animation Patterns
+
+#### Standard Entry Animation
+Use this pattern for most elements that should animate in on scroll:
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, margin: "-100px" }}
+  transition={{ duration: 0.6 }}
+>
+```
+
+#### Staggered List Animation
+For grids and lists of cards/items:
+```tsx
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+```
+
+#### Hover Effects
+- **Cards:** `whileHover={{ y: -4 }}` or `whileHover={{ scale: 1.02 }}` with shadow increase
+- **Images:** `whileHover={{ scale: 1.05 }}` for subtle zoom
+- **Buttons:** Built into Button component, adds translateX for arrow icons
+- **Interactive elements:** 0.3s transition duration for responsiveness
+
+#### Number Counter Animation
+For stats/impact numbers, animate from 0 to target value over 1.4-2.6s with easeOutQuart easing.
+
+### Dark Stats Section Pattern
+For impact statistics with animated counters, use this dark section pattern:
+```tsx
+<section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
+  {/* Gradient overlays for depth */}
+  <div className="absolute inset-0 bg-gradient-to-br from-jamun-blue/10 via-transparent to-purple-900/10" />
+  <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/5 rounded-full blur-3xl" />
+  <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    {/* Section header */}
+    <motion.div className="text-center mb-12">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">Section Title</h2>
+      <p className="text-gray-400 text-lg max-w-2xl mx-auto">Supporting description.</p>
+    </motion.div>
+
+    {/* Stats grid */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+      {stats.map((stat, index) => (
+        <motion.div
+          key={stat.label}
+          whileHover={{ scale: 1.02 }}
+          className="relative bg-[#1e293b]/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/50 hover:border-jamun-blue/50 transition-all duration-300 text-center"
+        >
+          {/* Hover glow */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-jamun-blue/0 to-purple-600/0 group-hover:from-jamun-blue/5 group-hover:to-purple-600/5 transition-all duration-300" />
+          <div className="relative z-10">
+            <div className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-jamun-blue-light to-purple-400 bg-clip-text text-transparent mb-3">
+              {stat.value}
+            </div>
+            <div className="text-sm md:text-base text-gray-400 font-medium">{stat.label}</div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+```
+
 ## Responsive Design
 
 ### Breakpoints (Tailwind defaults)
@@ -154,6 +298,18 @@ Each landing page should include:
 3. **Value Proposition** - Clear benefits/features
 4. **Call to Action** - Clear next steps
 
+### Homepage Section Flow (Reference)
+The homepage demonstrates an ideal warm, inviting page structure:
+1. **HeroSection** - Bold entry with gradient background, decorative blobs, two CTAs
+2. **StatsSection** - Dark background with animated counters for social proof
+3. **WhoWeServeSection** - Three audience cards with colored icon badges
+4. **ProgramsSection** - Full-image cards with overlay text and hover effects
+5. **WhyChooseSection** - Alternating image/text layout with bullet points
+6. **GallerySection** - Deep-dive content with testimonials and numbered benefits
+7. **TestimonialSection** - Featured quote with image and star rating
+8. **FAQSection** - Accordion with gradient answers and contact CTA
+9. **CTASection** - Final conversion push with feature highlights
+
 ### Content Pages
 - Consistent header/footer
 - Breadcrumb navigation where appropriate
@@ -167,22 +323,23 @@ Each landing page should include:
 - `Footer` - Links, social media, legal info
 - `MobileNav` - Responsive mobile navigation
 
-### UI Components
-- `Button` - Multiple variants (primary, secondary, outline, ghost)
-- `Card` - For programs, features, testimonials
-- `Badge` - For tags and labels
-- `StatCard` - For impact numbers
-- `TestimonialCard` - For quotes
-- `ImageGallery` - For conference photos
-- `Accordion` - For FAQs
+### UI Components (in `components/ui/`)
+- `Button` - Polymorphic (works as button or Link), variants: primary, accent, outline, ghost; sizes: sm, md, lg
+- `Card` - With subcomponents: Card, CardHeader, CardContent, CardFooter, CardImage; supports hover lift effect
+- `Badge` - Variants: default, primary, accent, success, outline
+- `Section` - Wrapper with consistent padding, max-width container, background options (white, gray, blue)
+- `SectionHeader` - Eyebrow + title + subtitle pattern, centered by default
 
-### Section Components
-- `HeroSection` - Reusable hero with variants
-- `StatsSection` - Impact numbers display
-- `ProgramsSection` - Program cards grid
-- `TestimonialsSection` - Rotating testimonials
-- `CTASection` - Call-to-action banners
-- `FAQSection` - Frequently asked questions
+### Section Components (in `components/sections/`)
+- `HeroSection` - Two-column with gradient background, decorative blobs, badge, CTAs
+- `StatsSection` - Dark background with animated number counters
+- `WhoWeServeSection` - Three audience cards with colored icon badges
+- `ProgramsSection` - Full-image cards with overlay text and accent bars
+- `WhyChooseSection` - Alternating image/text layout with bullet points and decorative elements
+- `GallerySection` - Deep-dive sections with numbered benefits and testimonial blocks
+- `TestimonialSection` - Featured quote card with image and star rating
+- `FAQSection` - Accordion with gradient answers and contact CTA
+- `CTASection` - Final conversion section with feature highlights
 
 ## Development Commands
 
@@ -237,6 +394,133 @@ npx tsc --noEmit
 - Focus indicators
 - Screen reader testing
 
+## Warmth & Visual Design Principles
+
+Inspired by Khan Academy's approachable, inviting aesthetic. These principles create a friendly, trustworthy feel.
+
+### Core Warmth Principles
+
+1. **Soft, Not Stark**
+   - Use warm whites (#fafafa) and warm grays (#f5f5f4) instead of pure white/black
+   - Avoid harsh contrasts; prefer gentle transitions
+   - Dark sections use blue-gray (#0f172a) not pure black
+
+2. **Generous Breathing Room**
+   - Large padding between sections (py-16 md:py-20 lg:py-24)
+   - Comfortable gaps in grids (gap-6 md:gap-8)
+   - Don't crowd content; let it breathe
+
+3. **Rounded Everything**
+   - Buttons: `rounded-full`
+   - Cards: `rounded-2xl` or `rounded-xl`
+   - Images: `rounded-xl` or `rounded-2xl`
+   - Badges: `rounded-full`
+   - Sharp corners feel cold; rounded corners feel friendly
+
+4. **Human-Centered Imagery**
+   - Feature real photos of students and events prominently
+   - Images build trust and emotional connection
+   - Always show people engaged and happy
+   - Use gradient overlays for text readability while preserving warmth
+
+5. **Decorative Elements**
+   - Use soft gradient blobs behind images for organic feel
+   - Colored accent bars that animate on hover
+   - Subtle background gradients (blue to purple to white)
+   - These create visual interest without distraction
+
+6. **Gentle Animations**
+   - Fade-in on scroll (not slide or bounce)
+   - Subtle lifts on hover (y: -4, not y: -20)
+   - Slow, graceful transitions (0.3-0.6s)
+   - Never jarring or attention-grabbing
+
+### Visual Patterns to Reuse
+
+#### Decorative Gradient Blobs
+Add behind images for warmth:
+```tsx
+<div className="absolute -top-4 -right-4 w-72 h-72 bg-jamun-blue/20 rounded-full blur-3xl" />
+<div className="absolute -bottom-4 -left-4 w-72 h-72 bg-orange-400/20 rounded-full blur-3xl" />
+```
+
+#### Colored Icon Badges
+For categorization and visual interest:
+```tsx
+<div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+  <Icon className="w-6 h-6 text-jamun-blue" />
+</div>
+```
+
+#### Card Hover Effects
+Warm, inviting interaction:
+```tsx
+className="transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+// Or with Framer Motion:
+whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+```
+
+#### Gradient Text
+For emphasis on key words:
+```tsx
+<span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
+  highlighted text
+</span>
+```
+
+#### Section Headers with Eyebrow
+Consistent section introductions:
+```tsx
+<p className="text-sm font-semibold text-jamun-blue uppercase tracking-widest mb-4">
+  Eyebrow Text
+</p>
+<h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+  Section Title
+</h2>
+<p className="text-lg text-gray-600 max-w-2xl mx-auto">
+  Supporting subtitle text
+</p>
+```
+
+#### Alternating Content Layouts
+For variety while maintaining rhythm:
+- Odd sections: Image left, content right
+- Even sections: Content left, image right
+- Use `lg:flex-row-reverse` for alternating
+
+### Backgrounds That Feel Warm
+
+1. **Gradient hero backgrounds:**
+   ```tsx
+   className="bg-gradient-to-br from-blue-50 via-purple-50 to-white"
+   ```
+
+2. **Subtle gray sections:**
+   ```tsx
+   className="bg-gray-50" // Use sparingly between white sections
+   ```
+
+3. **Dark sections for contrast:**
+   ```tsx
+   className="bg-slate-900" // Use for stats or emphasis, not too frequently
+   ```
+
+4. **Gradient overlays on images:**
+   ```tsx
+   className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
+   ```
+
+### Things to Avoid (Feel Cold/Corporate)
+
+- Pure white (#ffffff) backgrounds everywhere
+- Sharp 90-degree corners
+- Small, cramped spacing
+- Stock photos that feel generic
+- Abrupt, fast animations
+- Too much text without visual breaks
+- Monochromatic color schemes
+- Heavy drop shadows
+
 ## Future Considerations
 
 ### Potential Backend Integration
@@ -262,6 +546,107 @@ npx tsc --noEmit
 4. **Review generated code** for quality and consistency
 5. **Iterate** - start simple, enhance incrementally
 
+### Building New Pages
+When creating new pages, follow this pattern for consistency:
+
+```tsx
+"use client";
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { Section, SectionHeader, Button } from '@/components/ui';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+export default function NewPage() {
+  return (
+    <main>
+      {/* Full-viewport hero section - see "Subpage Hero Pattern" */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
+        {/* Decorative blobs */}
+        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Text content with staggered animations */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              {/* Badge */}
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20">
+                <Sparkles className="w-4 h-4" />
+                Page Category
+              </span>
+
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                Main Headline{" "}
+                <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
+                  Gradient Text
+                </span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                Supporting text that explains the page purpose.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button href="/action" size="lg" className="group">
+                  Primary CTA
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button href="/secondary" variant="outline" size="lg">
+                  Secondary CTA
+                </Button>
+              </div>
+            </motion.div>
+
+            {/* Image/visual side */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.8 }}>
+              {/* Hero image or visual element */}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Content sections - alternate backgrounds */}
+      <Section background="white" className="py-16 md:py-20">
+        <SectionHeader
+          eyebrow="Section Category"
+          title="Section Title"
+          subtitle="Supporting subtitle text"
+        />
+        {/* Section content with animations */}
+      </Section>
+
+      <Section background="gray" className="py-16 md:py-20">
+        {/* Alternating background */}
+      </Section>
+    </main>
+  );
+}
+```
+
+### Key Imports for Consistency
+```tsx
+// UI Components - use barrel exports
+import { Button, Section, SectionHeader, Card, CardContent, CardImage, Badge } from '@/components/ui';
+
+// Section Components - use barrel exports
+import { HeroSection, StatsSection, FAQSection } from '@/components/sections';
+
+// Animation
+import { motion, useInView } from 'framer-motion';
+
+// Icons (Lucide React)
+import { ArrowRight, Check, Star, Heart, Sparkles, Users, Trophy } from 'lucide-react';
+
+// Utilities
+import { cn } from '@/lib/utils';
+
+// Next.js
+import Image from 'next/image';
+import Link from 'next/link';
+```
+
 ### Common Requests Format
 - "Create a new [component] that [description] similar to [existing reference]"
 - "Update [page] to include [feature] with [specific requirements]"
@@ -282,9 +667,9 @@ When adding images:
 | Home | `/` | Main landing page |
 | About | `/about` | Organization info |
 | Programs | `/programs` | Programs overview |
-| Model UN | `/programs/model-un` | Model UN details |
-| Mock Trial | `/programs/mock-trial` | Mock Trial details |
-| Mathletes | `/programs/mathletes` | Mathletes details |
+| Model UN | `/modelun` | Model UN details |
+| Mock Trial | `/mocktrial` | Mock Trial details |
+| Mathletes | `/mathletes` | Mathletes details |
 | Resources | `/resources` | Free educator resources |
 | Contact | `/contact` | Contact form |
 | Donate | `/donate` | Donation page |

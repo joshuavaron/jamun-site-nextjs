@@ -17,6 +17,7 @@ export const siteConfig = {
     main: [
       { label: "Programs", href: "/programs" },
       { label: "About", href: "/about" },
+      { label: "Blog", href: "/blog" },
       { label: "Resources", href: "/resources" },
       { label: "Contact", href: "/contact" },
     ],
@@ -29,9 +30,9 @@ export const siteConfig = {
 
   footer: {
     programs: [
-      { label: "Model UN", href: "/programs/model-un" },
-      { label: "Mock Trial", href: "/programs/mock-trial" },
-      { label: "Mathletes", href: "/programs/mathletes" },
+      { label: "Model UN", href: "/modelun" },
+      { label: "Mock Trial", href: "/mocktrial" },
+      { label: "Mathletes", href: "/mathletes" },
       { label: "Leaderboards", href: "/leaderboards" },
     ],
     organization: [

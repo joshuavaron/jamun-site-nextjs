@@ -14,7 +14,7 @@ const programs = [
     description:
       "Simulate UN committees, represent countries, and debate global issues. Perfect for students interested in international relations, public speaking, and diplomacy.",
     features: ["Beginner-friendly", "Diplomatic skills", "Research & debate"],
-    href: "/programs/model-un",
+    href: "/modelun",
     image: "/images/conferences/model-un.webp",
     icon: Globe,
     accentColor: "bg-jamun-blue",
@@ -27,7 +27,7 @@ const programs = [
     description:
       "Experience the courtroom firsthand as attorneys and witnesses. Develop argumentation, evidence analysis, and persuasive presentation skills.",
     features: ["Courtroom simulation", "Legal reasoning", "Cross-examination"],
-    href: "/programs/mock-trial",
+    href: "/mocktrial",
     image: "/images/conferences/mock-trial.webp",
     icon: Scale,
     accentColor: "bg-purple-600",
@@ -40,7 +40,7 @@ const programs = [
     description:
       "Challenge yourself with competitive mathematics and problem-solving contests. Build analytical thinking and teamwork through math team competitions.",
     features: ["Math competitions", "Problem-solving", "Team challenges"],
-    href: "/programs/mathletes",
+    href: "/mathletes",
     image: "/images/conferences/mathletes.webp",
     icon: Calculator,
     accentColor: "bg-emerald-600",

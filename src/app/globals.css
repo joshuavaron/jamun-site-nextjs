@@ -102,6 +102,16 @@ input[type="search"].focus-visible\:outline-none:focus-visible,
   }
 }
 
+/* Infinite scroll animation for carousels */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(var(--scroll-width, 1944px) * -1));
+  }
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -111,5 +121,137 @@ input[type="search"].focus-visible\:outline-none:focus-visible,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Givebutter widget styling - center iframe and remove margins */
+.givebutter-widget-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.givebutter-widget-container givebutter-widget,
+.givebutter-widget-container > div {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.givebutter-widget-container iframe,
+.givebutter-widget-container iframe[name="givebutter"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}
+
+/* Print styles for PDF export */
+@media print {
+  /* Hide navigation, footer, and non-essential elements */
+  header,
+  footer,
+  nav,
+  [data-print-hidden="true"] {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  [data-print-only="true"] {
+    display: block !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Remove decorative elements */
+  .blur-3xl,
+  .blur-2xl,
+  .blur-xl {
+    display: none !important;
+  }
+
+  /* Fix scrollbar issue - remove all overflow constraints */
+  html,
+  body {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    max-width: none !important;
+  }
+
+  * {
+    overflow: visible !important;
+  }
+
+  /* Ensure content is readable */
+  main {
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  section {
+    background: white !important;
+    padding: 1rem 0 !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Typography adjustments */
+  h1 {
+    font-size: 24pt !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  h2 {
+    font-size: 18pt !important;
+    margin-top: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  h3 {
+    font-size: 14pt !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  p,
+  li {
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Keep text visible */
+  .bg-clip-text {
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #1f2937 !important;
+    color: #1f2937 !important;
+    background: none !important;
+  }
+
+  /* Better page breaks */
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  ul,
+  ol,
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  /* Page margins with extra space at bottom for footer */
+  @page {
+    margin: 0.75in 0.75in 1in 0.75in;
+  }
+
+  /* Hide the in-document footer completely - we'll use @page footer instead */
+  [data-print-only="true"] {
+    display: none !important;
   }
 }

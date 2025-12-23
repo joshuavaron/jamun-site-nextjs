@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { siteConfig } from "@/config/site";
 
 const inter = Inter({
@@ -38,9 +40,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased overflow-x-hidden`}>
-        <Header />
-        <main className="min-h-screen pt-14 md:pt-16 overflow-x-hidden">{children}</main>
-        <Footer />
+        <LayoutWrapper
+          header={<Header />}
+          footer={<Footer />}
+          scrollToTop={<ScrollToTop />}
+        >
+          {children}
+        </LayoutWrapper>
       </body>
     </html>
   );
