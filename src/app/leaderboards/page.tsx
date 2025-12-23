@@ -15,7 +15,7 @@ import {
   Minus,
   Layers,
 } from "lucide-react";
-import { Button, Section } from "@/components/ui";
+import { Button, Section, TypewriterText } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import {
   LEADERBOARDS,
@@ -381,17 +381,14 @@ export default function LeaderboardPage() {
             </motion.span>
 
             {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6"
-            >
-              School{" "}
-              <span className="bg-gradient-to-r from-jamun-blue-light via-purple-400 to-emerald-400 bg-clip-text text-transparent">
-                Leaderboards
-              </span>
-            </motion.h1>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6">
+              <TypewriterText text="School " delay={0.3} />
+              <TypewriterText
+                text="Leaderboards"
+                delay={0.3 + 7 * 0.03}
+                className="bg-gradient-to-r from-jamun-blue-light via-purple-400 to-emerald-400 bg-clip-text text-transparent"
+              />
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

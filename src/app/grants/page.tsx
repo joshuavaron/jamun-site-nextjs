@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Section, SectionHeader, Button } from "@/components/ui";
+import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   Sparkles,
   ArrowRight,
@@ -165,17 +165,14 @@ export default function GrantsPage() {
                 Funding for Every Student
               </motion.span>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-              >
-                Cost Shouldn&apos;t Determine{" "}
-                <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-purple-600 bg-clip-text text-transparent">
-                  Who Gets to Participate
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                <TypewriterText text="Cost Shouldn't Determine " delay={0.3} />
+                <TypewriterText
+                  text="Who Gets to Participate"
+                  delay={0.3 + 24 * 0.03}
+                  className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-purple-600 bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}

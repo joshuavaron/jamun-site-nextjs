@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Section } from "@/components/ui";
+import { Section, TypewriterText } from "@/components/ui";
 import { Shield, Mail } from "lucide-react";
 
 const sectionVariants = {
@@ -31,17 +31,14 @@ export default function PrivacyPolicyPage() {
             Your Privacy Matters
           </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-          >
-            Privacy{" "}
-            <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
-              Policy
-            </span>
-          </motion.h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+            <TypewriterText text="Privacy " delay={0.3} />
+            <TypewriterText
+              text="Policy"
+              delay={0.3 + 8 * 0.03}
+              className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent"
+            />
+          </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Button } from "@/components/ui";
+import { Button, TypewriterText } from "@/components/ui";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function HeroSection() {
@@ -26,19 +26,16 @@ export function HeroSection() {
               100% Youth-Led Nonprofit
             </motion.span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6"
-            >
-              JAMUN Makes{" "}
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6">
+              <TypewriterText text="JAMUN Makes " delay={0.3} />
               <span className="relative">
-                <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]">
-                  Learning Fun!
-                </span>
+                <TypewriterText
+                  text="Learning Fun!"
+                  delay={0.3 + 12 * 0.03}
+                  className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]"
+                />
               </span>
-            </motion.h1>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import { Section, Button } from "@/components/ui";
+import { Section, Button, TypewriterText } from "@/components/ui";
 import {
   Globe,
   Scale,
@@ -308,17 +308,14 @@ export default function ProgramsPage() {
                 Our Programs
               </motion.span>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-              >
-                Three Paths to{" "}
-                <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-emerald-500 bg-clip-text text-transparent">
-                  Excellence
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                <TypewriterText text="Three Paths to " delay={0.3} />
+                <TypewriterText
+                  text="Excellence"
+                  delay={0.3 + 16 * 0.03}
+                  className="bg-gradient-to-r from-jamun-blue via-purple-600 to-emerald-500 bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}

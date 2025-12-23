@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Section, SectionHeader, Button } from "@/components/ui";
+import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   Scale,
   ArrowRight,
@@ -296,17 +296,14 @@ export default function MockTrialPage() {
                 Mock Trial
               </motion.span>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-              >
-                Justice Takes the{" "}
-                <span className="bg-gradient-to-r from-purple-600 via-violet-500 to-purple-600 bg-clip-text text-transparent">
-                  Stand
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                <TypewriterText text="Justice Takes the " delay={0.3} />
+                <TypewriterText
+                  text="Stand"
+                  delay={0.3 + 18 * 0.03}
+                  className="bg-gradient-to-r from-purple-600 via-violet-500 to-purple-600 bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}

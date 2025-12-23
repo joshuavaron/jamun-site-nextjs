@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { Heart, Users, GraduationCap, Trophy, Sparkles, ArrowRight, Check } from "lucide-react";
+import { TypewriterText } from "@/components/ui";
 
 const impactStats = [
   { value: "500+", label: "Students Empowered", icon: Users },
@@ -58,17 +59,14 @@ export default function DonatePage() {
                 Your Support Changes Lives
               </motion.div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
-              >
-                Every Student Deserves a{" "}
-                <span className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent">
-                  Chance to Shine
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                <TypewriterText text="Every Student Deserves a " delay={0.3} />
+                <TypewriterText
+                  text="Chance to Shine"
+                  delay={0.3 + 25 * 0.03}
+                  className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -295,7 +293,7 @@ export default function DonatePage() {
                 JAMUN is a 501(c)(3) nonprofit organization. EIN: 39-3081214
               </p>
               <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                Return to jamun.org
+                Home
               </Link>
             </div>
           </div>

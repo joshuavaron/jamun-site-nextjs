@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Section, SectionHeader, Button } from "@/components/ui";
+import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   Globe,
   ArrowRight,
@@ -230,17 +230,14 @@ export default function CommitteesPageContent({
                 Model UN Committees
               </motion.span>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-              >
-                Explore Our{" "}
-                <span className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent">
-                  Committees
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                <TypewriterText text="Explore Our " delay={0.3} />
+                <TypewriterText
+                  text="Committees"
+                  delay={0.3 + 12 * 0.03}
+                  className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}

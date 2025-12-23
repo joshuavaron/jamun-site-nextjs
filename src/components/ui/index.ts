@@ -9,3 +9,5 @@ export { Section, SectionHeader } from "./Section";
 
 export { BlogCard } from "./BlogCard";
 export type { BlogPost } from "./BlogCard";
+
+export { TypewriterText } from "./TypewriterText";

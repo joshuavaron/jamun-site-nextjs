@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { Section, SectionHeader, Button } from "@/components/ui";
+import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   Calculator,
   ArrowRight,
@@ -320,17 +320,14 @@ export default function MathletesPage() {
                 Mathletes
               </motion.span>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
-              >
-                Where Numbers Become{" "}
-                <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent">
-                  Superpowers
-                </span>
-              </motion.h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+                <TypewriterText text="Where Numbers Become " delay={0.3} />
+                <TypewriterText
+                  text="Superpowers"
+                  delay={0.3 + 21 * 0.03}
+                  className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent"
+                />
+              </h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
