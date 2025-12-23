@@ -11,7 +11,7 @@ const sections = [
     title: "Supporting Your Child's Academic Journey",
     description:
       "We know you want the best for your child. Here's how our programs—Model UN, Mock Trial, and Mathletes—help them grow academically, socially, and personally.",
-    image: "/images/conferences/gallery-2.webp",
+    image: "/images/conferences/DSC02053.webp",
     imagePosition: "right" as const,
     stat: {
       value: "85%",
@@ -41,14 +41,14 @@ const sections = [
     title: "Bring Academic Competitions to Your School",
     description:
       "Whether you're experienced or just starting out, we provide the resources and support you need to run Model UN, Mock Trial, or Mathletes programs.",
-    image: "/images/conferences/gallery-4.webp",
+    image: "/images/conferences/DSC02135.webp",
     imagePosition: "left" as const,
     stat: {
       value: "30+",
       label: "schools partnered with JAMUN",
     },
     benefits: [
-      { number: "01", title: "Free Curriculum", description: "Access comprehensive teaching materials for all three programs at no cost." },
+      { number: "01", title: "Free Resources", description: "Access comprehensive teaching materials for all three programs at no cost." },
       { number: "02", title: "Training Workshops", description: "Professional development for advisors new to academic competitions." },
       { number: "03", title: "Competition Support", description: "Help preparing your students for regional and national events." },
       { number: "04", title: "Student Mentorship", description: "Connect your students with experienced JAMUN competitors and coaches." },

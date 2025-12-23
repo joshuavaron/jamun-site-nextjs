@@ -24,7 +24,7 @@ const donationImpacts = [
 
 const reasons = [
   "100% volunteer-run - every dollar goes directly to students",
-  "Reaching underserved schools with free programs",
+  "Reaching underserved schools with affordable programs",
   "Building the next generation of leaders and critical thinkers",
   "Making academic competitions accessible to all",
 ];
@@ -77,9 +77,11 @@ export default function DonatePage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed"
               >
-                Help us bring Model UN, Mock Trial, and Mathletes to middle schoolers
-                who might never get the chance otherwise. Your donation directly empowers
-                the next generation of leaders.
+                Help us bring Model UN, Mock Trial, and Mathletes to middle school
+                students who might never get the chance otherwise. Your tax-deductible
+                donation to our 501(c)(3) nonprofit directly funds academic competitions,
+                training materials, and grants that empower the next generation of
+                public speakers, debaters, and problem-solvers.
               </motion.p>
 
               {/* Impact stats */}
@@ -271,7 +273,7 @@ export default function DonatePage() {
                 Now I&apos;m leading my school&apos;s Model UN team. This program changed my life.&rdquo;
               </blockquote>
               <cite className="text-gray-600 font-medium">
-                — Sofia, 8th Grade, First-generation student
+                — Anonymous, 8th Grade Delegate
               </cite>
             </motion.div>
           </div>

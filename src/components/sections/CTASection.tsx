@@ -49,7 +49,7 @@ export function CTASection() {
             <div className="w-8 h-8 rounded-full bg-jamun-blue/10 flex items-center justify-center">
               <GraduationCap className="w-4 h-4 text-jamun-blue" />
             </div>
-            <span className="text-sm font-medium">Free resources</span>
+            <span className="text-sm font-medium">Free resources & guides</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}

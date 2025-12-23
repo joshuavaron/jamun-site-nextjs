@@ -132,13 +132,13 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
     <motion.div
       whileHover={{ y: -4 }}
       className={cn(
-        "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300",
+        "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 h-full flex flex-col",
         className
       )}
     >
-      <Link href={`/blog/${post.slug}`} className="block">
+      <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
         {/* Image */}
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
           <Image
             src={post.coverImage}
             alt={post.title}
@@ -162,16 +162,16 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
         </div>
 
         {/* Content */}
-        <div className="p-5">
+        <div className="p-5 flex flex-col flex-grow">
           <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-jamun-blue transition-colors line-clamp-2">
             {post.title}
           </h3>
 
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+          <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed flex-grow">
             {post.excerpt}
           </p>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
             <div className="flex items-center gap-2">
               {post.author.avatar ? (
                 <Image

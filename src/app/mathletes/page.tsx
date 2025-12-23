@@ -207,7 +207,7 @@ const faqs = [
   {
     question: "How much time does Mathletes require?",
     answer:
-      "Teams typically practice 2-3 hours per week. Students are encouraged to do additional individual practice, but the time commitment is flexible based on your goals.",
+      "Mathletes involves about 4 hours per week with meetings every two weeks and 4 tournaments per year. Students are encouraged to do additional individual practice, but the time commitment is flexible based on your goals.",
   },
   {
     question: "What math level do I need?",
@@ -226,7 +226,7 @@ const mathletesStats = [
   { value: "Fall 2026", label: "Program Launch" },
   { value: "100%", label: "All Skill Levels" },
   { value: "4+", label: "Competition Types" },
-  { value: "3", label: "Competitions/Year" },
+  { value: "4", label: "Tournaments/Year" },
 ];
 
 const statDurations = [1400, 1800, 2200, 2600];
@@ -341,9 +341,11 @@ export default function MathletesPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Join a community of problem-solvers who see math as an exciting
-                challenge. Compete in fast-paced rounds, solve puzzles that push
-                your limits, and discover how fun math can really be.
+                Prepare for MATHCOUNTS, AMC 8, and Math League competitions in our
+                Mathletes program for middle school students (grades 5-8). Master
+                number theory, algebra, geometry, and creative problem-solving strategies
+                through team-based learning. Build speed, accuracy, and mathematical
+                confidence that sets you apart in academics and competitions.
               </motion.p>
 
               <motion.div
@@ -352,7 +354,7 @@ export default function MathletesPage() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Button href="/contact" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
+                <Button href="mailto:contact@jamun.org" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
                   Join the Interest List
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -396,8 +398,8 @@ export default function MathletesPage() {
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
               >
                 <Image
-                  src="/images/conferences/mathletes.webp"
-                  alt="Students engaged in math competition"
+                  src="/images/conferences/homebackground2.webp"
+                  alt="Students working together on problem-solving"
                   fill
                   className="object-cover"
                   priority
@@ -520,11 +522,11 @@ export default function MathletesPage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button href="/contact" className="group bg-emerald-600 hover:bg-emerald-700">
+              <Button href="mailto:contact@jamun.org" className="group bg-emerald-600 hover:bg-emerald-700">
                 Get Notified at Launch
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button href="/resources" variant="outline">
+              <Button href="/mathletes/resources" variant="outline">
                 View Resources
               </Button>
             </div>
@@ -539,8 +541,8 @@ export default function MathletesPage() {
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01567.webp"
-                alt="Students working on math problems together"
+                src="/images/conferences/DSC00832.webp"
+                alt="Students collaborating and discussing problem-solving"
                 fill
                 className="object-cover"
               />
@@ -723,8 +725,8 @@ export default function MathletesPage() {
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01601.webp"
-                alt="Mathletes competition in progress"
+                src="/images/conferences/DSC01363.webp"
+                alt="Students taking a break during competition"
                 fill
                 className="object-cover"
               />
@@ -902,7 +904,7 @@ export default function MathletesPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex justify-center mt-10"
         >
-          <Button href="/resources" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
+          <Button href="/mathletes/resources" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
             View All Resources
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
@@ -996,7 +998,7 @@ export default function MathletesPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/contact" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
+              <Button href="mailto:contact@jamun.org" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
                 Join the Interest List
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>

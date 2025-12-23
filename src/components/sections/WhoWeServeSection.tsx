@@ -9,9 +9,9 @@ import { cn } from "@/lib/utils";
 const audiences = [
   {
     icon: GraduationCap,
-    title: "For Students (Grades 5-8)",
+    title: "For Middle School Students (Grades 5-8)",
     description:
-      "Whether you're a first-time competitor or experienced delegate, our beginner-friendly programs help you develop public speaking, critical thinking, and teamwork skills through Model UN conferences, Mock Trial competitions, and Mathletes challenges.",
+      "Whether you're preparing for your first Model UN conference, Mock Trial competition, or math league tournament, our beginner-friendly programs help you develop public speaking, debate, critical thinking, and teamwork skills. Join 500+ students who have discovered their potential through academic competitions.",
     cta: "Register Now",
     href: "/register",
     iconBg: "bg-jamun-blue",
@@ -20,9 +20,9 @@ const audiences = [
   },
   {
     icon: Users,
-    title: "For Parents",
+    title: "For Parents & Families",
     description:
-      "Looking for meaningful extracurricular activities that build skills for college and beyond? JAMUN offers free and low-cost academic enrichment programs that develop leadership, communication, and analytical thinking in a supportive environment.",
+      "Looking for meaningful extracurricular activities that prepare your child for high school, magnet school admissions, and college? JAMUN's affordable academic enrichment programs develop leadership, communication, problem-solving, and analytical thinking—skills that set students apart in applications and in life. Grants available for those who need them.",
     cta: "Learn About Our Programs",
     href: "/programs",
     iconBg: "bg-purple-600",
@@ -31,11 +31,11 @@ const audiences = [
   },
   {
     icon: BookOpen,
-    title: "For Teachers & Schools",
+    title: "For Teachers & School Administrators",
     description:
-      "Bring Model UN, Mock Trial, or Mathletes to your school with our free resources and curriculum guides. We provide training materials, competition prep, and ongoing support to help educators build successful programs.",
+      "Start a Model UN club, Mock Trial team, or Mathletes program at your school with our free curriculum guides and training materials. We support educators with position paper templates, competition prep resources, MATHCOUNTS practice problems, and ongoing mentorship to build successful programs.",
     cta: "Access Free Resources",
-    href: "/resources",
+    href: "/modelun/resources",
     iconBg: "bg-emerald-600",
     accentColor: "text-emerald-600",
     hoverGlow: "group-hover:shadow-emerald-500/20",
@@ -67,6 +67,7 @@ export function WhoWeServeSection() {
       <SectionHeader
         eyebrow="WHO WE SERVE"
         title="Programs for Students, Parents & Educators"
+        subtitle="JAMUN provides academic competition programs designed specifically for middle school students. Our Model UN, Mock Trial, and Mathletes programs help young learners build confidence, develop critical skills, and discover their potential. Free resources and low-cost conferences with grants available."
       />
 
       <motion.div

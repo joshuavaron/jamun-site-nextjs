@@ -106,9 +106,9 @@ const testimonials = [
   },
   {
     quote:
-      "As a first-generation student, I never thought I'd be able to compete at the state level. The JAMUN grant opened doors I didn't even know existed.",
+      "The JAMUN grant gave me the opportunity to attend my first Model UN conference. It was an experience that changed my perspective on the world.",
     author: "Student Recipient",
-    role: "8th Grade, Mock Trial",
+    role: "8th Grade, Model UN",
     avatar: "S",
     color: "bg-jamun-blue",
   },
@@ -183,9 +183,12 @@ export default function GrantsPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Academic competitions build critical thinking, public speaking,
-                and leadership skills that last a lifetime. Our grants ensure
-                every student can access these transformative experiences.
+                JAMUN provides grants and financial assistance for middle school students
+                (grades 5-8) to participate in Model UN conferences, Mock Trial competitions,
+                and Mathletes tournaments. Our 501(c)(3) nonprofit has given over $25K in
+                grants to help cover registration fees, travel costs, and competition materials.
+                No student should miss out on building public speaking, critical thinking,
+                and leadership skills due to cost.
               </motion.p>
 
               <motion.div
@@ -244,8 +247,8 @@ export default function GrantsPage() {
                   className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
                 >
                   <Image
-                    src="/images/conferences/hero-main.webp"
-                    alt="Students participating in JAMUN competition"
+                    src="/images/conferences/DSC02030.webp"
+                    alt="Students during committee session"
                     fill
                     className="object-cover"
                     priority
@@ -510,8 +513,8 @@ export default function GrantsPage() {
           >
             <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/conferences/gallery-4.webp"
-                alt="Students at JAMUN conference"
+                src="/images/conferences/DSC02050.webp"
+                alt="Students receiving JAMUN award recognition"
                 fill
                 className="object-cover"
               />
@@ -672,7 +675,7 @@ export default function GrantsPage() {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/contact" size="lg" variant="ghost">
+              <Button href="mailto:contact@jamun.org" size="lg" variant="ghost">
                 General Inquiries
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>

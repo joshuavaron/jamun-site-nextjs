@@ -44,7 +44,7 @@ const programs = [
     borderColor: "border-jamun-blue/20",
     glowColor: "group-hover:shadow-jamun-blue/20",
     href: "/modelun",
-    image: "/images/conferences/model-un.webp",
+    image: "/images/conferences/DSC00848.webp",
     features: [
       {
         icon: MessageSquare,
@@ -77,12 +77,12 @@ const programs = [
     ],
     schedule: {
       practice: "Weekly club meetings",
-      competitions: "2-3 conferences per year",
-      commitment: "3-5 hours per week",
+      competitions: "2 conferences per year",
+      commitment: "3 hours per week",
     },
     testimonial: {
       quote: "Model UN taught me that I could speak up and be heard. It changed how I see myself and my ability to make a difference.",
-      author: "Emma, 7th Grade Delegate",
+      author: "Former JAMUN Delegate",
     },
   },
   {
@@ -100,7 +100,7 @@ const programs = [
     borderColor: "border-purple-200",
     glowColor: "group-hover:shadow-purple-500/20",
     href: "/mocktrial",
-    image: "/images/conferences/mock-trial.webp",
+    image: "/images/conferences/DSC02128.webp",
     features: [
       {
         icon: Gavel,
@@ -132,13 +132,13 @@ const programs = [
       "Teamwork and strategic thinking",
     ],
     schedule: {
-      practice: "Weekly team practices",
-      competitions: "Regional and state competitions",
-      commitment: "4-6 hours per week",
+      practice: "Weekly club meetings",
+      competitions: "Year-round programming",
+      commitment: "5 hours per week",
     },
     testimonial: {
       quote: "Mock Trial pushed me out of my comfort zone. Now I can think on my feet and argue my point confidently.",
-      author: "Marcus, 8th Grade Attorney",
+      author: "Dustin Simon, Director of Mock Trial",
     },
   },
   {
@@ -156,7 +156,7 @@ const programs = [
     borderColor: "border-emerald-200",
     glowColor: "group-hover:shadow-emerald-500/20",
     href: "/mathletes",
-    image: "/images/conferences/mathletes.webp",
+    image: "/images/conferences/homebackground2.webp",
     features: [
       {
         icon: Brain,
@@ -188,13 +188,13 @@ const programs = [
       "Mathematical communication",
     ],
     schedule: {
-      practice: "Weekly practice sessions",
-      competitions: "Monthly local meets + championships",
-      commitment: "2-4 hours per week",
+      practice: "Meetings every two weeks",
+      competitions: "4 tournaments per year",
+      commitment: "4 hours per week",
     },
     testimonial: {
-      quote: "Mathletes showed me that math can be exciting and fun. I love the challenge of solving tough problems with my team.",
-      author: "Sophia, 6th Grade Mathlete",
+      quote: "Mathematics isn't just about numbers—it's about developing the problem-solving mindset that unlocks every door in life.",
+      author: "Will Ballis, Director of Mathletes",
     },
   },
 ];
@@ -326,10 +326,11 @@ export default function ProgramsPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Whether you love debating global issues, arguing cases in court,
-                or solving challenging math problems—we have a program that will
-                ignite your passion. All designed for grades 5-8, all
-                beginner-friendly.
+                Whether you love debating global issues in Model UN, arguing cases
+                in Mock Trial court, or solving challenging math problems in Mathletes
+                competitions—we have a program that will ignite your passion and build
+                skills for high school, college, and beyond. All designed specifically
+                for middle school students in grades 5-8, all beginner-friendly.
               </motion.p>
 
               <motion.div
@@ -342,7 +343,7 @@ export default function ProgramsPage() {
                   Register Your Team
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button href="/contact" variant="outline" size="lg">
+                <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
                   Questions? Contact Us
                 </Button>
               </motion.div>
@@ -434,10 +435,12 @@ export default function ProgramsPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Programs Built for Middle Schoolers
+              Academic Competitions Built for Middle School Students
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Every program is designed specifically for grades 5-8, with no prior experience required.
+              Build public speaking, critical thinking, and leadership skills that prepare you for
+              magnet schools, high school honors tracks, and college admissions.
             </p>
           </motion.div>
 
@@ -825,7 +828,7 @@ export default function ProgramsPage() {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/resources" variant="outline" size="lg">
+              <Button href="/modelun/resources" variant="outline" size="lg">
                 View Free Resources
               </Button>
             </motion.div>

@@ -34,37 +34,48 @@ This file provides guidance for Claude Code when working on the JAMUN (Junior As
 
 ```
 jamun-site-nextjs/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Root layout with navigation/footer
-│   ├── page.tsx           # Homepage
-│   ├── about/             # About page
-│   ├── programs/          # Programs overview page
-│   │   └── page.tsx       # Programs overview
-│   ├── modelun/           # Model UN details
-│   ├── mocktrial/         # Mock Trial details
-│   ├── mathletes/         # Mathletes details
-│   ├── resources/         # Free resources for educators
-│   ├── contact/           # Contact page
-│   ├── donate/            # Donation page
-│   ├── register/          # Registration page
-│   └── grants/            # Grants information
-├── components/            # Reusable React components
-│   ├── ui/               # Base UI components (buttons, cards, etc.)
-│   ├── layout/           # Layout components (header, footer, nav)
-│   ├── sections/         # Page section components
-│   └── common/           # Shared components
-├── lib/                  # Utility functions and helpers
-├── public/               # Static assets
-│   ├── images/          # Conference photos, logos, graphics
-│   │   ├── conferences/ # Photos from past conferences
-│   │   ├── logos/       # JAMUN logos and branding
-│   │   └── icons/       # Custom icons
-│   └── fonts/           # Custom fonts if needed
-├── styles/              # Global styles
-│   └── globals.css      # Tailwind imports and global CSS
-├── types/               # TypeScript type definitions
-└── config/              # Site configuration
-    └── site.ts          # Site metadata, navigation, etc.
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── layout.tsx          # Root layout with navigation/footer
+│   │   ├── page.tsx            # Homepage
+│   │   ├── about/              # About page
+│   │   ├── programs/           # Programs overview
+│   │   ├── modelun/            # Model UN section
+│   │   │   ├── page.tsx        # Model UN overview
+│   │   │   ├── committees/     # Committees section
+│   │   │   │   ├── page.tsx    # Committees listing
+│   │   │   │   └── [slug]/     # Dynamic committee pages
+│   │   │   └── resources/      # MUN resources section
+│   │   │       ├── page.tsx    # Resources listing
+│   │   │       └── [slug]/     # Dynamic resource pages
+│   │   ├── mocktrial/          # Mock Trial details
+│   │   ├── mathletes/          # Mathletes details
+│   │   ├── donate/             # Donation page
+│   │   ├── register/           # Registration page
+│   │   ├── grants/             # Grants information
+│   │   ├── leaderboards/       # Competition leaderboards
+│   │   ├── blog/               # Blog section
+│   │   │   ├── page.tsx        # Blog listing
+│   │   │   └── [slug]/         # Dynamic blog posts
+│   │   ├── privacy/            # Privacy policy
+│   │   └── terms/              # Terms of service
+│   ├── components/             # Reusable React components
+│   │   ├── ui/                 # Base UI components (buttons, cards, etc.)
+│   │   ├── layout/             # Layout components (header, footer, nav)
+│   │   ├── sections/           # Page section components
+│   │   └── common/             # Shared components
+│   └── lib/                    # Utility functions and helpers
+├── public/                     # Static assets
+│   ├── images/                 # Conference photos, logos, graphics
+│   │   ├── conferences/        # Photos from past conferences
+│   │   ├── logos/              # JAMUN logos and branding
+│   │   └── icons/              # Custom icons
+│   └── fonts/                  # Custom fonts if needed
+├── styles/                     # Global styles
+│   └── globals.css             # Tailwind imports and global CSS
+├── types/                      # TypeScript type definitions
+└── config/                     # Site configuration
+    └── site.ts                 # Site metadata, navigation, etc.
 ```
 
 ## Design System
@@ -374,9 +385,16 @@ npx tsc --noEmit
 ### Key Messages
 1. Academic competitions made accessible
 2. 100% volunteer-run, youth-led
-3. Free and low-cost programs
+3. Free resources and guides; low-cost conferences with grants available for those who need them
 4. Builds real-world skills (public speaking, critical thinking, leadership)
 5. Supportive community for beginners
+
+### Messaging Guidelines for Pricing
+- **Resources/guides/materials**: These ARE free - use "free" when referring to curriculum guides, training materials, practice problems, etc.
+- **Conferences/competitions**: These are NOT free - use "low-cost" or "affordable" when referring to registration fees
+- **Grants**: Available to subsidize up to 100% of conference costs for students who need financial assistance
+- **Overall positioning**: "Free resources and low-cost conferences with grants available" is the accurate messaging
+- **Avoid**: Saying programs are "free" in general - be specific about what is free (resources) vs. low-cost (conferences)
 
 ### SEO Considerations
 - Descriptive page titles
@@ -662,19 +680,51 @@ When adding images:
 ## Quick Reference
 
 ### Key Pages
+
+#### Main Pages
 | Page | Route | Purpose |
 |------|-------|---------|
 | Home | `/` | Main landing page |
 | About | `/about` | Organization info |
 | Programs | `/programs` | Programs overview |
-| Model UN | `/modelun` | Model UN details |
-| Mock Trial | `/mocktrial` | Mock Trial details |
-| Mathletes | `/mathletes` | Mathletes details |
-| Resources | `/resources` | Free educator resources |
-| Contact | `/contact` | Contact form |
 | Donate | `/donate` | Donation page |
 | Register | `/register` | Event registration |
 | Grants | `/grants` | Grant information |
+| Leaderboards | `/leaderboards` | Competition leaderboards |
+| Not Found | `404` | Custom 404 error page |
+
+#### Program Pages - Model UN
+| Page | Route | Purpose |
+|------|-------|---------|
+| Model UN | `/modelun` | Model UN overview |
+| Model UN Committees | `/modelun/committees` | Committees listing |
+| Committee Detail | `/modelun/committees/[slug]` | Individual committee (dynamic) |
+| Model UN Resources | `/modelun/resources` | MUN resources listing |
+| Resource Detail | `/modelun/resources/[slug]` | Individual resource (dynamic) |
+
+#### Program Pages - Mock Trial
+| Page | Route | Purpose |
+|------|-------|---------|
+| Mock Trial | `/mocktrial` | Mock Trial overview |
+| Mock Trial Resources | `/mocktrial/resources` | Mock Trial resources listing |
+
+#### Program Pages - Mathletes
+| Page | Route | Purpose |
+|------|-------|---------|
+| Mathletes | `/mathletes` | Mathletes overview |
+| Mathletes Resources | `/mathletes/resources` | Mathletes resources listing |
+
+#### Blog
+| Page | Route | Purpose |
+|------|-------|---------|
+| Blog | `/blog` | Blog listing page |
+| Blog Post | `/blog/[slug]` | Individual blog post (dynamic) |
+
+#### Legal Pages
+| Page | Route | Purpose |
+|------|-------|---------|
+| Privacy Policy | `/privacy` | Privacy policy |
+| Terms of Service | `/terms` | Terms of service |
 
 ### Impact Stats (Update as needed)
 - 500+ Students Impacted

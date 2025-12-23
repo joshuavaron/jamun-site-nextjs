@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// Note: Metadata is exported from layout.tsx for this client component
+
 // Team member data
 const teamMembers = [
   {
@@ -180,10 +182,12 @@ export default function AboutPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                JAMUN is a 501(c)(3) nonprofit organization run entirely by
-                passionate high school and college students. We believe that
-                academic competition should be exciting, accessible, and—most
-                importantly—fun.
+                JAMUN (Junior Assembly of the Model United Nations) is a 501(c)(3) nonprofit
+                organization run entirely by passionate high school and college student volunteers.
+                We provide Model UN, Mock Trial, and Mathletes programs for middle school
+                students in grades 5-8—with free resources and low-cost conferences, plus grants
+                for those who need them—because we believe academic competition should be
+                exciting, accessible, and—most importantly—fun.
               </motion.p>
 
               <motion.div
@@ -215,8 +219,8 @@ export default function AboutPage() {
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
               >
                 <Image
-                  src="/images/conferences/hero-main.webp"
-                  alt="JAMUN team members at a conference"
+                  src="/images/conferences/DSC01054.webp"
+                  alt="JAMUN volunteers and participants at conference"
                   fill
                   className="object-cover"
                   priority
@@ -250,15 +254,19 @@ export default function AboutPage() {
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
               We believe every middle school student deserves the chance to
-              discover their potential through academic competition. Too often,
-              these transformative experiences are reserved for students at
-              well-funded schools or those who can afford expensive programs.
+              discover their potential through academic competition. Research shows
+              that students who participate in Model UN, debate, Mock Trial, and
+              math competitions develop stronger public speaking, critical thinking,
+              and leadership skills—abilities that transfer directly to academic
+              success and college readiness.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              JAMUN exists to change that. We provide free and low-cost
-              programs in Model UN, Mock Trial, and Mathletes—designed
-              specifically for grades 5-8. Our goal isn't just to teach
-              skills; it's to spark a lifelong love of learning.
+              JAMUN exists to make these transformative experiences accessible to all.
+              We provide free and low-cost programs in Model UN (diplomatic simulation),
+              Mock Trial (courtroom advocacy), and Mathletes (competitive mathematics)—designed
+              specifically for students in grades 5-8. Our goal isn't just to teach
+              skills; it's to spark a lifelong love of learning that prepares students
+              for magnet schools, high school honors programs, and college admissions.
             </p>
           </motion.div>
 

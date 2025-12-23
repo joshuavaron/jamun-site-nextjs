@@ -2,10 +2,60 @@ export const siteConfig = {
   name: "JAMUN",
   fullName: "The Junior Assembly of the Model United Nations",
   description:
-    "Academic competition programs for grades 5-8. Build public speaking, critical thinking, and leadership skills through Model UN, Mock Trial, and Mathletes.",
+    "Affordable academic competition programs for middle school students (grades 5-8). Build public speaking, critical thinking, debate, and leadership skills through Model UN, Mock Trial, and Mathletes competitions. Grants available.",
   motto: "Make Academics Fun",
   url: "https://jamun.org",
   email: "contact@jamun.org",
+
+  // SEO Configuration
+  seo: {
+    titleTemplate: "%s | JAMUN - Make Academics Fun",
+    defaultTitle: "JAMUN - Middle School Academic Competitions | Model UN, Mock Trial, Mathletes",
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      siteName: "JAMUN - Junior Assembly of Model United Nations",
+    },
+    twitter: {
+      cardType: "summary_large_image",
+      // Add handle when available: handle: "@JAMUNorg",
+    },
+    // Primary keywords for search intent
+    keywords: {
+      primary: [
+        "Model UN middle school",
+        "Mock Trial for kids",
+        "middle school math competitions",
+        "academic competitions grades 5-8",
+        "youth debate programs",
+        "public speaking for students",
+      ],
+      secondary: [
+        "Model United Nations",
+        "MUN for beginners",
+        "mock trial competition",
+        "mathletes program",
+        "leadership skills middle school",
+        "critical thinking activities",
+        "affordable extracurricular activities",
+        "college prep middle school",
+        "academic enrichment programs",
+        "youth nonprofit organization",
+      ],
+      longTail: [
+        "how to start a Model UN club",
+        "Model UN position paper guide",
+        "mock trial cross examination tips",
+        "MATHCOUNTS preparation",
+        "AMC 8 practice problems",
+        "extracurriculars for college admissions",
+        "magnet school preparation",
+        "debate skills for middle schoolers",
+        "affordable academic programs for students",
+        "nonprofit grants for students",
+      ],
+    },
+  },
 
   links: {
     donate: "/donate",
@@ -18,8 +68,8 @@ export const siteConfig = {
       { label: "Programs", href: "/programs" },
       { label: "About", href: "/about" },
       { label: "Blog", href: "/blog" },
-      { label: "Resources", href: "/resources" },
-      { label: "Contact", href: "/contact" },
+      { label: "Resources", href: "/modelun/resources" },
+      { label: "Contact", href: "mailto:contact@jamun.org" },
     ],
     cta: [
       { label: "Grants", href: "/grants", variant: "ghost" as const },
@@ -37,7 +87,7 @@ export const siteConfig = {
     ],
     organization: [
       { label: "About Us", href: "/about" },
-      { label: "Contact", href: "/contact" },
+      { label: "Contact", href: "mailto:contact@jamun.org" },
     ],
     resources: [
       { label: "Blog", href: "/blog" },

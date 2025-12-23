@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
@@ -11,16 +11,44 @@ import { Button } from "@/components/ui/Button";
 const exploreItems = [
   { label: "Programs", href: "/programs" },
   { label: "About", href: "/about" },
-  { label: "Resources", href: "/resources" },
-  { label: "Contact", href: "/contact" },
+  { label: "Leaderboards", href: "/leaderboards" },
+  { label: "Blog", href: "/blog" },
 ];
+
+// Static pages to search (prioritized first)
+const staticPages = [
+  { title: "Model UN", url: "/modelun", keywords: ["model", "un", "mun", "united nations"] },
+  { title: "Mock Trial", url: "/mocktrial", keywords: ["mock", "trial", "law", "court"] },
+  { title: "Mathletes", url: "/mathletes", keywords: ["math", "mathletes", "competition"] },
+  { title: "Programs", url: "/programs", keywords: ["programs", "activities"] },
+  { title: "About", url: "/about", keywords: ["about", "who", "team", "organization"] },
+  { title: "Donate", url: "/donate", keywords: ["donate", "support", "give", "contribution"] },
+  { title: "Register", url: "/register", keywords: ["register", "sign up", "join"] },
+  { title: "Grants", url: "/grants", keywords: ["grants", "funding", "financial", "aid"] },
+  { title: "Blog", url: "/blog", keywords: ["blog", "news", "articles", "posts"] },
+  { title: "Committees", url: "/modelun/committees", keywords: ["committees", "ga", "security council"] },
+  { title: "Model UN Resources", url: "/modelun/resources", keywords: ["resources", "guides", "model un"] },
+  { title: "Mock Trial Resources", url: "/mocktrial/resources", keywords: ["resources", "guides", "mock trial"] },
+  { title: "Mathletes Resources", url: "/mathletes/resources", keywords: ["resources", "guides", "math"] },
+  { title: "Leaderboards", url: "/leaderboards", keywords: ["leaderboard", "rankings", "scores"] },
+];
+
+interface SearchResult {
+  title: string;
+  url: string;
+  type: "page" | "blog" | "committee" | "resource";
+}
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,17 +70,73 @@ export function Header() {
     };
   }, [isMenuOpen]);
 
-  // Close explore dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (!target.closest("[data-explore-dropdown]")) {
         setIsExploreOpen(false);
       }
+      if (!target.closest("[data-search-dropdown]")) {
+        setIsSearchFocused(false);
+      }
     };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  // Search logic
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      setSelectedIndex(-1);
+      return;
+    }
+
+    const query = searchQuery.toLowerCase();
+    const results: SearchResult[] = [];
+
+    // Search static pages first (higher priority)
+    for (const page of staticPages) {
+      const titleMatch = page.title.toLowerCase().includes(query);
+      const keywordMatch = page.keywords.some((k) => k.includes(query));
+      if (titleMatch || keywordMatch) {
+        results.push({ title: page.title, url: page.url, type: "page" });
+      }
+    }
+
+    // Limit results
+    setSearchResults(results.slice(0, 6));
+    setSelectedIndex(-1);
+  }, [searchQuery]);
+
+  // Keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!searchResults.length) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setSelectedIndex((i) => Math.min(i + 1, searchResults.length - 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setSelectedIndex((i) => Math.max(i - 1, -1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (selectedIndex >= 0 && searchResults[selectedIndex]) {
+          window.location.href = searchResults[selectedIndex].url;
+        }
+        break;
+      case "Escape":
+        setIsSearchFocused(false);
+        inputRef.current?.blur();
+        break;
+    }
+  };
+
+  const showDropdown = isSearchFocused && searchQuery.trim() && searchResults.length > 0;
 
   return (
     <header
@@ -105,25 +189,60 @@ export function Header() {
             </div>
 
             {/* Search Bar */}
-            <div
-              className={cn(
-                "flex items-center rounded-full transition-all duration-300 h-9 w-52",
-                isSearchFocused
-                  ? "bg-white shadow-md ring-1 ring-gray-200"
-                  : "bg-gray-100"
-              )}
-            >
-              <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
-                style={{ outline: "none", border: "none", boxShadow: "none" }}
-              />
+            <div className="relative" data-search-dropdown ref={searchRef}>
+              <div
+                className={cn(
+                  "flex items-center rounded-full transition-all duration-200 h-9 w-52",
+                  isSearchFocused
+                    ? "bg-white shadow-md"
+                    : "bg-gray-100"
+                )}
+              >
+                <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onKeyDown={handleKeyDown}
+                  className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                />
+              </div>
+
+              {/* Search Dropdown */}
+              <AnimatePresence>
+                {showDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50 overflow-hidden"
+                  >
+                    {searchResults.map((result, index) => (
+                      <Link
+                        key={result.url}
+                        href={result.url}
+                        onClick={() => {
+                          setSearchQuery("");
+                          setIsSearchFocused(false);
+                        }}
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-2 text-sm transition-colors",
+                          index === selectedIndex
+                            ? "bg-gray-100"
+                            : "hover:bg-gray-50"
+                        )}
+                      >
+                        <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                        <span className="text-gray-700">{result.title}</span>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -181,17 +300,48 @@ export function Header() {
             className="nav:hidden bg-white border-t overflow-hidden"
           >
             <nav className="max-w-7xl mx-auto px-4 py-6 space-y-4">
-              {/* Mobile Search - matches desktop style */}
-              <div className="flex items-center bg-gray-100 rounded-full h-10 mb-4">
-                <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
-                  style={{ outline: "none", border: "none", boxShadow: "none" }}
-                />
+              {/* Mobile Search */}
+              <div className="relative" data-search-dropdown>
+                <div className="flex items-center bg-gray-100 rounded-full h-10">
+                  <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsSearchFocused(true)}
+                    className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                  />
+                </div>
+
+                {/* Mobile Search Dropdown */}
+                <AnimatePresence>
+                  {showDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50"
+                    >
+                      {searchResults.map((result) => (
+                        <Link
+                          key={result.url}
+                          href={result.url}
+                          onClick={() => {
+                            setSearchQuery("");
+                            setIsSearchFocused(false);
+                            setIsMenuOpen(false);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                          {result.title}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {exploreItems.map((item) => (

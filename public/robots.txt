@@ -1,0 +1,16 @@
+# JAMUN - Junior Assembly of the Model United Nations
+# https://jamun.org
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://jamun.org/sitemap.xml
+
+# Crawl-delay (optional, respected by some crawlers)
+Crawl-delay: 1
+
+# Disallow admin/internal paths (if any exist in future)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/

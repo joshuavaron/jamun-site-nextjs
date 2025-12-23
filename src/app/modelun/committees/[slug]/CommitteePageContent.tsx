@@ -249,7 +249,7 @@ export default function CommitteePageContent({
             >
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src={committee.image || "/images/conferences/model-un.webp"}
+                  src={committee.image || "/images/conferences/DSC00848.webp"}
                   alt={committee.name}
                   fill
                   className="object-cover"

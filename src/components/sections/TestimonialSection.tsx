@@ -24,8 +24,8 @@ export function TestimonialSection() {
               {/* Image side */}
               <div className="relative md:col-span-2 h-64 md:h-auto overflow-hidden">
                 <Image
-                  src="/images/conferences/testimonial.webp"
-                  alt="Teachers at JAMUN conference"
+                  src="/images/conferences/DSC00217.webp"
+                  alt="Students attentively listening at JAMUN conference"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />

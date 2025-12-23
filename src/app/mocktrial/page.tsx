@@ -189,7 +189,7 @@ const faqs = [
   {
     question: "How much time does Mock Trial require?",
     answer:
-      "Teams typically practice 4-6 hours per week, with more intensive preparation before competitions. We work with students to balance academics and extracurriculars.",
+      "Mock Trial involves about 5 hours per week with weekly club meetings and year-round programming. We work with students to balance academics and extracurriculars.",
   },
   {
     question: "Is there a cost to participate?",
@@ -318,9 +318,11 @@ export default function MockTrialPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Step into the courtroom as an attorney or witness. Argue cases
-                before real judges, examine witnesses, and discover the power of
-                persuasion in our exciting Mock Trial program.
+                Experience the drama of the courtroom in our Mock Trial program for
+                middle school students (grades 5-8). Learn to craft opening statements,
+                conduct cross-examinations, and deliver closing arguments before real
+                judges. Develop critical thinking, public speaking, and legal reasoning
+                skills that prepare you for high school debate and future success.
               </motion.p>
 
               <motion.div
@@ -329,7 +331,7 @@ export default function MockTrialPage() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Button href="/contact" size="lg" className="group bg-purple-600 hover:bg-purple-700">
+                <Button href="mailto:contact@jamun.org" size="lg" className="group bg-purple-600 hover:bg-purple-700">
                   Join the Interest List
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
@@ -373,8 +375,8 @@ export default function MockTrialPage() {
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
               >
                 <Image
-                  src="/images/conferences/mock-trial.webp"
-                  alt="Mock Trial students in courtroom simulation"
+                  src="/images/conferences/DSC02088.webp"
+                  alt="Mock Trial students receiving awards in courtroom"
                   fill
                   className="object-cover"
                   priority
@@ -498,11 +500,11 @@ export default function MockTrialPage() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button href="/contact" className="group bg-purple-600 hover:bg-purple-700">
+              <Button href="mailto:contact@jamun.org" className="group bg-purple-600 hover:bg-purple-700">
                 Get Notified at Launch
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button href="/resources" variant="outline">
+              <Button href="/mocktrial/resources" variant="outline">
                 View Resources
               </Button>
             </div>
@@ -517,8 +519,8 @@ export default function MockTrialPage() {
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01567.webp"
-                alt="Students preparing for Mock Trial"
+                src="/images/conferences/DSC00969.webp"
+                alt="Students working on case materials"
                 fill
                 className="object-cover"
               />
@@ -701,8 +703,8 @@ export default function MockTrialPage() {
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01601.webp"
-                alt="Mock Trial competition in progress"
+                src="/images/conferences/DSC02128.webp"
+                alt="Award ceremony handshake at Mock Trial"
                 fill
                 className="object-cover"
               />
@@ -801,7 +803,7 @@ export default function MockTrialPage() {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button href="/contact" className="group bg-purple-600 hover:bg-purple-700">
+              <Button href="mailto:contact@jamun.org" className="group bg-purple-600 hover:bg-purple-700">
                 Get Case Materials
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -951,7 +953,7 @@ export default function MockTrialPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex justify-center mt-10"
         >
-          <Button href="/resources" size="lg" className="group bg-purple-600 hover:bg-purple-700">
+          <Button href="/mocktrial/resources" size="lg" className="group bg-purple-600 hover:bg-purple-700">
             View All Resources
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
@@ -1045,7 +1047,7 @@ export default function MockTrialPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/contact" size="lg" className="group bg-purple-600 hover:bg-purple-700">
+              <Button href="mailto:contact@jamun.org" size="lg" className="group bg-purple-600 hover:bg-purple-700">
                 Join the Interest List
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>

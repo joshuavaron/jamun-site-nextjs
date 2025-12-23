@@ -31,7 +31,7 @@ export async function generateMetadata({
       title: `${committee.abbreviation}: ${committee.topic}`,
       description: committee.description,
       type: "website",
-      images: [committee.image || "/images/conferences/model-un.webp"],
+      images: [committee.image || "/images/conferences/DSC00848.webp"],
     },
   };
 }

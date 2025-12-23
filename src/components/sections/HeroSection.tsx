@@ -46,8 +46,9 @@ export function HeroSection() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg"
             >
-              Academic competition programs for grades 5-8. Build public
-              speaking, critical thinking, and leadership skills.
+              Low-cost academic competition programs for middle school students in grades 5-8.
+              Build essential skills in public speaking, debate, critical thinking, and
+              leadership through Model UN, Mock Trial, and Mathletes. Grants available for those who need them.
             </motion.p>
 
             <motion.div
@@ -80,8 +81,8 @@ export function HeroSection() {
               className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
             >
               <Image
-                src="/images/conferences/hero-main.webp"
-                alt="Students participating in JAMUN conference"
+                src="/images/conferences/DSC01722.webp"
+                alt="Student delivering an engaging speech at JAMUN conference"
                 fill
                 className="object-cover"
                 priority

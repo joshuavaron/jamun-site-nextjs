@@ -330,9 +330,12 @@ export default function ModelUNPageContent({
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Step into the shoes of world leaders. Debate pressing global
-                issues, negotiate with allies, and discover your voice as a
-                delegate representing nations on the world stage.
+                Step into the shoes of UN delegates and debate pressing global issues
+                like climate change, human rights, and international security. Our
+                Model UN program for middle school students (grades 5-8) develops
+                public speaking, research, and diplomatic negotiation skills through
+                beginner-friendly conferences. Learn to write position papers, draft
+                resolutions, and build coalitions with fellow delegates.
               </motion.p>
 
               <motion.div
@@ -345,7 +348,7 @@ export default function ModelUNPageContent({
                   Join Model UN
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button href="/contact" variant="outline" size="lg">
+                <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
                   Start a Club at Your School
                 </Button>
               </motion.div>
@@ -385,8 +388,8 @@ export default function ModelUNPageContent({
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl"
               >
                 <Image
-                  src="/images/conferences/model-un.webp"
-                  alt="Model UN delegates in committee session"
+                  src="/images/conferences/homebackground.webp"
+                  alt="Model UN delegate raising placard during committee session"
                   fill
                   className="object-cover"
                   priority
@@ -511,7 +514,7 @@ export default function ModelUNPageContent({
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button href="/resources" variant="outline">
+              <Button href="/modelun/resources" variant="outline">
                 View Resources
               </Button>
             </div>
@@ -526,8 +529,8 @@ export default function ModelUNPageContent({
           >
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01362.webp"
-                alt="Model UN delegate giving a speech"
+                src="/images/conferences/DSC01032.webp"
+                alt="Model UN delegate speaking confidently"
                 fill
                 className="object-cover"
               />
@@ -541,7 +544,7 @@ export default function ModelUNPageContent({
                     world&apos;s future.&quot;
                   </p>
                   <footer className="text-white/80 text-sm">
-                    — Sofia, 8th Grade Delegate
+                    — Former JAMUN Delegate
                   </footer>
                 </blockquote>
               </div>
@@ -647,12 +650,12 @@ export default function ModelUNPageContent({
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-jamun-blue/20 flex items-center justify-center">
-                  <span className="text-jamun-blue font-bold">JM</span>
+                  <span className="text-jamun-blue font-bold">A</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">James M.</p>
+                  <p className="font-semibold text-gray-900">Anonymous</p>
                   <p className="text-sm text-gray-600">
-                    7th Grade, First-Time Delegate
+                    8th Grade Delegate
                   </p>
                 </div>
               </div>
@@ -710,8 +713,8 @@ export default function ModelUNPageContent({
           >
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/conferences/DSC01363.webp"
-                alt="Model UN committee in session"
+                src="/images/conferences/DSC02021.webp"
+                alt="Students receiving awards at JAMUN conference"
                 fill
                 className="object-cover"
               />
@@ -735,15 +738,15 @@ export default function ModelUNPageContent({
                     <p className="font-semibold text-gray-900">
                       Typical Conference
                     </p>
-                    <p className="text-sm text-gray-500">1-2 Days</p>
+                    <p className="text-sm text-gray-500">2 Days</p>
                   </div>
                 </div>
                 <div className="flex gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" /> 6-8 Hours/Day
+                    <Clock className="w-4 h-4" /> 7-9 Hours/Day
                   </span>
                   <span className="flex items-center gap-1">
-                    <Users className="w-4 h-4" /> 50-200 Delegates
+                    <Users className="w-4 h-4" /> 500-1200 Delegates
                   </span>
                 </div>
               </div>
@@ -936,7 +939,7 @@ export default function ModelUNPageContent({
           transition={{ delay: 0.3, duration: 0.5 }}
           className="flex justify-center mt-10"
         >
-          <Button href="/resources" size="lg" className="group">
+          <Button href="/modelun/resources" size="lg" className="group">
             View All Resources
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
@@ -1035,7 +1038,7 @@ export default function ModelUNPageContent({
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/contact" variant="outline" size="lg">
+              <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
                 Contact Us
               </Button>
             </motion.div>

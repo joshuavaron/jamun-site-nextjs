@@ -10,7 +10,6 @@ import {
   BookOpen,
   TrendingUp,
   Users,
-  Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -271,54 +270,6 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
         )}
       </Section>
 
-      {/* Newsletter Section */}
-      <section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-jamun-blue/10 via-transparent to-purple-900/10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl mx-auto text-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/10 rounded-full border border-white/20">
-              <Calendar className="w-4 h-4 text-jamun-blue-light" />
-              <span className="text-sm font-medium text-gray-300">
-                Stay Updated
-              </span>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Never Miss an Update
-            </h2>
-            <p className="text-gray-400 text-lg mb-8">
-              Subscribe to our newsletter for competition tips, event
-              announcements, and inspiring student stories delivered to your inbox.
-            </p>
-
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-jamun-blue/50 focus:border-jamun-blue transition-all"
-              />
-              <Button size="lg" className="whitespace-nowrap">
-                Subscribe
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </form>
-
-            <p className="mt-4 text-sm text-gray-500">
-              No spam, unsubscribe anytime. We respect your privacy.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <Section background="white" className="py-16 md:py-20">
         <motion.div
@@ -350,13 +301,13 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/contact" size="lg" className="group">
+              <Button href="mailto:contact@jamun.org" size="lg" className="group">
                 Submit Your Story
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/resources" variant="outline" size="lg">
+              <Button href="/modelun/resources" variant="outline" size="lg">
                 Browse Resources
               </Button>
             </motion.div>
