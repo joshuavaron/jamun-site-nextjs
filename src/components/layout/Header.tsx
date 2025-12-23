@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
@@ -44,7 +44,6 @@ export function Header() {
   const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -85,12 +84,10 @@ export function Header() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // Search logic
-  useEffect(() => {
+  // Search logic - derived state using useMemo
+  const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
-      setSearchResults([]);
-      setSelectedIndex(-1);
-      return;
+      return [];
     }
 
     const query = searchQuery.toLowerCase();
@@ -106,9 +103,9 @@ export function Header() {
     }
 
     // Limit results
-    setSearchResults(results.slice(0, 6));
-    setSelectedIndex(-1);
+    return results.slice(0, 6);
   }, [searchQuery]);
+
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -204,10 +201,13 @@ export function Header() {
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setSelectedIndex(-1);
+                  }}
                   onFocus={() => setIsSearchFocused(true)}
                   onKeyDown={handleKeyDown}
-                  className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                  className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
                 />
               </div>
 
@@ -308,9 +308,12 @@ export function Header() {
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setSelectedIndex(-1);
+                    }}
                     onFocus={() => setIsSearchFocused(true)}
-                    className="w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400 outline-none"
+                    className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
                   />
                 </div>
 

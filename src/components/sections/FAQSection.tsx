@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HelpCircle, MessageCircle } from "lucide-react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 const faqs = [
   {

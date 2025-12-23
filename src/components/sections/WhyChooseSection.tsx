@@ -81,7 +81,7 @@ export function WhyChooseSection() {
       />
 
       <div className="space-y-12 lg:space-y-14">
-        {features.map((feature, index) => (
+        {features.map((feature) => (
           <motion.div
             key={feature.title}
             initial={{ opacity: 0, y: 40 }}

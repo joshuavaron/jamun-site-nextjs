@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import { Section, SectionHeader, Button } from "@/components/ui";
+import { Section, Button } from "@/components/ui";
 import {
   Globe,
   Scale,
@@ -671,7 +671,7 @@ export default function ProgramsPage() {
                 className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100"
               >
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">
-                  What You'll Learn
+                  What You&apos;ll Learn
                 </h4>
                 <ul className="space-y-3">
                   {program.whatYouLearn.map((item, index) => (
@@ -706,7 +706,7 @@ export default function ProgramsPage() {
                   <MessageSquare className="w-6 h-6 text-white" />
                 </div>
                 <blockquote className="text-lg md:text-xl font-medium text-gray-900 mb-4 leading-relaxed">
-                  "{program.testimonial.quote}"
+                  &ldquo;{program.testimonial.quote}&rdquo;
                 </blockquote>
                 <p className={cn("font-semibold", program.textColor)}>
                   — {program.testimonial.author}
@@ -772,7 +772,7 @@ export default function ProgramsPage() {
                 description:
                   "Build transferable skills in communication, critical thinking, and teamwork.",
               },
-            ].map((item, index) => (
+            ].map((item) => (
               <motion.div
                 key={item.title}
                 variants={itemVariants}
@@ -816,8 +816,8 @@ export default function ProgramsPage() {
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you're a student eager to compete or a teacher looking to start
-            a program at your school, we're here to help you take the first step.
+            Whether you&apos;re a student eager to compete or a teacher looking to start
+            a program at your school, we&apos;re here to help you take the first step.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

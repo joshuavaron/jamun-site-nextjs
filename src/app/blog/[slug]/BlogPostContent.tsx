@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
@@ -12,7 +12,6 @@ import {
   Calendar,
   Clock,
   User,
-  Share2,
   Twitter,
   Facebook,
   Linkedin,
@@ -37,7 +36,7 @@ const categoryColors: Record<string, { bg: string; text: string }> = {
 };
 
 export default function BlogPostContent({ post }: BlogPostContentProps) {
-  const [mdxSource, setMdxSource] = useState<any>(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [copied, setCopied] = useState(false);
 
   const colors = categoryColors[post.category] || {

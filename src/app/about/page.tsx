@@ -264,8 +264,8 @@ export default function AboutPage() {
               JAMUN exists to make these transformative experiences accessible to all.
               We provide free and low-cost programs in Model UN (diplomatic simulation),
               Mock Trial (courtroom advocacy), and Mathletes (competitive mathematics)—designed
-              specifically for students in grades 5-8. Our goal isn't just to teach
-              skills; it's to spark a lifelong love of learning that prepares students
+              specifically for students in grades 5-8. Our goal isn&apos;t just to teach
+              skills; it&apos;s to spark a lifelong love of learning that prepares students
               for magnet schools, high school honors programs, and college admissions.
             </p>
           </motion.div>
@@ -280,9 +280,9 @@ export default function AboutPage() {
             <div className="bg-gradient-to-br from-jamun-blue/10 via-purple-100/50 to-emerald-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-jamun-blue/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                "We're not just running tournaments. We're showing kids that
+                &ldquo;We&apos;re not just running tournaments. We&apos;re showing kids that
                 being smart is cool, that hard work pays off, and that they
-                can accomplish incredible things."
+                can accomplish incredible things.&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-jamun-blue/20 flex items-center justify-center">
@@ -477,7 +477,7 @@ export default function AboutPage() {
             Our leadership team is supported by{" "}
             <span className="font-semibold text-jamun-blue">80+ volunteers</span>{" "}
             who share our passion for empowering young learners. Together,
-            we're proving that students can create real, lasting change.
+            we&apos;re proving that students can create real, lasting change.
           </p>
         </motion.div>
       </Section>
@@ -562,8 +562,8 @@ export default function AboutPage() {
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you're a student ready to compete, a teacher looking to
-            start a program, or someone who wants to support our mission—there's
+            Whether you&apos;re a student ready to compete, a teacher looking to
+            start a program, or someone who wants to support our mission—there&apos;s
             a place for you at JAMUN.
           </p>
 

@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import { Heart, Users, GraduationCap, Trophy, Sparkles, ArrowRight, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const impactStats = [
   { value: "500+", label: "Students Empowered", icon: Users },
@@ -91,7 +90,7 @@ export default function DonatePage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-12"
               >
-                {impactStats.map((stat, index) => (
+                {impactStats.map((stat) => (
                   <div key={stat.label} className="text-center">
                     <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white mb-3 shadow-lg shadow-orange-500/30">
                       <stat.icon className="w-6 h-6" />
@@ -293,7 +292,7 @@ export default function DonatePage() {
                 />
               </div>
               <p>
-                JAMUN is a 501(c)(3) nonprofit organization. EIN: XX-XXXXXXX
+                JAMUN is a 501(c)(3) nonprofit organization. EIN: 39-3081214
               </p>
               <Link href="/" className="text-gray-400 hover:text-white transition-colors">
                 Return to jamun.org

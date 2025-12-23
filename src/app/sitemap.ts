@@ -1,10 +1,14 @@
 import { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/blog";
+import { getAllCommittees } from "@/lib/committees";
+import { getAllResources } from "@/lib/resources";
 
 const BASE_URL = "https://jamun.org";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const blogSlugs = getAllSlugs();
+  const committees = getAllCommittees();
+  const resources = getAllResources();
 
   // Main pages with priority and change frequency
   const mainPages: MetadataRoute.Sitemap = [
@@ -92,6 +96,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Committee pages (dynamic)
+  const committeePages: MetadataRoute.Sitemap = committees.map((committee) => ({
+    url: `${BASE_URL}/modelun/committees/${committee.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  // Resource pages (dynamic)
+  const resourcePages: MetadataRoute.Sitemap = resources.map((resource) => ({
+    url: `${BASE_URL}/modelun/resources/${resource.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   // Blog pages
   const blogIndexPage: MetadataRoute.Sitemap = [
     {
@@ -134,6 +154,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...mainPages,
     ...programPages,
+    ...committeePages,
+    ...resourcePages,
     ...blogIndexPage,
     ...blogPostPages,
     ...otherPages,

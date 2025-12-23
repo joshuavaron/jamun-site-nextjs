@@ -8,7 +8,6 @@ import {
   Scale,
   ArrowRight,
   Users,
-  Trophy,
   BookOpen,
   CheckCircle,
   MessageSquare,
@@ -23,9 +22,6 @@ import {
   File,
   ClipboardList,
   ScrollText,
-  AlertCircle,
-  Eye,
-  Shield,
   Target,
   Sparkles,
 } from "lucide-react";
@@ -493,7 +489,7 @@ export default function MockTrialPage() {
               judges.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              It's more than just public speaking—it's critical thinking,
+              It&apos;s more than just public speaking—it&apos;s critical thinking,
               teamwork, and performance combined. Whether you dream of being a
               lawyer or just want to build confidence, Mock Trial gives you
               skills that last a lifetime.
@@ -530,8 +526,8 @@ export default function MockTrialPage() {
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <blockquote className="text-white">
                   <p className="text-lg font-medium mb-2">
-                    "Mock Trial pushed me out of my comfort zone. Now I can
-                    think on my feet and argue my point confidently."
+                    &ldquo;Mock Trial pushed me out of my comfort zone. Now I can
+                    think on my feet and argue my point confidently.&rdquo;
                   </p>
                   <footer className="text-white/80 text-sm">
                     — Marcus, 8th Grade Attorney
@@ -634,9 +630,9 @@ export default function MockTrialPage() {
             <div className="bg-gradient-to-br from-purple-100/50 via-violet-100/50 to-fuchsia-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-purple-600/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                "I never thought I'd love public speaking, but Mock Trial
-                changed that. Now I volunteer to present in class and I'm not
-                afraid to speak up for what I believe in."
+                &ldquo;I never thought I&apos;d love public speaking, but Mock Trial
+                changed that. Now I volunteer to present in class and I&apos;m not
+                afraid to speak up for what I believe in.&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-purple-200 flex items-center justify-center">
@@ -904,7 +900,6 @@ export default function MockTrialPage() {
             className="flex hover:[animation-play-state:paused]"
             style={{
               animation: "scroll 20s linear infinite",
-              // @ts-ignore - CSS custom property
               "--scroll-width": `${resources.length * 324}px`,
             } as React.CSSProperties}
           >
@@ -1039,7 +1034,7 @@ export default function MockTrialPage() {
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We're building something special. Whether you're a student ready to
+            We&apos;re building something special. Whether you&apos;re a student ready to
             argue cases in the courtroom or a teacher looking to start a Mock
             Trial program, join our interest list to be the first to know when
             we launch.

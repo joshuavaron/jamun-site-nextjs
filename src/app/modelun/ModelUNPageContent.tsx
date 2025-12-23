@@ -275,9 +275,6 @@ export default function ModelUNPageContent({
     (sum, c) => sum + c.delegateCount,
     0
   );
-  const beginnerCount = committees.filter(
-    (c) => c.level === "Beginner-Friendly"
-  ).length;
 
   const munStats = [
     { value: `${totalDelegates}+`, label: "Delegate Spots" },
@@ -561,8 +558,8 @@ export default function ModelUNPageContent({
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
           eyebrow="The Delegate Experience"
-          title="What You'll Do as a Delegate"
-          subtitle="From research to resolution—here's how you'll make your mark in committee."
+          title="What You&apos;ll Do as a Delegate"
+          subtitle="From research to resolution—here&apos;s how you&apos;ll make your mark in committee."
         />
 
         <motion.div
@@ -669,7 +666,7 @@ export default function ModelUNPageContent({
         <SectionHeader
           eyebrow="Conference Experience"
           title="How a Conference Works"
-          subtitle="From opening ceremonies to awards, here's what to expect at a JAMUN conference."
+          subtitle="From opening ceremonies to awards, here&apos;s what to expect at a JAMUN conference."
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">

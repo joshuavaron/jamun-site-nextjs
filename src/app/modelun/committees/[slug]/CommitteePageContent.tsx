@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Committee, CommitteeDocument } from "@/lib/committees";
+import { Committee } from "@/lib/committees";
 import { cn } from "@/lib/utils";
 
 // Shifting topic component for Ad-Hoc committee
@@ -89,7 +89,7 @@ function getFlagUrl(countryCode: string): string {
 export default function CommitteePageContent({
   committee,
 }: CommitteePageContentProps) {
-  const [mdxSource, setMdxSource] = useState<any>(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   const levelColor = levelColors[committee.level] || levelColors["Beginner-Friendly"];
   const catColor = categoryColors[committee.category] || categoryColors["General Assembly"];

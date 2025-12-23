@@ -222,7 +222,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
               No articles found
             </h3>
             <p className="text-gray-600 mb-6">
-              Try adjusting your search or filter to find what you're looking for.
+              Try adjusting your search or filter to find what you&apos;re looking for.
             </p>
             <Button
               onClick={() => {
@@ -294,8 +294,8 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We love featuring stories from our community. Whether you're a
-            student, teacher, or volunteer, we'd love to hear about your
+            We love featuring stories from our community. Whether you&apos;re a
+            student, teacher, or volunteer, we&apos;d love to hear about your
             experience with JAMUN.
           </p>
 

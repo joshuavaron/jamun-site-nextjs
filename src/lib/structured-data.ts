@@ -14,10 +14,8 @@ export function generateOrganizationSchema() {
     email: siteConfig.email,
     foundingDate: "2023",
     sameAs: [
-      // Add social media URLs when available
-      // "https://www.facebook.com/JAMUNorg",
-      // "https://www.instagram.com/JAMUNorg",
-      // "https://twitter.com/JAMUNorg",
+      "https://www.instagram.com/jamun_usa",
+      "https://www.linkedin.com/company/jamun-org",
     ],
     nonprofit: {
       "@type": "NonprofitType",

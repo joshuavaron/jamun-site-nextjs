@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui";
-import { FileText, Sparkles, Mail } from "lucide-react";
+import { FileText, Mail } from "lucide-react";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },

@@ -33,8 +33,8 @@ export function CTASection() {
         </h2>
 
         <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Whether you're a student eager to compete, a parent supporting your child,
-          or an educator building a program—we're here to help you succeed.
+          Whether you&apos;re a student eager to compete, a parent supporting your child,
+          or an educator building a program—we&apos;re here to help you succeed.
         </p>
 
         {/* Feature highlights */}
@@ -106,7 +106,7 @@ export function CTASection() {
           transition={{ delay: 0.5 }}
           className="mt-8 text-sm text-gray-500"
         >
-          Questions? We'd love to hear from you at{" "}
+          Questions? We&apos;d love to hear from you at{" "}
           <a
             href="mailto:contact@jamun.org"
             className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { MDXRemote } from "next-mdx-remote";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
@@ -32,18 +32,18 @@ interface ResourcePageContentProps {
   relatedResources: ResourceMeta[];
 }
 
-// Format icons
-function getFormatIcon(format: ResourceFormat) {
+// Format icons - returns JSX element
+function renderFormatIcon(format: ResourceFormat, className?: string) {
   switch (format) {
     case "Video":
-      return Video;
+      return <Video className={className} />;
     case "PDF":
-      return FileText;
+      return <FileText className={className} />;
     case "Template":
     case "Worksheet":
-      return File;
+      return <File className={className} />;
     default:
-      return BookOpen;
+      return <BookOpen className={className} />;
   }
 }
 
@@ -86,9 +86,8 @@ export default function ResourcePageContent({
   resource,
   relatedResources,
 }: ResourcePageContentProps) {
-  const [mdxSource, setMdxSource] = useState<any>(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
-  const FormatIcon = getFormatIcon(resource.format);
   const formatColor = getFormatColor(resource.format);
   const levelColor = levelColors[resource.level] || levelColors.Beginner;
 
@@ -149,7 +148,7 @@ export default function ResourcePageContent({
                 formatColor.border
               )}
             >
-              <FormatIcon className="w-4 h-4" />
+              {renderFormatIcon(resource.format, "w-4 h-4")}
               {resource.format}
             </span>
 
@@ -377,7 +376,6 @@ export default function ResourcePageContent({
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedResources.map((related, index) => {
-                const RelatedFormatIcon = getFormatIcon(related.format);
                 const relatedFormatColor = getFormatColor(related.format);
                 return (
                   <motion.div
@@ -401,7 +399,7 @@ export default function ResourcePageContent({
                               relatedFormatColor.text
                             )}
                           >
-                            <RelatedFormatIcon className="w-4 h-4" />
+                            {renderFormatIcon(related.format, "w-4 h-4")}
                           </div>
                           {related.featured && (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">

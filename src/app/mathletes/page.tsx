@@ -12,7 +12,6 @@ import {
   BookOpen,
   CheckCircle,
   Brain,
-  Lightbulb,
   GraduationCap,
   Calendar,
   Clock,
@@ -25,9 +24,7 @@ import {
   Sparkles,
   Target,
   Puzzle,
-  TrendingUp,
   Zap,
-  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -515,7 +512,7 @@ export default function MathletesPage() {
               pressure.
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              It's not about memorizing formulas—it's about creative thinking,
+              It&apos;s not about memorizing formulas—it&apos;s about creative thinking,
               pattern recognition, and the satisfaction of cracking a tough
               problem. Whether you love puzzles or want to strengthen your math
               skills, Mathletes makes math genuinely exciting.
@@ -552,8 +549,8 @@ export default function MathletesPage() {
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <blockquote className="text-white">
                   <p className="text-lg font-medium mb-2">
-                    "Math used to be just homework. Now it's my favorite puzzle
-                    to solve with friends."
+                    &ldquo;Math used to be just homework. Now it&apos;s my favorite puzzle
+                    to solve with friends.&rdquo;
                   </p>
                   <footer className="text-white/80 text-sm">
                     — Ryan, 7th Grade Mathlete
@@ -656,9 +653,9 @@ export default function MathletesPage() {
             <div className="bg-gradient-to-br from-emerald-100/50 via-teal-100/50 to-cyan-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-emerald-600/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                "Mathletes taught me that getting stuck is just part of the
+                &ldquo;Mathletes taught me that getting stuck is just part of the
                 process. Now I actually enjoy the challenge of figuring things
-                out."
+                out.&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-200 flex items-center justify-center">
@@ -855,7 +852,6 @@ export default function MathletesPage() {
             className="flex hover:[animation-play-state:paused]"
             style={{
               animation: "scroll 20s linear infinite",
-              // @ts-ignore - CSS custom property
               "--scroll-width": `${resources.length * 324}px`,
             } as React.CSSProperties}
           >
@@ -990,8 +986,8 @@ export default function MathletesPage() {
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We're building a program where math is exciting, challenging, and
-            fun. Whether you're a student ready to test your skills or a teacher
+            We&apos;re building a program where math is exciting, challenging, and
+            fun. Whether you&apos;re a student ready to test your skills or a teacher
             looking to start a Mathletes club, join our interest list to be the
             first to know when we launch.
           </p>

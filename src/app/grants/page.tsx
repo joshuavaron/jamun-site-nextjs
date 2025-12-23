@@ -171,7 +171,7 @@ export default function GrantsPage() {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6"
               >
-                Cost Shouldn't Determine{" "}
+                Cost Shouldn&apos;t Determine{" "}
                 <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-purple-600 bg-clip-text text-transparent">
                   Who Gets to Participate
                 </span>
@@ -613,7 +613,7 @@ export default function GrantsPage() {
 
             <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
               Fill out a short application and our team will review it within
-              2-3 weeks. Don't let cost stand in the way of your potential.
+              2-3 weeks. Don&apos;t let cost stand in the way of your potential.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -630,7 +630,7 @@ export default function GrantsPage() {
             </div>
 
             <p className="text-white/70 text-sm">
-              You'll be redirected to Google Forms to complete your application.
+              You&apos;ll be redirected to Google Forms to complete your application.
             </p>
           </motion.div>
         </div>
@@ -648,7 +648,7 @@ export default function GrantsPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Mail className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              We're Here to Help
+              We&apos;re Here to Help
             </span>
           </div>
 
@@ -657,7 +657,7 @@ export default function GrantsPage() {
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We're here to help. Reach out to our grants team for assistance with
+            We&apos;re here to help. Reach out to our grants team for assistance with
             your application or to learn more about our funding opportunities.
             No question is too small.
           </p>
