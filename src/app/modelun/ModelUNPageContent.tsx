@@ -342,8 +342,8 @@ export default function ModelUNPageContent({
                   Join Model UN
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
-                  Start a Club at Your School
+                <Button href="/modelun/committees" variant="outline" size="lg">
+                  See Our Committees
                 </Button>
               </motion.div>
 

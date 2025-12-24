@@ -10,7 +10,7 @@ import {
 } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "Model UN for Middle School | Learn Diplomacy, Debate & Public Speaking",
+  title: "Model UN for Middle School - Conferences & Resources",
   description:
     "Join JAMUN's Model United Nations program for grades 5-8. Learn diplomatic skills, global issues, public speaking, and resolution writing. Beginner-friendly conferences, position paper guides, and free resources.",
   keywords: [

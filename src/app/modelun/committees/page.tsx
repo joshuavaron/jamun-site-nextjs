@@ -4,7 +4,7 @@ import CommitteesPageContent from "./CommitteesPageContent";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Model UN Committees | General Assembly, Security Council & More",
+  title: "Model UN Committees - Beginner to Advanced",
   description:
     "Explore JAMUN's Model UN committees including General Assembly, Security Council, ECOSOC, and specialized agencies. Find the perfect committee for middle school delegates at our beginner-friendly conferences.",
   keywords: [

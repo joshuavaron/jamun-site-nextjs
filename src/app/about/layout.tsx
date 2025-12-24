@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "About JAMUN - Youth-Led Nonprofit Making Academics Fun",
+  title: "About JAMUN - Youth-Led Nonprofit for Grades 5-8",
   description:
     "Learn about JAMUN, a 501(c)(3) nonprofit organization run by high school and college students. Discover our mission to make academic competitions accessible to all middle school students through Model UN, Mock Trial, and Mathletes.",
   keywords: [

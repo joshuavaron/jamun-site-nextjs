@@ -9,8 +9,8 @@ export const siteConfig = {
 
   // SEO Configuration
   seo: {
-    titleTemplate: "%s | JAMUN - Make Academics Fun",
-    defaultTitle: "JAMUN - Middle School Academic Competitions | Model UN, Mock Trial, Mathletes",
+    titleTemplate: "%s | JAMUN",
+    defaultTitle: "Model UN & Academic Competitions for Grades 5-8 | JAMUN",
     openGraph: {
       type: "website",
       locale: "en_US",

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Donate to JAMUN - Support Accessible Academic Programs for Students",
+  title: "Support Middle School Academic Programs - Donate to JAMUN",
   description:
     "Support JAMUN's mission to make academic competitions accessible to all middle school students. Your tax-deductible donation funds Model UN, Mock Trial, and Mathletes programs for underserved schools. 501(c)(3) nonprofit.",
   keywords: [

@@ -8,7 +8,7 @@ import {
 } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "Mathletes Competition Program | Middle School Math Excellence",
+  title: "Mathletes for Grades 5-8 - Math Competitions",
   description:
     "Join JAMUN's Mathletes program for grades 5-8. Prepare for MATHCOUNTS, AMC 8, and Math League competitions. Develop problem-solving skills, number theory, algebra, and geometry through team-based competitive math.",
   keywords: [

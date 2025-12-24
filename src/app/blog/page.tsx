@@ -4,7 +4,7 @@ import BlogPageClient from "./BlogPageClient";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Model UN Tips, Mock Trial Guides & Academic Competition Resources | JAMUN Blog",
+  title: "Tips & Guides for Academic Competitions",
   description:
     "Expert guides for Model UN position papers, Mock Trial cross-examination, and math competition strategies. Student success stories, delegate tips, and resources for middle school academic competitions.",
   keywords: [

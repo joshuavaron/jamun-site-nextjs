@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Academic Competition Programs for Middle School | Model UN, Mock Trial, Mathletes",
+  title: "Best Academic Programs for Middle School Students",
   description:
     "Explore JAMUN's three academic competition programs for grades 5-8: Model UN (diplomacy & debate), Mock Trial (legal advocacy), and Mathletes (competitive math). Free resources, beginner-friendly, real competitions.",
   keywords: [

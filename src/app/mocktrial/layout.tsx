@@ -8,7 +8,7 @@ import {
 } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "Mock Trial for Middle School | Legal Skills & Courtroom Advocacy",
+  title: "Mock Trial for Middle School - Learn Courtroom Skills",
   description:
     "Experience courtroom drama in JAMUN's Mock Trial program for grades 5-8. Learn legal reasoning, cross-examination, opening statements, and persuasive argumentation. Build confidence in public speaking and critical thinking.",
   keywords: [

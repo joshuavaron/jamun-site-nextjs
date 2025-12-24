@@ -4,7 +4,7 @@ import MathletesResourcesPageContent from "./MathletesResourcesPageContent";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Mathletes Resources | MATHCOUNTS, AMC 8 Prep & Problem Solving Guides",
+  title: "Free Math Competition Resources - MATHCOUNTS & AMC 8 Prep",
   description:
     "Free math competition resources for middle school students. Prepare for MATHCOUNTS, AMC 8, and Math League with practice problems, strategies, and study guides. Number theory, algebra, and geometry tutorials.",
   keywords: [

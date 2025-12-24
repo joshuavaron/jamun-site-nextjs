@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Competition Leaderboards | Model UN, Mock Trial & Mathletes Rankings",
+  title: "Competition Rankings - Model UN, Mock Trial, Math",
   description:
     "View JAMUN competition leaderboards for Model UN, Mock Trial, and Mathletes. Track school rankings, top delegates, and team performance across our academic competition programs.",
   keywords: [

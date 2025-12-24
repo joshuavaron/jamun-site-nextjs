@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy - JAMUN",
   description:
     "JAMUN's privacy policy explains how we collect, use, and protect your personal information. Learn about our data practices and your privacy rights.",
   robots: {

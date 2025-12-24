@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Student Grants & Financial Aid for Academic Competitions | JAMUN",
+  title: "Conference Grants for Students - Up to 100% Covered",
   description:
     "Apply for JAMUN grants to cover registration fees, travel costs, and materials for Model UN, Mock Trial, and Mathletes competitions. Financial assistance for middle school students and schools. Free application.",
   keywords: [

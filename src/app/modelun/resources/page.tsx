@@ -4,7 +4,7 @@ import ResourcesPageContent from "./ResourcesPageContent";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Model UN Resources | Position Papers, Resolutions & Delegate Guides",
+  title: "Free Model UN Guides & Templates for Students",
   description:
     "Free Model UN resources for middle school delegates. Learn to write position papers, draft resolutions, give speeches, and master parliamentary procedure. Beginner guides and advanced strategies.",
   keywords: [

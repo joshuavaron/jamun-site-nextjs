@@ -4,7 +4,7 @@ import MockTrialResourcesPageContent from "./MockTrialResourcesPageContent";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Mock Trial Resources | Cross-Examination, Opening Statements & Legal Guides",
+  title: "Free Mock Trial Guides & Templates for Students",
   description:
     "Free Mock Trial resources for middle school students. Learn cross-examination techniques, opening statements, closing arguments, and courtroom procedures. Attorney and witness preparation guides.",
   keywords: [
