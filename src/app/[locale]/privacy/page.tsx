@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Section, TypewriterText } from "@/components/ui";
 import { Shield, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -10,6 +11,7 @@ const sectionVariants = {
 };
 
 export default function PrivacyPolicyPage() {
+  const t = useTranslations("PrivacyPage");
   const lastUpdated = "December 2024";
 
   return (
@@ -28,13 +30,13 @@ export default function PrivacyPolicyPage() {
             className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
           >
             <Shield className="w-4 h-4" />
-            Your Privacy Matters
+            {t("heroBadge")}
           </motion.span>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-            <TypewriterText text="Privacy " delay={0.3} />
+            <TypewriterText text={t("heroTitle1")} delay={0.3} />
             <TypewriterText
-              text="Policy"
+              text={t("heroTitle2")}
               delay={0.3 + 8 * 0.03}
               className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent"
             />
@@ -46,7 +48,7 @@ export default function PrivacyPolicyPage() {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
-            Last updated: {lastUpdated}
+            {t("lastUpdated", { date: lastUpdated })}
           </motion.p>
         </div>
       </section>
@@ -64,10 +66,10 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Introduction
+                {t("introTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                The Junior Assembly of Model United Nations (&quot;JAMUN,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website jamun.org and participate in our programs.
+                {t("introText")}
               </p>
             </motion.div>
 
@@ -80,38 +82,38 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Information We Collect
+                {t("infoCollectTitle")}
               </h2>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
-                Personal Information
+                {t("personalInfoTitle")}
               </h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                We may collect personal information that you voluntarily provide to us when you:
+                {t("personalInfoText")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-6">
-                <li>Register for our programs (Model UN, Mock Trial, or Mathletes)</li>
-                <li>Subscribe to our newsletter</li>
-                <li>Make a donation</li>
-                <li>Contact us with inquiries</li>
-                <li>Apply for grants or volunteer positions</li>
+                <li>{t("personalInfoItem1")}</li>
+                <li>{t("personalInfoItem2")}</li>
+                <li>{t("personalInfoItem3")}</li>
+                <li>{t("personalInfoItem4")}</li>
+                <li>{t("personalInfoItem5")}</li>
               </ul>
 
               <p className="text-gray-600 leading-relaxed mb-4">
-                This information may include:
+                {t("infoMayInclude")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-6">
-                <li>Name and contact information (email address, phone number)</li>
-                <li>School name and grade level</li>
-                <li>Parent/guardian contact information (for minor participants)</li>
-                <li>Payment information (processed securely through third-party providers)</li>
+                <li>{t("infoItem1")}</li>
+                <li>{t("infoItem2")}</li>
+                <li>{t("infoItem3")}</li>
+                <li>{t("infoItem4")}</li>
               </ul>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">
-                Automatically Collected Information
+                {t("autoCollectTitle")}
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                When you visit our website, we may automatically collect certain information about your device, including your IP address, browser type, operating system, and browsing behavior. We use Google Analytics to help us understand how visitors use our site.
+                {t("autoCollectText")}
               </p>
             </motion.div>
 
@@ -124,18 +126,18 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                How We Use Your Information
+                {t("howUseTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                We use the information we collect to:
+                {t("howUseText")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                <li>Administer our programs and events</li>
-                <li>Communicate with participants, parents, and educators</li>
-                <li>Process donations and issue tax receipts</li>
-                <li>Improve our website and services</li>
-                <li>Send newsletters and program updates (with your consent)</li>
-                <li>Comply with legal obligations</li>
+                <li>{t("howUseItem1")}</li>
+                <li>{t("howUseItem2")}</li>
+                <li>{t("howUseItem3")}</li>
+                <li>{t("howUseItem4")}</li>
+                <li>{t("howUseItem5")}</li>
+                <li>{t("howUseItem6")}</li>
               </ul>
             </motion.div>
 
@@ -148,15 +150,15 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Information Sharing
+                {t("infoSharingTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                We do not sell, trade, or rent your personal information to third parties. We may share your information with:
+                {t("infoSharingText")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                <li>Service providers who assist us in operating our website and programs</li>
-                <li>Schools and educators involved in our programs (with appropriate consent)</li>
-                <li>Legal authorities when required by law</li>
+                <li>{t("infoSharingItem1")}</li>
+                <li>{t("infoSharingItem2")}</li>
+                <li>{t("infoSharingItem3")}</li>
               </ul>
             </motion.div>
 
@@ -169,10 +171,10 @@ export default function PrivacyPolicyPage() {
               className="mb-12 p-6 bg-jamun-blue/5 rounded-2xl border border-jamun-blue/10"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Children&apos;s Privacy
+                {t("childrensPrivacyTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                Our programs serve students in grades 5-8. We are committed to protecting the privacy of children. We collect information about minor participants only with parental or guardian consent and use it solely for program administration. Parents and guardians may contact us at any time to review, update, or delete their child&apos;s information.
+                {t("childrensPrivacyText")}
               </p>
             </motion.div>
 
@@ -185,24 +187,24 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Photography and Video
+                {t("photoVideoTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                JAMUN may take photographs and video recordings of participants at our events, conferences, and programs. These images and videos may be used for promotional and educational purposes, including but not limited to:
+                {t("photoVideoText1")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2 mb-6">
-                <li>Our website and social media channels</li>
-                <li>Marketing materials and brochures</li>
-                <li>Newsletters and email communications</li>
-                <li>Grant applications and annual reports</li>
-                <li>Press releases and media coverage</li>
+                <li>{t("photoVideoItem1")}</li>
+                <li>{t("photoVideoItem2")}</li>
+                <li>{t("photoVideoItem3")}</li>
+                <li>{t("photoVideoItem4")}</li>
+                <li>{t("photoVideoItem5")}</li>
               </ul>
               <p className="text-gray-600 leading-relaxed">
-                By registering for and participating in JAMUN programs, participants (and their parents/guardians for minors) consent to the use of their likeness in photographs and videos for these purposes. If you do not wish to have your child photographed or recorded, please notify us in writing at{" "}
+                {t("photoVideoText2")}{" "}
                 <a href="mailto:contact@jamun.org" className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium">
                   contact@jamun.org
                 </a>{" "}
-                prior to the event. We will make reasonable efforts to accommodate such requests, though we cannot guarantee complete exclusion from group photos or wide-angle shots.
+                {t("photoVideoText3")}
               </p>
             </motion.div>
 
@@ -215,10 +217,10 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Data Security
+                {t("dataSecurityTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet is 100% secure.
+                {t("dataSecurityText")}
               </p>
             </motion.div>
 
@@ -231,16 +233,16 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Your Rights
+                {t("yourRightsTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                You have the right to:
+                {t("yourRightsText")}
               </p>
               <ul className="list-disc pl-6 text-gray-600 space-y-2">
-                <li>Access the personal information we hold about you</li>
-                <li>Request correction of inaccurate information</li>
-                <li>Request deletion of your information</li>
-                <li>Opt out of marketing communications</li>
+                <li>{t("yourRightsItem1")}</li>
+                <li>{t("yourRightsItem2")}</li>
+                <li>{t("yourRightsItem3")}</li>
+                <li>{t("yourRightsItem4")}</li>
               </ul>
             </motion.div>
 
@@ -253,10 +255,10 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Cookies
+                {t("cookiesTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                Our website uses cookies and similar technologies to enhance your browsing experience and collect analytics data. You can control cookie settings through your browser preferences.
+                {t("cookiesText")}
               </p>
             </motion.div>
 
@@ -269,10 +271,10 @@ export default function PrivacyPolicyPage() {
               className="mb-12"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Changes to This Policy
+                {t("changesToPolicyTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed">
-                We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the &quot;Last updated&quot; date.
+                {t("changesToPolicyText")}
               </p>
             </motion.div>
 
@@ -285,10 +287,10 @@ export default function PrivacyPolicyPage() {
               className="p-8 bg-gradient-to-br from-jamun-blue/5 via-purple-50/50 to-white rounded-2xl border border-gray-100"
             >
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-                Contact Us
+                {t("contactTitle")}
               </h2>
               <p className="text-gray-600 leading-relaxed mb-6">
-                If you have questions about this Privacy Policy or our data practices, please contact us:
+                {t("contactText")}
               </p>
               <a
                 href="mailto:contact@jamun.org"

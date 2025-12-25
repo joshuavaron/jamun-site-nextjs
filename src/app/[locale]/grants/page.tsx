@@ -22,107 +22,7 @@ import {
   Shield,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Why grants matter
-const grantBenefits = [
-  {
-    icon: DollarSign,
-    title: "Remove Financial Barriers",
-    description:
-      "Cover registration fees, travel costs, and materials so no student is left behind due to financial constraints.",
-    color: "bg-emerald-100",
-    iconColor: "text-emerald-600",
-    borderColor: "border-emerald-200",
-  },
-  {
-    icon: Rocket,
-    title: "Accelerate Growth",
-    description:
-      "Provide resources and training that help students reach their full potential faster than ever before.",
-    color: "bg-purple-100",
-    iconColor: "text-purple-600",
-    borderColor: "border-purple-200",
-  },
-  {
-    icon: Users,
-    title: "Build Community",
-    description:
-      "Connect students with mentors, peers, and opportunities that extend far beyond their local community.",
-    color: "bg-jamun-blue/10",
-    iconColor: "text-jamun-blue",
-    borderColor: "border-jamun-blue/20",
-  },
-];
-
-// How it works steps
-const processSteps = [
-  {
-    step: 1,
-    icon: FileText,
-    title: "Submit Application",
-    description:
-      "Fill out our simple online form with your information and grant request details. It takes just 10-15 minutes.",
-  },
-  {
-    step: 2,
-    icon: Clock,
-    title: "Review Process",
-    description:
-      "Our team reviews applications within 2-3 weeks and may reach out for additional information if needed.",
-  },
-  {
-    step: 3,
-    icon: CheckCircle,
-    title: "Receive Decision",
-    description:
-      "You'll be notified of the decision via email with clear next steps if approved.",
-  },
-  {
-    step: 4,
-    icon: Send,
-    title: "Get Funded",
-    description:
-      "Approved grants are disbursed directly to cover your specified expenses. It's that simple.",
-  },
-];
-
-// Testimonials
-const testimonials = [
-  {
-    quote:
-      "The JAMUN grant made it possible for my son to participate in Model UN. It changed his perspective on global issues and sparked a passion for social studies.",
-    author: "Grant Recipient",
-    role: "Parent, 2025",
-    avatar: "P",
-    color: "bg-purple-500",
-  },
-  {
-    quote:
-      "Our school couldn't afford to start a new extracurricular. Now we have 30 students participating in Model UN conferences twice a year!",
-    author: "Faculty Advisor",
-    role: "Middle School Teacher",
-    avatar: "F",
-    color: "bg-emerald-500",
-  },
-  {
-    quote:
-      "The JAMUN grant gave me the opportunity to attend my first Model UN conference. It was an experience that changed my perspective on the world.",
-    author: "Student Recipient",
-    role: "8th Grade, Model UN",
-    avatar: "S",
-    color: "bg-jamun-blue",
-  },
-];
-
-// What grants cover
-const grantCovers = [
-  { item: "Conference registration fees", icon: GraduationCap },
-  { item: "Travel and transportation", icon: Users },
-  { item: "Competition materials", icon: FileText },
-  { item: "Training programs", icon: Rocket },
-  { item: "Team uniforms and supplies", icon: Star },
-  { item: "Coaching resources", icon: Shield },
-];
+import { useTranslations } from "next-intl";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -138,6 +38,99 @@ const itemVariants = {
 };
 
 export default function GrantsPage() {
+  const t = useTranslations("GrantsPage");
+
+  // Why grants matter
+  const grantBenefits = [
+    {
+      icon: DollarSign,
+      title: t("benefit1Title"),
+      description: t("benefit1Description"),
+      color: "bg-emerald-100",
+      iconColor: "text-emerald-600",
+      borderColor: "border-emerald-200",
+    },
+    {
+      icon: Rocket,
+      title: t("benefit2Title"),
+      description: t("benefit2Description"),
+      color: "bg-purple-100",
+      iconColor: "text-purple-600",
+      borderColor: "border-purple-200",
+    },
+    {
+      icon: Users,
+      title: t("benefit3Title"),
+      description: t("benefit3Description"),
+      color: "bg-jamun-blue/10",
+      iconColor: "text-jamun-blue",
+      borderColor: "border-jamun-blue/20",
+    },
+  ];
+
+  // How it works steps
+  const processSteps = [
+    {
+      step: 1,
+      icon: FileText,
+      title: t("step1Title"),
+      description: t("step1Description"),
+    },
+    {
+      step: 2,
+      icon: Clock,
+      title: t("step2Title"),
+      description: t("step2Description"),
+    },
+    {
+      step: 3,
+      icon: CheckCircle,
+      title: t("step3Title"),
+      description: t("step3Description"),
+    },
+    {
+      step: 4,
+      icon: Send,
+      title: t("step4Title"),
+      description: t("step4Description"),
+    },
+  ];
+
+  // Testimonials
+  const testimonials = [
+    {
+      quote: t("testimonial1Quote"),
+      author: t("testimonial1Author"),
+      role: t("testimonial1Role"),
+      avatar: "P",
+      color: "bg-purple-500",
+    },
+    {
+      quote: t("testimonial2Quote"),
+      author: t("testimonial2Author"),
+      role: t("testimonial2Role"),
+      avatar: "F",
+      color: "bg-emerald-500",
+    },
+    {
+      quote: t("testimonial3Quote"),
+      author: t("testimonial3Author"),
+      role: t("testimonial3Role"),
+      avatar: "S",
+      color: "bg-jamun-blue",
+    },
+  ];
+
+  // What grants cover
+  const grantCovers = [
+    { item: t("cover1"), icon: GraduationCap },
+    { item: t("cover2"), icon: Users },
+    { item: t("cover3"), icon: FileText },
+    { item: t("cover4"), icon: Rocket },
+    { item: t("cover5"), icon: Star },
+    { item: t("cover6"), icon: Shield },
+  ];
+
   return (
     <main>
       {/* Hero Section */}
@@ -162,13 +155,13 @@ export default function GrantsPage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200"
               >
                 <Heart className="w-4 h-4" />
-                Funding for Every Student
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Cost Shouldn't Determine " delay={0.3} />
+                <TypewriterText text={t("heroTitle1")} delay={0.3} />
                 <TypewriterText
-                  text="Who Gets to Participate"
+                  text={t("heroTitle2")}
                   delay={0.3 + 24 * 0.03}
                   className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-purple-600 bg-clip-text text-transparent"
                 />
@@ -180,12 +173,7 @@ export default function GrantsPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                JAMUN provides grants and financial assistance for middle school students
-                (grades 5-8) to participate in Model UN conferences, Mock Trial competitions,
-                and Mathletes tournaments. Our 501(c)(3) nonprofit has given over $25K in
-                grants to help cover registration fees, travel costs, and competition materials.
-                No student should miss out on building public speaking, critical thinking,
-                and leadership skills due to cost.
+                {t("heroDescription")}
               </motion.p>
 
               <motion.div
@@ -199,11 +187,11 @@ export default function GrantsPage() {
                   size="lg"
                   className="group"
                 >
-                  Apply for a Grant
+                  {t("heroPrimaryCTA")}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button href="#how-it-works" variant="outline" size="lg">
-                  Learn How It Works
+                  {t("heroSecondaryCTA")}
                 </Button>
               </motion.div>
 
@@ -216,15 +204,15 @@ export default function GrantsPage() {
               >
                 <span className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-500" />
-                  No application fee
+                  {t("heroTrustNoFee")}
                 </span>
                 <span className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-500" />
-                  2-3 week response
+                  {t("heroTrustResponse")}
                 </span>
                 <span className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-emerald-500" />
-                  Simple process
+                  {t("heroTrustSimple")}
                 </span>
               </motion.div>
             </motion.div>
@@ -245,7 +233,7 @@ export default function GrantsPage() {
                 >
                   <Image
                     src="/images/conferences/DSC02030.webp"
-                    alt="Students during committee session"
+                    alt={t("heroImageAlt")}
                     fill
                     className="object-cover"
                     priority
@@ -261,10 +249,10 @@ export default function GrantsPage() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900">
-                            Grants Awarded
+                            {t("heroOverlayTitle")}
                           </p>
                           <p className="text-sm text-gray-600">
-                            Changing lives every day
+                            {t("heroOverlaySubtitle")}
                           </p>
                         </div>
                       </div>
@@ -274,7 +262,7 @@ export default function GrantsPage() {
                             100+
                           </p>
                           <p className="text-xs text-gray-500">
-                            Students Funded
+                            {t("heroStatStudents")}
                           </p>
                         </div>
                         <div className="w-px bg-gray-200" />
@@ -283,7 +271,7 @@ export default function GrantsPage() {
                             15+
                           </p>
                           <p className="text-xs text-gray-500">
-                            Schools Supported
+                            {t("heroStatSchools")}
                           </p>
                         </div>
                         <div className="w-px bg-gray-200" />
@@ -291,7 +279,7 @@ export default function GrantsPage() {
                           <p className="text-2xl font-bold text-purple-600">
                             $25K+
                           </p>
-                          <p className="text-xs text-gray-500">Grants Given</p>
+                          <p className="text-xs text-gray-500">{t("heroStatGrants")}</p>
                         </div>
                       </div>
                     </div>
@@ -310,9 +298,9 @@ export default function GrantsPage() {
       {/* Why Our Grants Matter Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Why It Matters"
-          title="Every Student Deserves a Chance"
-          subtitle="Our grants remove barriers and open doors to life-changing experiences in academic competition."
+          eyebrow={t("whyEyebrow")}
+          title={t("whyTitle")}
+          subtitle={t("whySubtitle")}
         />
 
         <motion.div
@@ -368,10 +356,7 @@ export default function GrantsPage() {
           >
             <Quote className="w-16 h-16 text-white/30 mx-auto mb-6" />
             <blockquote className="text-2xl md:text-3xl lg:text-4xl text-white font-medium mb-8 leading-relaxed">
-              &ldquo;The JAMUN grant made it possible for my son to participate
-              in Model UN. It changed his perspective on global issues and
-              sparked a passion for social studies that has shaped his entire
-              academic journey.&rdquo;
+              &ldquo;{t("featuredQuote")}&rdquo;
             </blockquote>
             <div className="flex items-center justify-center gap-4">
               <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-white text-xl font-bold">
@@ -379,9 +364,9 @@ export default function GrantsPage() {
               </div>
               <div className="text-left">
                 <p className="text-white font-semibold text-lg">
-                  Parent of Grant Recipient
+                  {t("featuredAuthor")}
                 </p>
-                <p className="text-white/70">2025 Model UN Program</p>
+                <p className="text-white/70">{t("featuredRole")}</p>
               </div>
             </div>
           </motion.div>
@@ -395,9 +380,9 @@ export default function GrantsPage() {
         className="py-16 md:py-20 scroll-mt-20"
       >
         <SectionHeader
-          eyebrow="How It Works"
-          title="A Simple Path to Funding"
-          subtitle="Our streamlined application process makes it easy to apply for the support you need."
+          eyebrow={t("howEyebrow")}
+          title={t("howTitle")}
+          subtitle={t("howSubtitle")}
         />
 
         <div className="relative max-w-4xl mx-auto">
@@ -469,17 +454,14 @@ export default function GrantsPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-emerald-600 font-semibold text-sm tracking-widest uppercase mb-4 block">
-              What We Fund
+              {t("whatEyebrow")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-              Comprehensive Support for{" "}
-              <span className="text-jamun-blue">Your Journey</span>
+              {t("whatTitle")}{" "}
+              <span className="text-jamun-blue">{t("whatTitleHighlight")}</span>
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Our grants are flexible and designed to cover the full range of
-              expenses that might stand between a student and their chance to
-              compete. We work with each applicant to understand their unique
-              needs.
+              {t("whatDescription")}
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -511,7 +493,7 @@ export default function GrantsPage() {
             <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
               <Image
                 src="/images/conferences/DSC02050.webp"
-                alt="Students receiving JAMUN award recognition"
+                alt={t("whatImageAlt")}
                 fill
                 className="object-cover"
               />
@@ -528,9 +510,9 @@ export default function GrantsPage() {
       {/* More Testimonials Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Success Stories"
-          title="What Recipients Say"
-          subtitle="Hear from families, teachers, and students whose lives have been changed by JAMUN grants."
+          eyebrow={t("testimonialsEyebrow")}
+          title={t("testimonialsTitle")}
+          subtitle={t("testimonialsSubtitle")}
         />
 
         <motion.div
@@ -600,17 +582,16 @@ export default function GrantsPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/20 backdrop-blur-sm rounded-full">
               <Sparkles className="w-5 h-5 text-white" />
               <span className="text-white font-medium">
-                Applications Open Now
+                {t("ctaBadge")}
               </span>
             </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Apply for a Grant?
+              {t("ctaTitle")}
             </h2>
 
             <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Fill out a short application and our team will review it within
-              2-3 weeks. Don&apos;t let cost stand in the way of your potential.
+              {t("ctaDescription")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -620,14 +601,14 @@ export default function GrantsPage() {
                   size="lg"
                   className="bg-white text-jamun-blue hover:bg-gray-100 group"
                 >
-                  Open Application Form
+                  {t("ctaPrimaryCTA")}
                   <ExternalLink className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </motion.div>
             </div>
 
             <p className="text-white/70 text-sm">
-              You&apos;ll be redirected to Google Forms to complete your application.
+              {t("ctaRedirectNote")}
             </p>
           </motion.div>
         </div>
@@ -645,18 +626,16 @@ export default function GrantsPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Mail className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              We&apos;re Here to Help
+              {t("questionsHelpBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Have Questions?
+            {t("questionsTitle")}
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We&apos;re here to help. Reach out to our grants team for assistance with
-            your application or to learn more about our funding opportunities.
-            No question is too small.
+            {t("questionsDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -668,12 +647,12 @@ export default function GrantsPage() {
                 className="group"
               >
                 <Mail className="mr-2 h-5 w-5" />
-                Contact Grants Team
+                {t("questionsPrimaryCTA")}
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="mailto:contact@jamun.org" size="lg" variant="ghost">
-                General Inquiries
+                {t("questionsSecondaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
@@ -686,7 +665,7 @@ export default function GrantsPage() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Email us directly at{" "}
+            {t("questionsEmailNote")}{" "}
             <a
               href="mailto:grants@jamun.org"
               className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"

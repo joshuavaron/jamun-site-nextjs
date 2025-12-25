@@ -2,34 +2,37 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import Script from "next/script";
 import { Heart, Users, GraduationCap, Trophy, Sparkles, ArrowRight, Check } from "lucide-react";
 import { TypewriterText } from "@/components/ui";
-
-const impactStats = [
-  { value: "500+", label: "Students Empowered", icon: Users },
-  { value: "30+", label: "Schools Reached", icon: GraduationCap },
-  { value: "$70K+", label: "Raised for Programs", icon: Trophy },
-];
-
-const donationImpacts = [
-  { amount: "$25", impact: "Sponsors a student's registration fee" },
-  { amount: "$50", impact: "Provides materials for one student at a competition" },
-  { amount: "$100", impact: "Sponsors an entire classroom's participation" },
-  { amount: "$250", impact: "Enables a school to attend their first conference" },
-  { amount: "$500", impact: "Funds coaching for a first-time team" },
-  { amount: "$1,000", impact: "Covers transportation for an inter-city school team" },
-];
-
-const reasons = [
-  "100% volunteer-run - every dollar goes directly to students",
-  "Reaching underserved schools with affordable programs",
-  "Building the next generation of leaders and critical thinkers",
-  "Making academic competitions accessible to all",
-];
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function DonatePage() {
+  const t = useTranslations("DonatePage");
+
+  const impactStats = [
+    { value: "500+", label: t("statStudentsEmpowered"), icon: Users },
+    { value: "30+", label: t("statSchoolsReached"), icon: GraduationCap },
+    { value: "$70K+", label: t("statRaisedForPrograms"), icon: Trophy },
+  ];
+
+  const donationImpacts = [
+    { amount: "$25", impact: t("impact25") },
+    { amount: "$50", impact: t("impact50") },
+    { amount: "$100", impact: t("impact100") },
+    { amount: "$250", impact: t("impact250") },
+    { amount: "$500", impact: t("impact500") },
+    { amount: "$1,000", impact: t("impact1000") },
+  ];
+
+  const reasons = [
+    t("reason1"),
+    t("reason2"),
+    t("reason3"),
+    t("reason4"),
+  ];
+
   return (
     <>
       <Script
@@ -56,13 +59,13 @@ export default function DonatePage() {
                 className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-full text-sm font-semibold shadow-lg shadow-orange-500/25"
               >
                 <Heart className="w-4 h-4 animate-pulse" />
-                Your Support Changes Lives
+                {t("heroBadge")}
               </motion.div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                <TypewriterText text="Every Student Deserves a " delay={0.3} />
+                <TypewriterText text={t("heroTitle1")} delay={0.3} />
                 <TypewriterText
-                  text="Chance to Shine"
+                  text={t("heroTitle2")}
                   delay={0.3 + 25 * 0.03}
                   className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 bg-clip-text text-transparent"
                 />
@@ -74,11 +77,7 @@ export default function DonatePage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed"
               >
-                Help us bring Model UN, Mock Trial, and Mathletes to middle school
-                students who might never get the chance otherwise. Your tax-deductible
-                donation to our 501(c)(3) nonprofit directly funds academic competitions,
-                training materials, and grants that empower the next generation of
-                public speakers, debaters, and problem-solvers.
+                {t("heroDescription")}
               </motion.p>
 
               {/* Impact stats */}
@@ -118,10 +117,10 @@ export default function DonatePage() {
               >
                 <div className="bg-white rounded-3xl shadow-2xl shadow-orange-500/10 border border-orange-100 p-6 md:p-8 sticky top-24">
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">
-                    Make Your Gift Today
+                    {t("widgetTitle")}
                   </h2>
                   <p className="text-gray-600 text-center mb-6">
-                    JAMUN is a 501(c)(3) nonprofit. Your donation is tax-deductible.
+                    {t("widgetSubtitle")}
                   </p>
 
                   {/* Givebutter Widget */}
@@ -135,15 +134,15 @@ export default function DonatePage() {
                     <div className="flex items-center justify-center gap-4 text-sm text-gray-500">
                       <span className="flex items-center gap-1">
                         <Check className="w-4 h-4 text-green-500" />
-                        Secure
+                        {t("trustSecure")}
                       </span>
                       <span className="flex items-center gap-1">
                         <Check className="w-4 h-4 text-green-500" />
-                        Tax-deductible
+                        {t("trustTaxDeductible")}
                       </span>
                       <span className="flex items-center gap-1">
                         <Check className="w-4 h-4 text-green-500" />
-                        501(c)(3)
+                        {t("trust501c3")}
                       </span>
                     </div>
                   </div>
@@ -162,7 +161,7 @@ export default function DonatePage() {
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
                     <Sparkles className="w-8 h-8 text-orange-500" />
-                    Why Your Gift Matters
+                    {t("whyGiftMattersTitle")}
                   </h2>
                   <ul className="space-y-4">
                     {reasons.map((reason, index) => (
@@ -186,7 +185,7 @@ export default function DonatePage() {
                 {/* Impact breakdown */}
                 <div className="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-6 md:p-8 border border-orange-100">
                   <h3 className="text-xl font-bold text-gray-900 mb-4">
-                    Your Impact at Every Level
+                    {t("impactTitle")}
                   </h3>
                   <div className="space-y-3">
                     {donationImpacts.map((item, index) => (
@@ -228,11 +227,10 @@ export default function DonatePage() {
             >
               <Heart className="w-16 h-16 text-white/90 mx-auto mb-6 animate-pulse" />
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-                Don&apos;t Wait. Act Now.
+                {t("ctaTitle")}
               </h2>
               <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Right now, there are students who have never had the opportunity to
-                compete, debate, or discover their potential. You can change that today.
+                {t("ctaDescription")}
               </p>
               <div className="inline-flex flex-col sm:flex-row gap-4">
                 <button
@@ -244,12 +242,12 @@ export default function DonatePage() {
                   }}
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold bg-white text-orange-600 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
                 >
-                  Donate Now
+                  {t("ctaButton")}
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
               <p className="mt-6 text-white/70 text-sm">
-                Every gift, no matter the size, makes a difference.
+                {t("ctaFootnote")}
               </p>
             </motion.div>
           </div>
@@ -266,11 +264,10 @@ export default function DonatePage() {
               className="text-center"
             >
               <blockquote className="text-2xl md:text-3xl text-gray-700 italic mb-6 leading-relaxed">
-                &ldquo;Before JAMUN, I never thought I could speak in front of people.
-                Now I&apos;m leading my school&apos;s Model UN team. This program changed my life.&rdquo;
+                &ldquo;{t("testimonialQuote")}&rdquo;
               </blockquote>
               <cite className="text-gray-600 font-medium">
-                — Anonymous, 8th Grade Delegate
+                — {t("testimonialAuthor")}
               </cite>
             </motion.div>
           </div>
@@ -290,10 +287,10 @@ export default function DonatePage() {
                 />
               </div>
               <p>
-                JAMUN is a 501(c)(3) nonprofit organization. EIN: 39-3081214
+                {t("footerNonprofit")}
               </p>
               <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                Home
+                {t("footerHome")}
               </Link>
             </div>
           </div>

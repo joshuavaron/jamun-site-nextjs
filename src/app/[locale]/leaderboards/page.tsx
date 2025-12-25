@@ -24,6 +24,7 @@ import {
   getTopMovers,
   type LeaderboardEntry,
 } from "@/lib/leaderboard";
+import { useTranslations } from "next-intl";
 
 // =============================================================================
 // ANIMATED COUNTER COMPONENT
@@ -81,12 +82,12 @@ function RankBadge({ rank, isTied }: { rank: number; isTied: boolean }) {
 // MOVEMENT INDICATOR COMPONENT
 // =============================================================================
 
-function MovementIndicator({ movement }: { movement: number }) {
+function MovementIndicator({ movement, sameLabel }: { movement: number; sameLabel: string }) {
   if (movement === 0) {
     return (
       <span className="flex items-center text-gray-400 text-sm font-medium">
         <Minus className="w-4 h-4 mr-1" />
-        <span className="hidden sm:inline">Same</span>
+        <span className="hidden sm:inline">{sameLabel}</span>
       </span>
     );
   }
@@ -115,15 +116,17 @@ function MovementIndicator({ movement }: { movement: number }) {
 function LeaderboardTabs({
   activeTab,
   onTabChange,
+  tabLabels,
 }: {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  tabLabels: { overall: string; modelUN: string; mockTrial: string; mathletes: string };
 }) {
   const tabs: { id: string; name: string; icon: React.ReactNode }[] = [
-    { id: "Overall", name: "Overall", icon: <Layers className="w-4 h-4" /> },
-    { id: "Model UN", name: "Model UN", icon: <Globe className="w-4 h-4" /> },
-    { id: "Mock Trial", name: "Mock Trial", icon: <Scale className="w-4 h-4" /> },
-    { id: "Mathletes", name: "Mathletes", icon: <Calculator className="w-4 h-4" /> },
+    { id: "Overall", name: tabLabels.overall, icon: <Layers className="w-4 h-4" /> },
+    { id: "Model UN", name: tabLabels.modelUN, icon: <Globe className="w-4 h-4" /> },
+    { id: "Mock Trial", name: tabLabels.mockTrial, icon: <Scale className="w-4 h-4" /> },
+    { id: "Mathletes", name: tabLabels.mathletes, icon: <Calculator className="w-4 h-4" /> },
   ];
 
   return (
@@ -152,7 +155,13 @@ function LeaderboardTabs({
 // STANDINGS TABLE COMPONENT
 // =============================================================================
 
-function StandingsTable({ entries }: { entries: LeaderboardEntry[] }) {
+function StandingsTable({
+  entries,
+  labels,
+}: {
+  entries: LeaderboardEntry[];
+  labels: { rank: string; school: string; score: string; movement: string; same: string };
+}) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -171,10 +180,10 @@ function StandingsTable({ entries }: { entries: LeaderboardEntry[] }) {
       {/* Table Header */}
       <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 md:px-6 py-4 border-b border-gray-200">
         <div className="grid grid-cols-12 gap-2 md:gap-4 text-sm font-semibold text-gray-600 uppercase tracking-wider">
-          <div className="col-span-2 text-center">Rank</div>
-          <div className="col-span-6 md:col-span-7">School</div>
-          <div className="col-span-2 text-center">Score</div>
-          <div className="col-span-2 text-center">Movement</div>
+          <div className="col-span-2 text-center">{labels.rank}</div>
+          <div className="col-span-6 md:col-span-7">{labels.school}</div>
+          <div className="col-span-2 text-center">{labels.score}</div>
+          <div className="col-span-2 text-center">{labels.movement}</div>
         </div>
       </div>
 
@@ -218,7 +227,7 @@ function StandingsTable({ entries }: { entries: LeaderboardEntry[] }) {
 
               {/* Movement */}
               <div className="col-span-2 flex justify-center">
-                <MovementIndicator movement={movement} />
+                <MovementIndicator movement={movement} sameLabel={labels.same} />
               </div>
             </motion.div>
           );
@@ -232,7 +241,23 @@ function StandingsTable({ entries }: { entries: LeaderboardEntry[] }) {
 // TOP MOVERS SECTION
 // =============================================================================
 
-function TopMoversSection({ movers }: { movers: LeaderboardEntry[] }) {
+function TopMoversSection({
+  movers,
+  labels,
+}: {
+  movers: LeaderboardEntry[];
+  labels: {
+    badge: string;
+    title: string;
+    titleHighlight: string;
+    subtitle: string;
+    spots: string;
+    nowRank: (rank: number) => string;
+    wasRank: (rank: number) => string;
+    currentScore: string;
+    pts: string;
+  };
+}) {
   if (movers.length === 0) return null;
 
   return (
@@ -246,16 +271,16 @@ function TopMoversSection({ movers }: { movers: LeaderboardEntry[] }) {
       >
         <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200">
           <TrendingUp className="w-4 h-4" />
-          Rising Stars
+          {labels.badge}
         </span>
         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-          Biggest{" "}
+          {labels.title}
           <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
-            Movers
+            {labels.titleHighlight}
           </span>
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Schools making the biggest jumps in the rankings
+          {labels.subtitle}
         </p>
       </motion.div>
 
@@ -285,12 +310,12 @@ function TopMoversSection({ movers }: { movers: LeaderboardEntry[] }) {
                     </div>
                     <div className="flex items-center text-emerald-600 font-bold text-lg">
                       <ChevronUp className="w-5 h-5" />
-                      {movement} spots
+                      {movement} {labels.spots}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-sm text-gray-500">Now #{entry.rank}</div>
-                    <div className="text-xs text-gray-400">was #{entry.previousRank}</div>
+                    <div className="text-sm text-gray-500">{labels.nowRank(entry.rank)}</div>
+                    <div className="text-xs text-gray-400">{labels.wasRank(entry.previousRank)}</div>
                   </div>
                 </div>
 
@@ -299,8 +324,8 @@ function TopMoversSection({ movers }: { movers: LeaderboardEntry[] }) {
 
                 {/* Score */}
                 <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                  <span className="text-sm text-gray-500">Current score</span>
-                  <span className="font-bold text-gray-900">{entry.score} pts</span>
+                  <span className="text-sm text-gray-500">{labels.currentScore}</span>
+                  <span className="font-bold text-gray-900">{entry.score} {labels.pts}</span>
                 </div>
               </div>
             </motion.div>
@@ -315,13 +340,13 @@ function TopMoversSection({ movers }: { movers: LeaderboardEntry[] }) {
 // STATS BAR COMPONENT
 // =============================================================================
 
-function StatsBar() {
+function StatsBar({ labels }: { labels: { schoolsCompeting: string; programs: string } }) {
   const overallLeaderboard = LEADERBOARDS.find((l) => l.title === "Overall");
   const schoolCount = overallLeaderboard?.data.length || 0;
 
   const stats = [
-    { label: "Schools Competing", value: schoolCount, icon: Users },
-    { label: "Programs", value: 3, icon: Trophy },
+    { label: labels.schoolsCompeting, value: schoolCount, icon: Users },
+    { label: labels.programs, value: 3, icon: Trophy },
   ];
 
   return (
@@ -352,6 +377,7 @@ function StatsBar() {
 // =============================================================================
 
 export default function LeaderboardPage() {
+  const t = useTranslations("LeaderboardPage");
   const [activeTab, setActiveTab] = useState("Overall");
 
   const currentLeaderboard = LEADERBOARDS.find((l) => l.title === activeTab);
@@ -377,14 +403,14 @@ export default function LeaderboardPage() {
               className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue-light bg-jamun-blue/20 rounded-full border border-jamun-blue/30"
             >
               <Trophy className="w-4 h-4" />
-              Live Rankings
+              {t("heroBadge")}
             </motion.span>
 
             {/* Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-6">
-              <TypewriterText text="School " delay={0.3} />
+              <TypewriterText text={t("heroTitle")} delay={0.3} />
               <TypewriterText
-                text="Leaderboards"
+                text={t("heroTitleHighlight")}
                 delay={0.3 + 7 * 0.03}
                 className="bg-gradient-to-r from-jamun-blue-light via-purple-400 to-emerald-400 bg-clip-text text-transparent"
               />
@@ -396,8 +422,7 @@ export default function LeaderboardPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto"
             >
-              Track your school&apos;s progress and see how you stack up against the competition
-              across all JAMUN programs.
+              {t("heroSubtitle")}
             </motion.p>
 
             {/* Stats */}
@@ -406,7 +431,12 @@ export default function LeaderboardPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <StatsBar />
+              <StatsBar
+                labels={{
+                  schoolsCompeting: t("schoolsCompeting"),
+                  programs: t("programs"),
+                }}
+              />
             </motion.div>
 
             {/* Trophy decoration */}
@@ -434,17 +464,26 @@ export default function LeaderboardPage() {
           className="text-center mb-10"
         >
           <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-3 block">
-            Current Standings
+            {t("standingsEyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
-            School Rankings
+            {t("standingsTitle")}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-            Rankings are updated after each competition
+            {t("standingsSubtitle")}
           </p>
 
           {/* Leaderboard Tabs */}
-          <LeaderboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          <LeaderboardTabs
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            tabLabels={{
+              overall: t("tabOverall"),
+              modelUN: t("tabModelUN"),
+              mockTrial: t("tabMockTrial"),
+              mathletes: t("tabMathletes"),
+            }}
+          />
         </motion.div>
 
         {/* Standings Table */}
@@ -454,7 +493,16 @@ export default function LeaderboardPage() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <StandingsTable entries={entries} />
+          <StandingsTable
+            entries={entries}
+            labels={{
+              rank: t("tableRank"),
+              school: t("tableSchool"),
+              score: t("tableScore"),
+              movement: t("tableMovement"),
+              same: t("movementSame"),
+            }}
+          />
         </motion.div>
 
         {/* Tie explanation */}
@@ -466,12 +514,25 @@ export default function LeaderboardPage() {
           className="text-center text-sm text-gray-500 mt-6"
         >
           <Medal className="w-4 h-4 inline-block mr-1" />
-          Schools with the same score share their rank (indicated by &quot;T&quot;)
+          {t("tieExplanation")}
         </motion.p>
       </Section>
 
       {/* Top Movers Section */}
-      <TopMoversSection movers={movers} />
+      <TopMoversSection
+        movers={movers}
+        labels={{
+          badge: t("moversBadge"),
+          title: t("moversTitle"),
+          titleHighlight: t("moversTitleHighlight"),
+          subtitle: t("moversSubtitle"),
+          spots: t("moversSpots"),
+          nowRank: (rank) => t("moversNowRank", { rank }),
+          wasRank: (rank) => t("moversWasRank", { rank }),
+          currentScore: t("moversCurrentScore"),
+          pts: t("moversPts"),
+        }}
+      />
 
       {/* CTA Section */}
       <section className="bg-gradient-to-br from-jamun-blue via-blue-600 to-purple-600 py-16 md:py-20 relative overflow-hidden">
@@ -487,14 +548,14 @@ export default function LeaderboardPage() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-6">
-              Ready to Compete?
+              {t("ctaTitle")}
             </h2>
             <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Join one of our programs and start climbing the leaderboard with your school.
+              {t("ctaSubtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button href="/programs" size="lg" variant="accent" className="group">
-                Explore Programs
+                {t("ctaExplorePrograms")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button
@@ -502,7 +563,7 @@ export default function LeaderboardPage() {
                 size="lg"
                 className="bg-white text-jamun-blue hover:bg-gray-100"
               >
-                Register Your School
+                {t("ctaRegisterSchool")}
               </Button>
             </div>
           </motion.div>

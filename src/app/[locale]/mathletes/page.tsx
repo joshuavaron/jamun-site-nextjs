@@ -27,204 +27,7 @@ import {
   Zap,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// What participants do in Mathletes
-const mathletesActivities = [
-  {
-    icon: BookOpen,
-    title: "Learn Problem-Solving",
-    description:
-      "Master creative approaches to math problems that go beyond textbook methods. Discover elegant solutions.",
-  },
-  {
-    icon: Brain,
-    title: "Practice Weekly",
-    description:
-      "Work through challenging problems with teammates and coaches, building speed and accuracy.",
-  },
-  {
-    icon: Puzzle,
-    title: "Compete as a Team",
-    description:
-      "Collaborate with teammates in relay rounds and team challenges where every member contributes.",
-  },
-  {
-    icon: Trophy,
-    title: "Earn Recognition",
-    description:
-      "Compete for individual and team awards at regional and national competitions.",
-  },
-];
-
-// Skills developed through Mathletes
-const skills = [
-  {
-    icon: Brain,
-    title: "Logical Reasoning",
-    description:
-      "Develop systematic approaches to breaking down complex problems into manageable steps.",
-    color: "bg-emerald-100",
-    iconColor: "text-emerald-600",
-  },
-  {
-    icon: Zap,
-    title: "Mental Math",
-    description:
-      "Build lightning-fast calculation skills and number sense that serve you in all areas.",
-    color: "bg-teal-100",
-    iconColor: "text-teal-600",
-  },
-  {
-    icon: Target,
-    title: "Strategic Thinking",
-    description:
-      "Learn to identify patterns, make predictions, and choose the best approach to each problem.",
-    color: "bg-cyan-100",
-    iconColor: "text-cyan-600",
-  },
-  {
-    icon: Users,
-    title: "Collaboration",
-    description:
-      "Work with teammates to solve problems faster together than you could alone.",
-    color: "bg-green-100",
-    iconColor: "text-green-600",
-  },
-];
-
-// Competition format sections
-const competitionFormat = [
-  {
-    number: "01",
-    title: "Sprint Round",
-    description:
-      "Individual challenge: 30 problems in 40 minutes testing accuracy and speed across all math topics.",
-  },
-  {
-    number: "02",
-    title: "Target Round",
-    description:
-      "Pairs of challenging problems with 6 minutes each. Focus on deep problem-solving over speed.",
-  },
-  {
-    number: "03",
-    title: "Team Round",
-    description:
-      "Work together with your team of 4 to solve 10 problems in 20 minutes. Collaboration is key.",
-  },
-  {
-    number: "04",
-    title: "Countdown Round",
-    description:
-      "Head-to-head bracket tournament for top scorers. First to buzz in with the correct answer advances.",
-  },
-];
-
-// Math topics covered
-const mathTopics = [
-  {
-    name: "Number Theory",
-    topics: "Primes, divisibility, modular arithmetic",
-    level: "Core Topic",
-  },
-  {
-    name: "Algebra",
-    topics: "Equations, inequalities, word problems",
-    level: "Core Topic",
-  },
-  {
-    name: "Geometry",
-    topics: "Area, perimeter, angles, coordinate geometry",
-    level: "Core Topic",
-  },
-  {
-    name: "Probability & Counting",
-    topics: "Combinations, permutations, expected value",
-    level: "Advanced",
-  },
-];
-
-// Resources for Mathletes
-const resources = [
-  {
-    icon: File,
-    title: "Getting Started Guide",
-    description:
-      "An introduction to competitive math and how to begin your Mathletes journey.",
-  },
-  {
-    icon: ClipboardList,
-    title: "Practice Problem Sets",
-    description:
-      "Curated problems organized by difficulty and topic for daily practice.",
-  },
-  {
-    icon: ScrollText,
-    title: "Formula Sheet",
-    description:
-      "Essential formulas and theorems you'll need for competition success.",
-  },
-  {
-    icon: FileText,
-    title: "Mental Math Tips",
-    description:
-      "Techniques for faster calculations and building number sense.",
-  },
-  {
-    icon: BookOpen,
-    title: "Problem-Solving Strategies",
-    description:
-      "Learn systematic approaches like working backwards and finding patterns.",
-  },
-  {
-    icon: Calculator,
-    title: "Past Competition Problems",
-    description:
-      "Real problems from previous competitions with detailed solutions.",
-  },
-];
-
-// FAQs
-const faqs = [
-  {
-    question: "Do I need to be a math genius to join Mathletes?",
-    answer:
-      "Not at all! Mathletes is for students who enjoy math and want to challenge themselves. We welcome all skill levels and provide training that helps everyone improve. Some of our best competitors started with no competition experience.",
-  },
-  {
-    question: "What grades can participate?",
-    answer:
-      "JAMUN Mathletes is designed for middle school students in grades 5-8. We create age-appropriate practice materials and competition divisions so students compete with peers at similar levels.",
-  },
-  {
-    question: "When does Mathletes start?",
-    answer:
-      "Mathletes begins in Fall 2026! We're currently building our curriculum and partnerships. Join our mailing list to be the first to know when registration opens.",
-  },
-  {
-    question: "How much time does Mathletes require?",
-    answer:
-      "Mathletes involves about 4 hours per week with meetings every two weeks and 4 tournaments per year. Students are encouraged to do additional individual practice, but the time commitment is flexible based on your goals.",
-  },
-  {
-    question: "What math level do I need?",
-    answer:
-      "If you're comfortable with pre-algebra concepts, you're ready to start! Our training covers topics from basic arithmetic through introductory algebra and geometry.",
-  },
-  {
-    question: "Is there a cost to participate?",
-    answer:
-      "We work hard to keep costs minimal. Many of our resources are free, and we offer financial assistance for competition registration fees. No student should be unable to participate due to cost.",
-  },
-];
-
-// Stats for Mathletes (projected for launch)
-const mathletesStats = [
-  { value: "Fall 2026", label: "Program Launch" },
-  { value: "100%", label: "All Skill Levels" },
-  { value: "4+", label: "Competition Types" },
-  { value: "4", label: "Tournaments/Year" },
-];
+import { useTranslations } from "next-intl";
 
 const statDurations = [1400, 1800, 2200, 2600];
 
@@ -293,6 +96,181 @@ const itemVariants = {
 
 export default function MathletesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const t = useTranslations("MathletesHomePage");
+
+  // What participants do in Mathletes
+  const mathletesActivities = [
+    {
+      icon: BookOpen,
+      title: t("experienceActivity1Title"),
+      description: t("experienceActivity1Description"),
+    },
+    {
+      icon: Brain,
+      title: t("experienceActivity2Title"),
+      description: t("experienceActivity2Description"),
+    },
+    {
+      icon: Puzzle,
+      title: t("experienceActivity3Title"),
+      description: t("experienceActivity3Description"),
+    },
+    {
+      icon: Trophy,
+      title: t("experienceActivity4Title"),
+      description: t("experienceActivity4Description"),
+    },
+  ];
+
+  // Skills developed through Mathletes
+  const skills = [
+    {
+      icon: Brain,
+      title: t("skill1Title"),
+      description: t("skill1Description"),
+      color: "bg-emerald-100",
+      iconColor: "text-emerald-600",
+    },
+    {
+      icon: Zap,
+      title: t("skill2Title"),
+      description: t("skill2Description"),
+      color: "bg-teal-100",
+      iconColor: "text-teal-600",
+    },
+    {
+      icon: Target,
+      title: t("skill3Title"),
+      description: t("skill3Description"),
+      color: "bg-cyan-100",
+      iconColor: "text-cyan-600",
+    },
+    {
+      icon: Users,
+      title: t("skill4Title"),
+      description: t("skill4Description"),
+      color: "bg-green-100",
+      iconColor: "text-green-600",
+    },
+  ];
+
+  // Competition format sections
+  const competitionFormat = [
+    {
+      number: t("formatStep1Number"),
+      title: t("formatStep1Title"),
+      description: t("formatStep1Description"),
+    },
+    {
+      number: t("formatStep2Number"),
+      title: t("formatStep2Title"),
+      description: t("formatStep2Description"),
+    },
+    {
+      number: t("formatStep3Number"),
+      title: t("formatStep3Title"),
+      description: t("formatStep3Description"),
+    },
+    {
+      number: t("formatStep4Number"),
+      title: t("formatStep4Title"),
+      description: t("formatStep4Description"),
+    },
+  ];
+
+  // Math topics covered
+  const mathTopics = [
+    {
+      name: t("topic1Name"),
+      topics: t("topic1Topics"),
+      level: t("topic1Level"),
+    },
+    {
+      name: t("topic2Name"),
+      topics: t("topic2Topics"),
+      level: t("topic2Level"),
+    },
+    {
+      name: t("topic3Name"),
+      topics: t("topic3Topics"),
+      level: t("topic3Level"),
+    },
+    {
+      name: t("topic4Name"),
+      topics: t("topic4Topics"),
+      level: t("topic4Level"),
+    },
+  ];
+
+  // Resources for Mathletes
+  const resources = [
+    {
+      icon: File,
+      title: t("resource1Title"),
+      description: t("resource1Description"),
+    },
+    {
+      icon: ClipboardList,
+      title: t("resource2Title"),
+      description: t("resource2Description"),
+    },
+    {
+      icon: ScrollText,
+      title: t("resource3Title"),
+      description: t("resource3Description"),
+    },
+    {
+      icon: FileText,
+      title: t("resource4Title"),
+      description: t("resource4Description"),
+    },
+    {
+      icon: BookOpen,
+      title: t("resource5Title"),
+      description: t("resource5Description"),
+    },
+    {
+      icon: Calculator,
+      title: t("resource6Title"),
+      description: t("resource6Description"),
+    },
+  ];
+
+  // FAQs
+  const faqs = [
+    {
+      question: t("faq1Question"),
+      answer: t("faq1Answer"),
+    },
+    {
+      question: t("faq2Question"),
+      answer: t("faq2Answer"),
+    },
+    {
+      question: t("faq3Question"),
+      answer: t("faq3Answer"),
+    },
+    {
+      question: t("faq4Question"),
+      answer: t("faq4Answer"),
+    },
+    {
+      question: t("faq5Question"),
+      answer: t("faq5Answer"),
+    },
+    {
+      question: t("faq6Question"),
+      answer: t("faq6Answer"),
+    },
+  ];
+
+  // Stats for Mathletes (projected for launch)
+  const mathletesStats = [
+    { value: "Fall 2026", label: t("statsProgramLaunch") },
+    { value: "100%", label: t("statsAllSkillLevels") },
+    { value: "4+", label: t("statsCompetitionTypes") },
+    { value: "4", label: t("statsTournamentsYear") },
+  ];
 
   return (
     <main>
@@ -317,13 +295,13 @@ export default function MathletesPage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-600 bg-emerald-100 rounded-full border border-emerald-200"
               >
                 <Calculator className="w-4 h-4" />
-                Mathletes
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Where Numbers Become " delay={0.3} />
+                <TypewriterText text={t("heroTitlePart1")} delay={0.3} />
                 <TypewriterText
-                  text="Superpowers"
+                  text={t("heroTitlePart2")}
                   delay={0.3 + 21 * 0.03}
                   className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent"
                 />
@@ -335,11 +313,7 @@ export default function MathletesPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Prepare for MATHCOUNTS, AMC 8, and Math League competitions in our
-                Mathletes program for middle school students (grades 5-8). Master
-                number theory, algebra, geometry, and creative problem-solving strategies
-                through team-based learning. Build speed, accuracy, and mathematical
-                confidence that sets you apart in academics and competitions.
+                {t("heroDescription")}
               </motion.p>
 
               <motion.div
@@ -349,11 +323,11 @@ export default function MathletesPage() {
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Button href="mailto:contact@jamun.org" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
-                  Join the Interest List
+                  {t("heroPrimaryCTA")}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button href="/programs" variant="outline" size="lg">
-                  Explore All Programs
+                  {t("heroSecondaryCTA")}
                 </Button>
               </motion.div>
 
@@ -366,15 +340,15 @@ export default function MathletesPage() {
               >
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <GraduationCap className="w-4 h-4 text-emerald-600" />
-                  Grades 5-8
+                  {t("heroBadgeGrades")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <Sparkles className="w-4 h-4 text-emerald-600" />
-                  Launching Fall 2026
+                  {t("heroBadgeLaunch")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <CheckCircle className="w-4 h-4 text-emerald-600" />
-                  All Skill Levels Welcome
+                  {t("heroBadgeWelcome")}
                 </span>
               </motion.div>
             </motion.div>
@@ -393,7 +367,7 @@ export default function MathletesPage() {
               >
                 <Image
                   src="/images/conferences/homebackground2.webp"
-                  alt="Students working together on problem-solving"
+                  alt={t("heroImageAlt")}
                   fill
                   className="object-cover"
                   priority
@@ -409,10 +383,10 @@ export default function MathletesPage() {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">
-                          Coming Fall 2026
+                          {t("heroFloatingTitle")}
                         </p>
                         <p className="text-sm text-gray-600">
-                          Be Among the First to Join
+                          {t("heroFloatingSubtitle")}
                         </p>
                       </div>
                     </div>
@@ -443,10 +417,10 @@ export default function MathletesPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              JAMUN Mathletes at a Glance
+              {t("statsTitle")}
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              A brand new program launching Fall 2026—be among the founding members.
+              {t("statsSubtitle")}
             </p>
           </motion.div>
 
@@ -495,33 +469,27 @@ export default function MathletesPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-emerald-600 font-semibold text-sm tracking-widest uppercase mb-4 block">
-              About Mathletes
+              {t("aboutEyebrow")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-              What is{" "}
-              <span className="text-emerald-600">Mathletes</span>?
+              {t("aboutTitle")}
+              <span className="text-emerald-600">{t("aboutTitleHighlight")}</span>
+              {t("aboutTitleEnd")}
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Mathletes is a competitive mathematics program where students
-              challenge themselves with problems that go beyond the classroom.
-              Think of it as a sport for your brain—with individual events,
-              team competitions, and the thrill of solving problems under
-              pressure.
+              {t("aboutParagraph1")}
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              It&apos;s not about memorizing formulas—it&apos;s about creative thinking,
-              pattern recognition, and the satisfaction of cracking a tough
-              problem. Whether you love puzzles or want to strengthen your math
-              skills, Mathletes makes math genuinely exciting.
+              {t("aboutParagraph2")}
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Button href="mailto:contact@jamun.org" className="group bg-emerald-600 hover:bg-emerald-700">
-                Get Notified at Launch
+                {t("aboutPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button href="/mathletes/resources" variant="outline">
-                View Resources
+                {t("aboutSecondaryCTA")}
               </Button>
             </div>
           </motion.div>
@@ -536,7 +504,7 @@ export default function MathletesPage() {
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/conferences/DSC00832.webp"
-                alt="Students collaborating and discussing problem-solving"
+                alt={t("aboutImageAlt")}
                 fill
                 className="object-cover"
               />
@@ -546,11 +514,10 @@ export default function MathletesPage() {
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <blockquote className="text-white">
                   <p className="text-lg font-medium mb-2">
-                    &ldquo;Math used to be just homework. Now it&apos;s my favorite puzzle
-                    to solve with friends.&rdquo;
+                    &ldquo;{t("aboutQuote")}&rdquo;
                   </p>
                   <footer className="text-white/80 text-sm">
-                    — Ryan, 7th Grade Mathlete
+                    — {t("aboutQuoteAuthor")}
                   </footer>
                 </blockquote>
               </div>
@@ -566,9 +533,9 @@ export default function MathletesPage() {
       {/* What You'll Do Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="The Mathletes Experience"
-          title="What You'll Do as a Mathlete"
-          subtitle="From practice sessions to competition day—here's how you'll grow as a problem-solver."
+          eyebrow={t("experienceEyebrow")}
+          title={t("experienceTitle")}
+          subtitle={t("experienceSubtitle")}
         />
 
         <motion.div
@@ -589,7 +556,7 @@ export default function MathletesPage() {
                 <activity.icon className="w-7 h-7 text-emerald-600" />
               </div>
               <div className="inline-block px-3 py-1 mb-3 text-xs font-semibold text-emerald-600 bg-emerald-100 rounded-full">
-                Step {index + 1}
+                {t("experienceStep", { number: index + 1 })}
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 {activity.title}
@@ -605,9 +572,9 @@ export default function MathletesPage() {
       {/* Skills Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Skills for Life"
-          title="More Than Just Math Problems"
-          subtitle="The skills you develop in Mathletes will serve you in school, career, and life."
+          eyebrow={t("skillsEyebrow")}
+          title={t("skillsTitle")}
+          subtitle={t("skillsSubtitle")}
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -650,18 +617,16 @@ export default function MathletesPage() {
             <div className="bg-gradient-to-br from-emerald-100/50 via-teal-100/50 to-cyan-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-emerald-600/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                &ldquo;Mathletes taught me that getting stuck is just part of the
-                process. Now I actually enjoy the challenge of figuring things
-                out.&rdquo;
+                &ldquo;{t("skillsTestimonial")}&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-emerald-200 flex items-center justify-center">
                   <span className="text-emerald-600 font-bold">SL</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Sarah L.</p>
+                  <p className="font-semibold text-gray-900">{t("skillsTestimonialAuthor")}</p>
                   <p className="text-sm text-gray-600">
-                    8th Grade, Second-Year Mathlete
+                    {t("skillsTestimonialRole")}
                   </p>
                 </div>
               </div>
@@ -673,9 +638,9 @@ export default function MathletesPage() {
       {/* Competition Format Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Competition Format"
-          title="How Competitions Work"
-          subtitle="From sprint rounds to countdown brackets, here's what to expect at a competition."
+          eyebrow={t("formatEyebrow")}
+          title={t("formatTitle")}
+          subtitle={t("formatSubtitle")}
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -720,7 +685,7 @@ export default function MathletesPage() {
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/conferences/DSC01363.webp"
-                alt="Students taking a break during competition"
+                alt={t("formatImageAlt")}
                 fill
                 className="object-cover"
               />
@@ -742,17 +707,17 @@ export default function MathletesPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">
-                      Typical Competition
+                      {t("formatTypicalTitle")}
                     </p>
-                    <p className="text-sm text-gray-500">Half to Full Day</p>
+                    <p className="text-sm text-gray-500">{t("formatTypicalDuration")}</p>
                   </div>
                 </div>
                 <div className="flex gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" /> 4 Rounds
+                    <Clock className="w-4 h-4" /> {t("formatRounds")}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Users className="w-4 h-4" /> Team of 4
+                    <Users className="w-4 h-4" /> {t("formatTeamSize")}
                   </span>
                 </div>
               </div>
@@ -767,9 +732,9 @@ export default function MathletesPage() {
       {/* Topics Covered Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="What You'll Learn"
-          title="Topics We Cover"
-          subtitle="Explore the math concepts you'll master through practice and competition."
+          eyebrow={t("topicsEyebrow")}
+          title={t("topicsTitle")}
+          subtitle={t("topicsSubtitle")}
         />
 
         <motion.div
@@ -793,7 +758,7 @@ export default function MathletesPage() {
                 <span
                   className={cn(
                     "px-3 py-1 text-xs font-semibold rounded-full",
-                    topic.level === "Core Topic"
+                    topic.level === t("topic1Level")
                       ? "bg-green-100 text-green-700"
                       : "bg-amber-100 text-amber-700"
                   )}
@@ -816,8 +781,7 @@ export default function MathletesPage() {
           transition={{ delay: 0.3 }}
           className="text-center text-gray-500 mt-8"
         >
-          Topics expand as you advance. Our curriculum grows with you from
-          beginner to competition-ready.
+          {t("topicsNote")}
         </motion.p>
       </Section>
 
@@ -826,14 +790,13 @@ export default function MathletesPage() {
         {/* Centered Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
           <span className="text-emerald-600 font-semibold text-sm tracking-widest uppercase mb-3 block">
-            Free Resources
+            {t("resourcesEyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
-            Mathletes Resources
+            {t("resourcesTitle")}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Everything you need to prepare for competition—all free and designed
-            for middle schoolers.
+            {t("resourcesSubtitle")}
           </p>
         </div>
 
@@ -898,7 +861,7 @@ export default function MathletesPage() {
           className="flex justify-center mt-10"
         >
           <Button href="/mathletes/resources" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
-            View All Resources
+            {t("resourcesCTA")}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>
@@ -907,9 +870,9 @@ export default function MathletesPage() {
       {/* FAQ Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Common Questions"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about getting started with Mathletes."
+          eyebrow={t("faqEyebrow")}
+          title={t("faqTitle")}
+          subtitle={t("faqSubtitle")}
         />
 
         <div className="max-w-3xl mx-auto">
@@ -971,34 +934,31 @@ export default function MathletesPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
             <Calculator className="w-4 h-4 text-emerald-600" />
             <span className="text-sm font-medium text-emerald-600">
-              Coming Fall 2026
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Be a Founding Member of{" "}
+            {t("ctaTitle")}
             <span className="bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 bg-clip-text text-transparent">
-              JAMUN Mathletes
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We&apos;re building a program where math is exciting, challenging, and
-            fun. Whether you&apos;re a student ready to test your skills or a teacher
-            looking to start a Mathletes club, join our interest list to be the
-            first to know when we launch.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="mailto:contact@jamun.org" size="lg" className="group bg-emerald-600 hover:bg-emerald-700">
-                Join the Interest List
+                {t("ctaPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/programs" variant="outline" size="lg">
-                Explore Other Programs
+                {t("ctaSecondaryCTA")}
               </Button>
             </motion.div>
           </div>
@@ -1010,7 +970,7 @@ export default function MathletesPage() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Questions? Reach out to our Mathletes team at{" "}
+            {t("ctaContactText")}{" "}
             <a
               href="mailto:mathletes@jamun.org"
               className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"

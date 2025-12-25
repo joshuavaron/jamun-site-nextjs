@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   Globe,
@@ -131,35 +132,41 @@ const resources = [
     title: "A Short Guide to the Crisis",
     description:
       "Learn how crisis committees work, from backroom notes to directives.",
+    date: "2024-03-18",
   },
   {
     icon: ClipboardList,
     title: "Crisis Committee Position Paper Outline",
     description:
       "A structured template for writing crisis committee position papers.",
+    date: "2024-07-25",
   },
   {
     icon: ScrollText,
     title: "Directive Outline",
     description: "A template for writing crisis committee directives.",
+    date: "2025-02-09",
   },
   {
     icon: FileText,
     title: "Draft Resolution Outline",
     description:
       "A template for writing General Assembly draft resolutions.",
+    date: "2024-11-03",
   },
   {
     icon: BookOpen,
     title: "Parliamentary Procedure Guide",
     description:
       "Everything you need to know about motions, points, and debate rules.",
+    date: "2025-06-14",
   },
   {
     icon: Globe,
     title: "Country Research Guide",
     description:
       "Step-by-step instructions for researching your assigned country.",
+    date: "2024-09-22",
   },
 ];
 
@@ -265,6 +272,7 @@ const itemVariants = {
 export default function ModelUNPageContent({
   committees,
 }: ModelUNPageContentProps) {
+  const t = useTranslations("ModelUNHomePage");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Use committees from MDX, capped at 6
@@ -277,10 +285,10 @@ export default function ModelUNPageContent({
   );
 
   const munStats = [
-    { value: `${totalDelegates}+`, label: "Delegate Spots" },
-    { value: "15+", label: "Schools Participating" },
-    { value: `${committees.length}`, label: "Committees Offered" },
-    { value: "100%", label: "Beginner Welcome" },
+    { value: `${totalDelegates}+`, label: t("statsDelegateSpots") },
+    { value: "15+", label: t("statsSchoolsParticipating") },
+    { value: `${committees.length}`, label: t("statsCommitteesOffered") },
+    { value: "100%", label: t("statsBeginnerWelcome") },
   ];
 
   return (
@@ -306,13 +314,13 @@ export default function ModelUNPageContent({
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
                 <Globe className="w-4 h-4" />
-                Model United Nations
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Become a " delay={0.3} />
+                <TypewriterText text={t("heroTitlePart1")} delay={0.3} />
                 <TypewriterText
-                  text="Global Diplomat"
+                  text={t("heroTitlePart2")}
                   delay={0.3 + 10 * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent"
                 />
@@ -324,12 +332,7 @@ export default function ModelUNPageContent({
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Step into the shoes of UN delegates and debate pressing global issues
-                like climate change, human rights, and international security. Our
-                Model UN program for middle school students (grades 5-8) develops
-                public speaking, research, and diplomatic negotiation skills through
-                beginner-friendly conferences. Learn to write position papers, draft
-                resolutions, and build coalitions with fellow delegates.
+                {t("heroDescription")}
               </motion.p>
 
               <motion.div
@@ -339,11 +342,11 @@ export default function ModelUNPageContent({
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Button href="/register" size="lg" className="group">
-                  Join Model UN
+                  {t("heroPrimaryCTA")}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button href="/modelun/committees" variant="outline" size="lg">
-                  See Our Committees
+                  {t("heroSecondaryCTA")}
                 </Button>
               </motion.div>
 
@@ -356,15 +359,15 @@ export default function ModelUNPageContent({
               >
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <GraduationCap className="w-4 h-4 text-jamun-blue" />
-                  Grades 5-8
+                  {t("heroBadgeGrades")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <CheckCircle className="w-4 h-4 text-jamun-blue" />
-                  No Experience Needed
+                  {t("heroBadgeExperience")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
                   <Trophy className="w-4 h-4 text-jamun-blue" />
-                  Awards & Recognition
+                  {t("heroBadgeAwards")}
                 </span>
               </motion.div>
             </motion.div>
@@ -383,7 +386,7 @@ export default function ModelUNPageContent({
               >
                 <Image
                   src="/images/conferences/homebackground.webp"
-                  alt="Model UN delegate raising placard during committee session"
+                  alt={t("heroImageAlt")}
                   fill
                   className="object-cover"
                   priority
@@ -399,10 +402,10 @@ export default function ModelUNPageContent({
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">
-                          Spring Conference 2025
+                          {t("heroFloatingTitle")}
                         </p>
                         <p className="text-sm text-gray-600">
-                          Registration Now Open
+                          {t("heroFloatingSubtitle")}
                         </p>
                       </div>
                     </div>
@@ -433,11 +436,10 @@ export default function ModelUNPageContent({
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              JAMUN Model UN by the Numbers
+              {t("statsTitle")}
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Join a growing community of young diplomats making their voices
-              heard.
+              {t("statsSubtitle")}
             </p>
           </motion.div>
 
@@ -482,34 +484,26 @@ export default function ModelUNPageContent({
             transition={{ duration: 0.6 }}
           >
             <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-4 block">
-              About Model UN
+              {t("aboutEyebrow")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-              What is{" "}
-              <span className="text-jamun-blue">Model United Nations</span>?
+              {t("aboutTitle")}
+              <span className="text-jamun-blue">{t("aboutTitleHighlight")}</span>{t("aboutTitleEnd")}
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              Model United Nations (MUN) is an educational simulation where
-              students take on the role of delegates representing different
-              countries at the United Nations. You&apos;ll research real nations,
-              debate actual global issues, and work with other delegates to
-              craft solutions through resolutions.
+              {t("aboutParagraph1")}
             </p>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              It&apos;s more than just debate—it&apos;s diplomacy, research, public
-              speaking, and collaboration all rolled into one exciting
-              experience. Whether you&apos;re passionate about climate change, human
-              rights, or international security, Model UN gives you a platform
-              to explore these issues from a global perspective.
+              {t("aboutParagraph2")}
             </p>
 
             <div className="flex flex-wrap gap-4">
               <Button href="/register" className="group">
-                Get Started
+                {t("aboutPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button href="/modelun/resources" variant="outline">
-                View Resources
+                {t("aboutSecondaryCTA")}
               </Button>
             </div>
           </motion.div>
@@ -524,7 +518,7 @@ export default function ModelUNPageContent({
             <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/conferences/DSC01032.webp"
-                alt="Model UN delegate speaking confidently"
+                alt={t("aboutImageAlt")}
                 fill
                 className="object-cover"
               />
@@ -534,11 +528,10 @@ export default function ModelUNPageContent({
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <blockquote className="text-white">
                   <p className="text-lg font-medium mb-2">
-                    &quot;Model UN taught me that every voice matters in shaping our
-                    world&apos;s future.&quot;
+                    &quot;{t("aboutQuote")}&quot;
                   </p>
                   <footer className="text-white/80 text-sm">
-                    — Former JAMUN Delegate
+                    — {t("aboutQuoteAuthor")}
                   </footer>
                 </blockquote>
               </div>
@@ -554,9 +547,9 @@ export default function ModelUNPageContent({
       {/* What Delegates Do Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="The Delegate Experience"
-          title="What You&apos;ll Do as a Delegate"
-          subtitle="From research to resolution—here&apos;s how you&apos;ll make your mark in committee."
+          eyebrow={t("delegateEyebrow")}
+          title={t("delegateTitle")}
+          subtitle={t("delegateSubtitle")}
         />
 
         <motion.div
@@ -577,13 +570,13 @@ export default function ModelUNPageContent({
                 <activity.icon className="w-7 h-7 text-jamun-blue" />
               </div>
               <div className="inline-block px-3 py-1 mb-3 text-xs font-semibold text-jamun-blue bg-jamun-blue/10 rounded-full">
-                Step {index + 1}
+                {t("delegateStep", { number: index + 1 })}
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {activity.title}
+                {t(`delegateActivity${index + 1}Title` as "delegateActivity1Title" | "delegateActivity2Title" | "delegateActivity3Title" | "delegateActivity4Title")}
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                {activity.description}
+                {t(`delegateActivity${index + 1}Description` as "delegateActivity1Description" | "delegateActivity2Description" | "delegateActivity3Description" | "delegateActivity4Description")}
               </p>
             </motion.div>
           ))}
@@ -593,9 +586,9 @@ export default function ModelUNPageContent({
       {/* Skills Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Skills for Life"
-          title="More Than Just Debate"
-          subtitle="The skills you develop in Model UN will serve you in school, career, and life."
+          eyebrow={t("skillsEyebrow")}
+          title={t("skillsTitle")}
+          subtitle={t("skillsSubtitle")}
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -606,7 +599,7 @@ export default function ModelUNPageContent({
             viewport={{ once: true, margin: "-100px" }}
             className="grid sm:grid-cols-2 gap-6"
           >
-            {skills.map((skill) => (
+            {skills.map((skill, index) => (
               <motion.div
                 key={skill.title}
                 variants={itemVariants}
@@ -622,9 +615,11 @@ export default function ModelUNPageContent({
                   <skill.icon className={cn("w-6 h-6", skill.iconColor)} />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {skill.title}
+                  {t(`skill${index + 1}Title` as "skill1Title" | "skill2Title" | "skill3Title" | "skill4Title")}
                 </h3>
-                <p className="text-sm text-gray-600">{skill.description}</p>
+                <p className="text-sm text-gray-600">
+                  {t(`skill${index + 1}Description` as "skill1Description" | "skill2Description" | "skill3Description" | "skill4Description")}
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -638,18 +633,16 @@ export default function ModelUNPageContent({
             <div className="bg-gradient-to-br from-jamun-blue/10 via-sky-100/50 to-indigo-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-jamun-blue/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                &quot;Before Model UN, I was terrified of public speaking. Now I
-                volunteer to give presentations in class. It completely changed
-                how I see myself.&quot;
+                &quot;{t("skillsTestimonial")}&quot;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-jamun-blue/20 flex items-center justify-center">
                   <span className="text-jamun-blue font-bold">A</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Anonymous</p>
+                  <p className="font-semibold text-gray-900">{t("skillsTestimonialAuthor")}</p>
                   <p className="text-sm text-gray-600">
-                    8th Grade Delegate
+                    {t("skillsTestimonialRole")}
                   </p>
                 </div>
               </div>
@@ -661,9 +654,9 @@ export default function ModelUNPageContent({
       {/* Conference Format Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Conference Experience"
-          title="How a Conference Works"
-          subtitle="From opening ceremonies to awards, here&apos;s what to expect at a JAMUN conference."
+          eyebrow={t("conferenceEyebrow")}
+          title={t("conferenceTitle")}
+          subtitle={t("conferenceSubtitle")}
         />
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -685,13 +678,15 @@ export default function ModelUNPageContent({
                 className="flex gap-5"
               >
                 <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-jamun-blue flex items-center justify-center text-white font-bold text-lg">
-                  {step.number}
+                  {t(`conferenceStep${index + 1}Number` as "conferenceStep1Number" | "conferenceStep2Number" | "conferenceStep3Number" | "conferenceStep4Number")}
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                    {step.title}
+                    {t(`conferenceStep${index + 1}Title` as "conferenceStep1Title" | "conferenceStep2Title" | "conferenceStep3Title" | "conferenceStep4Title")}
                   </h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <p className="text-gray-600">
+                    {t(`conferenceStep${index + 1}Description` as "conferenceStep1Description" | "conferenceStep2Description" | "conferenceStep3Description" | "conferenceStep4Description")}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -708,7 +703,7 @@ export default function ModelUNPageContent({
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/conferences/DSC02021.webp"
-                alt="Students receiving awards at JAMUN conference"
+                alt={t("conferenceImageAlt")}
                 fill
                 className="object-cover"
               />
@@ -730,17 +725,17 @@ export default function ModelUNPageContent({
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">
-                      Typical Conference
+                      {t("conferenceTypicalTitle")}
                     </p>
-                    <p className="text-sm text-gray-500">2 Days</p>
+                    <p className="text-sm text-gray-500">{t("conferenceTypicalDays")}</p>
                   </div>
                 </div>
                 <div className="flex gap-4 text-sm text-gray-600">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" /> 7-9 Hours/Day
+                    <Clock className="w-4 h-4" /> {t("conferenceHoursPerDay")}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Users className="w-4 h-4" /> 500-1200 Delegates
+                    <Users className="w-4 h-4" /> {t("conferenceDelegates")}
                   </span>
                 </div>
               </div>
@@ -755,9 +750,9 @@ export default function ModelUNPageContent({
       {/* Sample Committees */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Our Committees"
-          title="Sample Committee Topics"
-          subtitle="Explore the kinds of committees and topics you might encounter at our conferences."
+          eyebrow={t("committeesEyebrow")}
+          title={t("committeesTitle")}
+          subtitle={t("committeesSubtitle")}
         />
 
         {sampleCommittees.length > 0 ? (
@@ -792,8 +787,10 @@ export default function ModelUNPageContent({
                         )}
                       >
                         {committee.level === "Beginner-Friendly"
-                          ? "Beginner"
-                          : committee.level}
+                          ? t("committeesLevelBeginner")
+                          : committee.level === "Intermediate"
+                            ? t("committeesLevelIntermediate")
+                            : t("committeesLevelAdvanced")}
                       </span>
                     </div>
 
@@ -816,7 +813,7 @@ export default function ModelUNPageContent({
                     <div className="pt-4 border-t border-gray-100">
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Users className="w-4 h-4" />
-                        <span>{committee.delegateCount} delegates</span>
+                        <span>{t("committeesDelegates", { count: committee.delegateCount })}</span>
                       </div>
                     </div>
                   </div>
@@ -828,7 +825,7 @@ export default function ModelUNPageContent({
           <div className="text-center py-12">
             <Globe className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 text-lg">
-              Committee information coming soon.
+              {t("committeesEmpty")}
             </p>
           </div>
         )}
@@ -842,18 +839,18 @@ export default function ModelUNPageContent({
           className="text-center mt-10"
         >
           <Button href="/modelun/committees" size="lg" className="group">
-            See All Committees
+            {t("committeesSeeCTA")}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
           <p className="text-gray-500 text-sm mt-4">
-            Topics rotate each conference. Check our{" "}
+            {t("committeesRotateNote")}{" "}
             <a
               href="/register"
               className="text-jamun-blue hover:text-jamun-blue-dark font-medium"
             >
-              registration page
+              {t("committeesRegistrationLink")}
             </a>{" "}
-            for current offerings.
+            {t("committeesRotateNoteEnd")}
           </p>
         </motion.div>
       </Section>
@@ -863,14 +860,13 @@ export default function ModelUNPageContent({
         {/* Centered Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
           <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-3 block">
-            Free Resources
+            {t("resourcesEyebrow")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
-            Delegate Resources
+            {t("resourcesTitle")}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Everything you need to prepare for your next conference—all free and
-            designed for middle schoolers.
+            {t("resourcesSubtitle")}
           </p>
         </div>
 
@@ -898,10 +894,10 @@ export default function ModelUNPageContent({
                   <resource.icon className="w-7 h-7 text-jamun-blue" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {resource.title}
+                  {t(`resource${index + 1}Title` as "resource1Title" | "resource2Title" | "resource3Title" | "resource4Title" | "resource5Title" | "resource6Title")}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  {resource.description}
+                  {t(`resource${index + 1}Description` as "resource1Description" | "resource2Description" | "resource3Description" | "resource4Description" | "resource5Description" | "resource6Description")}
                 </p>
               </div>
             ))}
@@ -915,10 +911,10 @@ export default function ModelUNPageContent({
                   <resource.icon className="w-7 h-7 text-jamun-blue" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {resource.title}
+                  {t(`resource${index + 1}Title` as "resource1Title" | "resource2Title" | "resource3Title" | "resource4Title" | "resource5Title" | "resource6Title")}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  {resource.description}
+                  {t(`resource${index + 1}Description` as "resource1Description" | "resource2Description" | "resource3Description" | "resource4Description" | "resource5Description" | "resource6Description")}
                 </p>
               </div>
             ))}
@@ -934,7 +930,7 @@ export default function ModelUNPageContent({
           className="flex justify-center mt-10"
         >
           <Button href="/modelun/resources" size="lg" className="group">
-            View All Resources
+            {t("resourcesCTA")}
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>
@@ -943,9 +939,9 @@ export default function ModelUNPageContent({
       {/* FAQ Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Common Questions"
-          title="Frequently Asked Questions"
-          subtitle="Everything you need to know about getting started with Model UN."
+          eyebrow={t("faqEyebrow")}
+          title={t("faqTitle")}
+          subtitle={t("faqSubtitle")}
         />
 
         <div className="max-w-3xl mx-auto">
@@ -967,7 +963,7 @@ export default function ModelUNPageContent({
                   className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-semibold text-gray-900 pr-4">
-                    {faq.question}
+                    {t(`faq${index + 1}Question` as "faq1Question" | "faq2Question" | "faq3Question" | "faq4Question" | "faq5Question" | "faq6Question")}
                   </span>
                   <ChevronRight
                     className={cn(
@@ -986,7 +982,7 @@ export default function ModelUNPageContent({
                   className="overflow-hidden"
                 >
                   <div className="p-5 pt-0 text-gray-600 leading-relaxed">
-                    {faq.answer}
+                    {t(`faq${index + 1}Answer` as "faq1Answer" | "faq2Answer" | "faq3Answer" | "faq4Answer" | "faq5Answer" | "faq6Answer")}
                   </div>
                 </motion.div>
               </motion.div>
@@ -1007,33 +1003,31 @@ export default function ModelUNPageContent({
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Globe className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              Ready to Start?
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Begin Your{" "}
+            {t("ctaTitle")}
             <span className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent">
-              Diplomatic Journey
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you&apos;re a student ready to represent nations on the world
-            stage or a teacher looking to start a Model UN club, we&apos;re here to
-            help you take the first step.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Register for Model UN
+                {t("ctaPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
-                Contact Us
+                {t("ctaSecondaryCTA")}
               </Button>
             </motion.div>
           </div>
@@ -1045,7 +1039,7 @@ export default function ModelUNPageContent({
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Questions? Reach out to our Model UN team at{" "}
+            {t("ctaContactText")}{" "}
             <a
               href="mailto:modelun@jamun.org"
               className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"

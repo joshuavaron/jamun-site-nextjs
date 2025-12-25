@@ -13,116 +13,7 @@ import {
   Quote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Note: Metadata is exported from layout.tsx for this client component
-
-// Team member data
-const teamMembers = [
-  {
-    name: "Joshua Varon",
-    role: "Founder",
-    image: null,
-    description:
-      "Student at Duke University studying mathematics and computer science. Passionate about making academic competitions accessible to all students.",
-    bgColor: "bg-rose-100",
-    textColor: "text-rose-600",
-    ringColor: "ring-rose-300",
-  },
-  {
-    name: "Charlie Fumerton",
-    role: "Director of Model UN",
-    image: "/images/team/charlie.webp",
-    description:
-      "Volleyball player with a keen interest in politics and international relations. Dedicated to fostering diplomatic skills in young delegates.",
-    bgColor: "bg-jamun-blue/10",
-    textColor: "text-jamun-blue",
-    ringColor: "ring-jamun-blue/30",
-  },
-  {
-    name: "Dustin Simon",
-    role: "Director of Mock Trial",
-    image: "/images/team/dustin.webp",
-    description:
-      "Tennis enthusiast studying mathematics. Committed to helping students develop critical thinking and advocacy skills through legal simulation.",
-    bgColor: "bg-purple-100",
-    textColor: "text-purple-600",
-    ringColor: "ring-purple-300",
-  },
-  {
-    name: "Will Ballis",
-    role: "Director of Mathletes",
-    image: "/images/team/will.webp",
-    description:
-      "Former Mathletes champion who studied advanced mathematics. Passionate about philanthropy and expanding math competition opportunities.",
-    bgColor: "bg-emerald-100",
-    textColor: "text-emerald-600",
-    ringColor: "ring-emerald-300",
-  },
-];
-
-// Core values
-const values = [
-  {
-    icon: Heart,
-    title: "Passion-Driven",
-    description:
-      "We believe that genuine enthusiasm is contagious. Our volunteers bring energy and excitement that transforms academic competition into an adventure.",
-    color: "bg-rose-100",
-    iconColor: "text-rose-600",
-  },
-  {
-    icon: Users,
-    title: "Community First",
-    description:
-      "We're building more than programs—we're building a supportive family where every student feels they belong, regardless of experience level.",
-    color: "bg-jamun-blue/10",
-    iconColor: "text-jamun-blue",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation",
-    description:
-      "As a youth-led organization, we think differently. We constantly reimagine how to make learning engaging and competitions accessible.",
-    color: "bg-amber-100",
-    iconColor: "text-amber-600",
-  },
-  {
-    icon: Target,
-    title: "Excellence",
-    description:
-      "We hold ourselves to the highest standards because our students deserve nothing less. Quality in everything we create.",
-    color: "bg-purple-100",
-    iconColor: "text-purple-600",
-  },
-];
-
-// Timeline milestones
-const timeline = [
-  {
-    year: "2023",
-    title: "The Spark",
-    description:
-      "JAMUN was founded by a small group of high school students who saw a gap: middle schoolers were being left behind in academic competitions. We decided to change that.",
-  },
-  {
-    year: "2024",
-    title: "Growing Roots",
-    description:
-      "Our first conferences took flight. What started as a single Model UN event expanded to include Mock Trial and Mathletes, reaching students across multiple states.",
-  },
-  {
-    year: "2025",
-    title: "Building Momentum",
-    description:
-      "JAMUN earned 501(c)(3) nonprofit status. Our volunteer base grew to 80+, and we raised over $70,000 to make programs accessible to all.",
-  },
-  {
-    year: "Today",
-    title: "Looking Forward",
-    description:
-      "With 500+ students impacted and 30+ schools reached, we're just getting started. Our mission remains the same: make academics fun for every student.",
-  },
-];
+import { useTranslations } from "next-intl";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -138,6 +29,112 @@ const itemVariants = {
 };
 
 export default function AboutPage() {
+  const t = useTranslations("AboutPage");
+
+  // Team member data with translations
+  const teamMembers = [
+    {
+      name: t("teamMember1Name"),
+      role: t("teamMember1Role"),
+      image: null,
+      description: t("teamMember1Description"),
+      bgColor: "bg-rose-100",
+      textColor: "text-rose-600",
+      ringColor: "ring-rose-300",
+    },
+    {
+      name: t("teamMember2Name"),
+      role: t("teamMember2Role"),
+      image: "/images/team/charlie.webp",
+      description: t("teamMember2Description"),
+      bgColor: "bg-jamun-blue/10",
+      textColor: "text-jamun-blue",
+      ringColor: "ring-jamun-blue/30",
+    },
+    {
+      name: t("teamMember3Name"),
+      role: t("teamMember3Role"),
+      image: "/images/team/dustin.webp",
+      description: t("teamMember3Description"),
+      bgColor: "bg-purple-100",
+      textColor: "text-purple-600",
+      ringColor: "ring-purple-300",
+    },
+    {
+      name: t("teamMember4Name"),
+      role: t("teamMember4Role"),
+      image: "/images/team/will.webp",
+      description: t("teamMember4Description"),
+      bgColor: "bg-emerald-100",
+      textColor: "text-emerald-600",
+      ringColor: "ring-emerald-300",
+    },
+  ];
+
+  // Core values with translations
+  const values = [
+    {
+      icon: Heart,
+      title: t("valuePassionTitle"),
+      description: t("valuePassionDescription"),
+      color: "bg-rose-100",
+      iconColor: "text-rose-600",
+    },
+    {
+      icon: Users,
+      title: t("valueCommunityTitle"),
+      description: t("valueCommunityDescription"),
+      color: "bg-jamun-blue/10",
+      iconColor: "text-jamun-blue",
+    },
+    {
+      icon: Lightbulb,
+      title: t("valueInnovationTitle"),
+      description: t("valueInnovationDescription"),
+      color: "bg-amber-100",
+      iconColor: "text-amber-600",
+    },
+    {
+      icon: Target,
+      title: t("valueExcellenceTitle"),
+      description: t("valueExcellenceDescription"),
+      color: "bg-purple-100",
+      iconColor: "text-purple-600",
+    },
+  ];
+
+  // Timeline milestones with translations
+  const timeline = [
+    {
+      year: t("timeline2023Year"),
+      title: t("timeline2023Title"),
+      description: t("timeline2023Description"),
+    },
+    {
+      year: t("timeline2024Year"),
+      title: t("timeline2024Title"),
+      description: t("timeline2024Description"),
+    },
+    {
+      year: t("timeline2025Year"),
+      title: t("timeline2025Title"),
+      description: t("timeline2025Description"),
+    },
+    {
+      year: t("timelineTodayYear"),
+      title: t("timelineTodayTitle"),
+      description: t("timelineTodayDescription"),
+    },
+  ];
+
+  // Impact stats with translations
+  const impactStats = [
+    { value: t("impactStat1Value"), label: t("impactStat1Label") },
+    { value: t("impactStat2Value"), label: t("impactStat2Label") },
+    { value: t("impactStat3Value"), label: t("impactStat3Label") },
+    { value: t("impactStat4Value"), label: t("impactStat4Label") },
+  ];
+
   return (
     <main>
       {/* Hero Section */}
@@ -161,13 +158,13 @@ export default function AboutPage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
                 <Sparkles className="w-4 h-4" />
-                Our Story
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Built by Students, " delay={0.3} />
+                <TypewriterText text={t("heroHeadline1")} delay={0.3} />
                 <TypewriterText
-                  text="For Students"
+                  text={t("heroHeadline2")}
                   delay={0.3 + 19 * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent"
                 />
@@ -179,12 +176,7 @@ export default function AboutPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                JAMUN (Junior Assembly of the Model United Nations) is a 501(c)(3) nonprofit
-                organization run entirely by passionate high school and college student volunteers.
-                We provide Model UN, Mock Trial, and Mathletes programs for middle school
-                students in grades 5-8—with free resources and low-cost conferences, plus grants
-                for those who need them—because we believe academic competition should be
-                exciting, accessible, and—most importantly—fun.
+                {t("heroDescription")}
               </motion.p>
 
               <motion.div
@@ -194,11 +186,11 @@ export default function AboutPage() {
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Button href="/programs" size="lg" className="group">
-                  Explore Our Programs
+                  {t("heroPrimaryCTA")}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button href="/donate" variant="outline" size="lg">
-                  Support Our Mission
+                  {t("heroSecondaryCTA")}
                 </Button>
               </motion.div>
             </motion.div>
@@ -217,7 +209,7 @@ export default function AboutPage() {
               >
                 <Image
                   src="/images/conferences/DSC01054.webp"
-                  alt="JAMUN volunteers and participants at conference"
+                  alt={t("heroImageAlt")}
                   fill
                   className="object-cover"
                   priority
@@ -243,27 +235,17 @@ export default function AboutPage() {
             transition={{ duration: 0.6 }}
           >
             <span className="text-jamun-blue font-semibold text-sm tracking-widest uppercase mb-4 block">
-              Our Mission
+              {t("missionEyebrow")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-              Make Academics{" "}
-              <span className="text-jamun-blue">Fun</span>
+              {t("missionTitle")}{" "}
+              <span className="text-jamun-blue">{t("missionTitleHighlight")}</span>
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-              We believe every middle school student deserves the chance to
-              discover their potential through academic competition. Research shows
-              that students who participate in Model UN, debate, Mock Trial, and
-              math competitions develop stronger public speaking, critical thinking,
-              and leadership skills—abilities that transfer directly to academic
-              success and college readiness.
+              {t("missionParagraph1")}
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              JAMUN exists to make these transformative experiences accessible to all.
-              We provide free and low-cost programs in Model UN (diplomatic simulation),
-              Mock Trial (courtroom advocacy), and Mathletes (competitive mathematics)—designed
-              specifically for students in grades 5-8. Our goal isn&apos;t just to teach
-              skills; it&apos;s to spark a lifelong love of learning that prepares students
-              for magnet schools, high school honors programs, and college admissions.
+              {t("missionParagraph2")}
             </p>
           </motion.div>
 
@@ -277,17 +259,15 @@ export default function AboutPage() {
             <div className="bg-gradient-to-br from-jamun-blue/10 via-purple-100/50 to-emerald-100/30 rounded-3xl p-8 md:p-10">
               <Quote className="w-12 h-12 text-jamun-blue/30 mb-4" />
               <blockquote className="text-xl md:text-2xl font-medium text-gray-900 mb-6 leading-relaxed">
-                &ldquo;We&apos;re not just running tournaments. We&apos;re showing kids that
-                being smart is cool, that hard work pays off, and that they
-                can accomplish incredible things.&rdquo;
+                &ldquo;{t("missionQuote")}&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-jamun-blue/20 flex items-center justify-center">
                   <span className="text-jamun-blue font-bold">JV</span>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">Joshua Varon</p>
-                  <p className="text-sm text-gray-600">Founder, JAMUN</p>
+                  <p className="font-semibold text-gray-900">{t("missionQuoteAuthor")}</p>
+                  <p className="text-sm text-gray-600">{t("missionQuoteRole")}</p>
                 </div>
               </div>
             </div>
@@ -298,9 +278,9 @@ export default function AboutPage() {
       {/* Our Story / Timeline Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Our Journey"
-          title="From Vision to Reality"
-          subtitle="The story of how a group of passionate students built something bigger than themselves."
+          eyebrow={t("timelineEyebrow")}
+          title={t("timelineTitle")}
+          subtitle={t("timelineSubtitle")}
         />
 
         <div className="relative">
@@ -354,9 +334,9 @@ export default function AboutPage() {
       {/* Values Section */}
       <Section background="white" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="What We Stand For"
-          title="Our Core Values"
-          subtitle="These principles guide everything we do at JAMUN."
+          eyebrow={t("valuesEyebrow")}
+          title={t("valuesTitle")}
+          subtitle={t("valuesSubtitle")}
         />
 
         <motion.div
@@ -395,9 +375,9 @@ export default function AboutPage() {
       {/* Leadership Team Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Meet the Team"
-          title="The People Behind JAMUN"
-          subtitle="A dedicated group of student leaders working to make academics accessible and exciting."
+          eyebrow={t("teamEyebrow")}
+          title={t("teamTitle")}
+          subtitle={t("teamSubtitle")}
         />
 
         <motion.div
@@ -471,10 +451,9 @@ export default function AboutPage() {
           className="mt-12 text-center"
         >
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Our leadership team is supported by{" "}
-            <span className="font-semibold text-jamun-blue">80+ volunteers</span>{" "}
-            who share our passion for empowering young learners. Together,
-            we&apos;re proving that students can create real, lasting change.
+            {t("teamSupportText")}{" "}
+            <span className="font-semibold text-jamun-blue">{t("teamVolunteersHighlight")}</span>{" "}
+            {t("teamSupportTextEnd")}
           </p>
         </motion.div>
       </Section>
@@ -494,21 +473,15 @@ export default function AboutPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Our Impact So Far
+              {t("impactTitle")}
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Every number represents a student inspired, a school empowered,
-              or a volunteer who gave their time to make a difference.
+              {t("impactSubtitle")}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {[
-              { value: "500+", label: "Students Impacted" },
-              { value: "30+", label: "Schools Reached" },
-              { value: "80+", label: "Student Volunteers" },
-              { value: "$70K+", label: "Raised for Programs" },
-            ].map((stat, index) => (
+            {impactStats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 30 }}
@@ -547,33 +520,31 @@ export default function AboutPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Heart className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              Be Part of the Movement
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Join Us in Making Academics{" "}
+            {t("ctaTitle")}{" "}
             <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
-              Fun
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you&apos;re a student ready to compete, a teacher looking to
-            start a program, or someone who wants to support our mission—there&apos;s
-            a place for you at JAMUN.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Get Involved
+                {t("ctaPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/donate" variant="accent" size="lg">
-                Support Our Mission
+                {t("ctaSecondaryCTA")}
               </Button>
             </motion.div>
           </div>
@@ -585,7 +556,7 @@ export default function AboutPage() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Questions? Reach out at{" "}
+            {t("ctaContactText")}{" "}
             <a
               href="mailto:contact@jamun.org"
               className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"

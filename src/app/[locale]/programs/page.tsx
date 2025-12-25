@@ -26,186 +26,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// Detailed program data
-const programs = [
-  {
-    id: "model-un",
-    title: "Model United Nations",
-    tagline: "Diplomacy in Action",
-    description:
-      "Step into the shoes of UN delegates and tackle real-world global issues. Model UN develops critical thinking, public speaking, and negotiation skills while building deep understanding of international relations.",
-    longDescription:
-      "Model United Nations simulates the United Nations where students represent different countries and debate global issues. Delegates research their assigned country's positions, write position papers, give speeches, and work with others to draft resolutions addressing world challenges like climate change, human rights, and international security.",
-    icon: Globe,
-    accentColor: "bg-jamun-blue",
-    accentColorLight: "bg-jamun-blue/10",
-    textColor: "text-jamun-blue",
-    borderColor: "border-jamun-blue/20",
-    glowColor: "group-hover:shadow-jamun-blue/20",
-    href: "/modelun",
-    image: "/images/conferences/DSC00848.webp",
-    features: [
-      {
-        icon: MessageSquare,
-        title: "Public Speaking",
-        description: "Deliver speeches, respond to questions, and articulate your country's position clearly.",
-      },
-      {
-        icon: Users,
-        title: "Collaboration",
-        description: "Work with other delegates to build coalitions and draft consensus resolutions.",
-      },
-      {
-        icon: BookOpen,
-        title: "Research Skills",
-        description: "Learn to research complex topics and understand multiple perspectives on global issues.",
-      },
-      {
-        icon: Target,
-        title: "Negotiation",
-        description: "Practice diplomatic negotiation, compromise, and persuasion in a professional setting.",
-      },
-    ],
-    whatYouLearn: [
-      "How the United Nations and international diplomacy work",
-      "Research and analysis of complex global issues",
-      "Public speaking and formal debate techniques",
-      "Writing position papers and draft resolutions",
-      "Coalition-building and negotiation strategies",
-      "Understanding diverse cultural perspectives",
-    ],
-    schedule: {
-      practice: "Weekly club meetings",
-      competitions: "2 conferences per year",
-      commitment: "3 hours per week",
-    },
-    testimonial: {
-      quote: "Model UN taught me that I could speak up and be heard. It changed how I see myself and my ability to make a difference.",
-      author: "Former JAMUN Delegate",
-    },
-  },
-  {
-    id: "mock-trial",
-    title: "Mock Trial",
-    tagline: "Justice Takes the Stand",
-    description:
-      "Experience the drama of the courtroom as attorneys and witnesses bring cases to life. Mock Trial develops argumentation, critical analysis, and presentation skills that translate to success in any field.",
-    longDescription:
-      "Mock Trial is a competitive simulation where students take on the roles of attorneys and witnesses to argue a fictional legal case. Teams prepare both prosecution/plaintiff and defense sides, learning to craft opening statements, conduct direct and cross-examinations, and deliver closing arguments before real judges.",
-    icon: Scale,
-    accentColor: "bg-purple-600",
-    accentColorLight: "bg-purple-100",
-    textColor: "text-purple-600",
-    borderColor: "border-purple-200",
-    glowColor: "group-hover:shadow-purple-500/20",
-    href: "/mocktrial",
-    image: "/images/conferences/DSC02128.webp",
-    features: [
-      {
-        icon: Gavel,
-        title: "Legal Reasoning",
-        description: "Learn to construct logical arguments, analyze evidence, and think like a lawyer.",
-      },
-      {
-        icon: FileText,
-        title: "Case Analysis",
-        description: "Dissect complex cases, identify key facts, and develop winning strategies.",
-      },
-      {
-        icon: MessageSquare,
-        title: "Examination Skills",
-        description: "Master the art of questioning witnesses through direct and cross-examination.",
-      },
-      {
-        icon: Trophy,
-        title: "Performance",
-        description: "Bring witnesses to life and deliver compelling arguments that persuade judges.",
-      },
-    ],
-    whatYouLearn: [
-      "Fundamentals of the American legal system",
-      "How to construct and refute legal arguments",
-      "Direct and cross-examination techniques",
-      "Evidence rules and objection procedures",
-      "Persuasive speaking and presentation skills",
-      "Teamwork and strategic thinking",
-    ],
-    schedule: {
-      practice: "Weekly club meetings",
-      competitions: "Year-round programming",
-      commitment: "5 hours per week",
-    },
-    testimonial: {
-      quote: "Mock Trial pushed me out of my comfort zone. Now I can think on my feet and argue my point confidently.",
-      author: "Dustin Simon, Director of Mock Trial",
-    },
-  },
-  {
-    id: "mathletes",
-    title: "Mathletes",
-    tagline: "Numbers, Teamwork, Victory",
-    description:
-      "Challenge yourself with competitive mathematics and discover the thrill of problem-solving. Mathletes builds analytical thinking, perseverance, and teamwork through engaging math competitions.",
-    longDescription:
-      "Mathletes is a competitive mathematics program where students tackle challenging problems ranging from arithmetic and algebra to geometry and number theory. Students compete individually and as teams, developing speed, accuracy, and creative problem-solving approaches while building a supportive math community.",
-    icon: Calculator,
-    accentColor: "bg-emerald-600",
-    accentColorLight: "bg-emerald-100",
-    textColor: "text-emerald-600",
-    borderColor: "border-emerald-200",
-    glowColor: "group-hover:shadow-emerald-500/20",
-    href: "/mathletes",
-    image: "/images/conferences/homebackground2.webp",
-    features: [
-      {
-        icon: Brain,
-        title: "Problem Solving",
-        description: "Develop creative approaches to challenging problems beyond standard curriculum.",
-      },
-      {
-        icon: TrendingUp,
-        title: "Speed & Accuracy",
-        description: "Build computational fluency and confidence in time-pressured situations.",
-      },
-      {
-        icon: Users,
-        title: "Team Events",
-        description: "Collaborate on relay rounds and team challenges that require coordination.",
-      },
-      {
-        icon: Award,
-        title: "Recognition",
-        description: "Earn awards and recognition for mathematical achievement at competitions.",
-      },
-    ],
-    whatYouLearn: [
-      "Advanced problem-solving strategies",
-      "Number theory and algebraic techniques",
-      "Geometric reasoning and proofs",
-      "Mental math and estimation skills",
-      "Time management under pressure",
-      "Mathematical communication",
-    ],
-    schedule: {
-      practice: "Meetings every two weeks",
-      competitions: "4 tournaments per year",
-      commitment: "4 hours per week",
-    },
-    testimonial: {
-      quote: "Mathematics isn't just about numbers—it's about developing the problem-solving mindset that unlocks every door in life.",
-      author: "Will Ballis, Director of Mathletes",
-    },
-  },
-];
-
-// Stats for programs section
-const programStats = [
-  { value: "3", label: "Academic Programs" },
-  { value: "500+", label: "Students Served" },
-  { value: "100%", label: "Beginner Welcome" },
-  { value: "$0", label: "To Start" },
-];
+import { useTranslations } from "next-intl";
 
 // Different durations for each stat to create staggered finish effect
 const statDurations = [1400, 1800, 2200, 2600];
@@ -282,6 +103,206 @@ const itemVariants = {
 };
 
 export default function ProgramsPage() {
+  const t = useTranslations("ProgramsPage");
+
+  // Stats for programs section - now using translations
+  const programStats = [
+    { value: "3", label: t("statPrograms") },
+    { value: "500+", label: t("statStudents") },
+    { value: "100%", label: t("statBeginner") },
+    { value: "$0", label: t("statCost") },
+  ];
+
+  // Detailed program data with translations
+  const programs = [
+    {
+      id: "model-un",
+      title: t("modelUNTitle"),
+      tagline: t("modelUNTagline"),
+      description: t("modelUNDescription"),
+      longDescription: t("modelUNLongDescription"),
+      icon: Globe,
+      accentColor: "bg-jamun-blue",
+      accentColorLight: "bg-jamun-blue/10",
+      textColor: "text-jamun-blue",
+      borderColor: "border-jamun-blue/20",
+      glowColor: "group-hover:shadow-jamun-blue/20",
+      href: "/modelun",
+      image: "/images/conferences/DSC00848.webp",
+      features: [
+        {
+          icon: MessageSquare,
+          title: t("modelUNFeature1Title"),
+          description: t("modelUNFeature1Description"),
+        },
+        {
+          icon: Users,
+          title: t("modelUNFeature2Title"),
+          description: t("modelUNFeature2Description"),
+        },
+        {
+          icon: BookOpen,
+          title: t("modelUNFeature3Title"),
+          description: t("modelUNFeature3Description"),
+        },
+        {
+          icon: Target,
+          title: t("modelUNFeature4Title"),
+          description: t("modelUNFeature4Description"),
+        },
+      ],
+      whatYouLearn: [
+        t("modelUNLearn1"),
+        t("modelUNLearn2"),
+        t("modelUNLearn3"),
+        t("modelUNLearn4"),
+        t("modelUNLearn5"),
+        t("modelUNLearn6"),
+      ],
+      schedule: {
+        practice: t("modelUNSchedulePractice"),
+        competitions: t("modelUNScheduleCompetitions"),
+        commitment: t("modelUNScheduleCommitment"),
+      },
+      testimonial: {
+        quote: t("modelUNTestimonialQuote"),
+        author: t("modelUNTestimonialAuthor"),
+      },
+    },
+    {
+      id: "mock-trial",
+      title: t("mockTrialTitle"),
+      tagline: t("mockTrialTagline"),
+      description: t("mockTrialDescription"),
+      longDescription: t("mockTrialLongDescription"),
+      icon: Scale,
+      accentColor: "bg-purple-600",
+      accentColorLight: "bg-purple-100",
+      textColor: "text-purple-600",
+      borderColor: "border-purple-200",
+      glowColor: "group-hover:shadow-purple-500/20",
+      href: "/mocktrial",
+      image: "/images/conferences/DSC02128.webp",
+      features: [
+        {
+          icon: Gavel,
+          title: t("mockTrialFeature1Title"),
+          description: t("mockTrialFeature1Description"),
+        },
+        {
+          icon: FileText,
+          title: t("mockTrialFeature2Title"),
+          description: t("mockTrialFeature2Description"),
+        },
+        {
+          icon: MessageSquare,
+          title: t("mockTrialFeature3Title"),
+          description: t("mockTrialFeature3Description"),
+        },
+        {
+          icon: Trophy,
+          title: t("mockTrialFeature4Title"),
+          description: t("mockTrialFeature4Description"),
+        },
+      ],
+      whatYouLearn: [
+        t("mockTrialLearn1"),
+        t("mockTrialLearn2"),
+        t("mockTrialLearn3"),
+        t("mockTrialLearn4"),
+        t("mockTrialLearn5"),
+        t("mockTrialLearn6"),
+      ],
+      schedule: {
+        practice: t("mockTrialSchedulePractice"),
+        competitions: t("mockTrialScheduleCompetitions"),
+        commitment: t("mockTrialScheduleCommitment"),
+      },
+      testimonial: {
+        quote: t("mockTrialTestimonialQuote"),
+        author: t("mockTrialTestimonialAuthor"),
+      },
+    },
+    {
+      id: "mathletes",
+      title: t("mathletesTitle"),
+      tagline: t("mathletesTagline"),
+      description: t("mathletesDescription"),
+      longDescription: t("mathletesLongDescription"),
+      icon: Calculator,
+      accentColor: "bg-emerald-600",
+      accentColorLight: "bg-emerald-100",
+      textColor: "text-emerald-600",
+      borderColor: "border-emerald-200",
+      glowColor: "group-hover:shadow-emerald-500/20",
+      href: "/mathletes",
+      image: "/images/conferences/homebackground2.webp",
+      features: [
+        {
+          icon: Brain,
+          title: t("mathletesFeature1Title"),
+          description: t("mathletesFeature1Description"),
+        },
+        {
+          icon: TrendingUp,
+          title: t("mathletesFeature2Title"),
+          description: t("mathletesFeature2Description"),
+        },
+        {
+          icon: Users,
+          title: t("mathletesFeature3Title"),
+          description: t("mathletesFeature3Description"),
+        },
+        {
+          icon: Award,
+          title: t("mathletesFeature4Title"),
+          description: t("mathletesFeature4Description"),
+        },
+      ],
+      whatYouLearn: [
+        t("mathletesLearn1"),
+        t("mathletesLearn2"),
+        t("mathletesLearn3"),
+        t("mathletesLearn4"),
+        t("mathletesLearn5"),
+        t("mathletesLearn6"),
+      ],
+      schedule: {
+        practice: t("mathletesSchedulePractice"),
+        competitions: t("mathletesScheduleCompetitions"),
+        commitment: t("mathletesScheduleCommitment"),
+      },
+      testimonial: {
+        quote: t("mathletesTestimonialQuote"),
+        author: t("mathletesTestimonialAuthor"),
+      },
+    },
+  ];
+
+  // Why Choose JAMUN items with translations
+  const whyChooseItems = [
+    {
+      icon: Users,
+      title: t("whyChooseBeginner"),
+      description: t("whyChooseBeginnerDescription"),
+    },
+    {
+      icon: Trophy,
+      title: t("whyChooseCompetitions"),
+      description: t("whyChooseCompetitionsDescription"),
+    },
+    {
+      icon: BookOpen,
+      title: t("whyChooseResources"),
+      description: t("whyChooseResourcesDescription"),
+    },
+    {
+      icon: Target,
+      title: t("whyChooseSkills"),
+      description: t("whyChooseSkillsDescription"),
+    },
+  ];
+
   return (
     <main>
       {/* Hero Section */}
@@ -305,13 +326,13 @@ export default function ProgramsPage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
                 <Sparkles className="w-4 h-4" />
-                Our Programs
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Three Paths to " delay={0.3} />
+                <TypewriterText text={t("heroTitle")} delay={0.3} />
                 <TypewriterText
-                  text="Excellence"
+                  text={t("heroTitleHighlight")}
                   delay={0.3 + 16 * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-purple-600 to-emerald-500 bg-clip-text text-transparent"
                 />
@@ -323,11 +344,7 @@ export default function ProgramsPage() {
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Whether you love debating global issues in Model UN, arguing cases
-                in Mock Trial court, or solving challenging math problems in Mathletes
-                competitions—we have a program that will ignite your passion and build
-                skills for high school, college, and beyond. All designed specifically
-                for middle school students in grades 5-8, all beginner-friendly.
+                {t("heroSubtitle")}
               </motion.p>
 
               <motion.div
@@ -337,11 +354,11 @@ export default function ProgramsPage() {
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Button href="/register" size="lg" className="group">
-                  Register Your Team
+                  {t("heroPrimaryCTA")}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button href="mailto:contact@jamun.org" variant="outline" size="lg">
-                  Questions? Contact Us
+                  {t("heroSecondaryCTA")}
                 </Button>
               </motion.div>
             </motion.div>
@@ -365,8 +382,8 @@ export default function ProgramsPage() {
                         <Globe className="w-7 h-7 text-jamun-blue" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900">Model UN</h3>
-                        <p className="text-sm text-gray-600">Diplomacy & Global Issues</p>
+                        <h3 className="text-lg font-semibold text-gray-900">{t("heroModelUNTitle")}</h3>
+                        <p className="text-sm text-gray-600">{t("heroModelUNDescription")}</p>
                       </div>
                       <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-jamun-blue transition-colors" />
                     </div>
@@ -385,8 +402,8 @@ export default function ProgramsPage() {
                       </div>
                       <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-purple-600 transition-colors" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">Mock Trial</h3>
-                    <p className="text-xs text-gray-600">Legal Advocacy</p>
+                    <h3 className="font-semibold text-gray-900">{t("heroMockTrialTitle")}</h3>
+                    <p className="text-xs text-gray-600">{t("heroMockTrialDescription")}</p>
                   </motion.div>
                 </Link>
 
@@ -402,8 +419,8 @@ export default function ProgramsPage() {
                       </div>
                       <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-emerald-600 transition-colors" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">Mathletes</h3>
-                    <p className="text-xs text-gray-600">Math Competitions</p>
+                    <h3 className="font-semibold text-gray-900">{t("heroMathletesTitle")}</h3>
+                    <p className="text-xs text-gray-600">{t("heroMathletesDescription")}</p>
                   </motion.div>
                 </Link>
               </div>
@@ -432,12 +449,10 @@ export default function ProgramsPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Academic Competitions Built for Middle School Students
+              {t("statsTitle")}
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Every program is designed specifically for grades 5-8, with no prior experience required.
-              Build public speaking, critical thinking, and leadership skills that prepare you for
-              magnet schools, high school honors tracks, and college admissions.
+              {t("statsSubtitle")}
             </p>
           </motion.div>
 
@@ -580,7 +595,7 @@ export default function ProgramsPage() {
                 className={cn(programIndex % 2 === 1 && "lg:order-1")}
               >
                 <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                  What is {program.title}?
+                  {t("whatIsProgram", { program: program.title })}
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">
                   {program.longDescription}
@@ -595,7 +610,7 @@ export default function ProgramsPage() {
                   )}
                 >
                   <h4 className={cn("font-semibold mb-3", program.textColor)}>
-                    Time Commitment
+                    {t("timeCommitment")}
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                     <div className="flex items-center gap-2">
@@ -620,7 +635,7 @@ export default function ProgramsPage() {
                 </div>
 
                 <Button href={program.href} className="group">
-                  Learn More About {program.title}
+                  {t("learnMoreAbout", { program: program.title })}
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </motion.div>
@@ -668,7 +683,7 @@ export default function ProgramsPage() {
                 className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100"
               >
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">
-                  What You&apos;ll Learn
+                  {t("whatYouLearn")}
                 </h4>
                 <ul className="space-y-3">
                   {program.whatYouLearn.map((item, index) => (
@@ -729,11 +744,10 @@ export default function ProgramsPage() {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Why Choose JAMUN?
+              {t("whyChooseTitle")}
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Every program is designed with middle schoolers in mind—accessible,
-              supportive, and genuinely fun.
+              {t("whyChooseSubtitle")}
             </p>
           </motion.div>
 
@@ -744,32 +758,7 @@ export default function ProgramsPage() {
             viewport={{ once: true, margin: "-100px" }}
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {[
-              {
-                icon: Users,
-                title: "Beginner-Friendly",
-                description:
-                  "No experience needed. We teach everything from the ground up with patient, supportive mentors.",
-              },
-              {
-                icon: Trophy,
-                title: "Real Competitions",
-                description:
-                  "Compete in actual tournaments and conferences, earning recognition and building your resume.",
-              },
-              {
-                icon: BookOpen,
-                title: "Free Resources",
-                description:
-                  "Access training materials, practice problems, and curriculum guides at no cost.",
-              },
-              {
-                icon: Target,
-                title: "Skill Development",
-                description:
-                  "Build transferable skills in communication, critical thinking, and teamwork.",
-              },
-            ].map((item) => (
+            {whyChooseItems.map((item) => (
               <motion.div
                 key={item.title}
                 variants={itemVariants}
@@ -801,32 +790,31 @@ export default function ProgramsPage() {
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Sparkles className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              Ready to Get Started?
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Find Your{" "}
+            {t("ctaTitle")}{" "}
             <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-emerald-500 bg-clip-text text-transparent">
-              Perfect Program
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you&apos;re a student eager to compete or a teacher looking to start
-            a program at your school, we&apos;re here to help you take the first step.
+            {t("ctaSubtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Register Now
+                {t("ctaPrimaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/modelun/resources" variant="outline" size="lg">
-                View Free Resources
+                {t("ctaSecondaryCTA")}
               </Button>
             </motion.div>
           </div>
@@ -838,7 +826,7 @@ export default function ProgramsPage() {
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Questions? Reach out at{" "}
+            {t("ctaContactText")}{" "}
             <a
               href="mailto:contact@jamun.org"
               className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
