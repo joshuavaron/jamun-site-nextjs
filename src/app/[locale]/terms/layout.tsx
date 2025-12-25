@@ -1,18 +1,31 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
-  title: "Terms of Service - JAMUN",
-  description:
-    "JAMUN's terms of service outline the rules and guidelines for using our website and participating in our academic competition programs.",
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/terms`,
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "TermsPageMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/terms`,
+      languages: {
+        en: "/terms",
+        es: "/es/terms",
+      },
+    },
+  };
+}
 
 export default function TermsLayout({
   children,

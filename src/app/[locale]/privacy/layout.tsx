@@ -1,18 +1,31 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy - JAMUN",
-  description:
-    "JAMUN's privacy policy explains how we collect, use, and protect your personal information. Learn about our data practices and your privacy rights.",
-  robots: {
-    index: true,
-    follow: true,
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/privacy`,
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "PrivacyPageMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/privacy`,
+      languages: {
+        en: "/privacy",
+        es: "/es/privacy",
+      },
+    },
+  };
+}
 
 export default function PrivacyLayout({
   children,

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 import {
   generateProgramSchema,
@@ -7,111 +8,127 @@ import {
   jsonLdScript,
 } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
-  title: "Mock Trial for Middle School - Learn Courtroom Skills",
-  description:
-    "Experience courtroom drama in JAMUN's Mock Trial program for grades 5-8. Learn legal reasoning, cross-examination, opening statements, and persuasive argumentation. Build confidence in public speaking and critical thinking.",
-  keywords: [
-    "Mock Trial middle school",
-    "youth legal competition",
-    "mock trial for kids",
-    "courtroom advocacy skills",
-    "cross-examination techniques",
-    "legal reasoning students",
-    "middle school debate",
-    "public speaking competition",
-    "critical thinking activities",
-    "opening statement tips",
-    "closing argument practice",
-    "attorney witness competition",
-  ],
-  openGraph: {
-    title: "Mock Trial for Middle School - JAMUN",
-    description:
-      "Learn to think like a lawyer! Develop argumentation, critical analysis, and presentation skills through courtroom simulation. Launching Fall 2026.",
-    url: `${siteConfig.url}/mocktrial`,
-    type: "website",
-    images: [
-      {
-        url: "/images/conferences/DSC02128.webp",
-        width: 1200,
-        height: 630,
-        alt: "JAMUN Mock Trial Competition",
-      },
-    ],
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/mocktrial`,
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
+  children: React.ReactNode;
 };
 
-// Structured data for Mock Trial program
-const mockTrialSchema = generateProgramSchema({
-  name: "Mock Trial Program",
-  description:
-    "Learn legal reasoning, cross-examination, opening statements, and persuasive argumentation through courtroom simulation designed for middle school students in grades 5-8.",
-  url: "/mocktrial",
-  image: "/images/conferences/DSC02128.webp",
-  educationalLevel: "Middle School (Grades 5-8)",
-  skills: [
-    "Public Speaking",
-    "Legal Reasoning",
-    "Cross-Examination",
-    "Persuasive Argumentation",
-    "Critical Analysis",
-    "Courtroom Procedure",
-    "Witness Examination",
-    "Case Preparation",
-  ],
-});
-
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: "Home", url: "/" },
-  { name: "Programs", url: "/programs" },
-  { name: "Mock Trial", url: "/mocktrial" },
-]);
-
-// FAQs for structured data
-const mockTrialFaqs = [
-  {
-    question: "Do I need any experience to join Mock Trial?",
-    answer:
-      "Not at all! Our program is designed specifically for beginners. We'll teach you everything from courtroom basics to advanced examination techniques. Many of our best attorneys started with no prior experience.",
-  },
-  {
-    question: "What grades can participate?",
-    answer:
-      "JAMUN Mock Trial is designed for middle school students in grades 5-8. We create age-appropriate cases and provide training that meets students where they are.",
-  },
-  {
-    question: "When does Mock Trial start?",
-    answer:
-      "Mock Trial begins in Fall 2026! We're currently building our program and will open registration soon. Join our mailing list to be the first to know when registration opens.",
-  },
-  {
-    question: "What roles can I play?",
-    answer:
-      "Students can be attorneys (who argue the case) or witnesses (who testify). Most students try both roles during practice, and many discover hidden talents they didn't know they had!",
-  },
-  {
-    question: "How much time does Mock Trial require?",
-    answer:
-      "Mock Trial involves about 5 hours per week with weekly club meetings and year-round programming. We work with students to balance academics and extracurriculars.",
-  },
-  {
-    question: "Is there a cost to participate?",
-    answer:
-      "We work hard to keep costs minimal and offer financial assistance for competition fees. No student should be unable to participate due to cost.",
-  },
-];
-
-const faqSchema = generateFAQSchema(mockTrialFaqs);
-
-export default function MockTrialLayout({
-  children,
+export async function generateMetadata({
+  params,
 }: {
-  children: React.ReactNode;
-}) {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "MockTrialPageMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "Mock Trial middle school",
+      "youth legal competition",
+      "mock trial for kids",
+      "courtroom advocacy skills",
+      "cross-examination techniques",
+      "legal reasoning students",
+      "middle school debate",
+      "public speaking competition",
+      "critical thinking activities",
+      "opening statement tips",
+      "closing argument practice",
+      "attorney witness competition",
+    ],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: `${siteConfig.url}/mocktrial`,
+      type: "website",
+      locale: locale === "es" ? "es_ES" : "en_US",
+      images: [
+        {
+          url: "/images/conferences/DSC02128.webp",
+          width: 1200,
+          height: 630,
+          alt: "JAMUN Mock Trial Competition",
+        },
+      ],
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/mocktrial`,
+      languages: {
+        en: "/mocktrial",
+        es: "/es/mocktrial",
+      },
+    },
+  };
+}
+
+export default async function MockTrialLayout({
+  children,
+  params,
+}: Props) {
+  const { locale } = await params;
+
+  // Get translations for structured data
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "Breadcrumbs" });
+  const tStructured = await getTranslations({ locale, namespace: "StructuredData" });
+  const tFaq = await getTranslations({ locale, namespace: "MockTrialHomePage" });
+
+  // Structured data for Mock Trial program with translations
+  const mockTrialSchema = generateProgramSchema({
+    name: tStructured("mockTrialProgramName"),
+    description: tStructured("mockTrialProgramDescription"),
+    url: "/mocktrial",
+    image: "/images/conferences/DSC02128.webp",
+    educationalLevel: tStructured("educationalLevel"),
+    skills: [
+      tStructured("mockTrialSkill1"),
+      tStructured("mockTrialSkill2"),
+      tStructured("mockTrialSkill3"),
+      tStructured("mockTrialSkill4"),
+      tStructured("mockTrialSkill5"),
+      tStructured("mockTrialSkill6"),
+      tStructured("mockTrialSkill7"),
+      tStructured("mockTrialSkill8"),
+    ],
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: tBreadcrumbs("home"), url: "/" },
+    { name: tBreadcrumbs("programs"), url: "/programs" },
+    { name: tBreadcrumbs("mockTrial"), url: "/mocktrial" },
+  ]);
+
+  // FAQs for structured data with translations
+  const mockTrialFaqs = [
+    {
+      question: tFaq("faq1Question"),
+      answer: tFaq("faq1Answer"),
+    },
+    {
+      question: tFaq("faq2Question"),
+      answer: tFaq("faq2Answer"),
+    },
+    {
+      question: tFaq("faq3Question"),
+      answer: tFaq("faq3Answer"),
+    },
+    {
+      question: tFaq("faq4Question"),
+      answer: tFaq("faq4Answer"),
+    },
+    {
+      question: tFaq("faq5Question"),
+      answer: tFaq("faq5Answer"),
+    },
+    {
+      question: tFaq("faq6Question"),
+      answer: tFaq("faq6Answer"),
+    },
+  ];
+
+  const faqSchema = generateFAQSchema(mockTrialFaqs);
+
   return (
     <>
       <script

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import { Header } from "@/components/layout/Header";
@@ -33,20 +33,21 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
     metadataBase: new URL(siteConfig.url),
     title: {
-      default: siteConfig.seo.defaultTitle,
+      default: t("defaultTitle"),
       template: siteConfig.seo.titleTemplate,
     },
-    description: siteConfig.description,
-    applicationName: siteConfig.name,
+    description: t("defaultDescription"),
+    applicationName: t("siteName"),
     authors: [{ name: "JAMUN Team", url: siteConfig.url }],
     generator: "Next.js",
     referrer: "origin-when-cross-origin",
-    creator: "JAMUN - Junior Assembly of Model United Nations",
-    publisher: "JAMUN",
+    creator: t("siteFullName"),
+    publisher: t("siteName"),
     formatDetection: {
       email: false,
       address: false,
@@ -56,14 +57,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
       url: siteConfig.url,
-      siteName: siteConfig.seo.openGraph.siteName,
-      title: siteConfig.seo.defaultTitle,
-      description: siteConfig.description,
+      siteName: t("siteName"),
+      title: t("defaultTitle"),
+      description: t("defaultDescription"),
     },
     twitter: {
       card: "summary_large_image",
-      title: siteConfig.seo.defaultTitle,
-      description: siteConfig.description,
+      title: t("defaultTitle"),
+      description: t("defaultDescription"),
       creator: "@JAMUNorg",
     },
     robots: {

@@ -1,34 +1,47 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
-  title: "Conference Grants for Students - Up to 100% Covered",
-  description:
-    "Apply for JAMUN grants to cover registration fees, travel costs, and materials for Model UN, Mock Trial, and Mathletes competitions. Financial assistance for middle school students and schools. Free application.",
-  keywords: [
-    "student grants",
-    "academic competition funding",
-    "Model UN financial aid",
-    "school program grants",
-    "student scholarship",
-    "competition registration fee assistance",
-    "education grants middle school",
-    "extracurricular funding",
-    "nonprofit student grants",
-    "affordable academic programs",
-    "underserved school funding",
-  ],
-  openGraph: {
-    title: "Apply for JAMUN Student Grants - Cost Shouldn't Determine Participation",
-    description:
-      "Get financial assistance for Model UN, Mock Trial, and Mathletes competitions. 100+ students funded, $25K+ grants given. Simple application process.",
-    url: `${siteConfig.url}/grants`,
-    type: "website",
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/grants`,
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "GrantsPageMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "student grants",
+      "academic competition funding",
+      "Model UN financial aid",
+      "school program grants",
+      "student scholarship",
+      "competition registration fee assistance",
+      "education grants middle school",
+      "extracurricular funding",
+      "nonprofit student grants",
+      "affordable academic programs",
+      "underserved school funding",
+    ],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: `${siteConfig.url}/grants`,
+      type: "website",
+      locale: locale === "es" ? "es_ES" : "en_US",
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/grants`,
+      languages: {
+        en: "/grants",
+        es: "/es/grants",
+      },
+    },
+  };
+}
 
 export default function GrantsLayout({
   children,

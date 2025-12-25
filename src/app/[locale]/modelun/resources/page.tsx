@@ -1,35 +1,48 @@
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getAllResources } from "@/lib/resources";
 import ResourcesPageContent from "./ResourcesPageContent";
 import { siteConfig } from "@/config/site";
 
-export const metadata: Metadata = {
-  title: "Free Model UN Guides & Templates for Students",
-  description:
-    "Free Model UN resources for middle school delegates. Learn to write position papers, draft resolutions, give speeches, and master parliamentary procedure. Beginner guides and advanced strategies.",
-  keywords: [
-    "Model UN resources",
-    "position paper template",
-    "MUN resolution writing",
-    "Model UN speech tips",
-    "parliamentary procedure guide",
-    "MUN delegate guide",
-    "Model UN for beginners",
-    "how to write position paper",
-    "Model UN committee rules",
-    "MUN opening speech",
-  ],
-  openGraph: {
-    title: "Free Model UN Resources & Guides - JAMUN",
-    description:
-      "Everything you need to succeed in Model UN: position paper templates, resolution guides, speech tips, and parliamentary procedure tutorials.",
-    url: `${siteConfig.url}/modelun/resources`,
-    type: "website",
-  },
-  alternates: {
-    canonical: `${siteConfig.url}/modelun/resources`,
-  },
+type Props = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ResourcesPageMetadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "Model UN resources",
+      "position paper template",
+      "MUN resolution writing",
+      "Model UN speech tips",
+      "parliamentary procedure guide",
+      "MUN delegate guide",
+      "Model UN for beginners",
+      "how to write position paper",
+      "Model UN committee rules",
+      "MUN opening speech",
+    ],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: `${siteConfig.url}/modelun/resources`,
+      type: "website",
+      locale: locale === "es" ? "es_ES" : "en_US",
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/modelun/resources`,
+      languages: {
+        en: "/modelun/resources",
+        es: "/es/modelun/resources",
+      },
+    },
+  };
+}
 
 export default function ResourcesPage() {
   const resources = getAllResources();

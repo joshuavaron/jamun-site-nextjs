@@ -5,6 +5,141 @@
     "defaultTitle": "Modelo ONU y Competencias Académicas para Grados 5-8 | JAMUN",
     "defaultDescription": "Programas de competencias académicas asequibles para estudiantes de secundaria (grados 5-8). Desarrolla habilidades de oratoria, pensamiento crítico, debate y liderazgo a través de Modelo ONU, Juicio Simulado y Mathletes. Becas disponibles."
   },
+  "Breadcrumbs": {
+    "home": "Inicio",
+    "programs": "Programas",
+    "modelUN": "Modelo ONU",
+    "mockTrial": "Juicio Simulado",
+    "mathletes": "Mathletes",
+    "committees": "Comités",
+    "resources": "Recursos",
+    "blog": "Blog",
+    "about": "Nosotros",
+    "donate": "Donar",
+    "grants": "Becas",
+    "leaderboards": "Clasificaciones",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  },
+  "StructuredData": {
+    "modelUNProgramName": "Programa de Modelo de Naciones Unidas",
+    "modelUNProgramDescription": "Aprende habilidades diplomáticas, análisis de temas globales, oratoria y redacción de resoluciones a través de nuestro programa de Modelo ONU diseñado para estudiantes de secundaria en grados 5-8.",
+    "modelUNSkill1": "Oratoria",
+    "modelUNSkill2": "Negociación Diplomática",
+    "modelUNSkill3": "Habilidades de Investigación",
+    "modelUNSkill4": "Redacción de Documentos de Posición",
+    "modelUNSkill5": "Redacción de Resoluciones",
+    "modelUNSkill6": "Relaciones Internacionales",
+    "modelUNSkill7": "Pensamiento Crítico",
+    "modelUNSkill8": "Habilidades de Debate",
+    "mockTrialProgramName": "Programa de Juicio Simulado",
+    "mockTrialProgramDescription": "Aprende razonamiento legal, contrainterrogatorio, declaraciones de apertura y argumentación persuasiva a través de simulación de tribunal diseñada para estudiantes de secundaria en grados 5-8.",
+    "mockTrialSkill1": "Oratoria",
+    "mockTrialSkill2": "Razonamiento Legal",
+    "mockTrialSkill3": "Contrainterrogatorio",
+    "mockTrialSkill4": "Argumentación Persuasiva",
+    "mockTrialSkill5": "Análisis Crítico",
+    "mockTrialSkill6": "Procedimiento del Tribunal",
+    "mockTrialSkill7": "Interrogatorio de Testigos",
+    "mockTrialSkill8": "Preparación de Casos",
+    "mathletesProgramName": "Programa de Competencias Mathletes",
+    "mathletesProgramDescription": "Prepárate para MATHCOUNTS, AMC 8 y competencias de Math League a través de entrenamiento de matemáticas competitivas en equipo diseñado para estudiantes de secundaria en grados 5-8.",
+    "mathletesSkill1": "Resolución de Problemas",
+    "mathletesSkill2": "Teoría de Números",
+    "mathletesSkill3": "Álgebra",
+    "mathletesSkill4": "Geometría",
+    "mathletesSkill5": "Cálculo Mental",
+    "mathletesSkill6": "Razonamiento Lógico",
+    "mathletesSkill7": "Reconocimiento de Patrones",
+    "mathletesSkill8": "Comunicación Matemática",
+    "educationalLevel": "Secundaria (Grados 5-8)"
+  },
+  "ProgramsPageMetadata": {
+    "title": "Los Mejores Programas Académicos para Estudiantes de Secundaria",
+    "description": "Explora los tres programas de competencias académicas de JAMUN para grados 5-8: Modelo ONU (diplomacia y debate), Juicio Simulado (defensa legal) y Mathletes (matemáticas competitivas). Recursos gratuitos, para principiantes, competencias reales.",
+    "ogTitle": "Tres Programas Académicos para la Excelencia en Secundaria",
+    "ogDescription": "Modelo ONU, Juicio Simulado y Mathletes - tres caminos para desarrollar oratoria, pensamiento crítico y habilidades de liderazgo. Programas para principiantes grados 5-8."
+  },
+  "ModelUNPageMetadata": {
+    "title": "Modelo ONU para Secundaria - Conferencias y Recursos",
+    "description": "Únete al programa de Modelo de Naciones Unidas de JAMUN para grados 5-8. Aprende habilidades diplomáticas, temas globales, oratoria y redacción de resoluciones. Conferencias para principiantes, guías de documentos de posición y recursos gratuitos.",
+    "ogTitle": "Modelo ONU para Secundaria - JAMUN",
+    "ogDescription": "Ponte en los zapatos de delegados de la ONU y aborda temas globales reales. Desarrolla oratoria, investigación y habilidades de negociación. Recursos gratuitos y conferencias de bajo costo."
+  },
+  "MockTrialPageMetadata": {
+    "title": "Juicio Simulado para Secundaria - Aprende Habilidades del Tribunal",
+    "description": "Experimenta el drama del tribunal en el programa de Juicio Simulado de JAMUN para grados 5-8. Aprende razonamiento legal, contrainterrogatorio, declaraciones de apertura y argumentación persuasiva. Desarrolla confianza en oratoria y pensamiento crítico.",
+    "ogTitle": "Juicio Simulado para Secundaria - JAMUN",
+    "ogDescription": "¡Aprende a pensar como un abogado! Desarrolla argumentación, análisis crítico y habilidades de presentación a través de simulación de tribunal. Lanzamiento Otoño 2026."
+  },
+  "MathletesPageMetadata": {
+    "title": "Mathletes para Grados 5-8 - Competencias de Matemáticas",
+    "description": "Únete al programa Mathletes de JAMUN para grados 5-8. Prepárate para MATHCOUNTS, AMC 8 y competencias de Math League. Desarrolla habilidades de resolución de problemas, teoría de números, álgebra y geometría a través de matemáticas competitivas en equipo.",
+    "ogTitle": "Mathletes - Matemáticas Competitivas para Secundaria - JAMUN",
+    "ogDescription": "¡Desafíate con matemáticas competitivas! Desarrolla pensamiento analítico, velocidad y precisión a través de competencias de matemáticas atractivas. Prepárate para MATHCOUNTS y AMC 8."
+  },
+  "AboutPageMetadata": {
+    "title": "Sobre JAMUN - Organización Sin Fines de Lucro Dirigida por Jóvenes para Grados 5-8",
+    "description": "Conoce JAMUN, una organización sin fines de lucro 501(c)(3) dirigida por estudiantes de preparatoria y universidad. Descubre nuestra misión de hacer las competencias académicas accesibles para todos los estudiantes de secundaria a través de Modelo ONU, Juicio Simulado y Mathletes.",
+    "ogTitle": "Sobre JAMUN - Organización de Competencias Académicas Dirigida por Jóvenes",
+    "ogDescription": "JAMUN es 100% dirigido por jóvenes y voluntarios. Con más de 500 estudiantes impactados y más de 80 voluntarios, estamos haciendo las competencias académicas accesibles para todos los estudiantes de secundaria."
+  },
+  "DonatePageMetadata": {
+    "title": "Apoya Programas Académicos para Secundaria - Dona a JAMUN",
+    "description": "Apoya la misión de JAMUN de hacer las competencias académicas accesibles para todos los estudiantes de secundaria. Tu donación deducible de impuestos financia programas de Modelo ONU, Juicio Simulado y Mathletes para escuelas desatendidas. Organización sin fines de lucro 501(c)(3).",
+    "ogTitle": "Dona a JAMUN - Cada Donación Cambia la Vida de un Estudiante",
+    "ogDescription": "Ayuda a llevar Modelo ONU, Juicio Simulado y Mathletes a estudiantes de secundaria que de otro modo nunca tendrían la oportunidad. Organización 100% dirigida por voluntarios."
+  },
+  "GrantsPageMetadata": {
+    "title": "Becas de Conferencia para Estudiantes - Hasta 100% Cubierto",
+    "description": "Solicita becas de JAMUN para cubrir cuotas de inscripción, costos de viaje y materiales para competencias de Modelo ONU, Juicio Simulado y Mathletes. Asistencia financiera para estudiantes y escuelas de secundaria. Solicitud gratuita.",
+    "ogTitle": "Solicita Becas Estudiantiles de JAMUN - El Costo No Debería Determinar la Participación",
+    "ogDescription": "Obtén asistencia financiera para competencias de Modelo ONU, Juicio Simulado y Mathletes. Más de 100 estudiantes financiados, más de $25K en becas otorgadas. Proceso de solicitud simple."
+  },
+  "LeaderboardsPageMetadata": {
+    "title": "Clasificaciones de Competencias - Modelo ONU, Juicio Simulado, Matemáticas",
+    "description": "Ve las clasificaciones de competencias de JAMUN para Modelo ONU, Juicio Simulado y Mathletes. Sigue las clasificaciones de escuelas, mejores delegados y rendimiento de equipos en nuestros programas de competencias académicas.",
+    "ogTitle": "Clasificaciones de Competencias de JAMUN",
+    "ogDescription": "Sigue las clasificaciones de escuelas y mejores participantes en competencias de Modelo ONU, Juicio Simulado y Mathletes."
+  },
+  "PrivacyPageMetadata": {
+    "title": "Política de Privacidad - JAMUN",
+    "description": "La política de privacidad de JAMUN explica cómo recopilamos, usamos y protegemos tu información personal. Conoce nuestras prácticas de datos y tus derechos de privacidad."
+  },
+  "TermsPageMetadata": {
+    "title": "Términos de Servicio - JAMUN",
+    "description": "Los términos de servicio de JAMUN describen las reglas y directrices para usar nuestro sitio web y participar en nuestros programas de competencias académicas."
+  },
+  "BlogPageMetadata": {
+    "title": "Consejos y Guías para Competencias Académicas",
+    "description": "Guías de expertos para documentos de posición de Modelo ONU, contrainterrogatorio de Juicio Simulado y estrategias de competencias de matemáticas. Historias de éxito de estudiantes, consejos para delegados y recursos para competencias académicas de secundaria.",
+    "ogTitle": "Blog de JAMUN - Consejos y Recursos para Competencias Académicas",
+    "ogDescription": "Descubre estrategias para sobresalir en Modelo ONU, Juicio Simulado y Mathletes. Guías de expertos, historias de estudiantes y consejos para competidores de secundaria."
+  },
+  "CommitteesPageMetadata": {
+    "title": "Comités de Modelo ONU - Principiante a Avanzado",
+    "description": "Explora los comités de Modelo ONU de JAMUN incluyendo Asamblea General, Consejo de Seguridad, ECOSOC y agencias especializadas. Encuentra el comité perfecto para delegados de secundaria en nuestras conferencias para principiantes.",
+    "ogTitle": "Comités de Modelo ONU - JAMUN",
+    "ogDescription": "Explora nuestros diversos comités de Modelo ONU diseñados para delegados de secundaria. Desde la Asamblea General hasta el Consejo de Seguridad, encuentra tu opción perfecta."
+  },
+  "ResourcesPageMetadata": {
+    "title": "Guías y Plantillas Gratuitas de Modelo ONU para Estudiantes",
+    "description": "Recursos gratuitos de Modelo ONU para delegados de secundaria. Aprende a escribir documentos de posición, redactar resoluciones, dar discursos y dominar el procedimiento parlamentario. Guías para principiantes y estrategias avanzadas.",
+    "ogTitle": "Recursos y Guías Gratuitos de Modelo ONU - JAMUN",
+    "ogDescription": "Todo lo que necesitas para tener éxito en Modelo ONU: plantillas de documentos de posición, guías de resoluciones, consejos para discursos y tutoriales de procedimiento parlamentario."
+  },
+  "MockTrialResourcesPageMetadata": {
+    "title": "Guías y Plantillas Gratuitas de Juicio Simulado para Estudiantes",
+    "description": "Recursos gratuitos de Juicio Simulado para estudiantes de secundaria. Aprende técnicas de contrainterrogatorio, declaraciones de apertura, argumentos finales y procedimientos del tribunal. Guías de preparación para abogados y testigos.",
+    "ogTitle": "Recursos y Guías Gratuitos de Juicio Simulado - JAMUN",
+    "ogDescription": "Domina habilidades del tribunal: contrainterrogatorio, declaraciones de apertura, objeciones y análisis de casos. Guías gratuitas para estudiantes abogados y testigos."
+  },
+  "MathletesResourcesPageMetadata": {
+    "title": "Recursos Gratuitos de Competencias de Matemáticas - Preparación MATHCOUNTS y AMC 8",
+    "description": "Recursos gratuitos de competencias de matemáticas para estudiantes de secundaria. Prepárate para MATHCOUNTS, AMC 8 y Math League con problemas de práctica, estrategias y guías de estudio. Tutoriales de teoría de números, álgebra y geometría.",
+    "ogTitle": "Recursos Gratuitos de Competencias de Matemáticas - JAMUN Mathletes",
+    "ogDescription": "Prepárate para MATHCOUNTS y AMC 8: problemas de práctica, estrategias de resolución de problemas y guías por tema para matemáticas competitivas."
+  },
   "Navigation": {
     "explore": "Explorar",
     "programs": "Programas",
