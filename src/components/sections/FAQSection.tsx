@@ -2,47 +2,20 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ChevronDown, MessageCircle } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { cn } from "@/lib/utils";
 
-const faqs = [
-  {
-    question: "What is Model UN and how does it benefit middle school students?",
-    answer:
-      "Model UN (Model United Nations) is an educational simulation where students represent different countries and debate global issues as UN delegates. For middle school students in grades 5-8, Model UN develops critical skills including public speaking, research, diplomatic negotiation, and understanding of international relations. Students learn to write position papers, draft resolutions, and deliver speeches—skills that prepare them for high school debate, magnet school applications, and future college success.",
-  },
-  {
-    question: "How do I prepare for my first Mock Trial competition?",
-    answer:
-      "We provide comprehensive Mock Trial preparation materials including case analysis guides, opening statement templates, cross-examination techniques, and practice sessions. New participants learn courtroom procedures, evidence rules, and objection strategies through step-by-step tutorials. Our experienced mentors help students master both attorney and witness roles, building confidence in legal reasoning and persuasive argumentation.",
-  },
-  {
-    question: "What math competitions does JAMUN prepare students for?",
-    answer:
-      "Our Mathletes program prepares middle school students for competitions including MATHCOUNTS, AMC 8, Math League, and Math Olympiad. We provide practice problems covering number theory, algebra, geometry, and problem-solving strategies. Students develop speed, accuracy, and creative mathematical thinking through team-based learning and individual challenges.",
-  },
-  {
-    question: "Are JAMUN's academic programs affordable?",
-    answer:
-      "Yes! JAMUN is committed to making academic competitions accessible to all students regardless of financial circumstances. All of our resources, curriculum guides, and training materials are completely free. Our conferences are low-cost, and we offer a grant program that can subsidize up to 100% of conference costs for students who need financial assistance. This includes registration fees, travel costs, and competition materials. As a 501(c)(3) nonprofit, all donations directly support student programs and our grant fund.",
-  },
-  {
-    question: "How can my school start a Model UN club or academic team?",
-    answer:
-      "JAMUN provides complete startup kits for schools including free curriculum guides, training materials, position paper templates, and ongoing mentorship. Whether you want to start a Model UN club, Mock Trial team, or Mathletes program, we offer free resources and support for educators. Contact us to schedule a consultation where we'll help you create an implementation plan tailored to your school's needs.",
-  },
-  {
-    question: "Do academic competitions help with college admissions?",
-    answer:
-      "Academic competitions demonstrate intellectual curiosity, leadership, and commitment—qualities college admissions officers value highly. Model UN, Mock Trial, and Mathletes develop transferable skills like public speaking, critical thinking, teamwork, and time management. Students who participate in these activities from middle school build impressive track records that strengthen high school and college applications.",
-  },
-  {
-    question: "What skills do students develop in JAMUN programs?",
-    answer:
-      "JAMUN programs develop essential 21st-century skills including public speaking and debate, critical thinking and analysis, research and writing, teamwork and collaboration, leadership and confidence, and problem-solving abilities. These skills transfer to academic success, standardized test performance, and future career readiness. Studies show that students who participate in debate and academic competitions perform better on SAT/ACT tests and in college.",
-  },
-];
+const faqKeys = [
+  { questionKey: "faq1Question", answerKey: "faq1Answer" },
+  { questionKey: "faq2Question", answerKey: "faq2Answer" },
+  { questionKey: "faq3Question", answerKey: "faq3Answer" },
+  { questionKey: "faq4Question", answerKey: "faq4Answer" },
+  { questionKey: "faq5Question", answerKey: "faq5Answer" },
+  { questionKey: "faq6Question", answerKey: "faq6Answer" },
+  { questionKey: "faq7Question", answerKey: "faq7Answer" },
+] as const;
 
 function FAQItem({
   question,
@@ -111,13 +84,14 @@ function FAQItem({
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const t = useTranslations("FAQSection");
 
   return (
     <Section background="gray">
       <SectionHeader
-        eyebrow="GOT QUESTIONS?"
-        title="Frequently Asked Questions"
-        subtitle="Everything you need to know about getting started with Model UN, Mock Trial, and Mathletes."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <div className="max-w-3xl mx-auto">
@@ -132,11 +106,11 @@ export function FAQSection() {
           <div className="h-1 bg-gradient-to-r from-jamun-blue via-purple-500 to-jamun-orange" />
 
           <div className="px-6 md:px-8 py-2">
-            {faqs.map((faq, index) => (
+            {faqKeys.map((faq, index) => (
               <FAQItem
                 key={index}
-                question={faq.question}
-                answer={faq.answer}
+                question={t(faq.questionKey)}
+                answer={t(faq.answerKey)}
                 isOpen={openIndex === index}
                 onToggle={() => setOpenIndex(openIndex === index ? null : index)}
                 index={index}
@@ -153,13 +127,13 @@ export function FAQSection() {
           transition={{ delay: 0.3 }}
           className="mt-8 text-center"
         >
-          <p className="text-gray-600 mb-3">Still have questions?</p>
+          <p className="text-gray-600 mb-3">{t("stillHaveQuestions")}</p>
           <a
             href="mailto:contact@jamun.org"
             className="inline-flex items-center gap-2 text-jamun-blue font-semibold hover:text-jamun-blue-dark transition-colors group"
           >
             <MessageCircle className="w-5 h-5" />
-            Get in touch with us
+            {t("contactUs")}
             <span className="transition-transform group-hover:translate-x-1">&rarr;</span>
           </a>
         </motion.div>

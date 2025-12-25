@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   HeroSection,
   StatsSection,
@@ -18,34 +19,51 @@ import {
   generateFAQSchema,
   jsonLdScript,
 } from "@/lib/structured-data";
+import { routing } from "@/i18n/routing";
 
-export const metadata: Metadata = {
-  title: "JAMUN - Affordable Middle School Academic Competitions | Model UN, Mock Trial, Mathletes",
-  description:
-    "JAMUN offers low-cost academic competition programs for middle school students (grades 5-8). Build public speaking, critical thinking, leadership, and debate skills through Model UN, Mock Trial, and Mathletes. Grants available. 100% youth-led nonprofit.",
-  keywords: [
-    "Model UN middle school",
-    "Mock Trial for kids",
-    "Mathletes program",
-    "middle school academic competitions",
-    "affordable extracurricular activities",
-    "youth debate programs",
-    "public speaking for students",
-    "leadership skills middle school",
-    "JAMUN",
-    "academic enrichment grades 5-8",
-  ],
-  openGraph: {
-    title: "JAMUN - Affordable Middle School Academic Competitions",
-    description:
-      "Join 500+ students in Model UN, Mock Trial, and Mathletes. Build public speaking, critical thinking, and leadership skills. Low-cost programs for grades 5-8 with grants available.",
-    url: siteConfig.url,
-    type: "website",
-  },
-  alternates: {
-    canonical: siteConfig.url,
-  },
-};
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "HomePage" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: [
+      "Model UN middle school",
+      "Mock Trial for kids",
+      "Mathletes program",
+      "middle school academic competitions",
+      "affordable extracurricular activities",
+      "youth debate programs",
+      "public speaking for students",
+      "leadership skills middle school",
+      "JAMUN",
+      "academic enrichment grades 5-8",
+    ],
+    openGraph: {
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: siteConfig.url,
+      type: "website",
+      locale: locale === "es" ? "es_ES" : "en_US",
+    },
+    alternates: {
+      canonical: siteConfig.url,
+      languages: {
+        en: "/",
+        es: "/es",
+      },
+    },
+  };
+}
 
 // FAQ data for structured data - matches FAQSection content
 const homepageFAQs = [
@@ -86,7 +104,14 @@ const homepageFAQs = [
   },
 ];
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const organizationSchema = generateOrganizationSchema();
   const websiteSchema = generateWebsiteSchema();
   const faqSchema = generateFAQSchema(homepageFAQs);

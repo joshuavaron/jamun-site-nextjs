@@ -2,45 +2,10 @@
 
 import { motion } from "framer-motion";
 import { GraduationCap, Users, BookOpen, ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Section, SectionHeader } from "@/components/ui";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-
-const audiences = [
-  {
-    icon: GraduationCap,
-    title: "For Middle School Students (Grades 5-8)",
-    description:
-      "Whether you're preparing for your first Model UN conference, Mock Trial competition, or math league tournament, our beginner-friendly programs help you develop public speaking, debate, critical thinking, and teamwork skills. Join 500+ students who have discovered their potential through academic competitions.",
-    cta: "Register Now",
-    href: "/register",
-    iconBg: "bg-jamun-blue",
-    accentColor: "text-jamun-blue",
-    hoverGlow: "group-hover:shadow-jamun-blue/20",
-  },
-  {
-    icon: Users,
-    title: "For Parents & Families",
-    description:
-      "Looking for meaningful extracurricular activities that prepare your child for high school, magnet school admissions, and college? JAMUN's affordable academic enrichment programs develop leadership, communication, problem-solving, and analytical thinking—skills that set students apart in applications and in life. Grants available for those who need them.",
-    cta: "Learn About Our Programs",
-    href: "/programs",
-    iconBg: "bg-purple-600",
-    accentColor: "text-purple-600",
-    hoverGlow: "group-hover:shadow-purple-500/20",
-  },
-  {
-    icon: BookOpen,
-    title: "For Teachers & School Administrators",
-    description:
-      "Start a Model UN club, Mock Trial team, or Mathletes program at your school with our free curriculum guides and training materials. We support educators with position paper templates, competition prep resources, MATHCOUNTS practice problems, and ongoing mentorship to build successful programs.",
-    cta: "Access Free Resources",
-    href: "/modelun/resources",
-    iconBg: "bg-emerald-600",
-    accentColor: "text-emerald-600",
-    hoverGlow: "group-hover:shadow-emerald-500/20",
-  },
-];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,13 +26,48 @@ const itemVariants = {
   },
 };
 
+const audiences = [
+  {
+    icon: GraduationCap,
+    titleKey: "studentsTitle" as const,
+    descriptionKey: "studentsDescription" as const,
+    ctaKey: "studentsCta" as const,
+    href: "/register",
+    iconBg: "bg-jamun-blue",
+    accentColor: "text-jamun-blue",
+    hoverGlow: "group-hover:shadow-jamun-blue/20",
+  },
+  {
+    icon: Users,
+    titleKey: "parentsTitle" as const,
+    descriptionKey: "parentsDescription" as const,
+    ctaKey: "parentsCta" as const,
+    href: "/programs",
+    iconBg: "bg-purple-600",
+    accentColor: "text-purple-600",
+    hoverGlow: "group-hover:shadow-purple-500/20",
+  },
+  {
+    icon: BookOpen,
+    titleKey: "teachersTitle" as const,
+    descriptionKey: "teachersDescription" as const,
+    ctaKey: "teachersCta" as const,
+    href: "/modelun/resources",
+    iconBg: "bg-emerald-600",
+    accentColor: "text-emerald-600",
+    hoverGlow: "group-hover:shadow-emerald-500/20",
+  },
+];
+
 export function WhoWeServeSection() {
+  const t = useTranslations("WhoWeServeSection");
+
   return (
     <Section background="white">
       <SectionHeader
-        eyebrow="WHO WE SERVE"
-        title="Programs for Students, Parents & Educators"
-        subtitle="JAMUN provides academic competition programs designed specifically for middle school students. Our Model UN, Mock Trial, and Mathletes programs help young learners build confidence, develop critical skills, and discover their potential. Free resources and low-cost conferences with grants available."
+        eyebrow={t("eyebrow")}
+        title={t("title")}
+        subtitle={t("subtitle")}
       />
 
       <motion.div
@@ -79,7 +79,7 @@ export function WhoWeServeSection() {
       >
         {audiences.map((audience) => (
           <motion.div
-            key={audience.title}
+            key={audience.titleKey}
             variants={itemVariants}
             whileHover={{ y: -4 }}
             transition={{ duration: 0.2 }}
@@ -99,10 +99,10 @@ export function WhoWeServeSection() {
                 <audience.icon className="w-7 h-7 text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
-                {audience.title}
+                {t(audience.titleKey)}
               </h3>
               <p className="text-gray-600 mb-6 flex-grow leading-relaxed">
-                {audience.description}
+                {t(audience.descriptionKey)}
               </p>
               <Link
                 href={audience.href}
@@ -112,7 +112,7 @@ export function WhoWeServeSection() {
                   "group/link"
                 )}
               >
-                {audience.cta}
+                {t(audience.ctaKey)}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
               </Link>
             </div>

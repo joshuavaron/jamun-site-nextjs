@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Quote, Star } from "lucide-react";
 import { Section } from "@/components/ui";
 
 export function TestimonialSection() {
+  const t = useTranslations("TestimonialSection");
   return (
     <Section background="gray">
       <motion.div
@@ -25,7 +27,7 @@ export function TestimonialSection() {
               <div className="relative md:col-span-2 h-64 md:h-auto overflow-hidden">
                 <Image
                   src="/images/conferences/DSC00217.webp"
-                  alt="Students attentively listening at JAMUN conference"
+                  alt={t("imageAlt")}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -61,23 +63,21 @@ export function TestimonialSection() {
 
                 {/* Quote text */}
                 <blockquote className="relative z-10 text-xl md:text-2xl font-medium text-gray-800 leading-relaxed mb-8">
-                  &ldquo;This was something they were passionate about, and they
-                  put in an extraordinary amount of time and care into putting
-                  together a learning experience our students will{" "}
-                  <span className="text-jamun-blue font-semibold">not forget</span>.&rdquo;
+                  &ldquo;{t("quotePart1")}{" "}
+                  <span className="text-jamun-blue font-semibold">{t("quoteHighlight")}</span>.&rdquo;
                 </blockquote>
 
                 {/* Attribution */}
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-jamun-blue to-purple-600 flex items-center justify-center shadow-md">
-                    <span className="text-white font-bold text-lg">KM</span>
+                    <span className="text-white font-bold text-lg">{t("authorInitials")}</span>
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">
-                      Mr. Komie and Ms. Mastin
+                      {t("author")}
                     </p>
                     <p className="text-gray-500 text-sm">
-                      Middle School Social Studies Teachers
+                      {t("role")}
                     </p>
                   </div>
                 </div>

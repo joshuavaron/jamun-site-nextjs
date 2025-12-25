@@ -11,3 +11,7 @@ export { BlogCard } from "./BlogCard";
 export type { BlogPost } from "./BlogCard";
 
 export { TypewriterText } from "./TypewriterText";
+
+export { LanguageSwitcher } from "./LanguageSwitcher";
+
+export { TranslationNotice } from "./TranslationNotice";

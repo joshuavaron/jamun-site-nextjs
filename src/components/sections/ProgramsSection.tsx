@@ -2,18 +2,19 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ArrowRight, Globe, Scale, Calculator } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const programs = [
   {
     id: "model-un",
-    title: "Model United Nations",
-    description:
-      "Simulate UN committees, represent countries, and debate global issues. Perfect for students interested in international relations, public speaking, and diplomacy.",
-    features: ["Beginner-friendly", "Diplomatic skills", "Research & debate"],
+    titleKey: "modelUNTitle" as const,
+    descriptionKey: "modelUNDescription" as const,
+    featuresKeys: ["modelUNFeature1", "modelUNFeature2", "modelUNFeature3"] as const,
+    exploreKey: "exploreModelUN" as const,
     href: "/modelun",
     image: "/images/conferences/DSC00848.webp",
     icon: Globe,
@@ -23,10 +24,10 @@ const programs = [
   },
   {
     id: "mock-trial",
-    title: "Mock Trial",
-    description:
-      "Experience the courtroom firsthand as attorneys and witnesses. Develop argumentation, evidence analysis, and persuasive presentation skills.",
-    features: ["Courtroom simulation", "Legal reasoning", "Cross-examination"],
+    titleKey: "mockTrialTitle" as const,
+    descriptionKey: "mockTrialDescription" as const,
+    featuresKeys: ["mockTrialFeature1", "mockTrialFeature2", "mockTrialFeature3"] as const,
+    exploreKey: "exploreMockTrial" as const,
     href: "/mocktrial",
     image: "/images/conferences/DSC02128.webp",
     icon: Scale,
@@ -36,10 +37,10 @@ const programs = [
   },
   {
     id: "mathletes",
-    title: "Mathletes",
-    description:
-      "Challenge yourself with competitive mathematics and problem-solving contests. Build analytical thinking and teamwork through math team competitions.",
-    features: ["Math competitions", "Problem-solving", "Team challenges"],
+    titleKey: "mathletesTitle" as const,
+    descriptionKey: "mathletesDescription" as const,
+    featuresKeys: ["mathletesFeature1", "mathletesFeature2", "mathletesFeature3"] as const,
+    exploreKey: "exploreMathletes" as const,
     href: "/mathletes",
     image: "/images/conferences/homebackground2.webp",
     icon: Calculator,
@@ -69,11 +70,13 @@ const itemVariants = {
 };
 
 export function ProgramsSection() {
+  const t = useTranslations("ProgramsSection");
+
   return (
     <Section>
       <SectionHeader
-        eyebrow="OUR PROGRAMS"
-        title="Three Paths to Academic Excellence"
+        eyebrow={t("eyebrow")}
+        title={t("title")}
       />
 
       <motion.div
@@ -95,7 +98,7 @@ export function ProgramsSection() {
                 {/* Background Image */}
                 <Image
                   src={program.image}
-                  alt={program.title}
+                  alt={t(program.titleKey)}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
@@ -128,31 +131,31 @@ export function ProgramsSection() {
                   )} />
 
                   <h3 className="text-2xl font-bold text-white mb-3">
-                    {program.title}
+                    {t(program.titleKey)}
                   </h3>
                   <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
-                    {program.description}
+                    {t(program.descriptionKey)}
                   </p>
 
                   {/* Feature badges - colored per program */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {program.features.map((feature) => (
+                    {program.featuresKeys.map((featureKey) => (
                       <span
-                        key={feature}
+                        key={featureKey}
                         className={cn(
                           "px-3 py-1 text-white text-xs font-medium rounded-full",
                           "transition-transform duration-200 hover:scale-105",
                           program.badgeColor
                         )}
                       >
-                        {feature}
+                        {t(featureKey)}
                       </span>
                     ))}
                   </div>
 
                   {/* CTA */}
                   <div className="inline-flex items-center text-white font-medium border border-white/30 rounded-lg px-4 py-2 transition-all duration-300 group-hover:bg-white group-hover:text-gray-900 group-hover:border-white">
-                    Explore {program.title.split(" ")[0]}
+                    {t(program.exploreKey)}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>

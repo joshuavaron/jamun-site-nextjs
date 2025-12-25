@@ -2,33 +2,29 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 const sections = [
   {
     id: "parents",
-    label: "FOR PARENTS",
-    title: "Supporting Your Child's Academic Journey",
-    description:
-      "We know you want the best for your child. Here's how our programs—Model UN, Mock Trial, and Mathletes—help them grow academically, socially, and personally.",
+    labelKey: "parentsLabel" as const,
+    titleKey: "parentsTitle" as const,
+    descriptionKey: "parentsDescription" as const,
     image: "/images/conferences/DSC02053.webp",
     imagePosition: "right" as const,
-    stat: {
-      value: "85%",
-      label: "of JAMUN alumni say it shaped their future",
-    },
+    statValueKey: "parentsStatValue" as const,
+    statLabelKey: "parentsStatLabel" as const,
     benefits: [
-      { number: "01", title: "Confidence Building", description: "Watch your child develop public speaking skills and self-assurance through competition." },
-      { number: "02", title: "Critical Thinking", description: "Students learn to analyze complex issues and solve problems creatively." },
-      { number: "03", title: "Academic Benefits", description: "Strengthens research, writing, logical reasoning, and analytical skills." },
-      { number: "04", title: "Lasting Friendships", description: "Students connect with peers who share their passion for learning." },
-      { number: "05", title: "Well-Rounded Growth", description: "Choose from diplomacy, law, or math—or try all three to discover their strengths." },
-      { number: "06", title: "College Preparation", description: "Build a standout extracurricular profile with skills universities value." },
+      { number: "01", titleKey: "parentsBenefit1Title" as const, descriptionKey: "parentsBenefit1Description" as const },
+      { number: "02", titleKey: "parentsBenefit2Title" as const, descriptionKey: "parentsBenefit2Description" as const },
+      { number: "03", titleKey: "parentsBenefit3Title" as const, descriptionKey: "parentsBenefit3Description" as const },
+      { number: "04", titleKey: "parentsBenefit4Title" as const, descriptionKey: "parentsBenefit4Description" as const },
+      { number: "05", titleKey: "parentsBenefit5Title" as const, descriptionKey: "parentsBenefit5Description" as const },
+      { number: "06", titleKey: "parentsBenefit6Title" as const, descriptionKey: "parentsBenefit6Description" as const },
     ],
-    testimonial: {
-      quote: "JAMUN helped my daughter find her voice. She used to be shy about speaking in class, but now she confidently presents to groups of her peers.",
-      author: "Parent of 2024 JAMUN Participant",
-    },
+    testimonialQuoteKey: "parentsTestimonialQuote" as const,
+    testimonialAuthorKey: "parentsTestimonialAuthor" as const,
     accentColor: "purple",
     labelColor: "text-purple-600",
     borderColor: "border-purple-600",
@@ -37,26 +33,21 @@ const sections = [
   },
   {
     id: "educators",
-    label: "FOR EDUCATORS",
-    title: "Bring Academic Competitions to Your School",
-    description:
-      "Whether you're experienced or just starting out, we provide the resources and support you need to run Model UN, Mock Trial, or Mathletes programs.",
+    labelKey: "educatorsLabel" as const,
+    titleKey: "educatorsTitle" as const,
+    descriptionKey: "educatorsDescription" as const,
     image: "/images/conferences/DSC02135.webp",
     imagePosition: "left" as const,
-    stat: {
-      value: "30+",
-      label: "schools partnered with JAMUN",
-    },
+    statValueKey: "educatorsStatValue" as const,
+    statLabelKey: "educatorsStatLabel" as const,
     benefits: [
-      { number: "01", title: "Free Resources", description: "Access comprehensive teaching materials for all three programs at no cost." },
-      { number: "02", title: "Training Workshops", description: "Professional development for advisors new to academic competitions." },
-      { number: "03", title: "Competition Support", description: "Help preparing your students for regional and national events." },
-      { number: "04", title: "Student Mentorship", description: "Connect your students with experienced JAMUN competitors and coaches." },
+      { number: "01", titleKey: "educatorsBenefit1Title" as const, descriptionKey: "educatorsBenefit1Description" as const },
+      { number: "02", titleKey: "educatorsBenefit2Title" as const, descriptionKey: "educatorsBenefit2Description" as const },
+      { number: "03", titleKey: "educatorsBenefit3Title" as const, descriptionKey: "educatorsBenefit3Description" as const },
+      { number: "04", titleKey: "educatorsBenefit4Title" as const, descriptionKey: "educatorsBenefit4Description" as const },
     ],
-    testimonial: {
-      quote: "The resources JAMUN provides made it easy to start our school's first academic competition club. Our students are thriving.",
-      author: "Middle School Teacher",
-    },
+    testimonialQuoteKey: "educatorsTestimonialQuote" as const,
+    testimonialAuthorKey: "educatorsTestimonialAuthor" as const,
     accentColor: "emerald",
     labelColor: "text-emerald-600",
     borderColor: "border-emerald-600",
@@ -66,6 +57,8 @@ const sections = [
 ];
 
 export function GallerySection() {
+  const t = useTranslations("GallerySection");
+
   return (
     <section className="bg-white">
       {sections.map((section, sectionIndex) => (
@@ -84,7 +77,7 @@ export function GallerySection() {
             >
               <Image
                 src={section.image}
-                alt={section.title}
+                alt={t(section.titleKey)}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -103,10 +96,10 @@ export function GallerySection() {
                   "text-5xl md:text-6xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
                   section.statGradient
                 )}>
-                  {section.stat.value}
+                  {t(section.statValueKey)}
                 </div>
                 <div className="text-sm md:text-base text-white/90 max-w-[200px]">
-                  {section.stat.label}
+                  {t(section.statLabelKey)}
                 </div>
               </motion.div>
 
@@ -140,17 +133,17 @@ export function GallerySection() {
                 "font-semibold text-base tracking-widest uppercase mb-4",
                 section.labelColor
               )}>
-                {section.label}
+                {t(section.labelKey)}
               </span>
 
               {/* Title */}
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                {section.title}
+                {t(section.titleKey)}
               </h2>
 
               {/* Description */}
               <p className="text-lg text-gray-600 mb-8">
-                {section.description}
+                {t(section.descriptionKey)}
               </p>
 
               {/* Benefits Grid */}
@@ -172,10 +165,10 @@ export function GallerySection() {
                     </span>
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">
-                        {benefit.title}
+                        {t(benefit.titleKey)}
                       </h4>
                       <p className="text-sm text-gray-600">
-                        {benefit.description}
+                        {t(benefit.descriptionKey)}
                       </p>
                     </div>
                   </motion.div>
@@ -194,10 +187,10 @@ export function GallerySection() {
                 )}
               >
                 <p className="text-gray-700 italic mb-3">
-                  &ldquo;{section.testimonial.quote}&rdquo;
+                  &ldquo;{t(section.testimonialQuoteKey)}&rdquo;
                 </p>
                 <p className="text-sm font-semibold text-gray-900">
-                  — {section.testimonial.author}
+                  — {t(section.testimonialAuthorKey)}
                 </p>
               </motion.div>
             </motion.div>

@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { ArrowRight, Heart, Users, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui";
 
 export function CTASection() {
+  const t = useTranslations("CTASection");
   return (
     <section className="relative bg-gray-50 py-16 md:py-20 overflow-hidden">
 
@@ -24,17 +26,16 @@ export function CTASection() {
           className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white rounded-full shadow-sm border border-gray-100"
         >
           <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-          <span className="text-sm font-medium text-gray-700">Join 500+ students nationwide</span>
+          <span className="text-sm font-medium text-gray-700">{t("badge")}</span>
         </motion.div>
 
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-          Ready to Start Your{" "}
-          <span className="text-jamun-blue">Journey</span>?
+          {t("title")}{" "}
+          <span className="text-jamun-blue">{t("titleHighlight")}</span>
         </h2>
 
         <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Whether you&apos;re a student eager to compete, a parent supporting your child,
-          or an educator building a program—we&apos;re here to help you succeed.
+          {t("subtitle")}
         </p>
 
         {/* Feature highlights */}
@@ -49,7 +50,7 @@ export function CTASection() {
             <div className="w-8 h-8 rounded-full bg-jamun-blue/10 flex items-center justify-center">
               <GraduationCap className="w-4 h-4 text-jamun-blue" />
             </div>
-            <span className="text-sm font-medium">Free resources & guides</span>
+            <span className="text-sm font-medium">{t("feature1")}</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -61,7 +62,7 @@ export function CTASection() {
             <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
               <Users className="w-4 h-4 text-purple-600" />
             </div>
-            <span className="text-sm font-medium">Supportive community</span>
+            <span className="text-sm font-medium">{t("feature2")}</span>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -73,7 +74,7 @@ export function CTASection() {
             <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
               <Heart className="w-4 h-4 text-emerald-600" />
             </div>
-            <span className="text-sm font-medium">Youth-led nonprofit</span>
+            <span className="text-sm font-medium">{t("feature3")}</span>
           </motion.div>
         </div>
 
@@ -84,7 +85,7 @@ export function CTASection() {
               size="lg"
               className="group"
             >
-              Get Started
+              {t("primaryCTA")}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
@@ -94,7 +95,7 @@ export function CTASection() {
               variant="outline"
               size="lg"
             >
-              Explore Programs
+              {t("secondaryCTA")}
             </Button>
           </motion.div>
         </div>
@@ -106,7 +107,7 @@ export function CTASection() {
           transition={{ delay: 0.5 }}
           className="mt-8 text-sm text-gray-500"
         >
-          Questions? We&apos;d love to hear from you at{" "}
+          {t("contactText")}{" "}
           <a
             href="mailto:contact@jamun.org"
             className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"

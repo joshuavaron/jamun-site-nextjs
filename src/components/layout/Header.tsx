@@ -1,19 +1,22 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 
-const exploreItems = [
-  { label: "Programs", href: "/programs" },
-  { label: "About", href: "/about" },
-  { label: "Leaderboards", href: "/leaderboards" },
-  { label: "Blog", href: "/blog" },
-];
+// Explore menu items - keys map to translation keys
+const exploreItemKeys = [
+  { key: "programs", href: "/programs" },
+  { key: "about", href: "/about" },
+  { key: "leaderboards", href: "/leaderboards" },
+  { key: "blog", href: "/blog" },
+] as const;
 
 // Static pages to search (prioritized first)
 const staticPages = [
@@ -40,6 +43,7 @@ interface SearchResult {
 }
 
 export function Header() {
+  const t = useTranslations("Navigation");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -152,7 +156,7 @@ export function Header() {
                 onClick={() => setIsExploreOpen(!isExploreOpen)}
                 className="flex items-center gap-1 text-gray-700 hover:text-jamun-blue font-medium transition-colors cursor-pointer"
               >
-                Explore
+                {t("explore")}
                 <ChevronDown
                   className={cn(
                     "w-4 h-4 transition-transform duration-200",
@@ -170,14 +174,14 @@ export function Header() {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50"
                   >
-                    {exploreItems.map((item) => (
+                    {exploreItemKeys.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
                         onClick={() => setIsExploreOpen(false)}
                         className="block px-4 py-2 text-gray-700 hover:bg-jamun-blue/5 hover:text-jamun-blue transition-colors"
                       >
-                        {item.label}
+                        {t(item.key)}
                       </Link>
                     ))}
                   </motion.div>
@@ -199,7 +203,7 @@ export function Header() {
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Search..."
+                  placeholder={t("search")}
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
@@ -262,19 +266,20 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Right side: CTA Buttons */}
-          <div className="hidden nav:flex items-center gap-3 ml-auto">
+          {/* Right side: CTA Buttons + Language Switcher */}
+          <div className="hidden nav:flex items-center gap-4 ml-auto">
+            <LanguageSwitcher />
             <Link
               href="/grants"
-              className="text-gray-700 hover:text-jamun-blue font-medium transition-colors px-4 py-2"
+              className="text-gray-700 hover:text-jamun-blue font-medium transition-colors"
             >
-              Grants
+              {t("grants")}
             </Link>
             <Button href="/donate" variant="accent" size="sm">
-              Donate
+              {t("donate")}
             </Button>
             <Button href="/register" variant="primary" size="sm">
-              Register
+              {t("register")}
             </Button>
           </div>
 
@@ -282,7 +287,7 @@ export function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="nav:hidden p-2 text-gray-700 hover:text-jamun-blue transition-colors ml-auto"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -300,13 +305,18 @@ export function Header() {
             className="nav:hidden bg-white border-t overflow-hidden"
           >
             <nav className="max-w-7xl mx-auto px-4 py-6 space-y-4">
+              {/* Mobile Language Switcher */}
+              <div className="flex justify-end mb-2">
+                <LanguageSwitcher />
+              </div>
+
               {/* Mobile Search */}
               <div className="relative" data-search-dropdown>
                 <div className="flex items-center bg-gray-100 rounded-full h-10">
                   <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
                   <input
                     type="text"
-                    placeholder="Search..."
+                    placeholder={t("search")}
                     value={searchQuery}
                     onChange={(e) => {
                       setSearchQuery(e.target.value);
@@ -347,25 +357,25 @@ export function Header() {
                 </AnimatePresence>
               </div>
 
-              {exploreItems.map((item) => (
+              {exploreItemKeys.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className="block text-lg text-gray-700 hover:text-jamun-blue font-medium py-2 transition-colors"
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               ))}
               <div className="pt-4 border-t space-y-3">
                 <Button href="/grants" variant="ghost" className="w-full bg-gray-100">
-                  Grants
+                  {t("grants")}
                 </Button>
                 <Button href="/donate" variant="accent" className="w-full">
-                  Donate
+                  {t("donate")}
                 </Button>
                 <Button href="/register" variant="primary" className="w-full">
-                  Register
+                  {t("register")}
                 </Button>
               </div>
             </nav>

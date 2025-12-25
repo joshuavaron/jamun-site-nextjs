@@ -2,21 +2,17 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { CheckCircle, BookOpen, Trophy, Rocket } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { cn } from "@/lib/utils";
 
 const features = [
   {
-    subtitle: "ENGAGING CONTENT",
-    title: "Interactive Extracurricular Experiences",
-    description:
-      "Access expertly curated material for Model UN, Mock Trial, and Mathletes. Our modules are designed to be engaging, practical, and highly effective for competition prep.",
-    bullets: [
-      "Expert-designed curriculum",
-      "Practice scenarios & simulations",
-      "Progress tracking dashboards",
-    ],
+    subtitleKey: "feature1Subtitle" as const,
+    titleKey: "feature1Title" as const,
+    descriptionKey: "feature1Description" as const,
+    bulletKeys: ["feature1Bullet1", "feature1Bullet2", "feature1Bullet3"] as const,
     image: "/images/conferences/DSC01852.webp",
     imagePosition: "left" as const,
     icon: BookOpen,
@@ -29,15 +25,10 @@ const features = [
     circleColor: "bg-jamun-blue/10",
   },
   {
-    subtitle: "COMPETE & GROW",
-    title: "Real-Time Leaderboards",
-    description:
-      "Compete with peers globally! Our dynamic leaderboards track progress across multiple subjects and competitions, offering recognition for top performers.",
-    bullets: [
-      "Global & local rankings",
-      "Achievement badges & rewards",
-      "Weekly competition cycles",
-    ],
+    subtitleKey: "feature2Subtitle" as const,
+    titleKey: "feature2Title" as const,
+    descriptionKey: "feature2Description" as const,
+    bulletKeys: ["feature2Bullet1", "feature2Bullet2", "feature2Bullet3"] as const,
     image: "/images/conferences/DSC02012.webp",
     imagePosition: "right" as const,
     icon: Trophy,
@@ -50,15 +41,10 @@ const features = [
     circleColor: "bg-purple-200/50",
   },
   {
-    subtitle: "START TODAY",
-    title: "No Experience Required",
-    description:
-      "It doesn't matter whether this is your first tournament or your hundredth! Our library of prep materials will make sure you are ready to compete at your best.",
-    bullets: [
-      "Beginner-friendly tutorials",
-      "Step-by-step learning paths",
-      "Mentor support available",
-    ],
+    subtitleKey: "feature3Subtitle" as const,
+    titleKey: "feature3Title" as const,
+    descriptionKey: "feature3Description" as const,
+    bulletKeys: ["feature3Bullet1", "feature3Bullet2", "feature3Bullet3"] as const,
     image: "/images/conferences/DSC00841.webp",
     imagePosition: "left" as const,
     icon: Rocket,
@@ -73,17 +59,19 @@ const features = [
 ];
 
 export function WhyChooseSection() {
+  const t = useTranslations("WhyChooseSection");
+
   return (
     <Section background="white">
       <SectionHeader
-        eyebrow="WHY CHOOSE JAMUN"
-        title="Everything You Need to Excel"
+        eyebrow={t("eyebrow")}
+        title={t("title")}
       />
 
       <div className="space-y-12 lg:space-y-14">
         {features.map((feature) => (
           <motion.div
-            key={feature.title}
+            key={feature.titleKey}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -125,7 +113,7 @@ export function WhyChooseSection() {
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src={feature.image}
-                    alt={feature.title}
+                    alt={t(feature.titleKey)}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -165,22 +153,22 @@ export function WhyChooseSection() {
                   feature.badgeText
                 )}
               >
-                {feature.subtitle}
+                {t(feature.subtitleKey)}
               </motion.span>
 
               <h3 className="text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
-                {feature.title}
+                {t(feature.titleKey)}
               </h3>
 
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                {feature.description}
+                {t(feature.descriptionKey)}
               </p>
 
               {/* Bullet points with varied colors */}
               <ul className="space-y-4">
-                {feature.bullets.map((bullet, bulletIndex) => (
+                {feature.bulletKeys.map((bulletKey, bulletIndex) => (
                   <motion.li
-                    key={bullet}
+                    key={bulletKey}
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -193,7 +181,7 @@ export function WhyChooseSection() {
                     )}>
                       <CheckCircle className={cn("w-4 h-4", feature.checkColor)} />
                     </div>
-                    <span className="font-medium">{bullet}</span>
+                    <span className="font-medium">{t(bulletKey)}</span>
                   </motion.li>
                 ))}
               </ul>

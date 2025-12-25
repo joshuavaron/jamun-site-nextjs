@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 
 function AnimatedNumber({ value, duration = 2000 }: { value: string; duration?: number }) {
@@ -66,7 +67,17 @@ const cardVariants = {
   }),
 };
 
+// Map stat labels to translation keys
+const statTranslationKeys: Record<string, string> = {
+  "Students Impacted": "studentsImpacted",
+  "Schools Reached": "schoolsReached",
+  "Volunteers": "volunteers",
+  "Raised for Programs": "raisedForPrograms",
+};
+
 export function StatsSection() {
+  const t = useTranslations("StatsSection");
+
   return (
     <section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
       {/* Subtle gradient overlays */}
@@ -83,11 +94,10 @@ export function StatsSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Empowering Young Leaders Nationwide
+            {t("title")}
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            JAMUN is a 100% volunteer-run nonprofit making academic competitions
-            accessible to middle school students across the country.
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -115,7 +125,7 @@ export function StatsSection() {
                     <AnimatedNumber value={stat.value} duration={statDurations[index]} />
                   </div>
                   <div className="text-sm md:text-base text-gray-400 font-medium">
-                    {stat.label}
+                    {t(statTranslationKeys[stat.label] || stat.label)}
                   </div>
                 </div>
               </div>

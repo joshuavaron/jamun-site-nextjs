@@ -1,8 +1,27 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
 
+// Footer link configurations with translation keys
+const programLinks = [
+  { key: "modelUN", href: "/modelun" },
+  { key: "mockTrial", href: "/mocktrial" },
+  { key: "mathletes", href: "/mathletes" },
+  { key: "leaderboards", href: "/leaderboards" },
+] as const;
+
+const resourceLinks = [
+  { key: "blog", href: "/blog" },
+  { key: "privacyPolicy", href: "/privacy" },
+  { key: "termsOfService", href: "/terms" },
+] as const;
+
 export function Footer() {
+  const t = useTranslations("Footer");
+  const tNav = useTranslations("Navigation");
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,12 +41,10 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm text-gray-400 mb-4">
-              Empowering students through competitive academic excellence and
-              meaningful debate.
+              {t("tagline")}
             </p>
             <p className="text-xs text-gray-500">
-              {siteConfig.fullName} is a registered 501(c)(3) nonprofit
-              organization.
+              {t("nonprofit", { name: siteConfig.fullName })}
             </p>
           </div>
 
@@ -35,15 +52,15 @@ export function Footer() {
           <div className="grid grid-cols-3 gap-6 lg:col-span-3 lg:gap-12">
             {/* Programs Column */}
             <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Programs</h3>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("programs")}</h3>
               <ul className="space-y-2 sm:space-y-3">
-                {siteConfig.footer.programs.map((item) => (
+                {programLinks.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
                     >
-                      {item.label}
+                      {t(item.key)}
                     </Link>
                   </li>
                 ))}
@@ -52,32 +69,38 @@ export function Footer() {
 
             {/* Organization Column */}
             <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Organization</h3>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("organization")}</h3>
               <ul className="space-y-2 sm:space-y-3">
-                {siteConfig.footer.organization.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link
+                    href="/about"
+                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t("aboutUs")}
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="mailto:contact@jamun.org"
+                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {tNav("contact")}
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Resources Column */}
             <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">Resources</h3>
+              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("resources")}</h3>
               <ul className="space-y-2 sm:space-y-3">
-                {siteConfig.footer.resources.map((item) => (
+                {resourceLinks.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
                     >
-                      {item.label}
+                      {item.key === "blog" ? tNav("blog") : t(item.key)}
                     </Link>
                   </li>
                 ))}
@@ -89,7 +112,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <p className="text-sm text-gray-500 text-center">
-            &copy; {currentYear} {siteConfig.fullName}. All rights reserved.
+            {t("copyright", { year: currentYear, name: siteConfig.fullName })}
           </p>
         </div>
       </div>

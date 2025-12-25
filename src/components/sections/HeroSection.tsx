@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button, TypewriterText } from "@/components/ui";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function HeroSection() {
+  const t = useTranslations("HeroSection");
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 w-full">
@@ -23,15 +25,15 @@ export function HeroSection() {
               className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
             >
               <Sparkles className="w-4 h-4" />
-              100% Youth-Led Nonprofit
+              {t("badge")}
             </motion.span>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6">
-              <TypewriterText text="JAMUN Makes " delay={0.3} />
+              <TypewriterText text={t("title")} delay={0.3} />
               <span className="relative">
                 <TypewriterText
-                  text="Learning Fun!"
-                  delay={0.3 + 12 * 0.03}
+                  text={t("titleHighlight")}
+                  delay={0.3 + t("title").length * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradient_3s_linear_infinite]"
                 />
               </span>
@@ -43,9 +45,7 @@ export function HeroSection() {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-lg md:text-xl text-gray-600 mb-8 max-w-lg"
             >
-              Low-cost academic competition programs for middle school students in grades 5-8.
-              Build essential skills in public speaking, debate, critical thinking, and
-              leadership through Model UN, Mock Trial, and Mathletes. Grants available for those who need them.
+              {t("subtitle")}
             </motion.p>
 
             <motion.div
@@ -55,11 +55,11 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <Button href="/register" size="lg" className="group">
-                Register Now
+                {t("primaryCTA")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button href="/programs" variant="outline" size="lg" className="group">
-                Explore Programs
+                {t("secondaryCTA")}
               </Button>
             </motion.div>
           </motion.div>
@@ -79,7 +79,7 @@ export function HeroSection() {
             >
               <Image
                 src="/images/conferences/DSC01722.webp"
-                alt="Student delivering an engaging speech at JAMUN conference"
+                alt={t("imageAlt")}
                 fill
                 className="object-cover"
                 priority
