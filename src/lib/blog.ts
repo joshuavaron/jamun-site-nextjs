@@ -41,7 +41,8 @@ function localeExists(locale: string): boolean {
 
 export function getAllPosts(locale: string = defaultLocale, readTimeFormat: string = "{minutes} min read"): BlogPostMeta[] {
   // Use pre-generated JSON data (works in edge runtime)
-  const localeKey = (locale === "es" ? "es" : "en") as keyof typeof blogData;
+  // Falls back to English if locale not available in JSON
+  const localeKey = (locale in blogData ? locale : "en") as keyof typeof blogData;
   const posts = blogData[localeKey] || blogData.en || [];
 
   // Transform the pre-generated data to include formatted read time

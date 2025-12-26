@@ -63,10 +63,11 @@ function generateCommitteeData() {
   const data = {
     en: getAllCommittees('en'),
     es: getAllCommittees('es'),
+    zh: getAllCommittees('zh'),
   };
 
   fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
-  console.log(`Generated ${outputFile} with ${data.en.length} EN and ${data.es.length} ES committees`);
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH committees`);
 }
 
 // ============================================
@@ -126,10 +127,11 @@ function generateBlogData() {
   const data = {
     en: getAllPosts('en'),
     es: getAllPosts('es'),
+    zh: getAllPosts('zh'),
   };
 
   fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
-  console.log(`Generated ${outputFile} with ${data.en.length} EN and ${data.es.length} ES blog posts`);
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH blog posts`);
 }
 
 // ============================================
@@ -182,10 +184,11 @@ function generateResourcesData() {
   const data = {
     en: getAllResources('en'),
     es: getAllResources('es'),
+    zh: getAllResources('zh'),
   };
 
   fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
-  console.log(`Generated ${outputFile} with ${data.en.length} EN and ${data.es.length} ES Model UN resources`);
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH Model UN resources`);
 }
 
 // ============================================

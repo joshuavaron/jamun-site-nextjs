@@ -11,11 +11,13 @@ import { cn } from "@/lib/utils";
 const localeNames: Record<Locale, string> = {
   en: "English",
   es: "Español",
+  zh: "中文",
 };
 
 const localeCodes: Record<Locale, string> = {
   en: "EN",
   es: "ES",
+  zh: "中文",
 };
 
 export function LanguageSwitcher() {

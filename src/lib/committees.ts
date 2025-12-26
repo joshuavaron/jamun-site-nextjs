@@ -73,7 +73,8 @@ function localeExists(locale: string): boolean {
 
 export function getAllCommittees(locale: string = defaultLocale): CommitteeMeta[] {
   // Use pre-generated JSON data (works in edge runtime)
-  const localeKey = (locale === "es" ? "es" : "en") as keyof typeof committeeData;
+  // Falls back to English if locale not available in JSON
+  const localeKey = (locale in committeeData ? locale : "en") as keyof typeof committeeData;
   const committees = committeeData[localeKey] as CommitteeMeta[];
 
   if (!committees || committees.length === 0) {
