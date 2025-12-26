@@ -44,9 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function BlogPage() {
-  const posts = getAllPosts();
-  const categories = getCategories();
+export default async function BlogPage({ params }: Props) {
+  const { locale } = await params;
+  const posts = getAllPosts(locale);
+  const categories = getCategories(locale);
 
   // Transform posts to match BlogPost interface expected by BlogCard
   const blogPosts = posts.map((post, index) => ({

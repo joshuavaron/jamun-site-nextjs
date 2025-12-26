@@ -42,8 +42,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function CommitteesPage() {
-  const committees = getAllCommittees();
+export default async function CommitteesPage({ params }: Props) {
+  const { locale } = await params;
+  const committees = getAllCommittees(locale);
 
   return <CommitteesPageContent committees={committees} />;
 }

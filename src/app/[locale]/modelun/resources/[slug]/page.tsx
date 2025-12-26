@@ -1,27 +1,40 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { getResourceBySlug, getAllResourceSlugs, getRelatedResources } from "@/lib/resources";
+import { getResourceBySlug, getAllResourceSlugsAllLocales, getRelatedResources, getAlternateLanguages } from "@/lib/resources";
 import ResourcePageContent from "./ResourcePageContent";
+import { siteConfig } from "@/config/site";
 
 interface ResourcePageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
-  const slugs = getAllResourceSlugs();
-  return slugs.map((slug) => ({ slug }));
+  const allSlugs = getAllResourceSlugsAllLocales();
+  return allSlugs.map(({ slug, locale }) => ({ slug, locale }));
 }
 
 export async function generateMetadata({
   params,
 }: ResourcePageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const resource = getResourceBySlug(slug);
+  const { slug, locale } = await params;
+  const resource = getResourceBySlug(slug, locale);
 
   if (!resource) {
     return {
       title: "Resource Not Found | JAMUN Model UN",
     };
+  }
+
+  // Build alternate languages for SEO
+  const alternates = getAlternateLanguages(slug, locale);
+  const languages: Record<string, string> = {};
+
+  // Add current locale
+  languages[locale] = locale === "en" ? `/modelun/resources/${slug}` : `/${locale}/modelun/resources/${slug}`;
+
+  // Add alternate locales
+  for (const alt of alternates) {
+    languages[alt.locale] = alt.locale === "en" ? `/modelun/resources/${alt.slug}` : `/${alt.locale}/modelun/resources/${alt.slug}`;
   }
 
   return {
@@ -31,19 +44,24 @@ export async function generateMetadata({
       title: resource.title,
       description: resource.description,
       type: "article",
+      locale: locale === "es" ? "es_ES" : "en_US",
+    },
+    alternates: {
+      canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/modelun/resources/${slug}`,
+      languages,
     },
   };
 }
 
 export default async function ResourcePage({ params }: ResourcePageProps) {
-  const { slug } = await params;
-  const resource = getResourceBySlug(slug);
+  const { slug, locale } = await params;
+  const resource = getResourceBySlug(slug, locale);
 
   if (!resource) {
     notFound();
   }
 
-  const relatedResources = getRelatedResources(slug, 4);
+  const relatedResources = getRelatedResources(slug, 4, locale);
 
   return <ResourcePageContent resource={resource} relatedResources={relatedResources} />;
 }

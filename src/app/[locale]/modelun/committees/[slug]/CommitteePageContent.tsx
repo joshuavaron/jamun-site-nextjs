@@ -24,6 +24,7 @@ import { Section, SectionHeader } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
 import { Committee } from "@/lib/committees";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 // Shifting topic component for Ad-Hoc committee
 function ShiftingTopic({ topics }: { topics: string[] }) {
@@ -89,10 +90,43 @@ function getFlagUrl(countryCode: string): string {
 export default function CommitteePageContent({
   committee,
 }: CommitteePageContentProps) {
+  const t = useTranslations("CommitteeDetailPage");
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   const levelColor = levelColors[committee.level] || levelColors["Beginner-Friendly"];
   const catColor = categoryColors[committee.category] || categoryColors["General Assembly"];
+
+  // Helper function to get translated level name
+  const getLevelName = (level: string): string => {
+    switch (level) {
+      case "Beginner-Friendly":
+        return t("levelBeginnerFriendly");
+      case "Intermediate":
+        return t("levelIntermediate");
+      case "Advanced":
+        return t("levelAdvanced");
+      default:
+        return level;
+    }
+  };
+
+  // Helper function to get translated category name
+  const getCategoryName = (category: string): string => {
+    switch (category) {
+      case "General Assembly":
+        return t("categoryGeneralAssembly");
+      case "Security Council":
+        return t("categorySecurityCouncil");
+      case "Specialized Agency":
+        return t("categorySpecializedAgency");
+      case "Regional Body":
+        return t("categoryRegionalBody");
+      case "Crisis":
+        return t("categoryCrisis");
+      default:
+        return category;
+    }
+  };
 
   useEffect(() => {
     async function compileMDX() {
@@ -128,7 +162,7 @@ export default function CommitteePageContent({
               className="inline-flex items-center gap-2 text-gray-600 hover:text-jamun-blue transition-colors group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              All Committees
+              {t("backLink")}
             </Link>
           </motion.div>
 
@@ -154,7 +188,7 @@ export default function CommitteePageContent({
                   )}
                 >
                   <Globe className="w-4 h-4" />
-                  {committee.category}
+                  {getCategoryName(committee.category)}
                 </span>
                 <span
                   className={cn(
@@ -165,7 +199,7 @@ export default function CommitteePageContent({
                   )}
                 >
                   <GraduationCap className="w-4 h-4" />
-                  {committee.level}
+                  {getLevelName(committee.level)}
                 </span>
               </motion.div>
 
@@ -197,7 +231,7 @@ export default function CommitteePageContent({
                 className="mb-4"
               >
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  Topic
+                  {t("topic")}
                 </p>
                 <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
                   {committee.isAdHoc && committee.redHerringTopics && committee.redHerringTopics.length > 0 ? (
@@ -219,21 +253,21 @@ export default function CommitteePageContent({
                   <Users className="w-5 h-5 text-jamun-blue" />
                   <span>
                     <strong className="text-gray-900">{committee.delegateCount}</strong>{" "}
-                    Delegates
+                    {t("delegates")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Flag className="w-5 h-5 text-purple-600" />
                   <span>
                     <strong className="text-gray-900">{committee.delegationSize}</strong>{" "}
-                    Delegation
+                    {t("delegation")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Globe className="w-5 h-5 text-emerald-600" />
                   <span>
                     <strong className="text-gray-900">{committee.countries.length}</strong>{" "}
-                    Countries
+                    {t("countries")}
                   </span>
                 </div>
               </motion.div>
@@ -276,14 +310,14 @@ export default function CommitteePageContent({
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-8">
-              Committee Information
+              {t("committeeInformation")}
             </h2>
 
             {/* Info Cards */}
             <div className="space-y-4">
               <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  Topic
+                  {t("topic")}
                 </p>
                 <p className="text-lg font-medium text-gray-900">
                   {committee.isAdHoc && committee.redHerringTopics && committee.redHerringTopics.length > 0 ? (
@@ -297,7 +331,7 @@ export default function CommitteePageContent({
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                   <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                    Delegation Size
+                    {t("delegationSize")}
                   </p>
                   <p className="text-lg font-medium text-gray-900">
                     {committee.delegationSize}
@@ -305,7 +339,7 @@ export default function CommitteePageContent({
                 </div>
                 <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                   <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                    Number of Delegates
+                    {t("numberOfDelegates")}
                   </p>
                   <p className="text-lg font-medium text-gray-900">
                     {committee.delegateCount}
@@ -315,7 +349,7 @@ export default function CommitteePageContent({
 
               <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
                 <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  Difficulty Level
+                  {t("difficultyLevel")}
                 </p>
                 <div className="flex items-center gap-2 mt-1">
                   <span
@@ -326,7 +360,7 @@ export default function CommitteePageContent({
                     )}
                   >
                     <GraduationCap className="w-4 h-4" />
-                    {committee.level}
+                    {getLevelName(committee.level)}
                   </span>
                 </div>
               </div>
@@ -335,7 +369,7 @@ export default function CommitteePageContent({
               {committee.executives.length > 0 && (
                 <div className="bg-gradient-to-br from-jamun-blue/5 to-purple-50 rounded-xl p-5 border border-jamun-blue/10">
                   <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                    Committee Executives
+                    {t("committeeExecutives")}
                   </p>
                   <div className="space-y-3">
                     {committee.executives.map((exec, index) => (
@@ -375,7 +409,7 @@ export default function CommitteePageContent({
             {/* Letter from Chair */}
             <div className="mb-10">
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-                Letter from the Chair
+                {t("letterFromChair")}
               </h2>
               <div className="prose prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600">
                 {mdxSource ? (
@@ -393,7 +427,7 @@ export default function CommitteePageContent({
             {/* Committee Documents */}
             <div id="documents">
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-                Committee Documents
+                {t("committeeDocuments")}
               </h2>
               {committee.documents.length > 0 ? (
                 <div className="space-y-4">
@@ -435,7 +469,7 @@ export default function CommitteePageContent({
                 <div className="bg-gray-50 rounded-xl p-6 text-center border border-gray-100">
                   <FileText className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                   <p className="text-gray-500">
-                    Documents will be uploaded soon. Check back later!
+                    {t("documentsComingSoon")}
                   </p>
                 </div>
               )}
@@ -447,9 +481,9 @@ export default function CommitteePageContent({
       {/* Country Assignments Section */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Country Assignments"
-          title="Available Delegations"
-          subtitle="The following countries are available for delegation in this committee."
+          eyebrow={t("countryAssignmentsEyebrow")}
+          title={t("countryAssignmentsTitle")}
+          subtitle={t("countryAssignmentsSubtitle")}
         />
 
         {committee.countries.length > 0 ? (
@@ -487,7 +521,7 @@ export default function CommitteePageContent({
                 </p>
                 {country.available === false && (
                   <span className="inline-block mt-2 px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-500 rounded-full">
-                    Assigned
+                    {t("assigned")}
                   </span>
                 )}
               </motion.div>
@@ -497,7 +531,7 @@ export default function CommitteePageContent({
           <div className="bg-white rounded-xl p-8 text-center border border-gray-100">
             <Globe className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <p className="text-gray-500 text-lg">
-              Country assignments will be posted soon.
+              {t("countryAssignmentsComingSoon")}
             </p>
           </div>
         )}

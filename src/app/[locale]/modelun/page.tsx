@@ -64,7 +64,7 @@ export default async function ModelUNPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const committees = getAllCommittees();
+  const committees = getAllCommittees(locale);
 
   // Get translations for structured data
   const tBreadcrumbs = await getTranslations({ locale, namespace: "Breadcrumbs" });

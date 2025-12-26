@@ -44,8 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ResourcesPage() {
-  const resources = getAllResources();
+export default async function ResourcesPage({ params }: Props) {
+  const { locale } = await params;
+  const resources = getAllResources(locale);
 
   return <ResourcesPageContent resources={resources} />;
 }

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommitteeMeta } from "@/lib/committees";
+import { useTranslations } from "next-intl";
 
 // Shifting topic component for Ad-Hoc committee
 function ShiftingTopic({ topics }: { topics: string[] }) {
@@ -61,16 +62,7 @@ function getSizeCategory(delegateCount: number): SizeCategory {
   return "Large";
 }
 
-function getSizeLabel(size: SizeCategory): string {
-  switch (size) {
-    case "Small":
-      return "Small (<24)";
-    case "Medium":
-      return "Medium (24-39)";
-    case "Large":
-      return "Large (40+)";
-  }
-}
+// These helper functions are now defined inside the component to use translations
 
 // Committee type options
 type CommitteeType =
@@ -86,6 +78,48 @@ type DifficultyLevel = "Beginner-Friendly" | "Intermediate" | "Advanced";
 export default function CommitteesPageContent({
   committees,
 }: CommitteesPageContentProps) {
+  const t = useTranslations("CommitteesPage");
+
+  // Helper function to get translated type name
+  const getTypeName = (type: CommitteeType): string => {
+    switch (type) {
+      case "General Assembly":
+        return t("typeGeneralAssembly");
+      case "Crisis":
+        return t("typeCrisis");
+      case "Security Council":
+        return t("typeSecurityCouncil");
+      case "Specialized Agency":
+        return t("typeSpecializedAgency");
+      case "Regional Body":
+        return t("typeRegionalBody");
+    }
+  };
+
+  // Helper function to get translated difficulty name
+  const getDifficultyName = (difficulty: DifficultyLevel): string => {
+    switch (difficulty) {
+      case "Beginner-Friendly":
+        return t("difficultyBeginner");
+      case "Intermediate":
+        return t("difficultyIntermediate");
+      case "Advanced":
+        return t("difficultyAdvanced");
+    }
+  };
+
+  // Helper function to get translated size label
+  const getSizeLabel = (size: SizeCategory): string => {
+    switch (size) {
+      case "Small":
+        return t("sizeSmall");
+      case "Medium":
+        return t("sizeMedium");
+      case "Large":
+        return t("sizeLarge");
+    }
+  };
+
   const [selectedTypes, setSelectedTypes] = useState<Set<CommitteeType>>(
     new Set()
   );
@@ -227,13 +261,13 @@ export default function CommitteesPageContent({
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
                 <Globe className="w-4 h-4" />
-                Model UN Committees
+                {t("badge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Explore Our " delay={0.3} />
+                <TypewriterText text={t("heroTitlePart1")} delay={0.3} />
                 <TypewriterText
-                  text="Committees"
+                  text={t("heroTitlePart2")}
                   delay={0.3 + 12 * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent"
                 />
@@ -245,9 +279,7 @@ export default function CommitteesPageContent({
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                From the General Assembly to specialized agencies, discover the
-                diverse committees where you can represent nations, debate
-                global issues, and develop diplomatic skills.
+                {t("heroDescription")}
               </motion.p>
 
               {/* Search Bar */}
@@ -260,7 +292,7 @@ export default function CommitteesPageContent({
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search committees..."
+                  placeholder={t("searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-jamun-blue/30 focus:border-jamun-blue transition-all"
@@ -280,21 +312,21 @@ export default function CommitteesPageContent({
                     <strong className="text-gray-900">
                       {committees.length}
                     </strong>{" "}
-                    Committees
+                    {t("statsCommittees")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Users className="w-5 h-5 text-sky-600" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{totalDelegates}+</strong>{" "}
-                    Delegate Spots
+                    {t("statsDelegateSpots")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <GraduationCap className="w-5 h-5 text-emerald-600" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{beginnerCount}</strong>{" "}
-                    Beginner-Friendly
+                    {t("statsBeginnerFriendly")}
                   </span>
                 </div>
               </motion.div>
@@ -309,7 +341,7 @@ export default function CommitteesPageContent({
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Filter Committees
+                  {t("filterTitle")}
                 </h3>
                 {hasActiveFilters && (
                   <button
@@ -317,7 +349,7 @@ export default function CommitteesPageContent({
                     className="text-sm text-jamun-blue hover:text-jamun-blue-dark font-medium flex items-center gap-1"
                   >
                     <X className="w-4 h-4" />
-                    Clear all
+                    {t("clearAll")}
                   </button>
                 )}
               </div>
@@ -326,7 +358,7 @@ export default function CommitteesPageContent({
                 {/* Type Filter */}
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-3">
-                    Type
+                    {t("filterType")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {typeOptions.map((type) => (
@@ -340,7 +372,7 @@ export default function CommitteesPageContent({
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                         )}
                       >
-                        {type.name}
+                        {getTypeName(type.name)}
                         <span
                           className={cn(
                             "ml-1.5 text-xs",
@@ -360,7 +392,7 @@ export default function CommitteesPageContent({
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                     <GraduationCap className="w-4 h-4" />
-                    Difficulty
+                    {t("filterDifficulty")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {difficultyOptions.map((difficulty) => (
@@ -378,9 +410,7 @@ export default function CommitteesPageContent({
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                         )}
                       >
-                        {difficulty === "Beginner-Friendly"
-                          ? "Beginner"
-                          : difficulty}
+                        {getDifficultyName(difficulty)}
                       </button>
                     ))}
                   </div>
@@ -390,7 +420,7 @@ export default function CommitteesPageContent({
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    Size
+                    {t("filterSize")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {sizeOptions.map((size) => (
@@ -414,11 +444,10 @@ export default function CommitteesPageContent({
               {/* Results count */}
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <p className="text-sm text-gray-600">
-                  Showing{" "}
-                  <strong className="text-gray-900">
-                    {filteredCommittees.length}
-                  </strong>{" "}
-                  of {committees.length} committees
+                  {t("showingResults", {
+                    count: filteredCommittees.length,
+                    total: committees.length,
+                  })}
                 </p>
               </div>
             </motion.div>
@@ -429,9 +458,9 @@ export default function CommitteesPageContent({
       {/* Committees Grid */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Our Committees"
-          title="Find Your Committee"
-          subtitle="Each committee offers a unique experience. Browse to find the perfect fit for your interests and experience level."
+          eyebrow={t("sectionEyebrow")}
+          title={t("sectionTitle")}
+          subtitle={t("sectionSubtitle")}
         />
 
         {filteredCommittees.length === 0 ? (
@@ -444,14 +473,13 @@ export default function CommitteesPageContent({
               <Search className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No committees found
+              {t("noResultsTitle")}
             </h3>
             <p className="text-gray-600 mb-6">
-              Try adjusting your search or filters to find what you&apos;re
-              looking for.
+              {t("noResultsDescription")}
             </p>
             <Button onClick={clearAllFilters} variant="outline">
-              Clear filters
+              {t("clearFilters")}
             </Button>
           </motion.div>
         ) : (
@@ -484,15 +512,13 @@ export default function CommitteesPageContent({
                               : "bg-red-100 text-red-700"
                         )}
                       >
-                        {committee.level === "Beginner-Friendly"
-                          ? "Beginner"
-                          : committee.level}
+                        {getDifficultyName(committee.level as DifficultyLevel)}
                       </span>
                     </div>
 
                     {/* Category */}
                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                      {committee.category}
+                      {getTypeName(committee.category as CommitteeType)}
                     </p>
 
                     {/* Topic */}
@@ -513,7 +539,7 @@ export default function CommitteesPageContent({
                     <div className="pt-4 border-t border-gray-100">
                       <div className="flex items-center gap-2 text-sm text-gray-500">
                         <Users className="w-4 h-4" />
-                        <span>{committee.delegateCount} delegates</span>
+                        <span>{t("delegates", { count: committee.delegateCount })}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -536,33 +562,31 @@ export default function CommitteesPageContent({
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Sparkles className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              Ready to Join?
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Find Your Place on the{" "}
+            {t("ctaTitle")}
             <span className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent">
-              World Stage
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            Whether you&apos;re a first-time delegate or a seasoned veteran,
-            there&apos;s a committee waiting for you. Register now to secure
-            your spot at our next conference.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Register for Model UN
+                {t("registerButton")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/modelun" variant="outline" size="lg">
-                Learn About Model UN
+                {t("learnMoreButton")}
               </Button>
             </motion.div>
           </div>
@@ -574,12 +598,12 @@ export default function CommitteesPageContent({
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Have questions about committees?{" "}
+            {t("ctaQuestion")}{" "}
             <a
               href="mailto:modelun@jamun.org"
               className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
             >
-              Contact our Model UN team
+              {t("ctaContactLink")}
             </a>
           </motion.p>
         </motion.div>

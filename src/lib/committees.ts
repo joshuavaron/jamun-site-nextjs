@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 
 const contentDirectory = path.join(process.cwd(), "content/committees");
+const defaultLocale = "en";
 
 // Committee executive (chair, vice chair, etc.)
 export interface CommitteeExecutive {
@@ -45,6 +46,8 @@ export interface CommitteeMeta {
   featured?: boolean;
   isAdHoc?: boolean;
   redHerringTopics?: string[];
+  canonicalSlug?: string; // Links translations together
+  locale: string;
 }
 
 // Full committee with MDX content
@@ -52,17 +55,30 @@ export interface Committee extends CommitteeMeta {
   letterFromChair: string; // MDX content for the letter
 }
 
-export function getAllCommittees(): CommitteeMeta[] {
-  if (!fs.existsSync(contentDirectory)) {
+function getLocaleDirectory(locale: string): string {
+  return path.join(contentDirectory, locale);
+}
+
+function localeExists(locale: string): boolean {
+  const localeDir = getLocaleDirectory(locale);
+  return fs.existsSync(localeDir);
+}
+
+export function getAllCommittees(locale: string = defaultLocale): CommitteeMeta[] {
+  // Try requested locale, fall back to default
+  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(effectiveLocale);
+
+  if (!fs.existsSync(localeDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(contentDirectory);
+  const files = fs.readdirSync(localeDir);
   const committees = files
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => {
       const slug = file.replace(/\.mdx$/, "");
-      const fullPath = path.join(contentDirectory, file);
+      const fullPath = path.join(localeDir, file);
       const fileContents = fs.readFileSync(fullPath, "utf8");
       const { data } = matter(fileContents);
 
@@ -84,6 +100,8 @@ export function getAllCommittees(): CommitteeMeta[] {
         featured: data.featured || false,
         isAdHoc: data.isAdHoc || false,
         redHerringTopics: data.redHerringTopics || [],
+        canonicalSlug: data.canonicalSlug,
+        locale: effectiveLocale,
       } as CommitteeMeta;
     })
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -91,13 +109,26 @@ export function getAllCommittees(): CommitteeMeta[] {
   return committees;
 }
 
-export function getCommitteeBySlug(slug: string): Committee | null {
-  const fullPath = path.join(contentDirectory, `${slug}.mdx`);
+export function getCommitteeBySlug(slug: string, locale: string = defaultLocale): Committee | null {
+  // Try requested locale first
+  const localePath = path.join(getLocaleDirectory(locale), `${slug}.mdx`);
 
-  if (!fs.existsSync(fullPath)) {
-    return null;
+  if (fs.existsSync(localePath)) {
+    return parseCommitteeFile(localePath, slug, locale);
   }
 
+  // Fall back to default locale
+  if (locale !== defaultLocale) {
+    const fallbackPath = path.join(getLocaleDirectory(defaultLocale), `${slug}.mdx`);
+    if (fs.existsSync(fallbackPath)) {
+      return parseCommitteeFile(fallbackPath, slug, defaultLocale);
+    }
+  }
+
+  return null;
+}
+
+function parseCommitteeFile(fullPath: string, slug: string, locale: string): Committee {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
@@ -119,33 +150,108 @@ export function getCommitteeBySlug(slug: string): Committee | null {
     featured: data.featured || false,
     isAdHoc: data.isAdHoc || false,
     redHerringTopics: data.redHerringTopics || [],
+    canonicalSlug: data.canonicalSlug,
+    locale,
     letterFromChair: content,
   };
 }
 
-export function getAllCommitteeSlugs(): string[] {
-  if (!fs.existsSync(contentDirectory)) {
+export function getAllCommitteeSlugs(locale: string = defaultLocale): string[] {
+  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(effectiveLocale);
+
+  if (!fs.existsSync(localeDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(contentDirectory);
+  const files = fs.readdirSync(localeDir);
   return files
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => file.replace(/\.mdx$/, ""));
 }
 
-export function getCommitteesByCategory(category: string): CommitteeMeta[] {
-  const committees = getAllCommittees();
+// Get all slugs across all locales for static generation
+export function getAllCommitteeSlugsAllLocales(): { slug: string; locale: string }[] {
+  const result: { slug: string; locale: string }[] = [];
+
+  if (!fs.existsSync(contentDirectory)) {
+    return result;
+  }
+
+  const localeDirs = fs.readdirSync(contentDirectory).filter((dir) => {
+    const dirPath = path.join(contentDirectory, dir);
+    return fs.statSync(dirPath).isDirectory();
+  });
+
+  for (const locale of localeDirs) {
+    const localeDir = path.join(contentDirectory, locale);
+    const files = fs.readdirSync(localeDir);
+
+    for (const file of files) {
+      if (file.endsWith(".mdx")) {
+        result.push({
+          slug: file.replace(/\.mdx$/, ""),
+          locale,
+        });
+      }
+    }
+  }
+
+  return result;
+}
+
+export function getCommitteesByCategory(category: string, locale: string = defaultLocale): CommitteeMeta[] {
+  const committees = getAllCommittees(locale);
   if (category === "All") return committees;
   return committees.filter((committee) => committee.category === category);
 }
 
-export function getFeaturedCommittees(): CommitteeMeta[] {
-  const committees = getAllCommittees();
+export function getFeaturedCommittees(locale: string = defaultLocale): CommitteeMeta[] {
+  const committees = getAllCommittees(locale);
   return committees.filter((committee) => committee.featured);
 }
 
 // Helper to get available countries count
 export function getAvailableCountriesCount(committee: CommitteeMeta): number {
   return committee.countries.filter((c) => c.available !== false).length;
+}
+
+// Get alternate language versions of a committee
+export function getAlternateLanguages(slug: string, currentLocale: string): { locale: string; slug: string }[] {
+  const alternates: { locale: string; slug: string }[] = [];
+
+  if (!fs.existsSync(contentDirectory)) {
+    return alternates;
+  }
+
+  // Get the canonical slug from the current committee
+  const currentCommittee = getCommitteeBySlug(slug, currentLocale);
+  const canonicalSlug = currentCommittee?.canonicalSlug || slug;
+
+  const localeDirs = fs.readdirSync(contentDirectory).filter((dir) => {
+    const dirPath = path.join(contentDirectory, dir);
+    return fs.statSync(dirPath).isDirectory() && dir !== currentLocale;
+  });
+
+  for (const locale of localeDirs) {
+    const localeDir = path.join(contentDirectory, locale);
+    const files = fs.readdirSync(localeDir);
+
+    for (const file of files) {
+      if (file.endsWith(".mdx")) {
+        const fileSlug = file.replace(/\.mdx$/, "");
+        const filePath = path.join(localeDir, file);
+        const fileContents = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(fileContents);
+
+        // Match by canonical slug or by same slug
+        if (data.canonicalSlug === canonicalSlug || fileSlug === slug) {
+          alternates.push({ locale, slug: fileSlug });
+          break;
+        }
+      }
+    }
+  }
+
+  return alternates;
 }
