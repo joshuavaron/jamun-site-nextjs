@@ -40,6 +40,10 @@ yarn-error.log*
 .open-next
 .wrangler
 .dev.vars
+wrangler.jsonc
+
+# claude code settings (may contain tokens)
+.claude/
 
 # typescript
 *.tsbuildinfo
