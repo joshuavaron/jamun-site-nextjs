@@ -3,6 +3,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
 
 export const alt = "JAMUN - Middle School Academic Competitions";
 export const size = {
