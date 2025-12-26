@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
@@ -21,6 +20,8 @@ import { Button, Section } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
 import { BlogPost } from "@/lib/blog";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -36,6 +37,7 @@ const categoryColors: Record<string, { bg: string; text: string }> = {
 };
 
 export default function BlogPostContent({ post }: BlogPostContentProps) {
+  const t = useTranslations("BlogPost");
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -85,7 +87,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
               className="inline-flex items-center gap-2 text-gray-600 hover:text-jamun-blue transition-colors mb-8 group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              Back to Blog
+              {t("backToBlog")}
             </Link>
           </motion.div>
 
@@ -150,7 +152,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
               {/* Share buttons */}
               <div className="flex items-center gap-2 ml-auto">
                 <span className="text-sm text-gray-500 mr-2 hidden sm:block">
-                  Share:
+                  {t("share")}
                 </span>
                 <button
                   onClick={() =>
@@ -202,7 +204,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                   <LinkIcon className="w-4 h-4 text-gray-600" />
                   {copied && (
                     <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap">
-                      Copied!
+                      {t("copied")}
                     </span>
                   )}
                 </button>
@@ -275,13 +277,12 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                 </div>
               )}
               <div className="text-center sm:text-left">
-                <p className="text-sm text-gray-500 mb-1">Written by</p>
+                <p className="text-sm text-gray-500 mb-1">{t("writtenBy")}</p>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   {post.author.name}
                 </h3>
                 <p className="text-gray-600">
-                  A member of the JAMUN team passionate about empowering students
-                  through academic competition. Want to contribute? Reach out at{" "}
+                  {t("authorBio")}{" "}
                   <a
                     href="mailto:contact@jamun.org"
                     className="text-jamun-blue hover:underline"
@@ -305,18 +306,17 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
           className="max-w-3xl mx-auto text-center"
         >
           <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-            Want to read more?
+            {t("readMoreTitle")}
           </h2>
           <p className="text-gray-600 mb-8">
-            Explore more articles about Model UN, Mock Trial, Mathletes, and
-            everything JAMUN.
+            {t("readMoreDescription")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="/blog" variant="primary" size="lg">
-              Browse All Articles
+              {t("browseAllArticles")}
             </Button>
             <Button href="/programs" variant="outline" size="lg">
-              Explore Programs
+              {t("explorePrograms")}
             </Button>
           </div>
         </motion.div>

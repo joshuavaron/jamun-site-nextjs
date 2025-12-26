@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
 import { Home, Search, ArrowLeft, Compass } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function NotFound() {
+  const t = useTranslations("NotFoundPage");
   return (
     <main className="relative min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50">
       {/* Decorative gradient blobs */}
@@ -52,14 +54,13 @@ export default function NotFound() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-            Oops! This page went on an{" "}
+            {t("heading")}{" "}
             <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
-              adventure
+              {t("headingHighlight")}
             </span>
           </h1>
           <p className="text-lg text-gray-600 mb-8 max-w-xl mx-auto leading-relaxed">
-            The page you&apos;re looking for seems to have wandered off. Don&apos;t worry though —
-            let&apos;s get you back on track!
+            {t("description")}
           </p>
         </motion.div>
 
@@ -72,11 +73,11 @@ export default function NotFound() {
         >
           <Button href="/" size="lg" className="group">
             <Home className="mr-2 h-5 w-5" />
-            Back to Home
+            {t("backHome")}
           </Button>
           <Button href="/programs" variant="outline" size="lg" className="group">
             <Search className="mr-2 h-5 w-5" />
-            Explore Programs
+            {t("explorePrograms")}
           </Button>
         </motion.div>
 
@@ -88,14 +89,14 @@ export default function NotFound() {
           className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-sm"
         >
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-            Popular Destinations
+            {t("popularDestinations")}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { name: "Model UN", href: "/modelun" },
-              { name: "Mock Trial", href: "/mocktrial" },
-              { name: "Mathletes", href: "/mathletes" },
-              { name: "About Us", href: "/about" },
+              { name: t("linkModelUN"), href: "/modelun" },
+              { name: t("linkMockTrial"), href: "/mocktrial" },
+              { name: t("linkMathletes"), href: "/mathletes" },
+              { name: t("linkAbout"), href: "/about" },
             ].map((link, index) => (
               <motion.div
                 key={link.name}

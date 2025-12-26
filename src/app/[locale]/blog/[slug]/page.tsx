@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getPostBySlug, getAllSlugsAllLocales, getAlternateLanguages } from "@/lib/blog";
 import BlogPostContent from "./BlogPostContent";
 import { siteConfig } from "@/config/site";
@@ -80,7 +81,8 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
-  const post = getPostBySlug(slug, locale);
+  const t = await getTranslations({ locale, namespace: "BlogPage" });
+  const post = getPostBySlug(slug, locale, t.raw("readTime"));
 
   if (!post) {
     notFound();

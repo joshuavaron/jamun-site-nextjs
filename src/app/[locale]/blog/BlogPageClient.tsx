@@ -12,6 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface BlogPageClientProps {
   posts: BlogPost[];
@@ -32,12 +33,13 @@ const itemVariants = {
 };
 
 export default function BlogPageClient({ posts, categories }: BlogPageClientProps) {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const t = useTranslations("BlogPage");
+  const [selectedCategory, setSelectedCategory] = useState(t("categoryAll"));
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredPosts = posts.filter((post) => {
     const matchesCategory =
-      selectedCategory === "All" || post.category === selectedCategory;
+      selectedCategory === t("categoryAll") || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
@@ -74,13 +76,13 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
                 <Sparkles className="w-4 h-4" />
-                JAMUN Blog
+                {t("badge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Stories, Tips & " delay={0.3} />
+                <TypewriterText text={t("heroTitlePart1")} delay={0.3} />
                 <TypewriterText
-                  text="Inspiration"
+                  text={t("heroTitleHighlight")}
                   delay={0.3 + 16 * 0.03}
                   className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent"
                 />
@@ -92,9 +94,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Discover competition strategies, student success stories, program
-                updates, and resources to help you excel in Model UN, Mock Trial,
-                and Mathletes.
+                {t("heroDescription")}
               </motion.p>
 
               {/* Search Bar */}
@@ -107,7 +107,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search articles..."
+                  placeholder={t("searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-jamun-blue/30 focus:border-jamun-blue transition-all"
@@ -125,19 +125,19 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                   <BookOpen className="w-5 h-5 text-jamun-blue" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{posts.length}</strong>{" "}
-                    Articles
+                    {t("articles")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <TrendingUp className="w-5 h-5 text-purple-600" />
                   <span className="text-sm">
-                    <strong className="text-gray-900">{categories.length - 1}</strong> Categories
+                    <strong className="text-gray-900">{categories.length - 1}</strong> {t("categories")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Users className="w-5 h-5 text-emerald-600" />
                   <span className="text-sm">
-                    <strong className="text-gray-900">{uniqueAuthors}</strong> Authors
+                    <strong className="text-gray-900">{uniqueAuthors}</strong> {t("authors")}
                   </span>
                 </div>
               </motion.div>
@@ -201,9 +201,9 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
       {/* Blog Posts Grid */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Latest Articles"
-          title="From Our Blog"
-          subtitle="Explore insights, tips, and stories from our community."
+          eyebrow={t("latestArticlesEyebrow")}
+          title={t("latestArticlesTitle")}
+          subtitle={t("latestArticlesSubtitle")}
         />
 
         {filteredPosts.length === 0 ? (
@@ -216,19 +216,19 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
               <Search className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No articles found
+              {t("noArticlesTitle")}
             </h3>
             <p className="text-gray-600 mb-6">
-              Try adjusting your search or filter to find what you&apos;re looking for.
+              {t("noArticlesDescription")}
             </p>
             <Button
               onClick={() => {
-                setSelectedCategory("All");
+                setSelectedCategory(t("categoryAll"));
                 setSearchQuery("");
               }}
               variant="outline"
             >
-              Clear filters
+              {t("clearFilters")}
             </Button>
           </motion.div>
         ) : (
@@ -239,7 +239,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
             animate="visible"
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
-            {(selectedCategory === "All" && !searchQuery
+            {(selectedCategory === t("categoryAll") && !searchQuery
               ? remainingPosts
               : filteredPosts
             ).map((post) => (
@@ -260,7 +260,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
             className="text-center mt-12"
           >
             <Button variant="outline" size="lg" className="group">
-              Load More Articles
+              {t("loadMore")}
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>
@@ -279,33 +279,31 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
             <Sparkles className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
-              Share Your Story
+              {t("shareStoryBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Have a Story to{" "}
+            {t("shareStoryTitle")}
             <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
-              Share?
+              {t("shareStoryTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            We love featuring stories from our community. Whether you&apos;re a
-            student, teacher, or volunteer, we&apos;d love to hear about your
-            experience with JAMUN.
+            {t("shareStoryDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="mailto:contact@jamun.org" size="lg" className="group">
-                Submit Your Story
+                {t("submitStory")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/modelun/resources" variant="outline" size="lg">
-                Browse Resources
+                {t("browseResources")}
               </Button>
             </motion.div>
           </div>

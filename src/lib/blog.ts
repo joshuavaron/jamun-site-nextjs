@@ -36,7 +36,7 @@ function localeExists(locale: string): boolean {
   return fs.existsSync(localeDir);
 }
 
-export function getAllPosts(locale: string = defaultLocale): BlogPostMeta[] {
+export function getAllPosts(locale: string = defaultLocale, readTimeFormat: string = "{minutes} min read"): BlogPostMeta[] {
   // Try requested locale, fall back to default
   const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
   const localeDir = getLocaleDirectory(effectiveLocale);
@@ -70,7 +70,7 @@ export function getAllPosts(locale: string = defaultLocale): BlogPostMeta[] {
           day: "numeric",
           year: "numeric",
         }),
-        readTime: `${Math.ceil(stats.minutes)} min read`,
+        readTime: readTimeFormat.replace("{minutes}", String(Math.ceil(stats.minutes))),
         featured: data.featured || false,
         canonicalSlug: data.canonicalSlug,
         locale: effectiveLocale,
@@ -85,26 +85,26 @@ export function getAllPosts(locale: string = defaultLocale): BlogPostMeta[] {
   return posts;
 }
 
-export function getPostBySlug(slug: string, locale: string = defaultLocale): BlogPost | null {
+export function getPostBySlug(slug: string, locale: string = defaultLocale, readTimeFormat: string = "{minutes} min read"): BlogPost | null {
   // Try requested locale first
   const localePath = path.join(getLocaleDirectory(locale), `${slug}.mdx`);
 
   if (fs.existsSync(localePath)) {
-    return parsePostFile(localePath, slug, locale);
+    return parsePostFile(localePath, slug, locale, readTimeFormat);
   }
 
   // Fall back to default locale
   if (locale !== defaultLocale) {
     const fallbackPath = path.join(getLocaleDirectory(defaultLocale), `${slug}.mdx`);
     if (fs.existsSync(fallbackPath)) {
-      return parsePostFile(fallbackPath, slug, defaultLocale);
+      return parsePostFile(fallbackPath, slug, defaultLocale, readTimeFormat);
     }
   }
 
   return null;
 }
 
-function parsePostFile(fullPath: string, slug: string, locale: string): BlogPost {
+function parsePostFile(fullPath: string, slug: string, locale: string, readTimeFormat: string = "{minutes} min read"): BlogPost {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const stats = readingTime(content);
@@ -124,7 +124,7 @@ function parsePostFile(fullPath: string, slug: string, locale: string): BlogPost
       day: "numeric",
       year: "numeric",
     }),
-    readTime: `${Math.ceil(stats.minutes)} min read`,
+    readTime: readTimeFormat.replace("{minutes}", String(Math.ceil(stats.minutes))),
     featured: data.featured || false,
     canonicalSlug: data.canonicalSlug,
     locale,
@@ -182,7 +182,7 @@ export function getPostsByCategory(category: string, locale: string = defaultLoc
   return posts.filter((post) => post.category === category);
 }
 
-export function getCategories(locale: string = defaultLocale): { name: string; count: number }[] {
+export function getCategories(locale: string = defaultLocale, allLabel: string = "All"): { name: string; count: number }[] {
   const posts = getAllPosts(locale);
   const categoryMap = new Map<string, number>();
 
@@ -191,7 +191,7 @@ export function getCategories(locale: string = defaultLocale): { name: string; c
     categoryMap.set(post.category, count + 1);
   });
 
-  const categories = [{ name: "All", count: posts.length }];
+  const categories = [{ name: allLabel, count: posts.length }];
   categoryMap.forEach((count, name) => {
     categories.push({ name, count });
   });

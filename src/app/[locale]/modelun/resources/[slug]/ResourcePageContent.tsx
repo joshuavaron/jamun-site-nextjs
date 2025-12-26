@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
@@ -86,10 +87,39 @@ export default function ResourcePageContent({
   resource,
   relatedResources,
 }: ResourcePageContentProps) {
+  const t = useTranslations("ResourcePage");
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   const formatColor = getFormatColor(resource.format);
   const levelColor = levelColors[resource.level] || levelColors.Beginner;
+
+  // Get translated level name
+  const getLevelName = (level: ResourceLevel) => {
+    switch (level) {
+      case "Beginner":
+        return t("levelBeginner");
+      case "Intermediate":
+        return t("levelIntermediate");
+      case "Advanced":
+        return t("levelAdvanced");
+      default:
+        return level;
+    }
+  };
+
+  // Get translated category name
+  const getCategoryName = (category: string): string => {
+    const categoryMap: Record<string, string> = {
+      "Research Guide": t("categoryResearchGuide"),
+      "Position Papers": t("categoryPositionPapers"),
+      "Public Speaking": t("categoryPublicSpeaking"),
+      "Parliamentary Procedure": t("categoryParliamentaryProcedure"),
+      "Country Profiles": t("categoryCountryProfiles"),
+      "Sample Documents": t("categorySampleDocuments"),
+      "Video Tutorials": t("categoryVideoTutorials"),
+    };
+    return categoryMap[category] || category;
+  };
 
   useEffect(() => {
     async function compileMDX() {
@@ -128,7 +158,7 @@ export default function ResourcePageContent({
               className="inline-flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              All Resources
+              {t("allResources")}
             </Link>
           </motion.div>
 
@@ -162,14 +192,14 @@ export default function ResourcePageContent({
               )}
             >
               <GraduationCap className="w-4 h-4" />
-              {resource.level}
+              {getLevelName(resource.level)}
             </span>
 
             {/* Featured badge */}
             {resource.featured && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-full bg-amber-100 text-amber-700 border border-amber-200">
                 <Sparkles className="w-4 h-4" />
-                Featured
+                {t("featured")}
               </span>
             )}
           </motion.div>
@@ -181,7 +211,7 @@ export default function ResourcePageContent({
             transition={{ delay: 0.15 }}
             className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3"
           >
-            {resource.category}
+            {getCategoryName(resource.category)}
           </motion.p>
 
           {/* Title */}
@@ -238,7 +268,7 @@ export default function ResourcePageContent({
             {resource.pages && (
               <div className="flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                <span>{resource.pages} pages</span>
+                <span>{resource.pages} {t("pages")}</span>
               </div>
             )}
           </motion.div>
@@ -260,7 +290,7 @@ export default function ResourcePageContent({
                 className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition-colors"
               >
                 <Download className="w-5 h-5" />
-                Download Resource
+                {t("downloadResource")}
               </a>
             )}
 
@@ -271,7 +301,7 @@ export default function ResourcePageContent({
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-full border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors"
             >
               <Printer className="w-5 h-5" />
-              Save as PDF
+              {t("saveAsPdf")}
             </button>
           </motion.div>
         </div>
@@ -331,7 +361,7 @@ export default function ResourcePageContent({
               <div className="flex items-center gap-2 mb-4">
                 <Tag className="w-5 h-5 text-gray-400" />
                 <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                  Tags
+                  {t("tags")}
                 </span>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -361,16 +391,16 @@ export default function ResourcePageContent({
           >
             <div className="text-center mb-12">
               <p className="text-sm font-semibold text-emerald-600 uppercase tracking-widest mb-4">
-                Continue Learning
+                {t("continueLearningEyebrow")}
               </p>
               <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-                Recommended{" "}
+                {t("recommendedTitle")}
                 <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
-                  Resources
+                  {t("recommendedTitleHighlight")}
                 </span>
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Based on what you&apos;re reading, you might also find these resources helpful.
+                {t("recommendedDescription")}
               </p>
             </div>
 
@@ -410,7 +440,7 @@ export default function ResourcePageContent({
 
                         {/* Category */}
                         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                          {related.category}
+                          {getCategoryName(related.category)}
                         </p>
 
                         {/* Title */}
@@ -426,7 +456,7 @@ export default function ResourcePageContent({
                         {/* Arrow indicator */}
                         <div className="mt-4 pt-3 border-t border-gray-100">
                           <span className="inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
-                            Read more
+                            {t("readMore")}
                             <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                           </span>
                         </div>
@@ -452,31 +482,31 @@ export default function ResourcePageContent({
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
             <BookOpen className="w-4 h-4 text-emerald-600" />
             <span className="text-sm font-medium text-emerald-700">
-              Ready to Compete?
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
-            Put Your Knowledge to the{" "}
+            {t("ctaTitle")}
             <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
-              Test
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            You&apos;ve got the resources. Now it&apos;s time to join a conference and experience Model UN firsthand.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Register for a Conference
+                {t("registerButton")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/modelun/resources" variant="outline" size="lg">
-                Browse All Resources
+                {t("browseAllButton")}
               </Button>
             </motion.div>
           </div>

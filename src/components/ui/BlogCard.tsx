@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 export interface BlogPost {
   id: string;
@@ -37,6 +38,7 @@ const categoryColors: Record<string, { bg: string; text: string }> = {
 };
 
 export function BlogCard({ post, featured = false, className }: BlogCardProps) {
+  const t = useTranslations("BlogCard");
   const colors = categoryColors[post.category] || {
     bg: "bg-gray-100",
     text: "text-gray-600",
@@ -78,7 +80,7 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
                   {post.category}
                 </span>
                 <span className="text-xs text-gray-400 font-medium uppercase tracking-wide">
-                  Featured
+                  {t("featured")}
                 </span>
               </div>
 

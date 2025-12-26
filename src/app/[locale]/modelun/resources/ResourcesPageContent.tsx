@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
   BookOpen,
@@ -75,6 +76,7 @@ function getFormatColor(format: ResourceFormat) {
 export default function ResourcesPageContent({
   resources,
 }: ResourcesPageContentProps) {
+  const t = useTranslations("ResourcesPage");
   const [selectedCategories, setSelectedCategories] = useState<
     Set<ResourceCategory>
   >(new Set());
@@ -114,6 +116,32 @@ export default function ResourcesPageContent({
     selectedCategories.size > 0 ||
     selectedFormats.size > 0 ||
     searchQuery.length > 0;
+
+  // Helper to get translated category name
+  const getCategoryName = (category: ResourceCategory): string => {
+    const categoryMap: Record<ResourceCategory, string> = {
+      "Research Guide": t("categoryResearchGuide"),
+      "Position Papers": t("categoryPositionPapers"),
+      "Public Speaking": t("categoryPublicSpeaking"),
+      "Parliamentary Procedure": t("categoryParliamentaryProcedure"),
+      "Country Profiles": t("categoryCountryProfiles"),
+      "Sample Documents": t("categorySampleDocuments"),
+      "Video Tutorials": t("categoryVideoTutorials"),
+    };
+    return categoryMap[category] || category;
+  };
+
+  // Helper to get translated format name
+  const getFormatName = (format: ResourceFormat): string => {
+    const formatMap: Record<ResourceFormat, string> = {
+      "Article": t("formatArticle"),
+      "PDF": t("formatPDF"),
+      "Video": t("formatVideo"),
+      "Template": t("formatTemplate"),
+      "Worksheet": t("formatWorksheet"),
+    };
+    return formatMap[format] || format;
+  };
 
   // Build category options with counts
   const allCategoryOptions: { name: ResourceCategory; count: number }[] = [
@@ -217,13 +245,13 @@ export default function ResourcesPageContent({
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200"
               >
                 <BookOpen className="w-4 h-4" />
-                Model UN Resources
+                {t("heroBadge")}
               </motion.span>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Delegate " delay={0.3} />
+                <TypewriterText text={t("heroTitle")} delay={0.3} />
                 <TypewriterText
-                  text="Resources"
+                  text={t("heroTitleHighlight")}
                   delay={0.3 + 9 * 0.03}
                   className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent"
                 />
@@ -235,9 +263,7 @@ export default function ResourcesPageContent({
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
               >
-                Everything you need to prepare for Model UN success. From
-                beginner guides to advanced strategies, find resources tailored
-                to your experience level.
+                {t("heroDescription")}
               </motion.p>
 
               {/* Search Bar */}
@@ -250,7 +276,7 @@ export default function ResourcesPageContent({
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Search resources..."
+                  placeholder={t("searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
@@ -268,21 +294,21 @@ export default function ResourcesPageContent({
                   <BookOpen className="w-5 h-5 text-emerald-600" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{resources.length}</strong>{" "}
-                    Resources
+                    {t("resources")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Layers className="w-5 h-5 text-jamun-blue" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{categoryCount}</strong>{" "}
-                    Categories
+                    {t("categories")}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Sparkles className="w-5 h-5 text-amber-600" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{featuredCount}</strong>{" "}
-                    Featured
+                    {t("featured")}
                   </span>
                 </div>
               </motion.div>
@@ -297,7 +323,7 @@ export default function ResourcesPageContent({
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Filter Resources
+                  {t("filterTitle")}
                 </h3>
                 {hasActiveFilters && (
                   <button
@@ -305,7 +331,7 @@ export default function ResourcesPageContent({
                     className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
                   >
                     <X className="w-4 h-4" />
-                    Clear all
+                    {t("clearAll")}
                   </button>
                 )}
               </div>
@@ -315,7 +341,7 @@ export default function ResourcesPageContent({
                 <div>
                   <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                     <Layers className="w-4 h-4" />
-                    Category
+                    {t("categoryLabel")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {categoryOptions.map((category) => (
@@ -329,7 +355,7 @@ export default function ResourcesPageContent({
                             : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                         )}
                       >
-                        {category.name}
+                        {getCategoryName(category.name)}
                         <span
                           className={cn(
                             "ml-1.5 text-xs",
@@ -350,7 +376,7 @@ export default function ResourcesPageContent({
                   <div>
                     <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                       <FileText className="w-4 h-4" />
-                      Format
+                      {t("formatLabel")}
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {formatOptions.map((format) => (
@@ -364,7 +390,7 @@ export default function ResourcesPageContent({
                               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                           )}
                         >
-                          {format.name}
+                          {getFormatName(format.name)}
                           <span
                             className={cn(
                               "ml-1.5 text-xs",
@@ -385,11 +411,7 @@ export default function ResourcesPageContent({
               {/* Results count */}
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <p className="text-sm text-gray-600">
-                  Showing{" "}
-                  <strong className="text-gray-900">
-                    {filteredResources.length}
-                  </strong>{" "}
-                  of {resources.length} resources
+                  {t("showingResults", { count: filteredResources.length, total: resources.length })}
                 </p>
               </div>
             </motion.div>
@@ -400,9 +422,9 @@ export default function ResourcesPageContent({
       {/* Resources Grid */}
       <Section background="gray" className="py-16 md:py-20">
         <SectionHeader
-          eyebrow="Learn & Prepare"
-          title="Find Your Resources"
-          subtitle="Browse our collection of guides, tutorials, and templates designed to help you succeed in Model UN."
+          eyebrow={t("sectionEyebrow")}
+          title={t("sectionTitle")}
+          subtitle={t("sectionSubtitle")}
         />
 
         {filteredResources.length === 0 ? (
@@ -415,14 +437,13 @@ export default function ResourcesPageContent({
               <Search className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No resources found
+              {t("noResultsTitle")}
             </h3>
             <p className="text-gray-600 mb-6">
-              Try adjusting your search or filters to find what you&apos;re
-              looking for.
+              {t("noResultsDescription")}
             </p>
             <Button onClick={clearAllFilters} variant="outline">
-              Clear filters
+              {t("clearFilters")}
             </Button>
           </motion.div>
         ) : (
@@ -455,14 +476,14 @@ export default function ResourcesPageContent({
                         {resource.featured && (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
                             <Sparkles className="w-3 h-3" />
-                            Featured
+                            {t("featured")}
                           </span>
                         )}
                       </div>
 
                       {/* Category */}
                       <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                        {resource.category}
+                        {getCategoryName(resource.category)}
                       </p>
 
                       {/* Title */}
@@ -487,13 +508,13 @@ export default function ResourcesPageContent({
                           {resource.pages && (
                             <span className="flex items-center gap-1">
                               <FileText className="w-4 h-4" />
-                              {resource.pages} pages
+                              {resource.pages} {t("pages")}
                             </span>
                           )}
                           {resource.downloadUrl && (
                             <span className="flex items-center gap-1 text-emerald-600">
                               <Download className="w-4 h-4" />
-                              Download
+                              {t("download")}
                             </span>
                           )}
                         </div>
@@ -519,32 +540,31 @@ export default function ResourcesPageContent({
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
             <Sparkles className="w-4 h-4 text-emerald-600" />
             <span className="text-sm font-medium text-emerald-700">
-              Ready to Compete?
+              {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Put Your Knowledge to the{" "}
+            {t("ctaTitle")}
             <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
-              Test
+              {t("ctaTitleHighlight")}
             </span>
           </h2>
 
           <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            You&apos;ve got the resources. Now it&apos;s time to join a
-            conference and experience the thrill of Model UN firsthand.
+            {t("ctaDescription")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/register" size="lg" className="group">
-                Register for Model UN
+                {t("registerButton")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Button href="/modelun/committees" variant="outline" size="lg">
-                Explore Committees
+                {t("exploreCommitteesButton")}
               </Button>
             </motion.div>
           </div>
@@ -556,12 +576,12 @@ export default function ResourcesPageContent({
             transition={{ delay: 0.5 }}
             className="mt-8 text-sm text-gray-500"
           >
-            Have questions about resources?{" "}
+            {t("questionsText")}{" "}
             <a
               href="mailto:modelun@jamun.org"
               className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
             >
-              Contact our Model UN team
+              {t("contactLink")}
             </a>
           </motion.p>
         </motion.div>
