@@ -156,7 +156,7 @@ export function WhyChooseSection() {
                 {t(feature.subtitleKey)}
               </motion.span>
 
-              <h3 className="text-4xl lg:text-5xl font-semibold text-gray-900 mb-4">
+              <h3 className="text-4xl lg:text-5xl font-medium text-gray-900 mb-4">
                 {t(feature.titleKey)}
               </h3>
 

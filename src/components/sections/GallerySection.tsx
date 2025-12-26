@@ -137,7 +137,7 @@ export function GallerySection() {
               </span>
 
               {/* Title */}
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">
                 {t(section.titleKey)}
               </h2>
 
