@@ -29,7 +29,7 @@ export function CTASection() {
           <span className="text-sm font-medium text-gray-700">{t("badge")}</span>
         </motion.div>
 
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">
           {t("title")}{" "}
           <span className="text-jamun-blue">{t("titleHighlight")}</span>
         </h2>

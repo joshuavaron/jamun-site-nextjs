@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -15,8 +15,14 @@ import { routing, type Locale } from "@/i18n/routing";
 
 const GA_MEASUREMENT_ID = "G-JYTR5V7G12";
 
+const outfit = Outfit({
+  variable: "--font-heading",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 const inter = Inter({
-  variable: "--font-inter",
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
@@ -131,7 +137,7 @@ export default async function LocaleLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
+      <body className={`${outfit.variable} ${inter.variable} antialiased overflow-x-hidden`}>
         <NextIntlClientProvider messages={messages}>
           <LayoutWrapper
             header={<Header />}
