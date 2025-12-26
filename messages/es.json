@@ -148,7 +148,8 @@
     "categorySecurityCouncil": "Consejo de Seguridad",
     "categorySpecializedAgency": "Agencia Especializada",
     "categoryRegionalBody": "Organismo Regional",
-    "categoryCrisis": "Crisis"
+    "categoryCrisis": "Crisis",
+    "notFoundTitle": "Comité No Encontrado | Modelo ONU JAMUN"
   },
   "CommitteesPage": {
     "badge": "Comités de Modelo ONU",
@@ -251,7 +252,8 @@
     "formatPDF": "PDF",
     "formatVideo": "Video",
     "formatTemplate": "Plantilla",
-    "formatWorksheet": "Hoja de Trabajo"
+    "formatWorksheet": "Hoja de Trabajo",
+    "notFoundTitle": "Recurso No Encontrado | Modelo ONU JAMUN"
   },
   "ResourcePage": {
     "allResources": "Todos los Recursos",
@@ -295,7 +297,64 @@
     "register": "Inscribirse",
     "search": "Buscar...",
     "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "closeMenu": "Cerrar menú",
+    "logoAlt": "La Asamblea Juvenil del Modelo de Naciones Unidas",
+    "searchModelUN": "Modelo ONU",
+    "searchMockTrial": "Juicio Simulado",
+    "searchMathletes": "Mathletes",
+    "searchPrograms": "Programas",
+    "searchAbout": "Nosotros",
+    "searchDonate": "Donar",
+    "searchRegister": "Inscribirse",
+    "searchGrants": "Becas",
+    "searchBlog": "Blog",
+    "searchCommittees": "Comités",
+    "searchModelUNResources": "Recursos Modelo ONU",
+    "searchMockTrialResources": "Recursos Juicio Simulado",
+    "searchMathletesResources": "Recursos Mathletes",
+    "searchLeaderboards": "Clasificaciones",
+    "searchKwModel": "modelo",
+    "searchKwUN": "onu",
+    "searchKwMUN": "mun",
+    "searchKwUnitedNations": "naciones unidas",
+    "searchKwMock": "juicio",
+    "searchKwTrial": "simulado",
+    "searchKwLaw": "ley",
+    "searchKwCourt": "tribunal",
+    "searchKwMath": "matemáticas",
+    "searchKwMathletes": "mathletes",
+    "searchKwCompetition": "competencia",
+    "searchKwPrograms": "programas",
+    "searchKwActivities": "actividades",
+    "searchKwAbout": "nosotros",
+    "searchKwWho": "quién",
+    "searchKwTeam": "equipo",
+    "searchKwOrganization": "organización",
+    "searchKwDonate": "donar",
+    "searchKwSupport": "apoyar",
+    "searchKwGive": "dar",
+    "searchKwContribution": "contribución",
+    "searchKwRegister": "inscribirse",
+    "searchKwSignUp": "registrarse",
+    "searchKwJoin": "unirse",
+    "searchKwGrants": "becas",
+    "searchKwFunding": "financiamiento",
+    "searchKwFinancial": "financiero",
+    "searchKwAid": "ayuda",
+    "searchKwBlog": "blog",
+    "searchKwNews": "noticias",
+    "searchKwArticles": "artículos",
+    "searchKwPosts": "publicaciones",
+    "searchKwCommittees": "comités",
+    "searchKwGA": "ag",
+    "searchKwSecurityCouncil": "consejo de seguridad",
+    "searchKwResources": "recursos",
+    "searchKwGuides": "guías",
+    "searchKwModelUN": "modelo onu",
+    "searchKwMockTrial": "juicio simulado",
+    "searchKwLeaderboard": "clasificación",
+    "searchKwRankings": "rankings",
+    "searchKwScores": "puntajes"
   },
   "Footer": {
     "tagline": "Empoderando a los estudiantes a través de la excelencia académica competitiva y el debate significativo.",
@@ -310,7 +369,8 @@
     "leaderboards": "Clasificaciones",
     "aboutUs": "Nosotros",
     "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio"
+    "termsOfService": "Términos de Servicio",
+    "logoAlt": "La Asamblea Juvenil del Modelo de Naciones Unidas"
   },
   "Common": {
     "learnMore": "Más Información",
@@ -334,7 +394,8 @@
     "subtitle": "La accesibilidad nos importa",
     "message1": "Creemos que las competencias académicas deben ser accesibles para todos los estudiantes, sin importar el idioma. Por eso estamos trabajando para traducir nuestros recursos a múltiples idiomas.",
     "message2": "Nota: Algunas traducciones pueden estar incompletas o contener errores. Si notas algún problema, nos encantaría tu ayuda para mejorarlas.",
-    "dismiss": "¡Entendido, gracias!"
+    "dismiss": "¡Entendido, gracias!",
+    "closeAriaLabel": "Cerrar"
   },
   "HomePage": {
     "title": "JAMUN - Competencias Académicas Asequibles para Secundaria | Modelo ONU, Juicio Simulado, Mathletes",
@@ -875,7 +936,8 @@
     "submitStory": "Enviar Tu Historia",
     "browseResources": "Explorar Recursos",
     "categoryAll": "Todos",
-    "readTime": "{minutes} min de lectura"
+    "readTime": "{minutes} min de lectura",
+    "notFoundTitle": "Publicación No Encontrada | Blog JAMUN"
   },
   "BlogCard": {
     "featured": "Destacado"
@@ -1319,6 +1381,7 @@
     "heroTitle1": "Política de ",
     "heroTitle2": "Privacidad",
     "lastUpdated": "Última actualización: {date}",
+    "lastUpdatedDate": "Diciembre 2024",
     "introTitle": "Introducción",
     "introText": "La Junior Assembly of Model United Nations (\"JAMUN\", \"nosotros\" o \"nuestro\") está comprometida con la protección de tu privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos tu información cuando visitas nuestro sitio web jamun.org y participas en nuestros programas.",
     "infoCollectTitle": "Información que Recopilamos",
@@ -1382,6 +1445,7 @@
     "heroTitle1": "Términos de ",
     "heroTitle2": "Servicio",
     "lastUpdated": "Última actualización: {date}",
+    "lastUpdatedDate": "Diciembre 2024",
     "agreementTitle": "Aceptación de los Términos",
     "agreementText": "Al acceder o usar el sitio web de JAMUN (jamun.org) y participar en nuestros programas, aceptas estar sujeto a estos Términos de Servicio. Si no estás de acuerdo con estos términos, por favor no uses nuestro sitio web o servicios.",
     "aboutTitle": "Sobre JAMUN",

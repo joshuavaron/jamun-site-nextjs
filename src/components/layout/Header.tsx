@@ -18,23 +18,23 @@ const exploreItemKeys = [
   { key: "blog", href: "/blog" },
 ] as const;
 
-// Static pages to search (prioritized first)
-const staticPages = [
-  { title: "Model UN", url: "/modelun", keywords: ["model", "un", "mun", "united nations"] },
-  { title: "Mock Trial", url: "/mocktrial", keywords: ["mock", "trial", "law", "court"] },
-  { title: "Mathletes", url: "/mathletes", keywords: ["math", "mathletes", "competition"] },
-  { title: "Programs", url: "/programs", keywords: ["programs", "activities"] },
-  { title: "About", url: "/about", keywords: ["about", "who", "team", "organization"] },
-  { title: "Donate", url: "/donate", keywords: ["donate", "support", "give", "contribution"] },
-  { title: "Register", url: "/register", keywords: ["register", "sign up", "join"] },
-  { title: "Grants", url: "/grants", keywords: ["grants", "funding", "financial", "aid"] },
-  { title: "Blog", url: "/blog", keywords: ["blog", "news", "articles", "posts"] },
-  { title: "Committees", url: "/modelun/committees", keywords: ["committees", "ga", "security council"] },
-  { title: "Model UN Resources", url: "/modelun/resources", keywords: ["resources", "guides", "model un"] },
-  { title: "Mock Trial Resources", url: "/mocktrial/resources", keywords: ["resources", "guides", "mock trial"] },
-  { title: "Mathletes Resources", url: "/mathletes/resources", keywords: ["resources", "guides", "math"] },
-  { title: "Leaderboards", url: "/leaderboards", keywords: ["leaderboard", "rankings", "scores"] },
-];
+// Static pages to search - keys map to translation keys
+const staticPageKeys = [
+  { titleKey: "searchModelUN", url: "/modelun", keywordKeys: ["searchKwModel", "searchKwUN", "searchKwMUN", "searchKwUnitedNations"] },
+  { titleKey: "searchMockTrial", url: "/mocktrial", keywordKeys: ["searchKwMock", "searchKwTrial", "searchKwLaw", "searchKwCourt"] },
+  { titleKey: "searchMathletes", url: "/mathletes", keywordKeys: ["searchKwMath", "searchKwMathletes", "searchKwCompetition"] },
+  { titleKey: "searchPrograms", url: "/programs", keywordKeys: ["searchKwPrograms", "searchKwActivities"] },
+  { titleKey: "searchAbout", url: "/about", keywordKeys: ["searchKwAbout", "searchKwWho", "searchKwTeam", "searchKwOrganization"] },
+  { titleKey: "searchDonate", url: "/donate", keywordKeys: ["searchKwDonate", "searchKwSupport", "searchKwGive", "searchKwContribution"] },
+  { titleKey: "searchRegister", url: "/register", keywordKeys: ["searchKwRegister", "searchKwSignUp", "searchKwJoin"] },
+  { titleKey: "searchGrants", url: "/grants", keywordKeys: ["searchKwGrants", "searchKwFunding", "searchKwFinancial", "searchKwAid"] },
+  { titleKey: "searchBlog", url: "/blog", keywordKeys: ["searchKwBlog", "searchKwNews", "searchKwArticles", "searchKwPosts"] },
+  { titleKey: "searchCommittees", url: "/modelun/committees", keywordKeys: ["searchKwCommittees", "searchKwGA", "searchKwSecurityCouncil"] },
+  { titleKey: "searchModelUNResources", url: "/modelun/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwModelUN"] },
+  { titleKey: "searchMockTrialResources", url: "/mocktrial/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwMockTrial"] },
+  { titleKey: "searchMathletesResources", url: "/mathletes/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwMath"] },
+  { titleKey: "searchLeaderboards", url: "/leaderboards", keywordKeys: ["searchKwLeaderboard", "searchKwRankings", "searchKwScores"] },
+] as const;
 
 interface SearchResult {
   title: string;
@@ -88,6 +88,15 @@ export function Header() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  // Build translated static pages for search
+  const staticPages = useMemo(() => {
+    return staticPageKeys.map((page) => ({
+      title: t(page.titleKey),
+      url: page.url,
+      keywords: page.keywordKeys.map((key) => t(key).toLowerCase()),
+    }));
+  }, [t]);
+
   // Search logic - derived state using useMemo
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -100,7 +109,7 @@ export function Header() {
     // Search static pages first (higher priority)
     for (const page of staticPages) {
       const titleMatch = page.title.toLowerCase().includes(query);
-      const keywordMatch = page.keywords.some((k) => k.includes(query));
+      const keywordMatch = page.keywords.some((k: string) => k.includes(query));
       if (titleMatch || keywordMatch) {
         results.push({ title: page.title, url: page.url, type: "page" });
       }
@@ -108,7 +117,7 @@ export function Header() {
 
     // Limit results
     return results.slice(0, 6);
-  }, [searchQuery]);
+  }, [searchQuery, staticPages]);
 
 
   // Keyboard navigation
@@ -258,7 +267,7 @@ export function Header() {
             <div className="relative h-8 w-40 md:h-9 md:w-52">
               <Image
                 src="/images/logos/jamun-blue-side-logo.svg"
-                alt="The Junior Assembly of the Model United Nations"
+                alt={t("logoAlt")}
                 fill
                 className="object-contain object-left nav:object-center"
                 priority

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getCommitteeBySlug, getAllCommitteeSlugsAllLocales, getAlternateLanguages } from "@/lib/committees";
 import CommitteePageContent from "./CommitteePageContent";
 import { siteConfig } from "@/config/site";
@@ -20,8 +21,9 @@ export async function generateMetadata({
   const committee = getCommitteeBySlug(slug, locale);
 
   if (!committee) {
+    const t = await getTranslations({ locale, namespace: "CommitteeDetailPage" });
     return {
-      title: "Committee Not Found | JAMUN Model UN",
+      title: t("notFoundTitle"),
     };
   }
 

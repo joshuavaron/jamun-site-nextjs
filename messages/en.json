@@ -148,7 +148,8 @@
     "categorySecurityCouncil": "Security Council",
     "categorySpecializedAgency": "Specialized Agency",
     "categoryRegionalBody": "Regional Body",
-    "categoryCrisis": "Crisis"
+    "categoryCrisis": "Crisis",
+    "notFoundTitle": "Committee Not Found | JAMUN Model UN"
   },
   "CommitteesPage": {
     "badge": "Model UN Committees",
@@ -251,7 +252,8 @@
     "formatPDF": "PDF",
     "formatVideo": "Video",
     "formatTemplate": "Template",
-    "formatWorksheet": "Worksheet"
+    "formatWorksheet": "Worksheet",
+    "notFoundTitle": "Resource Not Found | JAMUN Model UN"
   },
   "ResourcePage": {
     "allResources": "All Resources",
@@ -295,7 +297,64 @@
     "register": "Register",
     "search": "Search...",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "logoAlt": "The Junior Assembly of the Model United Nations",
+    "searchModelUN": "Model UN",
+    "searchMockTrial": "Mock Trial",
+    "searchMathletes": "Mathletes",
+    "searchPrograms": "Programs",
+    "searchAbout": "About",
+    "searchDonate": "Donate",
+    "searchRegister": "Register",
+    "searchGrants": "Grants",
+    "searchBlog": "Blog",
+    "searchCommittees": "Committees",
+    "searchModelUNResources": "Model UN Resources",
+    "searchMockTrialResources": "Mock Trial Resources",
+    "searchMathletesResources": "Mathletes Resources",
+    "searchLeaderboards": "Leaderboards",
+    "searchKwModel": "model",
+    "searchKwUN": "un",
+    "searchKwMUN": "mun",
+    "searchKwUnitedNations": "united nations",
+    "searchKwMock": "mock",
+    "searchKwTrial": "trial",
+    "searchKwLaw": "law",
+    "searchKwCourt": "court",
+    "searchKwMath": "math",
+    "searchKwMathletes": "mathletes",
+    "searchKwCompetition": "competition",
+    "searchKwPrograms": "programs",
+    "searchKwActivities": "activities",
+    "searchKwAbout": "about",
+    "searchKwWho": "who",
+    "searchKwTeam": "team",
+    "searchKwOrganization": "organization",
+    "searchKwDonate": "donate",
+    "searchKwSupport": "support",
+    "searchKwGive": "give",
+    "searchKwContribution": "contribution",
+    "searchKwRegister": "register",
+    "searchKwSignUp": "sign up",
+    "searchKwJoin": "join",
+    "searchKwGrants": "grants",
+    "searchKwFunding": "funding",
+    "searchKwFinancial": "financial",
+    "searchKwAid": "aid",
+    "searchKwBlog": "blog",
+    "searchKwNews": "news",
+    "searchKwArticles": "articles",
+    "searchKwPosts": "posts",
+    "searchKwCommittees": "committees",
+    "searchKwGA": "ga",
+    "searchKwSecurityCouncil": "security council",
+    "searchKwResources": "resources",
+    "searchKwGuides": "guides",
+    "searchKwModelUN": "model un",
+    "searchKwMockTrial": "mock trial",
+    "searchKwLeaderboard": "leaderboard",
+    "searchKwRankings": "rankings",
+    "searchKwScores": "scores"
   },
   "Footer": {
     "tagline": "Empowering students through competitive academic excellence and meaningful debate.",
@@ -310,7 +369,8 @@
     "leaderboards": "Leaderboards",
     "aboutUs": "About Us",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "logoAlt": "The Junior Assembly of the Model United Nations"
   },
   "Common": {
     "learnMore": "Learn More",
@@ -334,7 +394,8 @@
     "subtitle": "Accessibility matters to us",
     "message1": "We believe academic competitions should be accessible to all students, regardless of language. That's why we're working to translate our resources into multiple languages.",
     "message2": "Please note: Some translations may be incomplete or contain errors. If you notice any issues, we'd love your help improving them.",
-    "dismiss": "Got it, thanks!"
+    "dismiss": "Got it, thanks!",
+    "closeAriaLabel": "Close"
   },
   "HomePage": {
     "title": "JAMUN - Affordable Middle School Academic Competitions | Model UN, Mock Trial, Mathletes",
@@ -875,7 +936,8 @@
     "submitStory": "Submit Your Story",
     "browseResources": "Browse Resources",
     "categoryAll": "All",
-    "readTime": "{minutes} min read"
+    "readTime": "{minutes} min read",
+    "notFoundTitle": "Post Not Found | JAMUN Blog"
   },
   "BlogCard": {
     "featured": "Featured"
@@ -1319,6 +1381,7 @@
     "heroTitle1": "Privacy ",
     "heroTitle2": "Policy",
     "lastUpdated": "Last updated: {date}",
+    "lastUpdatedDate": "December 2024",
     "introTitle": "Introduction",
     "introText": "The Junior Assembly of Model United Nations (\"JAMUN,\" \"we,\" \"us,\" or \"our\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website jamun.org and participate in our programs.",
     "infoCollectTitle": "Information We Collect",
@@ -1382,6 +1445,7 @@
     "heroTitle1": "Terms of ",
     "heroTitle2": "Service",
     "lastUpdated": "Last updated: {date}",
+    "lastUpdatedDate": "December 2024",
     "agreementTitle": "Agreement to Terms",
     "agreementText": "By accessing or using the JAMUN website (jamun.org) and participating in our programs, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.",
     "aboutTitle": "About JAMUN",

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { getResourceBySlug, getAllResourceSlugsAllLocales, getRelatedResources, getAlternateLanguages } from "@/lib/resources";
 import ResourcePageContent from "./ResourcePageContent";
 import { siteConfig } from "@/config/site";
@@ -20,8 +21,9 @@ export async function generateMetadata({
   const resource = getResourceBySlug(slug, locale);
 
   if (!resource) {
+    const t = await getTranslations({ locale, namespace: "ResourcesPage" });
     return {
-      title: "Resource Not Found | JAMUN Model UN",
+      title: t("notFoundTitle"),
     };
   }
 

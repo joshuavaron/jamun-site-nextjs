@@ -12,7 +12,7 @@ const sectionVariants = {
 
 export default function TermsOfServicePage() {
   const t = useTranslations("TermsPage");
-  const lastUpdated = "December 2024";
+  const lastUpdated = t("lastUpdatedDate");
 
   return (
     <main>

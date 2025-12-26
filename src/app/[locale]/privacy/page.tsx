@@ -12,7 +12,7 @@ const sectionVariants = {
 
 export default function PrivacyPolicyPage() {
   const t = useTranslations("PrivacyPage");
-  const lastUpdated = "December 2024";
+  const lastUpdated = t("lastUpdatedDate");
 
   return (
     <main>

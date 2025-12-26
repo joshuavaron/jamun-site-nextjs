@@ -106,7 +106,7 @@ export function TranslationNotice() {
               <button
                 onClick={handleDismiss}
                 className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label="Close"
+                aria-label={t("closeAriaLabel")}
               >
                 <X className="w-5 h-5" />
               </button>

@@ -34,7 +34,7 @@ export function Footer() {
               <div className="relative h-10 w-44">
                 <Image
                   src="/images/logos/jamun-white-side-logo.svg"
-                  alt="The Junior Assembly of the Model United Nations"
+                  alt={t("logoAlt")}
                   fill
                   className="object-contain"
                 />

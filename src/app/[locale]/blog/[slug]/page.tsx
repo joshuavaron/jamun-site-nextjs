@@ -22,8 +22,9 @@ export async function generateMetadata({
   const post = getPostBySlug(slug, locale);
 
   if (!post) {
+    const t = await getTranslations({ locale, namespace: "BlogPage" });
     return {
-      title: "Post Not Found | JAMUN Blog",
+      title: t("notFoundTitle"),
     };
   }
 
