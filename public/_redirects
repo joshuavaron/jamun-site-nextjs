@@ -1,18 +1,2 @@
 # Redirect /en/* to root (canonical URLs without /en/)
-/en/ / 301
-/en/about/ /about/ 301
-/en/blog/ /blog/ 301
-/en/blog/* /blog/:splat 301
-/en/donate/ /donate/ 301
-/en/grants/ /grants/ 301
-/en/leaderboards/ /leaderboards/ 301
-/en/mathletes/ /mathletes/ 301
-/en/mathletes/* /mathletes/:splat 301
-/en/mocktrial/ /mocktrial/ 301
-/en/mocktrial/* /mocktrial/:splat 301
-/en/modelun/ /modelun/ 301
-/en/modelun/* /modelun/:splat 301
-/en/privacy/ /privacy/ 301
-/en/programs/ /programs/ 301
-/en/register/ /register/ 301
-/en/terms/ /terms/ 301
+/en/* /:splat 301
