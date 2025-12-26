@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
       url: siteConfig.url,
       siteName: t("siteName"),
       title: t("defaultTitle"),
@@ -83,6 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: siteConfig.url,
         es: `${siteConfig.url}/es`,
+        zh: `${siteConfig.url}/zh`,
       },
     },
     category: "Education",

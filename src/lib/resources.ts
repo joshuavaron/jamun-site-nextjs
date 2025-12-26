@@ -60,7 +60,8 @@ function localeExists(locale: string): boolean {
 
 export function getAllResources(locale: string = defaultLocale): ResourceMeta[] {
   // Use pre-generated JSON data (works in edge runtime)
-  const localeKey = (locale === "es" ? "es" : "en") as keyof typeof resourcesData;
+  // Falls back to English if locale not available in JSON
+  const localeKey = (locale in resourcesData ? locale : "en") as keyof typeof resourcesData;
   const resources = resourcesData[localeKey] || resourcesData.en || [];
 
   return resources as ResourceMeta[];
