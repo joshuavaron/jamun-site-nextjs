@@ -10,6 +10,8 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string; locale: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const allSlugs = getAllSlugsAllLocales();
   return allSlugs.map(({ slug, locale }) => ({ slug, locale }));

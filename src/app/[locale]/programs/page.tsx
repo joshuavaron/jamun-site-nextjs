@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Section, Button, TypewriterText } from "@/components/ui";
 import {
   Globe,

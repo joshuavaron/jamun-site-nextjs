@@ -2,6 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// Pre-generated resources data for edge runtime (Cloudflare Workers)
+import mocktrialResourcesData from "@/data/mocktrial-resources.json";
+
 const contentDirectory = path.join(process.cwd(), "content/mocktrial-resources");
 
 // Mock Trial resource categories
@@ -46,39 +49,8 @@ export interface MockTrialResource extends MockTrialResourceMeta {
 }
 
 export function getAllMockTrialResources(): MockTrialResourceMeta[] {
-  if (!fs.existsSync(contentDirectory)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(contentDirectory);
-  const resources = files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const fullPath = path.join(contentDirectory, file);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || "Untitled Resource",
-        description: data.description || "",
-        category: data.category || "Trial Basics",
-        level: data.level || "Beginner",
-        format: data.format || "Article",
-        duration: data.duration,
-        pages: data.pages,
-        downloadUrl: data.downloadUrl,
-        image: data.image,
-        author: data.author,
-        featured: data.featured || false,
-        tags: data.tags || [],
-        publishedAt: data.publishedAt,
-      } as MockTrialResourceMeta;
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  return resources;
+  // Use pre-generated JSON data (works in edge runtime)
+  return (mocktrialResourcesData.resources || []) as MockTrialResourceMeta[];
 }
 
 export function getMockTrialResourceBySlug(slug: string): MockTrialResource | null {

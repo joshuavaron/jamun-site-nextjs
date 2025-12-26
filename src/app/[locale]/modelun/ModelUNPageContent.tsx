@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";

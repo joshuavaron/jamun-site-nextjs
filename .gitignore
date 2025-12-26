@@ -41,6 +41,7 @@ yarn-error.log*
 .wrangler
 .dev.vars
 wrangler.jsonc
+deploy.sh
 
 # claude code settings (may contain tokens)
 .claude/

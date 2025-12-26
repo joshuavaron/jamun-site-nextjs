@@ -1,12 +1,18 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllResources } from "@/lib/resources";
 import ResourcesPageContent from "./ResourcesPageContent";
 import { siteConfig } from "@/config/site";
+import { routing } from "@/i18n/routing";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -46,6 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ResourcesPage({ params }: Props) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const resources = getAllResources(locale);
 
   return <ResourcesPageContent resources={resources} />;

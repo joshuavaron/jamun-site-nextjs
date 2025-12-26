@@ -9,6 +9,8 @@ interface ResourcePageProps {
   params: Promise<{ slug: string; locale: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const allSlugs = getAllResourceSlugsAllLocales();
   return allSlugs.map(({ slug, locale }) => ({ slug, locale }));

@@ -1,8 +1,6 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "fs";
-import { join } from "path";
 
-export const runtime = "nodejs";
+export const dynamic = "force-static";
 
 export const alt = "JAMUN - Middle School Academic Competitions";
 export const size = {
@@ -11,16 +9,10 @@ export const size = {
 };
 export const contentType = "image/png";
 
-export default async function Image() {
-  // Read the SVG logo file
-  const logoSvg = readFileSync(
-    join(process.cwd(), "public/images/logos/jamun-blue-side-logo.svg"),
-    "utf-8"
-  );
+// Base64 encoded SVG logo (pre-generated for static export)
+const logoDataUrl = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MDAgMTA2Ij48dGV4dCB4PSIyNTAiIHk9IjcwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSI2MCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMzOTdiY2UiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpBTVVOPC90ZXh0Pjwvc3ZnPg==";
 
-  // Convert SVG to base64 data URL
-  const logoBase64 = Buffer.from(logoSvg).toString("base64");
-  const logoDataUrl = `data:image/svg+xml;base64,${logoBase64}`;
+export default async function Image() {
 
   return new ImageResponse(
     (

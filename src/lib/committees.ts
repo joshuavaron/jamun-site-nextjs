@@ -2,8 +2,15 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// Pre-generated committee data for edge runtime (Cloudflare Workers)
+import committeeData from "@/data/committees.json";
+
 const contentDirectory = path.join(process.cwd(), "content/committees");
 const defaultLocale = "en";
+
+// Detect if we're in an edge runtime environment (no fs access)
+const isEdgeRuntime = typeof process.env.NEXT_RUNTIME === 'undefined' ||
+  (typeof globalThis !== 'undefined' && 'caches' in globalThis);
 
 // Committee executive (chair, vice chair, etc.)
 export interface CommitteeExecutive {
@@ -65,46 +72,14 @@ function localeExists(locale: string): boolean {
 }
 
 export function getAllCommittees(locale: string = defaultLocale): CommitteeMeta[] {
-  // Try requested locale, fall back to default
-  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
-  const localeDir = getLocaleDirectory(effectiveLocale);
+  // Use pre-generated JSON data (works in edge runtime)
+  const localeKey = (locale === "es" ? "es" : "en") as keyof typeof committeeData;
+  const committees = committeeData[localeKey] as CommitteeMeta[];
 
-  if (!fs.existsSync(localeDir)) {
-    return [];
+  if (!committees || committees.length === 0) {
+    // Fallback to English if locale not found
+    return (committeeData.en as CommitteeMeta[]) || [];
   }
-
-  const files = fs.readdirSync(localeDir);
-  const committees = files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const fullPath = path.join(localeDir, file);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
-
-      return {
-        slug,
-        name: data.name || "Untitled Committee",
-        abbreviation: data.abbreviation || slug.toUpperCase(),
-        category: data.category || "General Assembly",
-        topic: data.topic || "",
-        description: data.description || "",
-        level: data.level || "Beginner-Friendly",
-        delegationSize: data.delegationSize || "Single",
-        delegateCount: data.delegateCount || 0,
-        image: data.image || "/images/conferences/model-un.webp",
-        color: data.color || "bg-jamun-blue",
-        executives: data.executives || [],
-        documents: data.documents || [],
-        countries: data.countries || [],
-        featured: data.featured || false,
-        isAdHoc: data.isAdHoc || false,
-        redHerringTopics: data.redHerringTopics || [],
-        canonicalSlug: data.canonicalSlug,
-        locale: effectiveLocale,
-      } as CommitteeMeta;
-    })
-    .sort((a, b) => a.name.localeCompare(b.name));
 
   return committees;
 }

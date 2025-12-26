@@ -4,19 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:worker": "npx @opennextjs/cloudflare build",
-    "preview": "npx @opennextjs/cloudflare preview",
-    "deploy": "npx @opennextjs/cloudflare deploy",
+    "prebuild": "node scripts/generate-content-data.mjs",
+    "build": "next build && node scripts/copy-english-to-root.mjs",
     "start": "next start",
     "lint": "eslint",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "deploy": "npm run build && npx wrangler pages deploy out --project-name=jamun-site"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^15.3.8",
-    "@opennextjs/cloudflare": "^1.14.7",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "gray-matter": "^4.0.3",

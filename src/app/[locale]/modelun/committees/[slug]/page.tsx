@@ -9,6 +9,8 @@ interface CommitteePageProps {
   params: Promise<{ slug: string; locale: string }>;
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const allSlugs = getAllCommitteeSlugsAllLocales();
   return allSlugs.map(({ slug, locale }) => ({ slug, locale }));

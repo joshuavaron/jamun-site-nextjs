@@ -2,6 +2,9 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
+// Pre-generated resources data for edge runtime (Cloudflare Workers)
+import resourcesData from "@/data/modelun-resources.json";
+
 const contentDirectory = path.join(process.cwd(), "content/modelun-resources");
 const defaultLocale = "en";
 
@@ -56,45 +59,11 @@ function localeExists(locale: string): boolean {
 }
 
 export function getAllResources(locale: string = defaultLocale): ResourceMeta[] {
-  // Try requested locale, fall back to default
-  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
-  const localeDir = getLocaleDirectory(effectiveLocale);
+  // Use pre-generated JSON data (works in edge runtime)
+  const localeKey = (locale === "es" ? "es" : "en") as keyof typeof resourcesData;
+  const resources = resourcesData[localeKey] || resourcesData.en || [];
 
-  if (!fs.existsSync(localeDir)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(localeDir);
-  const resources = files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, "");
-      const fullPath = path.join(localeDir, file);
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || "Untitled Resource",
-        description: data.description || "",
-        category: data.category || "Research Guide",
-        level: data.level || "Beginner",
-        format: data.format || "Article",
-        duration: data.duration,
-        pages: data.pages,
-        downloadUrl: data.downloadUrl,
-        image: data.image,
-        author: data.author,
-        featured: data.featured || false,
-        tags: data.tags || [],
-        publishedAt: data.publishedAt,
-        canonicalSlug: data.canonicalSlug,
-        locale: effectiveLocale,
-      } as ResourceMeta;
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  return resources;
+  return resources as ResourceMeta[];
 }
 
 export function getResourceBySlug(slug: string, locale: string = defaultLocale): Resource | null {

@@ -3,6 +3,8 @@ import { getAllSlugsAllLocales } from "@/lib/blog";
 import { getAllCommitteeSlugsAllLocales } from "@/lib/committees";
 import { getAllResourceSlugsAllLocales } from "@/lib/resources";
 
+export const dynamic = "force-static";
+
 const BASE_URL = "https://jamun.org";
 const LOCALES = ["en", "es"] as const;
 
