@@ -28,7 +28,7 @@ export function HeroSection() {
               {t("badge")}
             </motion.span>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium text-gray-900 mb-6">
               <TypewriterText text={t("title")} delay={0.3} />
               <span className="relative">
                 <TypewriterText

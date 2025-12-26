@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -14,12 +13,6 @@ import { siteConfig } from "@/config/site";
 import { routing, type Locale } from "@/i18n/routing";
 
 const GA_MEASUREMENT_ID = "G-JYTR5V7G12";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -117,6 +110,21 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
+        {/* Preload critical fonts for faster rendering */}
+        <link
+          rel="preload"
+          href="/fonts/inter-400.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/outfit-600.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -131,7 +139,7 @@ export default async function LocaleLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.variable} antialiased overflow-x-hidden`}>
+      <body className="antialiased overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           <LayoutWrapper
             header={<Header />}
