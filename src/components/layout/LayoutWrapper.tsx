@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 // Pages that should not show header/footer (immersive/trapped pages)
-const HEADERLESS_PAGES = ["/donate"];
+const HEADERLESS_PAGES = ["/donate", "/es/donate"];
 
 interface LayoutWrapperProps {
   header: ReactNode;
