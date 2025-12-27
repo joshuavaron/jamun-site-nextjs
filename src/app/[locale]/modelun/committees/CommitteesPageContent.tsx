@@ -9,7 +9,7 @@ import {
   ArrowRight,
   Search,
   Users,
-  Sparkles,
+  Rocket,
   GraduationCap,
   X,
 } from "lucide-react";
@@ -560,7 +560,7 @@ export default function CommitteesPageContent({
           className="text-center max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
-            <Sparkles className="w-4 h-4 text-jamun-blue" />
+            <Rocket className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
               {t("ctaBadge")}
             </span>

@@ -12,11 +12,12 @@ import {
   FileText,
   Video,
   File,
-  Sparkles,
+  Star,
   X,
   Download,
   Clock,
   Layers,
+  Rocket,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -305,7 +306,7 @@ export default function ResourcesPageContent({
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
-                  <Sparkles className="w-5 h-5 text-amber-600" />
+                  <Star className="w-5 h-5 text-amber-600" />
                   <span className="text-sm">
                     <strong className="text-gray-900">{featuredCount}</strong>{" "}
                     {t("featured")}
@@ -475,7 +476,7 @@ export default function ResourcesPageContent({
                         </div>
                         {resource.featured && (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                            <Sparkles className="w-3 h-3" />
+                            <Star className="w-3 h-3" />
                             {t("featured")}
                           </span>
                         )}
@@ -538,7 +539,7 @@ export default function ResourcesPageContent({
           className="text-center max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
-            <Sparkles className="w-4 h-4 text-emerald-600" />
+            <Rocket className="w-4 h-4 text-emerald-600" />
             <span className="text-sm font-medium text-emerald-700">
               {t("ctaBadge")}
             </span>

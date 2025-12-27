@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Script from "next/script";
-import { Heart, Users, GraduationCap, Trophy, Sparkles, ArrowRight, Check } from "lucide-react";
+import { Heart, Users, GraduationCap, Trophy, ArrowRight, Check } from "lucide-react";
 import { TypewriterText } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -160,7 +160,7 @@ export default function DonatePage() {
                 {/* Why Your Gift Matters */}
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-3">
-                    <Sparkles className="w-8 h-8 text-orange-500" />
+                    <Heart className="w-8 h-8 text-orange-500" />
                     {t("whyGiftMattersTitle")}
                   </h2>
                   <ul className="space-y-4">

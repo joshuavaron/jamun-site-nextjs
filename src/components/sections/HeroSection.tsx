@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button, TypewriterText } from "@/components/ui";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 
 export function HeroSection() {
   const t = useTranslations("HeroSection");
@@ -24,7 +24,7 @@ export function HeroSection() {
               transition={{ delay: 0.1 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
             >
-              <Sparkles className="w-4 h-4" />
+              <Users className="w-4 h-4" />
               {t("badge")}
             </motion.span>
 

@@ -15,7 +15,8 @@ import {
   BookOpen,
   Target,
   CheckCircle,
-  Sparkles,
+  LayoutGrid,
+  Rocket,
   MessageSquare,
   Brain,
   Gavel,
@@ -325,7 +326,7 @@ export default function ProgramsPage() {
                 transition={{ delay: 0.1 }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
-                <Sparkles className="w-4 h-4" />
+                <LayoutGrid className="w-4 h-4" />
                 {t("heroBadge")}
               </motion.span>
 
@@ -788,7 +789,7 @@ export default function ProgramsPage() {
           className="text-center max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
-            <Sparkles className="w-4 h-4 text-jamun-blue" />
+            <Rocket className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
               {t("ctaBadge")}
             </span>

@@ -11,7 +11,7 @@ import {
   FileText,
   Video,
   File,
-  Sparkles,
+  Star,
   X,
   Download,
   Clock,
@@ -288,7 +288,7 @@ export default function MathletesResourcesPageContent({
                 </div>
                 {featuredCount > 0 && (
                   <div className="flex items-center gap-2 text-gray-600">
-                    <Sparkles className="w-5 h-5 text-amber-600" />
+                    <Star className="w-5 h-5 text-amber-600" />
                     <span className="text-sm">
                       <strong className="text-gray-900">{featuredCount}</strong>{" "}
                       Featured
@@ -504,7 +504,7 @@ export default function MathletesResourcesPageContent({
                         </div>
                         {resource.featured && (
                           <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                            <Sparkles className="w-3 h-3" />
+                            <Star className="w-3 h-3" />
                             Featured
                           </span>
                         )}

@@ -23,7 +23,7 @@ import {
   ClipboardList,
   ScrollText,
   Target,
-  Sparkles,
+  CalendarClock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -226,7 +226,7 @@ export default function MockTrialPage() {
                   {t("heroBadgeGrades")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
-                  <Sparkles className="w-4 h-4 text-purple-600" />
+                  <CalendarClock className="w-4 h-4 text-purple-600" />
                   {t("heroBadgeLaunch")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
