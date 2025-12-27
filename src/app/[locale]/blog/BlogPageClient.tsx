@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Section, SectionHeader, Button, BlogCard, BlogPost, TypewriterText } from "@/components/ui";
 import {
-  Sparkles,
+  Newspaper,
+  PenLine,
   ArrowRight,
   Search,
   BookOpen,
@@ -75,7 +76,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 transition={{ delay: 0.1 }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
-                <Sparkles className="w-4 h-4" />
+                <Newspaper className="w-4 h-4" />
                 {t("badge")}
               </motion.span>
 
@@ -277,7 +278,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
           className="text-center max-w-3xl mx-auto"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
-            <Sparkles className="w-4 h-4 text-jamun-blue" />
+            <PenLine className="w-4 h-4 text-jamun-blue" />
             <span className="text-sm font-medium text-jamun-blue">
               {t("shareStoryBadge")}
             </span>

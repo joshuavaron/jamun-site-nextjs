@@ -8,7 +8,7 @@ import {
   Users,
   Lightbulb,
   Target,
-  Sparkles,
+  BookOpen,
   ArrowRight,
   Quote,
 } from "lucide-react";
@@ -157,7 +157,7 @@ export default function AboutPage() {
                 transition={{ delay: 0.1 }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
               >
-                <Sparkles className="w-4 h-4" />
+                <BookOpen className="w-4 h-4" />
                 {t("heroBadge")}
               </motion.span>
 
