@@ -3,5 +3,6 @@
 
 User-agent: *
 Allow: /
+Disallow: /internal/
 
 Sitemap: https://jamun.org/sitemap.xml

@@ -6,8 +6,8 @@ export default createMiddleware(routing);
 export const config = {
   matcher: [
     // Match all pathnames except:
-    // - /api, /_next, /_vercel
+    // - /api, /_next, /_vercel, /internal
     // - Files with extensions (e.g., .jpg, .css, .js)
-    '/((?!api|_next|_vercel|.*\\..*).*)'
+    '/((?!api|_next|_vercel|internal|.*\\..*).*)'
   ]
 };
