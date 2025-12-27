@@ -17,7 +17,7 @@ import {
   Download,
   Clock,
   GraduationCap,
-  Sparkles,
+  Star,
   Tag,
   Calendar,
   User,
@@ -198,7 +198,7 @@ export default function ResourcePageContent({
             {/* Featured badge */}
             {resource.featured && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-full bg-amber-100 text-amber-700 border border-amber-200">
-                <Sparkles className="w-4 h-4" />
+                <Star className="w-4 h-4" />
                 {t("featured")}
               </span>
             )}
@@ -433,7 +433,7 @@ export default function ResourcePageContent({
                           </div>
                           {related.featured && (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                              <Sparkles className="w-3 h-3" />
+                              <Star className="w-3 h-3" />
                             </span>
                           )}
                         </div>

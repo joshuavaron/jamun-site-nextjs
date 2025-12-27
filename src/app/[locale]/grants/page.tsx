@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
 import {
-  Sparkles,
+  Award,
   ArrowRight,
   Heart,
   Rocket,
@@ -20,6 +20,7 @@ import {
   GraduationCap,
   Star,
   Shield,
+  ClipboardCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -245,7 +246,7 @@ export default function GrantsPage() {
                     <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-jamun-blue flex items-center justify-center">
-                          <Sparkles className="w-5 h-5 text-white" />
+                          <Award className="w-5 h-5 text-white" />
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900">
@@ -580,7 +581,7 @@ export default function GrantsPage() {
             className="text-center"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/20 backdrop-blur-sm rounded-full">
-              <Sparkles className="w-5 h-5 text-white" />
+              <ClipboardCheck className="w-5 h-5 text-white" />
               <span className="text-white font-medium">
                 {t("ctaBadge")}
               </span>

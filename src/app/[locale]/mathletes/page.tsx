@@ -21,7 +21,7 @@ import {
   ClipboardList,
   ScrollText,
   FileText,
-  Sparkles,
+  CalendarClock,
   Target,
   Puzzle,
   Zap,
@@ -343,7 +343,7 @@ export default function MathletesPage() {
                   {t("heroBadgeGrades")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
-                  <Sparkles className="w-4 h-4 text-emerald-600" />
+                  <CalendarClock className="w-4 h-4 text-emerald-600" />
                   {t("heroBadgeLaunch")}
                 </span>
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-full">
