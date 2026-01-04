@@ -1,7 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
-import { Section, SectionHeader, Button } from "@/components/ui";
 import { BookOpen, ArrowRight, Sparkles, Scale, Calculator } from "lucide-react";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { createResourceLoader, BaseResourceMeta, BaseResource } from "./resource-loader";
+import { createResourceLoader, BaseResourceMeta } from "./resource-loader";
 import resourcesData from "@/data/modelun-resources.json";
 
 // Resource categories for Model UN
