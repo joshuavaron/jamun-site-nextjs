@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
@@ -16,17 +16,30 @@ import {
 import { cn } from "@/lib/utils";
 import { CommitteeMeta } from "@/lib/committees";
 import { useTranslations } from "next-intl";
+import { containerVariants, itemVariants } from "@/lib/animations";
 
 // Shifting topic component for Ad-Hoc committee
 function ShiftingTopic({ topics }: { topics: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (topics.length === 0) return;
-    const interval = setInterval(() => {
+
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+
+    intervalRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % topics.length);
     }, 100);
-    return () => clearInterval(interval);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, [topics.length]);
 
   if (topics.length === 0) return <span>CLASSIFIED</span>;
@@ -39,19 +52,6 @@ function ShiftingTopic({ topics }: { topics: string[] }) {
 interface CommitteesPageContentProps {
   committees: CommitteeMeta[];
 }
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 // Size categories for filtering
 type SizeCategory = "Small" | "Medium" | "Large";

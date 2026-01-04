@@ -1,124 +1,58 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
-import {
-  BookOpen,
-  ArrowRight,
-  Search,
-  FileText,
-  Video,
-  File,
-  Star,
-  X,
-  Download,
-  Clock,
-  Layers,
-  Rocket,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import {
-  ResourceMeta,
-  ResourceCategory,
-  ResourceFormat,
-} from "@/lib/resources";
+import { BookOpen } from "lucide-react";
+import { ResourcesPageLayout, ColorTheme } from "@/components/pages";
+import { ResourceMeta, ResourceCategory, ResourceFormat } from "@/lib/resources";
 
 interface ResourcesPageContentProps {
   resources: ResourceMeta[];
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
+// All possible categories for Model UN resources
+const ALL_CATEGORIES: ResourceCategory[] = [
+  "Research Guide",
+  "Position Papers",
+  "Public Speaking",
+  "Parliamentary Procedure",
+  "Country Profiles",
+  "Sample Documents",
+  "Video Tutorials",
+];
+
+// All possible formats
+const ALL_FORMATS: ResourceFormat[] = [
+  "Article",
+  "PDF",
+  "Video",
+  "Template",
+  "Worksheet",
+];
+
+// Model UN color theme
+const colorTheme: ColorTheme = {
+  heroGradient: "bg-gradient-to-br from-emerald-50/50 via-white to-sky-50",
+  blobColors: [
+    "bg-gradient-to-r from-emerald-400/10 to-sky-400/10",
+    "bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10",
+    "bg-gradient-to-r from-sky-100/20 to-emerald-100/20",
+  ],
+  badgeClasses: "text-emerald-700 bg-emerald-100 border-emerald-200",
+  categoryActiveClasses: "bg-emerald-600 text-white",
+  formatActiveClasses: "bg-jamun-blue text-white",
+  clearFilterClasses: "text-emerald-600 hover:text-emerald-700",
+  searchRingClasses: "focus:ring-emerald-500/30 focus:border-emerald-500",
+  cardHoverClasses: "group-hover:text-emerald-600",
+  formatPDFClasses: "bg-blue-100 text-blue-700",
+  ctaBadgeClasses: "bg-emerald-100 text-emerald-600",
+  ctaGradientClasses: "bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent",
+  emailLinkClasses: "text-emerald-600 hover:text-emerald-700",
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-// Format icons
-function getFormatIcon(format: ResourceFormat) {
-  switch (format) {
-    case "Video":
-      return Video;
-    case "PDF":
-      return FileText;
-    case "Template":
-    case "Worksheet":
-      return File;
-    default:
-      return BookOpen;
-  }
-}
-
-// Format colors
-function getFormatColor(format: ResourceFormat) {
-  switch (format) {
-    case "Video":
-      return "bg-red-100 text-red-700";
-    case "PDF":
-      return "bg-blue-100 text-blue-700";
-    case "Template":
-      return "bg-purple-100 text-purple-700";
-    case "Worksheet":
-      return "bg-amber-100 text-amber-700";
-    default:
-      return "bg-gray-100 text-gray-700";
-  }
-}
-
-export default function ResourcesPageContent({
-  resources,
-}: ResourcesPageContentProps) {
+export default function ResourcesPageContent({ resources }: ResourcesPageContentProps) {
   const t = useTranslations("ResourcesPage");
-  const [selectedCategories, setSelectedCategories] = useState<
-    Set<ResourceCategory>
-  >(new Set());
-  const [selectedFormats, setSelectedFormats] = useState<Set<ResourceFormat>>(
-    new Set()
-  );
-  const [searchQuery, setSearchQuery] = useState("");
 
-  // Toggle functions for multi-select
-  const toggleCategory = (category: ResourceCategory) => {
-    const newSet = new Set(selectedCategories);
-    if (newSet.has(category)) {
-      newSet.delete(category);
-    } else {
-      newSet.add(category);
-    }
-    setSelectedCategories(newSet);
-  };
-
-  const toggleFormat = (format: ResourceFormat) => {
-    const newSet = new Set(selectedFormats);
-    if (newSet.has(format)) {
-      newSet.delete(format);
-    } else {
-      newSet.add(format);
-    }
-    setSelectedFormats(newSet);
-  };
-
-  const clearAllFilters = () => {
-    setSelectedCategories(new Set());
-    setSelectedFormats(new Set());
-    setSearchQuery("");
-  };
-
-  const hasActiveFilters =
-    selectedCategories.size > 0 ||
-    selectedFormats.size > 0 ||
-    searchQuery.length > 0;
-
-  // Helper to get translated category name
+  // Category name translations
   const getCategoryName = (category: ResourceCategory): string => {
     const categoryMap: Record<ResourceCategory, string> = {
       "Research Guide": t("categoryResearchGuide"),
@@ -132,461 +66,61 @@ export default function ResourcesPageContent({
     return categoryMap[category] || category;
   };
 
-  // Helper to get translated format name
+  // Format name translations
   const getFormatName = (format: ResourceFormat): string => {
     const formatMap: Record<ResourceFormat, string> = {
-      "Article": t("formatArticle"),
-      "PDF": t("formatPDF"),
-      "Video": t("formatVideo"),
-      "Template": t("formatTemplate"),
-      "Worksheet": t("formatWorksheet"),
+      Article: t("formatArticle"),
+      PDF: t("formatPDF"),
+      Video: t("formatVideo"),
+      Template: t("formatTemplate"),
+      Worksheet: t("formatWorksheet"),
     };
     return formatMap[format] || format;
   };
 
-  // Build category options with counts
-  const allCategoryOptions: { name: ResourceCategory; count: number }[] = [
-    {
-      name: "Research Guide" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Research Guide").length,
-    },
-    {
-      name: "Position Papers" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Position Papers").length,
-    },
-    {
-      name: "Public Speaking" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Public Speaking").length,
-    },
-    {
-      name: "Parliamentary Procedure" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Parliamentary Procedure")
-        .length,
-    },
-    {
-      name: "Country Profiles" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Country Profiles").length,
-    },
-    {
-      name: "Sample Documents" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Sample Documents").length,
-    },
-    {
-      name: "Video Tutorials" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Video Tutorials").length,
-    },
-  ];
-  const categoryOptions = allCategoryOptions.filter((c) => c.count > 0);
-
-  // Format options
-  const allFormatOptions: { name: ResourceFormat; count: number }[] = [
-    {
-      name: "Article" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Article").length,
-    },
-    {
-      name: "PDF" as ResourceFormat,
-      count: resources.filter((r) => r.format === "PDF").length,
-    },
-    {
-      name: "Video" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Video").length,
-    },
-    {
-      name: "Template" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Template").length,
-    },
-    {
-      name: "Worksheet" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Worksheet").length,
-    },
-  ];
-  const formatOptions = allFormatOptions.filter((f) => f.count > 0);
-
-  const filteredResources = resources.filter((resource) => {
-    const matchesCategory =
-      selectedCategories.size === 0 ||
-      selectedCategories.has(resource.category);
-    const matchesFormat =
-      selectedFormats.size === 0 || selectedFormats.has(resource.format);
-    const matchesSearch =
-      resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      resource.tags?.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    return matchesCategory && matchesFormat && matchesSearch;
-  });
-
-  // Count totals
-  const featuredCount = resources.filter((r) => r.featured).length;
-  const categoryCount = categoryOptions.length;
-
   return (
-    <main>
-      {/* Hero Section with Filters */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50/50 via-white to-sky-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-emerald-400/10 to-sky-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-sky-100/20 to-emerald-100/20 rounded-full blur-3xl -z-10" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200"
-              >
-                <BookOpen className="w-4 h-4" />
-                {t("heroBadge")}
-              </motion.span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text={t("heroTitle")} delay={0.3} />
-                <TypewriterText
-                  text={t("heroTitleHighlight")}
-                  delay={0.3 + 9 * 0.03}
-                  className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent"
-                />
-              </h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
-              >
-                {t("heroDescription")}
-              </motion.p>
-
-              {/* Search Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="relative max-w-md"
-              >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder={t("searchPlaceholder")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
-                />
-              </motion.div>
-
-              {/* Quick Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="flex flex-wrap gap-6 mt-8"
-              >
-                <div className="flex items-center gap-2 text-gray-600">
-                  <BookOpen className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{resources.length}</strong>{" "}
-                    {t("resources")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Layers className="w-5 h-5 text-jamun-blue" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{categoryCount}</strong>{" "}
-                    {t("categories")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Star className="w-5 h-5 text-amber-600" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{featuredCount}</strong>{" "}
-                    {t("featured")}
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Filters Panel */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("filterTitle")}
-                </h3>
-                {hasActiveFilters && (
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
-                  >
-                    <X className="w-4 h-4" />
-                    {t("clearAll")}
-                  </button>
-                )}
-              </div>
-
-              <div className="space-y-6">
-                {/* Category Filter */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                    <Layers className="w-4 h-4" />
-                    {t("categoryLabel")}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {categoryOptions.map((category) => (
-                      <button
-                        key={category.name}
-                        onClick={() => toggleCategory(category.name)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                          selectedCategories.has(category.name)
-                            ? "bg-emerald-600 text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        )}
-                      >
-                        {getCategoryName(category.name)}
-                        <span
-                          className={cn(
-                            "ml-1.5 text-xs",
-                            selectedCategories.has(category.name)
-                              ? "text-white/70"
-                              : "text-gray-400"
-                          )}
-                        >
-                          ({category.count})
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Format Filter */}
-                {formatOptions.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                      <FileText className="w-4 h-4" />
-                      {t("formatLabel")}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {formatOptions.map((format) => (
-                        <button
-                          key={format.name}
-                          onClick={() => toggleFormat(format.name)}
-                          className={cn(
-                            "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                            selectedFormats.has(format.name)
-                              ? "bg-jamun-blue text-white"
-                              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                          )}
-                        >
-                          {getFormatName(format.name)}
-                          <span
-                            className={cn(
-                              "ml-1.5 text-xs",
-                              selectedFormats.has(format.name)
-                                ? "text-white/70"
-                                : "text-gray-400"
-                            )}
-                          >
-                            ({format.count})
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Results count */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <p className="text-sm text-gray-600">
-                  {t("showingResults", { count: filteredResources.length, total: resources.length })}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Resources Grid */}
-      <Section background="gray" className="py-16 md:py-20">
-        <SectionHeader
-          eyebrow={t("sectionEyebrow")}
-          title={t("sectionTitle")}
-          subtitle={t("sectionSubtitle")}
-        />
-
-        {filteredResources.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
-          >
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center">
-              <Search className="w-8 h-8 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {t("noResultsTitle")}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {t("noResultsDescription")}
-            </p>
-            <Button onClick={clearAllFilters} variant="outline">
-              {t("clearFilters")}
-            </Button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key={`${Array.from(selectedCategories).join("-")}-${Array.from(selectedFormats).join("-")}-${searchQuery}`}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredResources.map((resource) => {
-              const FormatIcon = getFormatIcon(resource.format);
-              return (
-                <motion.div key={resource.slug} variants={itemVariants}>
-                  <Link href={`/modelun/resources/${resource.slug}`}>
-                    <motion.div
-                      whileHover={{ y: -4 }}
-                      className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
-                    >
-                      {/* Header: Format Icon + Featured Badge */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div
-                          className={cn(
-                            "w-10 h-10 rounded-xl flex items-center justify-center",
-                            getFormatColor(resource.format)
-                          )}
-                        >
-                          <FormatIcon className="w-5 h-5" />
-                        </div>
-                        {resource.featured && (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                            <Star className="w-3 h-3" />
-                            {t("featured")}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Category */}
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                        {getCategoryName(resource.category)}
-                      </p>
-
-                      {/* Title */}
-                      <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
-                        {resource.title}
-                      </h4>
-
-                      {/* Description */}
-                      <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-4 line-clamp-3">
-                        {resource.description}
-                      </p>
-
-                      {/* Footer: Meta info */}
-                      <div className="pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          {resource.duration && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {resource.duration}
-                            </span>
-                          )}
-                          {resource.pages && (
-                            <span className="flex items-center gap-1">
-                              <FileText className="w-4 h-4" />
-                              {resource.pages} {t("pages")}
-                            </span>
-                          )}
-                          {resource.downloadUrl && (
-                            <span className="flex items-center gap-1 text-emerald-600">
-                              <Download className="w-4 h-4" />
-                              {t("download")}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        )}
-      </Section>
-
-      {/* CTA Section */}
-      <Section background="white" className="py-16 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
-            <Rocket className="w-4 h-4 text-emerald-600" />
-            <span className="text-sm font-medium text-emerald-700">
-              {t("ctaBadge")}
-            </span>
-          </div>
-
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            {t("ctaTitle")}
-            <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
-              {t("ctaTitleHighlight")}
-            </span>
-          </h2>
-
-          <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            {t("ctaDescription")}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/register" size="lg" className="group">
-                {t("registerButton")}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/modelun/committees" variant="outline" size="lg">
-                {t("exploreCommitteesButton")}
-              </Button>
-            </motion.div>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-8 text-sm text-gray-500"
-          >
-            {t("questionsText")}{" "}
-            <a
-              href="mailto:modelun@jamun.org"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
-            >
-              {t("contactLink")}
-            </a>
-          </motion.p>
-        </motion.div>
-      </Section>
-    </main>
+    <ResourcesPageLayout
+      resources={resources}
+      programSlug="modelun"
+      heroIcon={BookOpen}
+      colorTheme={colorTheme}
+      allCategories={ALL_CATEGORIES}
+      allFormats={ALL_FORMATS}
+      getCategoryName={getCategoryName}
+      getFormatName={getFormatName}
+      translations={{
+        heroBadge: t("heroBadge"),
+        heroTitlePart1: t("heroTitle"),
+        heroTitlePart2: t("heroTitleHighlight"),
+        heroDescription: t("heroDescription"),
+        searchPlaceholder: t("searchPlaceholder"),
+        resourcesLabel: t("resources"),
+        categoriesLabel: t("categories"),
+        featuredLabel: t("featured"),
+        filterTitle: t("filterTitle"),
+        clearAll: t("clearAll"),
+        categoryLabel: t("categoryLabel"),
+        formatLabel: t("formatLabel"),
+        showingResults: (count, total) => t("showingResults", { count, total }),
+        sectionEyebrow: t("sectionEyebrow"),
+        sectionTitle: t("sectionTitle"),
+        sectionSubtitle: t("sectionSubtitle"),
+        noResultsTitle: t("noResultsTitle"),
+        noResultsDescription: t("noResultsDescription"),
+        clearFilters: t("clearFilters"),
+        pagesLabel: t("pages"),
+        downloadLabel: t("download"),
+        ctaBadge: t("ctaBadge"),
+        ctaTitlePart1: t("ctaTitle"),
+        ctaTitlePart2: t("ctaTitleHighlight"),
+        ctaDescription: t("ctaDescription"),
+        primaryCtaText: t("registerButton"),
+        secondaryCtaText: t("exploreCommitteesButton"),
+        secondaryCtaHref: "/modelun/committees",
+        questionsText: t("questionsText"),
+        contactEmail: "modelun@jamun.org",
+        contactLinkText: t("contactLink"),
+      }}
+    />
   );
 }

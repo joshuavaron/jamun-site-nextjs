@@ -1,11 +1,5 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-
-// Pre-generated resources data for edge runtime (Cloudflare Workers)
+import { createResourceLoader, BaseResourceMeta } from "./resource-loader";
 import mocktrialResourcesData from "@/data/mocktrial-resources.json";
-
-const contentDirectory = path.join(process.cwd(), "content/mocktrial-resources");
 
 // Mock Trial resource categories
 export type MockTrialResourceCategory =
@@ -26,133 +20,59 @@ export type MockTrialResourceLevel = "Beginner" | "Intermediate" | "Advanced";
 export type MockTrialResourceFormat = "PDF" | "Video" | "Article" | "Template" | "Worksheet";
 
 // Resource metadata from frontmatter
-export interface MockTrialResourceMeta {
-  slug: string;
-  title: string;
-  description: string;
+export interface MockTrialResourceMeta extends Omit<BaseResourceMeta, "category" | "level" | "format"> {
   category: MockTrialResourceCategory;
   level: MockTrialResourceLevel;
   format: MockTrialResourceFormat;
-  duration?: string; // For videos, e.g., "15 min"
-  pages?: number; // For PDFs
-  downloadUrl?: string; // Direct download link if applicable
-  image?: string;
-  author?: string;
-  featured?: boolean;
-  tags?: string[];
-  publishedAt?: string;
 }
 
 // Full resource with MDX content
 export interface MockTrialResource extends MockTrialResourceMeta {
-  content: string; // MDX content
+  content: string;
 }
 
+// Create the loader with Mock Trial configuration
+const loader = createResourceLoader({
+  contentDirectory: "content/mocktrial-resources",
+  dataFile: mocktrialResourcesData as { resources: BaseResourceMeta[] },
+  defaultLocale: "en",
+  defaults: {
+    category: "Trial Basics",
+    level: "Beginner",
+    format: "Article",
+  },
+  supportsLocales: false,
+});
+
+// Export typed functions
 export function getAllMockTrialResources(): MockTrialResourceMeta[] {
-  // Use pre-generated JSON data (works in edge runtime)
-  return (mocktrialResourcesData.resources || []) as MockTrialResourceMeta[];
+  return loader.getAllResources() as MockTrialResourceMeta[];
 }
 
 export function getMockTrialResourceBySlug(slug: string): MockTrialResource | null {
-  const fullPath = path.join(contentDirectory, `${slug}.mdx`);
-
-  if (!fs.existsSync(fullPath)) {
-    return null;
-  }
-
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return {
-    slug,
-    title: data.title || "Untitled Resource",
-    description: data.description || "",
-    category: data.category || "Trial Basics",
-    level: data.level || "Beginner",
-    format: data.format || "Article",
-    duration: data.duration,
-    pages: data.pages,
-    downloadUrl: data.downloadUrl,
-    image: data.image,
-    author: data.author,
-    featured: data.featured || false,
-    tags: data.tags || [],
-    publishedAt: data.publishedAt,
-    content,
-  };
+  return loader.getResourceBySlug(slug) as MockTrialResource | null;
 }
 
 export function getAllMockTrialResourceSlugs(): string[] {
-  if (!fs.existsSync(contentDirectory)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(contentDirectory);
-  return files
-    .filter((file) => file.endsWith(".mdx"))
-    .map((file) => file.replace(/\.mdx$/, ""));
+  return loader.getAllResourceSlugs();
 }
 
 export function getMockTrialResourcesByCategory(category: MockTrialResourceCategory): MockTrialResourceMeta[] {
-  const resources = getAllMockTrialResources();
-  return resources.filter((resource) => resource.category === category);
+  return loader.getResourcesByCategory(category) as MockTrialResourceMeta[];
 }
 
 export function getFeaturedMockTrialResources(): MockTrialResourceMeta[] {
-  const resources = getAllMockTrialResources();
-  return resources.filter((resource) => resource.featured);
+  return loader.getFeaturedResources() as MockTrialResourceMeta[];
 }
 
 export function getMockTrialResourcesByLevel(level: MockTrialResourceLevel): MockTrialResourceMeta[] {
-  const resources = getAllMockTrialResources();
-  return resources.filter((resource) => resource.level === level);
+  return loader.getResourcesByLevel(level) as MockTrialResourceMeta[];
 }
 
 export function getMockTrialResourcesByFormat(format: MockTrialResourceFormat): MockTrialResourceMeta[] {
-  const resources = getAllMockTrialResources();
-  return resources.filter((resource) => resource.format === format);
+  return loader.getResourcesByFormat(format) as MockTrialResourceMeta[];
 }
 
 export function getRelatedMockTrialResources(currentSlug: string, limit: number = 4): MockTrialResourceMeta[] {
-  const allResources = getAllMockTrialResources();
-  const currentResource = allResources.find((r) => r.slug === currentSlug);
-
-  if (!currentResource) {
-    return allResources.slice(0, limit);
-  }
-
-  // Score resources by relevance
-  const scoredResources = allResources
-    .filter((r) => r.slug !== currentSlug)
-    .map((resource) => {
-      let score = 0;
-
-      // Same category: +3 points
-      if (resource.category === currentResource.category) {
-        score += 3;
-      }
-
-      // Same level: +2 points
-      if (resource.level === currentResource.level) {
-        score += 2;
-      }
-
-      // Shared tags: +1 point per tag
-      const currentTags = currentResource.tags || [];
-      const resourceTags = resource.tags || [];
-      const sharedTags = currentTags.filter((tag) => resourceTags.includes(tag));
-      score += sharedTags.length;
-
-      // Featured resources get a small boost
-      if (resource.featured) {
-        score += 1;
-      }
-
-      return { resource, score };
-    })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map(({ resource }) => resource);
-
-  return scoredResources;
+  return loader.getRelatedResources(currentSlug, limit) as MockTrialResourceMeta[];
 }

@@ -5,6 +5,17 @@ export const siteConfig = {
     "Affordable academic competition programs for middle school students (grades 5-8). Build public speaking, critical thinking, debate, and leadership skills through Model UN, Mock Trial, and Mathletes competitions. Grants available.",
   motto: "Make Academics Fun",
   url: "https://jamun.org",
+
+  // Centralized email addresses
+  emails: {
+    general: "contact@jamun.org",
+    modelun: "modelun@jamun.org",
+    mocktrial: "mocktrial@jamun.org",
+    mathletes: "mathletes@jamun.org",
+    grants: "grants@jamun.org",
+    online: "online@jamun.org",
+  },
+  // Legacy alias for backwards compatibility
   email: "contact@jamun.org",
 
   // SEO Configuration
@@ -90,6 +101,7 @@ export const siteConfig = {
       { label: "Contact", href: "mailto:contact@jamun.org" },
     ],
     resources: [
+      { label: "JAMUN Online", href: "/online" },
       { label: "Blog", href: "/blog" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },

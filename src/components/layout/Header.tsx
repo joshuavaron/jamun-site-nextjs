@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
@@ -287,9 +288,29 @@ export function Header() {
             <Button href="/donate" variant="accent" size="sm">
               {t("donate")}
             </Button>
-            <Button href="/register" variant="primary" size="sm">
-              {t("register")}
-            </Button>
+
+            <SignedOut>
+              <Button href="/online/login" variant="ghost" size="sm">
+                {t("signIn")}
+              </Button>
+              <Button href="/register" variant="primary" size="sm">
+                {t("register")}
+              </Button>
+            </SignedOut>
+
+            <SignedIn>
+              <Button href="/online/dashboard" variant="primary" size="sm">
+                {t("dashboard")}
+              </Button>
+              <UserButton
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-8 h-8",
+                  },
+                }}
+              />
+            </SignedIn>
           </div>
 
           {/* Mobile Menu Button */}
@@ -383,9 +404,21 @@ export function Header() {
                 <Button href="/donate" variant="accent" className="w-full">
                   {t("donate")}
                 </Button>
-                <Button href="/register" variant="primary" className="w-full">
-                  {t("register")}
-                </Button>
+
+                <SignedOut>
+                  <Button href="/online/login" variant="ghost" className="w-full bg-gray-100">
+                    {t("signIn")}
+                  </Button>
+                  <Button href="/register" variant="primary" className="w-full">
+                    {t("register")}
+                  </Button>
+                </SignedOut>
+
+                <SignedIn>
+                  <Button href="/online/dashboard" variant="primary" className="w-full">
+                    {t("dashboard")}
+                  </Button>
+                </SignedIn>
               </div>
             </nav>
           </motion.div>

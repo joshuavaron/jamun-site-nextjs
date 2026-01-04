@@ -14,6 +14,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { containerVariants, itemVariants } from "@/lib/animations";
 
 const skills = [
   {
@@ -73,19 +74,6 @@ const skills = [
     lightColor: "bg-orange-100",
   },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export function SkillsSection() {
   const t = useTranslations("SkillsSection");

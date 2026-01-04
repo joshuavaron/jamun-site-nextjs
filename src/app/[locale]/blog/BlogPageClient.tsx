@@ -14,24 +14,12 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { containerVariants, itemVariants } from "@/lib/animations";
 
 interface BlogPageClientProps {
   posts: BlogPost[];
   categories: { name: string; count: number }[];
 }
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export default function BlogPageClient({ posts, categories }: BlogPageClientProps) {
   const t = useTranslations("BlogPage");
@@ -105,9 +93,13 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="relative max-w-md"
               >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <label htmlFor="blog-search" className="sr-only">
+                  {t("searchPlaceholder")}
+                </label>
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
                 <input
-                  type="text"
+                  id="blog-search"
+                  type="search"
                   placeholder={t("searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}

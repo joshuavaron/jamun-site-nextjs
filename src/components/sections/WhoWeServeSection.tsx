@@ -6,25 +6,7 @@ import { useTranslations } from "next-intl";
 import { Section, SectionHeader } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
+import { slowContainerVariants, itemVariants } from "@/lib/animations";
 
 const audiences = [
   {
@@ -71,7 +53,7 @@ export function WhoWeServeSection() {
       />
 
       <motion.div
-        variants={containerVariants}
+        variants={slowContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Trophy,
   TrendingUp,
@@ -15,7 +15,7 @@ import {
   Minus,
   Layers,
 } from "lucide-react";
-import { Button, Section, TypewriterText } from "@/components/ui";
+import { Button, Section, TypewriterText, AnimatedNumber } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import {
   LEADERBOARDS,
@@ -25,36 +25,6 @@ import {
   type LeaderboardEntry,
 } from "@/lib/leaderboard";
 import { useTranslations } from "next-intl";
-
-// =============================================================================
-// ANIMATED COUNTER COMPONENT
-// =============================================================================
-
-function AnimatedNumber({ value, duration = 1400 }: { value: number; duration?: number }) {
-  const [displayValue, setDisplayValue] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const startTime = Date.now();
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // easeOutQuart easing
-      const eased = 1 - Math.pow(1 - progress, 4);
-      setDisplayValue(Math.floor(value * eased));
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    requestAnimationFrame(animate);
-  }, [isInView, value, duration]);
-
-  return <span ref={ref}>{displayValue}</span>;
-}
 
 // =============================================================================
 // RANK BADGE COMPONENT

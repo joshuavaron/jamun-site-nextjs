@@ -7,6 +7,7 @@ import { ArrowRight, Globe, Scale, Calculator } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { slowContainerVariants, fadeInUp } from "@/lib/animations";
 
 const programs = [
   {
@@ -50,25 +51,6 @@ const programs = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
-
 export function ProgramsSection() {
   const t = useTranslations("ProgramsSection");
 
@@ -80,14 +62,14 @@ export function ProgramsSection() {
       />
 
       <motion.div
-        variants={containerVariants}
+        variants={slowContainerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         className="grid md:grid-cols-3 gap-6 lg:gap-8"
       >
         {programs.map((program) => (
-          <motion.div key={program.id} variants={itemVariants}>
+          <motion.div key={program.id} variants={fadeInUp}>
             <Link href={program.href} className="group block h-full">
               <div className={cn(
                 "relative h-[480px] md:h-[520px] rounded-2xl overflow-hidden",

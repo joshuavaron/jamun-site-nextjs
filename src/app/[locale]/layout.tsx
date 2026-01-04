@@ -3,6 +3,8 @@ import Script from "next/script";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { ClerkProvider } from "@clerk/nextjs";
+import { enUS, esES, zhCN } from "@clerk/localizations";
 import "../globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -11,6 +13,12 @@ import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { TranslationNotice } from "@/components/ui";
 import { siteConfig } from "@/config/site";
 import { routing, type Locale } from "@/i18n/routing";
+
+const clerkLocalizations = {
+  en: enUS,
+  es: esES,
+  zh: zhCN,
+} as const;
 
 const GA_MEASUREMENT_ID = "G-JYTR5V7G12";
 
@@ -140,16 +148,24 @@ export default async function LocaleLayout({
         </Script>
       </head>
       <body className="antialiased overflow-x-hidden">
-        <NextIntlClientProvider messages={messages}>
-          <LayoutWrapper
-            header={<Header />}
-            footer={<Footer />}
-            scrollToTop={<ScrollToTop />}
-          >
-            {children}
-          </LayoutWrapper>
-          <TranslationNotice />
-        </NextIntlClientProvider>
+        <ClerkProvider
+          localization={clerkLocalizations[locale as keyof typeof clerkLocalizations]}
+          signInUrl={`/${locale === 'en' ? '' : locale + '/'}online/login`}
+          signUpUrl={`/${locale === 'en' ? '' : locale + '/'}online/signup`}
+          afterSignInUrl={`/${locale === 'en' ? '' : locale + '/'}online/dashboard`}
+          afterSignUpUrl={`/${locale === 'en' ? '' : locale + '/'}online/signup/complete-profile`}
+        >
+          <NextIntlClientProvider messages={messages}>
+            <LayoutWrapper
+              header={<Header />}
+              footer={<Footer />}
+              scrollToTop={<ScrollToTop />}
+            >
+              {children}
+            </LayoutWrapper>
+            <TranslationNotice />
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

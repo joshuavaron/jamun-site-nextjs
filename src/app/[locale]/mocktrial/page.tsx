@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
+import { useState } from "react";
+import { Section, SectionHeader, Button, TypewriterText, AnimatedNumber } from "@/components/ui";
 import {
   Scale,
   ArrowRight,
@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { slowContainerVariants, itemVariants } from "@/lib/animations";
 
 const courtroomIcons = [BookOpen, FileText, MessageSquare, Gavel];
 
@@ -40,69 +41,6 @@ const skillsConfig = [
 const resourceIcons = [File, ClipboardList, ScrollText, FileText, BookOpen, Gavel];
 
 const statDurations = [1400, 1800, 2200, 2600];
-
-function AnimatedNumber({
-  value,
-  duration = 2000,
-}: {
-  value: string;
-  duration?: number;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState("0");
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const numericMatch = value.match(/[\d,]+/);
-    if (!numericMatch) {
-      setDisplayValue(value);
-      return;
-    }
-
-    const targetNumber = parseInt(numericMatch[0].replace(/,/g, ""), 10);
-    const prefix = value.slice(0, value.indexOf(numericMatch[0]));
-    const suffix = value.slice(
-      value.indexOf(numericMatch[0]) + numericMatch[0].length
-    );
-
-    const steps = Math.max(30, Math.floor(duration / 33));
-    const stepDuration = duration / steps;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const current = Math.floor(targetNumber * easeOutQuart);
-
-      setDisplayValue(`${prefix}${current.toLocaleString()}${suffix}`);
-
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setDisplayValue(value);
-      }
-    }, stepDuration);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
-
-  return <span ref={ref}>{displayValue}</span>;
-}
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function MockTrialPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -421,7 +359,7 @@ export default function MockTrialPage() {
         />
 
         <motion.div
-          variants={containerVariants}
+          variants={slowContainerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -461,7 +399,7 @@ export default function MockTrialPage() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            variants={containerVariants}
+            variants={slowContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -826,7 +764,7 @@ export default function MockTrialPage() {
 
         <div className="max-w-3xl mx-auto">
           <motion.div
-            variants={containerVariants}
+            variants={slowContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
