@@ -13,6 +13,8 @@ const nextConfig: NextConfig = {
     ],
   },
   trailingSlash: true,
+  // Externalize Prisma to reduce serverless function size
+  serverExternalPackages: ['@prisma/client', 'prisma'],
 };
 
 export default withNextIntl(nextConfig);
