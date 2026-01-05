@@ -143,12 +143,6 @@ export function getAllSlugsAllLocales(): { slug: string; locale: string }[] {
   return result;
 }
 
-export function getPostsByCategory(category: string, locale: string = defaultLocale): BlogPostMeta[] {
-  const posts = getAllPosts(locale);
-  if (category === "All") return posts;
-  return posts.filter((post) => post.category === category);
-}
-
 export function getCategories(locale: string = defaultLocale, allLabel: string = "All"): { name: string; count: number }[] {
   const posts = getAllPosts(locale);
   const categoryMap = new Map<string, number>();

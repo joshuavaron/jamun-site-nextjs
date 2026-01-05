@@ -7,6 +7,8 @@ import { ArrowRight, Globe, Scale, Calculator } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { staggerContainer, fadeInUpLarge, defaultViewport } from "@/lib/animations";
+import { programColors } from "@/lib/colors";
 
 const programs = [
   {
@@ -18,9 +20,7 @@ const programs = [
     href: "/modelun",
     image: "/images/conferences/DSC00848.webp",
     icon: Globe,
-    accentColor: "bg-jamun-blue",
-    badgeColor: "bg-jamun-blue/80",
-    glowColor: "group-hover:shadow-jamun-blue/30",
+    colors: programColors.modelUN,
   },
   {
     id: "mock-trial",
@@ -31,9 +31,7 @@ const programs = [
     href: "/mocktrial",
     image: "/images/conferences/DSC02128.webp",
     icon: Scale,
-    accentColor: "bg-purple-600",
-    badgeColor: "bg-purple-600/80",
-    glowColor: "group-hover:shadow-purple-500/30",
+    colors: programColors.mockTrial,
   },
   {
     id: "mathletes",
@@ -44,30 +42,9 @@ const programs = [
     href: "/mathletes",
     image: "/images/conferences/homebackground2.webp",
     icon: Calculator,
-    accentColor: "bg-emerald-600",
-    badgeColor: "bg-emerald-600/80",
-    glowColor: "group-hover:shadow-emerald-500/30",
+    colors: programColors.mathletes,
   },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6 },
-  },
-};
 
 export function ProgramsSection() {
   const t = useTranslations("ProgramsSection");
@@ -80,20 +57,20 @@ export function ProgramsSection() {
       />
 
       <motion.div
-        variants={containerVariants}
+        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={defaultViewport}
         className="grid md:grid-cols-3 gap-6 lg:gap-8"
       >
         {programs.map((program) => (
-          <motion.div key={program.id} variants={itemVariants}>
+          <motion.div key={program.id} variants={fadeInUpLarge}>
             <Link href={program.href} className="group block h-full">
               <div className={cn(
                 "relative h-[480px] md:h-[520px] rounded-2xl overflow-hidden",
                 "shadow-lg transition-all duration-500",
                 "hover:shadow-2xl",
-                program.glowColor
+                `group-hover:${program.colors.glow}`
               )}>
                 {/* Background Image */}
                 <Image
@@ -111,7 +88,7 @@ export function ProgramsSection() {
                   "absolute top-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center",
                   "backdrop-blur-sm transition-all duration-300",
                   "group-hover:scale-110",
-                  program.accentColor
+                  program.colors.accent
                 )}>
                   <program.icon className="w-6 h-6 text-white" />
                 </div>
@@ -127,7 +104,7 @@ export function ProgramsSection() {
                   <div className={cn(
                     "w-12 h-1 mb-4 rounded-full transition-all duration-300",
                     "group-hover:w-20",
-                    program.accentColor
+                    program.colors.accent
                   )} />
 
                   <h3 className="text-2xl font-bold text-white mb-3">
@@ -145,7 +122,7 @@ export function ProgramsSection() {
                         className={cn(
                           "px-3 py-1 text-white text-xs font-medium rounded-full",
                           "transition-transform duration-200 hover:scale-105",
-                          program.badgeColor
+                          program.colors.badge
                         )}
                       >
                         {t(featureKey)}

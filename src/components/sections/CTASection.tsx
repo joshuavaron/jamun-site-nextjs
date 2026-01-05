@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Heart, Users, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui";
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 
 export function CTASection() {
   const t = useTranslations("CTASection");
@@ -11,10 +12,10 @@ export function CTASection() {
     <section className="relative bg-gray-50 py-16 md:py-20 overflow-hidden">
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+        variants={fadeInUp}
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
         {/* Friendly badge */}

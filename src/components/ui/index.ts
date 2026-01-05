@@ -15,3 +15,8 @@ export { TypewriterText } from "./TypewriterText";
 export { LanguageSwitcher } from "./LanguageSwitcher";
 
 export { TranslationNotice } from "./TranslationNotice";
+
+export { AnimatedNumber } from "./AnimatedNumber";
+
+export { SearchDropdown } from "./SearchDropdown";
+export type { SearchResult } from "./SearchDropdown";

@@ -178,58 +178,6 @@ export function generateBreadcrumbSchema(
   };
 }
 
-// Event Schema for conferences
-export function generateEventSchema(event: {
-  name: string;
-  description: string;
-  startDate: string;
-  endDate?: string;
-  location?: string;
-  url: string;
-  image?: string;
-  organizer?: string;
-}) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "EducationEvent",
-    name: event.name,
-    description: event.description,
-    startDate: event.startDate,
-    endDate: event.endDate,
-    location: event.location
-      ? {
-          "@type": "Place",
-          name: event.location,
-        }
-      : undefined,
-    url: `${siteConfig.url}${event.url}`,
-    image: event.image ? `${siteConfig.url}${event.image}` : undefined,
-    organizer: {
-      "@type": "EducationalOrganization",
-      name: event.organizer || siteConfig.fullName,
-      url: siteConfig.url,
-    },
-    eventStatus: "https://schema.org/EventScheduled",
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-  };
-}
-
-// Donation/NonprofitDonation Schema
-export function generateDonationSchema() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "DonateAction",
-    recipient: {
-      "@type": "EducationalOrganization",
-      name: siteConfig.fullName,
-      url: siteConfig.url,
-    },
-    description:
-      "Support JAMUN's mission to make academic competitions accessible to all middle school students through Model UN, Mock Trial, and Mathletes programs.",
-    url: `${siteConfig.url}/donate`,
-  };
-}
-
 // Helper to create JSON-LD script content
 export function jsonLdScript(schema: object | object[]): string {
   return JSON.stringify(Array.isArray(schema) ? schema : schema);

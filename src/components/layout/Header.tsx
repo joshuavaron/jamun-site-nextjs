@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/Button";
+import { Button, SearchDropdown } from "@/components/ui";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import type { SearchResult } from "@/components/ui";
 
 // Explore menu items - keys map to translation keys
 const exploreItemKeys = [
@@ -35,12 +36,6 @@ const staticPageKeys = [
   { titleKey: "searchMathletesResources", url: "/mathletes/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwMath"] },
   { titleKey: "searchLeaderboards", url: "/leaderboards", keywordKeys: ["searchKwLeaderboard", "searchKwRankings", "searchKwScores"] },
 ] as const;
-
-interface SearchResult {
-  title: string;
-  url: string;
-  type: "page" | "blog" | "committee" | "resource";
-}
 
 export function Header() {
   const t = useTranslations("Navigation");
@@ -98,7 +93,7 @@ export function Header() {
   }, [t]);
 
   // Search logic - derived state using useMemo
-  const searchResults = useMemo(() => {
+  const searchResults = useMemo((): SearchResult[] => {
     if (!searchQuery.trim()) {
       return [];
     }
@@ -119,9 +114,8 @@ export function Header() {
     return results.slice(0, 6);
   }, [searchQuery, staticPages]);
 
-
-  // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  // Keyboard navigation handler
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (!searchResults.length) return;
 
     switch (e.key) {
@@ -144,9 +138,46 @@ export function Header() {
         inputRef.current?.blur();
         break;
     }
-  };
+  }, [searchResults, selectedIndex]);
 
-  const showDropdown = isSearchFocused && searchQuery.trim() && searchResults.length > 0;
+  // Callbacks for dropdown interactions
+  const handleDesktopResultClick = useCallback(() => {
+    setSearchQuery("");
+    setIsSearchFocused(false);
+  }, []);
+
+  const handleMobileResultClick = useCallback(() => {
+    setSearchQuery("");
+    setIsSearchFocused(false);
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setSelectedIndex(-1);
+  }, []);
+
+  const handleSearchFocus = useCallback(() => {
+    setIsSearchFocused(true);
+  }, []);
+
+  const toggleExplore = useCallback(() => {
+    setIsExploreOpen((prev) => !prev);
+  }, []);
+
+  const closeExplore = useCallback(() => {
+    setIsExploreOpen(false);
+  }, []);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const showDropdown = isSearchFocused && searchQuery.trim().length > 0 && searchResults.length > 0;
 
   return (
     <header
@@ -162,7 +193,7 @@ export function Header() {
             {/* Explore Dropdown */}
             <div className="relative" data-explore-dropdown>
               <button
-                onClick={() => setIsExploreOpen(!isExploreOpen)}
+                onClick={toggleExplore}
                 className="flex items-center gap-1 text-gray-700 hover:text-jamun-blue font-medium transition-colors cursor-pointer"
               >
                 {t("explore")}
@@ -187,7 +218,7 @@ export function Header() {
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={() => setIsExploreOpen(false)}
+                        onClick={closeExplore}
                         className="block px-4 py-2 text-gray-700 hover:bg-jamun-blue/5 hover:text-jamun-blue transition-colors"
                       >
                         {t(item.key)}
@@ -203,9 +234,7 @@ export function Header() {
               <div
                 className={cn(
                   "flex items-center rounded-full transition-all duration-200 h-9 w-52",
-                  isSearchFocused
-                    ? "bg-white shadow-md"
-                    : "bg-gray-100"
+                  isSearchFocused ? "bg-white shadow-md" : "bg-gray-100"
                 )}
               >
                 <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
@@ -214,48 +243,19 @@ export function Header() {
                   type="text"
                   placeholder={t("search")}
                   value={searchQuery}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                    setSelectedIndex(-1);
-                  }}
-                  onFocus={() => setIsSearchFocused(true)}
+                  onChange={handleSearchChange}
+                  onFocus={handleSearchFocus}
                   onKeyDown={handleKeyDown}
                   className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
                 />
               </div>
 
-              {/* Search Dropdown */}
-              <AnimatePresence>
-                {showDropdown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -4 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50 overflow-hidden"
-                  >
-                    {searchResults.map((result, index) => (
-                      <Link
-                        key={result.url}
-                        href={result.url}
-                        onClick={() => {
-                          setSearchQuery("");
-                          setIsSearchFocused(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2 text-sm transition-colors",
-                          index === selectedIndex
-                            ? "bg-gray-100"
-                            : "hover:bg-gray-50"
-                        )}
-                      >
-                        <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                        <span className="text-gray-700">{result.title}</span>
-                      </Link>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <SearchDropdown
+                results={searchResults}
+                selectedIndex={selectedIndex}
+                onResultClick={handleDesktopResultClick}
+                show={showDropdown}
+              />
             </div>
           </div>
 
@@ -294,7 +294,7 @@ export function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={toggleMenu}
             className="nav:hidden p-2 text-gray-700 hover:text-jamun-blue transition-colors ml-auto"
             aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
           >
@@ -327,50 +327,25 @@ export function Header() {
                     type="text"
                     placeholder={t("search")}
                     value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setSelectedIndex(-1);
-                    }}
-                    onFocus={() => setIsSearchFocused(true)}
+                    onChange={handleSearchChange}
+                    onFocus={handleSearchFocus}
                     className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
                   />
                 </div>
 
-                {/* Mobile Search Dropdown */}
-                <AnimatePresence>
-                  {showDropdown && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50"
-                    >
-                      {searchResults.map((result) => (
-                        <Link
-                          key={result.url}
-                          href={result.url}
-                          onClick={() => {
-                            setSearchQuery("");
-                            setIsSearchFocused(false);
-                            setIsMenuOpen(false);
-                          }}
-                          className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          <Search className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-                          {result.title}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <SearchDropdown
+                  results={searchResults}
+                  selectedIndex={-1}
+                  onResultClick={handleMobileResultClick}
+                  show={showDropdown}
+                />
               </div>
 
               {exploreItemKeys.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={closeMenu}
                   className="block text-lg text-gray-700 hover:text-jamun-blue font-medium py-2 transition-colors"
                 >
                   {t(item.key)}

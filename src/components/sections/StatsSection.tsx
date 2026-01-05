@@ -1,55 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { siteConfig } from "@/config/site";
-
-function AnimatedNumber({ value, duration = 2000 }: { value: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState("0");
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    // Extract the numeric part
-    const numericMatch = value.match(/[\d,]+/);
-    if (!numericMatch) {
-      setDisplayValue(value);
-      return;
-    }
-
-    const targetNumber = parseInt(numericMatch[0].replace(/,/g, ""), 10);
-    const prefix = value.slice(0, value.indexOf(numericMatch[0]));
-    const suffix = value.slice(
-      value.indexOf(numericMatch[0]) + numericMatch[0].length
-    );
-
-    const steps = Math.max(30, Math.floor(duration / 33)); // ~30fps
-    const stepDuration = duration / steps;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const current = Math.floor(targetNumber * easeOutQuart);
-
-      setDisplayValue(`${prefix}${current.toLocaleString()}${suffix}`);
-
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setDisplayValue(value);
-      }
-    }, stepDuration);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
-
-  return <span ref={ref}>{displayValue}</span>;
-}
+import { AnimatedNumber } from "@/components/ui";
+import { fadeInUp, defaultViewport, hoverScale, smoothTransition } from "@/lib/animations";
 
 // Different durations for each stat to create staggered finish effect
 const statDurations = [1400, 1800, 2200, 2600];
@@ -87,10 +42,10 @@ export function StatsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          variants={fadeInUp}
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
@@ -109,11 +64,8 @@ export function StatsSection() {
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              whileHover={{
-                scale: 1.02,
-                transition: { duration: 0.2 }
-              }}
+              viewport={defaultViewport}
+              whileHover={{ ...hoverScale, transition: smoothTransition }}
               className="group relative"
             >
               <div className="relative bg-[#1e293b]/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-gray-700/50 hover:border-jamun-blue/50 transition-all duration-300 text-center h-full">
