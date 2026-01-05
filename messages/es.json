@@ -1524,5 +1524,20 @@
     "tabModelUN": "Modelo ONU",
     "tabMockTrial": "Juicio Simulado",
     "tabMathletes": "Mathletes"
+  },
+  "Error": {
+    "title": "Algo salió mal",
+    "description": "Encontramos un error inesperado. Por favor, inténtalo de nuevo o regresa a la página principal.",
+    "tryAgain": "Intentar de Nuevo",
+    "goHome": "Ir al Inicio",
+    "blogPostTitle": "No se pudo cargar el artículo",
+    "blogPostDescription": "No se pudo cargar esta publicación del blog. Es posible que se haya movido o que haya habido un problema temporal.",
+    "backToBlog": "Volver al Blog",
+    "committeeTitle": "No se pudo cargar el comité",
+    "committeeDescription": "No se pudo cargar esta página del comité. Es posible que se haya movido o que haya habido un problema temporal.",
+    "backToCommittees": "Volver a Comités",
+    "resourceTitle": "No se pudo cargar el recurso",
+    "resourceDescription": "No se pudo cargar este recurso. Es posible que se haya movido o que haya habido un problema temporal.",
+    "backToResources": "Volver a Recursos"
   }
 }

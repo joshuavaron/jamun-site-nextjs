@@ -176,22 +176,6 @@ export function getAllCommitteeSlugsAllLocales(): { slug: string; locale: string
   return result;
 }
 
-export function getCommitteesByCategory(category: string, locale: string = defaultLocale): CommitteeMeta[] {
-  const committees = getAllCommittees(locale);
-  if (category === "All") return committees;
-  return committees.filter((committee) => committee.category === category);
-}
-
-export function getFeaturedCommittees(locale: string = defaultLocale): CommitteeMeta[] {
-  const committees = getAllCommittees(locale);
-  return committees.filter((committee) => committee.featured);
-}
-
-// Helper to get available countries count
-export function getAvailableCountriesCount(committee: CommitteeMeta): number {
-  return committee.countries.filter((c) => c.available !== false).length;
-}
-
 // Get alternate language versions of a committee
 export function getAlternateLanguages(slug: string, currentLocale: string): { locale: string; slug: string }[] {
   const alternates: { locale: string; slug: string }[] = [];

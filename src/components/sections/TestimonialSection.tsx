@@ -5,16 +5,17 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Quote, Star } from "lucide-react";
 import { Section } from "@/components/ui";
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 
 export function TestimonialSection() {
   const t = useTranslations("TestimonialSection");
   return (
     <Section background="gray">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={defaultViewport}
+        variants={fadeInUp}
         className="max-w-5xl mx-auto"
       >
         <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden group hover:shadow-2xl transition-shadow duration-500">

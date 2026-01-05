@@ -1524,5 +1524,20 @@
     "tabModelUN": "Model UN",
     "tabMockTrial": "Mock Trial",
     "tabMathletes": "Mathletes"
+  },
+  "Error": {
+    "title": "Something went wrong",
+    "description": "We encountered an unexpected error. Please try again or return to the homepage.",
+    "tryAgain": "Try Again",
+    "goHome": "Go Home",
+    "blogPostTitle": "Unable to load article",
+    "blogPostDescription": "This blog post couldn't be loaded. It may have been moved or there was a temporary issue.",
+    "backToBlog": "Back to Blog",
+    "committeeTitle": "Unable to load committee",
+    "committeeDescription": "This committee page couldn't be loaded. It may have been moved or there was a temporary issue.",
+    "backToCommittees": "Back to Committees",
+    "resourceTitle": "Unable to load resource",
+    "resourceDescription": "This resource couldn't be loaded. It may have been moved or there was a temporary issue.",
+    "backToResources": "Back to Resources"
   }
 }

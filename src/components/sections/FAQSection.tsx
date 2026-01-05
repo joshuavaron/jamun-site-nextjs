@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { ChevronDown, MessageCircle } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 
 const faqKeys = [
   { questionKey: "faq1Question", answerKey: "faq1Answer" },
@@ -96,10 +97,10 @@ export function FAQSection() {
 
       <div className="max-w-3xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={defaultViewport}
+          variants={fadeInUp}
           className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
         >
           {/* Header decoration */}

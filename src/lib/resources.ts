@@ -155,26 +155,6 @@ export function getAllResourceSlugsAllLocales(): { slug: string; locale: string 
   return result;
 }
 
-export function getResourcesByCategory(category: ResourceCategory, locale: string = defaultLocale): ResourceMeta[] {
-  const resources = getAllResources(locale);
-  return resources.filter((resource) => resource.category === category);
-}
-
-export function getFeaturedResources(locale: string = defaultLocale): ResourceMeta[] {
-  const resources = getAllResources(locale);
-  return resources.filter((resource) => resource.featured);
-}
-
-export function getResourcesByLevel(level: ResourceLevel, locale: string = defaultLocale): ResourceMeta[] {
-  const resources = getAllResources(locale);
-  return resources.filter((resource) => resource.level === level);
-}
-
-export function getResourcesByFormat(format: ResourceFormat, locale: string = defaultLocale): ResourceMeta[] {
-  const resources = getAllResources(locale);
-  return resources.filter((resource) => resource.format === format);
-}
-
 export function getRelatedResources(currentSlug: string, limit: number = 4, locale: string = defaultLocale): ResourceMeta[] {
   const allResources = getAllResources(locale);
   const currentResource = allResources.find((r) => r.slug === currentSlug);

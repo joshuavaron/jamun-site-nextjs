@@ -1,11 +1,14 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { getCategoryColors } from "@/lib/colors";
+import { hoverLift } from "@/lib/animations";
 
 export interface BlogPost {
   id: string;
@@ -28,26 +31,14 @@ interface BlogCardProps {
   className?: string;
 }
 
-const categoryColors: Record<string, { bg: string; text: string }> = {
-  "Model UN": { bg: "bg-jamun-blue/10", text: "text-jamun-blue" },
-  "Mock Trial": { bg: "bg-purple-100", text: "text-purple-600" },
-  Mathletes: { bg: "bg-emerald-100", text: "text-emerald-600" },
-  News: { bg: "bg-amber-100", text: "text-amber-600" },
-  Events: { bg: "bg-rose-100", text: "text-rose-600" },
-  Resources: { bg: "bg-cyan-100", text: "text-cyan-600" },
-};
-
-export function BlogCard({ post, featured = false, className }: BlogCardProps) {
+function BlogCardComponent({ post, featured = false, className }: BlogCardProps) {
   const t = useTranslations("BlogCard");
-  const colors = categoryColors[post.category] || {
-    bg: "bg-gray-100",
-    text: "text-gray-600",
-  };
+  const colors = getCategoryColors(post.category);
 
   if (featured) {
     return (
       <motion.div
-        whileHover={{ y: -4 }}
+        whileHover={hoverLift}
         className={cn(
           "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300",
           className
@@ -132,7 +123,7 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
 
   return (
     <motion.div
-      whileHover={{ y: -4 }}
+      whileHover={hoverLift}
       className={cn(
         "group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 h-full flex flex-col",
         className
@@ -202,3 +193,5 @@ export function BlogCard({ post, featured = false, className }: BlogCardProps) {
     </motion.div>
   );
 }
+
+export const BlogCard = memo(BlogCardComponent);

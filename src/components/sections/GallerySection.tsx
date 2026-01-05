@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { defaultViewport } from "@/lib/animations";
 
 const sections = [
   {
@@ -68,7 +69,7 @@ export function GallerySection() {
             <motion.div
               initial={{ opacity: 0, x: section.imagePosition === "right" ? -30 : 30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={defaultViewport}
               transition={{ duration: 0.6 }}
               className={cn(
                 "relative min-h-[400px] lg:min-h-[600px] overflow-hidden group",
@@ -121,7 +122,7 @@ export function GallerySection() {
             <motion.div
               initial={{ opacity: 0, x: section.imagePosition === "right" ? 30 : -30 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={defaultViewport}
               transition={{ duration: 0.6, delay: 0.2 }}
               className={cn(
                 "bg-gray-50 p-8 lg:p-12 xl:p-16 flex flex-col justify-center relative",

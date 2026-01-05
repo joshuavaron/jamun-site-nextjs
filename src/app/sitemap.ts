@@ -1,4 +1,6 @@
 import { MetadataRoute } from "next";
+import fs from "fs";
+import path from "path";
 import { getAllSlugsAllLocales } from "@/lib/blog";
 import { getAllCommitteeSlugsAllLocales } from "@/lib/committees";
 import { getAllResourceSlugsAllLocales } from "@/lib/resources";
@@ -9,6 +11,9 @@ export const dynamic = "force-static";
 const BASE_URL = "https://jamun.org";
 const LOCALES = routing.locales;
 const DEFAULT_LOCALE = routing.defaultLocale;
+
+// Fixed build date for static pages - updated each deployment
+const BUILD_DATE = new Date();
 
 // All static pages in src/app/[locale]/ - update this when adding new pages
 const STATIC_PAGES = [
@@ -38,6 +43,33 @@ function getLocalizedUrl(pagePath: string, locale: string): string {
   return `${BASE_URL}/${locale}${pagePath}`;
 }
 
+// Get file modification time for MDX content
+function getContentModifiedDate(contentDir: string, slug: string, locale: string): Date {
+  const filePath = path.join(process.cwd(), "content", contentDir, locale, `${slug}.mdx`);
+
+  try {
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+      return stats.mtime;
+    }
+  } catch {
+    // Fall back to build date if file access fails
+  }
+
+  // Fallback: try English version
+  const enPath = path.join(process.cwd(), "content", contentDir, "en", `${slug}.mdx`);
+  try {
+    if (fs.existsSync(enPath)) {
+      const stats = fs.statSync(enPath);
+      return stats.mtime;
+    }
+  } catch {
+    // Fall back to build date
+  }
+
+  return BUILD_DATE;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic content slugs
   const blogSlugs = getAllSlugsAllLocales();
@@ -48,32 +80,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPageEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
     STATIC_PAGES.map((page) => ({
       url: getLocalizedUrl(page.path, locale),
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: page.changeFrequency,
       priority: page.priority,
     }))
   );
 
-  // Committee pages (dynamic, per locale)
+  // Committee pages with actual file modification dates
   const committeePages: MetadataRoute.Sitemap = committeeSlugs.map(({ slug, locale }) => ({
     url: getLocalizedUrl(`/modelun/committees/${slug}`, locale),
-    lastModified: new Date(),
+    lastModified: getContentModifiedDate("committees", slug, locale),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  // Resource pages (dynamic, per locale)
+  // Resource pages with actual file modification dates
   const resourcePages: MetadataRoute.Sitemap = resourceSlugs.map(({ slug, locale }) => ({
     url: getLocalizedUrl(`/modelun/resources/${slug}`, locale),
-    lastModified: new Date(),
+    lastModified: getContentModifiedDate("modelun-resources", slug, locale),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
 
-  // Blog post pages (dynamic, per locale)
+  // Blog post pages with actual file modification dates
   const blogPostPages: MetadataRoute.Sitemap = blogSlugs.map(({ slug, locale }) => ({
     url: getLocalizedUrl(`/blog/${slug}`, locale),
-    lastModified: new Date(),
+    lastModified: getContentModifiedDate("blog", slug, locale),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

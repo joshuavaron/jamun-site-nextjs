@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { CheckCircle, BookOpen, Trophy, Rocket } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { fadeInUpLarge, defaultViewport } from "@/lib/animations";
 
 const features = [
   {
@@ -72,10 +73,10 @@ export function WhyChooseSection() {
         {features.map((feature) => (
           <motion.div
             key={feature.titleKey}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
+            variants={fadeInUpLarge}
             className={`flex flex-col gap-8 lg:gap-16 items-center ${
               feature.imagePosition === "right"
                 ? "lg:flex-row-reverse"
