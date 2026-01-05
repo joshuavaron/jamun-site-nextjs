@@ -11,7 +11,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function BlogPostError({ error, reset }: ErrorProps) {
+export default function BlogPostError({ error }: ErrorProps) {
   const t = useTranslations("Error");
 
   useEffect(() => {

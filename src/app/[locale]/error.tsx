@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 import { Button } from "@/components/ui";
-import { Link } from "@/i18n/navigation";
 
 interface ErrorProps {
   error: Error & { digest?: string };

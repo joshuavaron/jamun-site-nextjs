@@ -844,12 +844,12 @@ export default function ModelUNPageContent({
           </Button>
           <p className="text-gray-500 text-sm mt-4">
             {t("committeesRotateNote")}{" "}
-            <a
+            <Link
               href="/register"
               className="text-jamun-blue hover:text-jamun-blue-dark font-medium"
             >
               {t("committeesRegistrationLink")}
-            </a>{" "}
+            </Link>{" "}
             {t("committeesRotateNoteEnd")}
           </p>
         </motion.div>

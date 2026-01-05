@@ -11,7 +11,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function ResourceError({ error, reset }: ErrorProps) {
+export default function ResourceError({ error }: ErrorProps) {
   const t = useTranslations("Error");
 
   useEffect(() => {

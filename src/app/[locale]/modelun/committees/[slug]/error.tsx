@@ -11,7 +11,7 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function CommitteeError({ error, reset }: ErrorProps) {
+export default function CommitteeError({ error }: ErrorProps) {
   const t = useTranslations("Error");
 
   useEffect(() => {
