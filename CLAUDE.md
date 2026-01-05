@@ -8,7 +8,7 @@
 
 - **Next.js 16** (App Router) + **React 19** + **TypeScript**
 - **Tailwind CSS v4** (CSS-first config in `globals.css`, no tailwind.config)
-- **next-intl** for i18n (`en` default, `es` at `/es`)
+- **next-intl** for i18n (`en` default, `es` at `/es`, `zh` at `/zh`)
 - **Framer Motion** for animations
 - **MDX** with gray-matter frontmatter for content
 - **lucide-react** for icons
@@ -22,19 +22,20 @@ src/
 │   ├── [locale]/                # All routes (en default, /es for Spanish)
 │   │   ├── layout.tsx           # Header, Footer wrapper
 │   │   ├── page.tsx             # Homepage
+│   │   ├── error.tsx            # Error boundary
 │   │   ├── modelun/committees/[slug]/  # Dynamic committee pages
 │   │   ├── modelun/resources/[slug]/   # Dynamic resource pages
 │   │   └── blog/[slug]/         # Dynamic blog posts
 ├── components/
-│   ├── ui/                      # Button, Card, Section, Badge, BlogCard
+│   ├── ui/                      # Button, Card, Section, Badge, BlogCard, AnimatedNumber, SearchDropdown
 │   ├── sections/                # HeroSection, StatsSection, FAQSection, etc.
 │   ├── layout/                  # Header, Footer, LayoutWrapper
 │   └── mdx/                     # MDXComponents (Callout, ImageGallery)
 ├── i18n/                        # routing.ts, request.ts, navigation.ts
-├── lib/                         # blog.ts, committees.ts, resources.ts, structured-data.ts, utils.ts
+├── lib/                         # blog.ts, committees.ts, resources.ts, structured-data.ts, utils.ts, animations.ts, colors.ts
 └── config/site.ts               # Site metadata, navigation, SEO keywords
 content/                         # MDX files: blog/, committees/, modelun-resources/
-messages/                        # en.json, es.json translations
+messages/                        # en.json, es.json, zh.json translations
 ```
 
 ## Key Patterns
@@ -60,13 +61,21 @@ t('key', { name: 'value' })  // With variables
 ```
 
 ### Animation (Framer Motion)
+Use shared animations from `@/lib/animations` for consistency:
 ```typescript
-// Entry animation
-<motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+import { fadeInUp, fadeInUpLarge, staggerContainer, defaultViewport, hoverLift, hoverScale } from '@/lib/animations';
 
-// Hover
-whileHover={{ y: -4 }}  // Cards
-whileHover={{ scale: 1.05 }}  // Images
+// Entry animation (preferred)
+<motion.div initial="hidden" whileInView="visible" viewport={defaultViewport} variants={fadeInUp}>
+
+// Staggered children
+<motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={defaultViewport}>
+  {items.map(item => <motion.div key={item.id} variants={fadeInUp} />)}
+</motion.div>
+
+// Hover (use shared constants)
+whileHover={hoverLift}   // { y: -4 } for cards
+whileHover={hoverScale}  // { scale: 1.02 } for images
 ```
 
 ### Content Loading
@@ -89,6 +98,24 @@ export async function generateStaticParams() {
 | `jamun-orange` | #f97316 | CTAs (Donate), accents |
 | `purple-600` | - | Secondary accent, gradients |
 | `warm-white` / `warm-gray` | #fafafa / #f5f5f4 | Backgrounds (avoid pure white) |
+
+### Shared Color Utilities
+Use `@/lib/colors` for consistent program and category colors:
+```typescript
+import { programColors, getCategoryColors, audienceColors } from '@/lib/colors';
+
+// Program colors (Model UN, Mock Trial, Mathletes)
+programColors.modelUN.accent     // "bg-jamun-blue"
+programColors.modelUN.text       // "text-jamun-blue"
+programColors.mockTrial.accent   // "bg-purple-600"
+programColors.mathletes.accent   // "bg-emerald-600"
+
+// Blog/content category colors
+const { bg, text } = getCategoryColors("Tips & Tricks");  // Returns { bg, text } with fallback
+
+// Audience colors (students, parents, teachers)
+audienceColors.students.accent   // "bg-jamun-blue"
+```
 
 ## Design Principles
 
@@ -137,6 +164,8 @@ npx tsc --noEmit # Type check
 | `src/config/site.ts` | Site metadata, nav, SEO |
 | `src/app/globals.css` | Tailwind theme, colors |
 | `src/i18n/routing.ts` | Locale config |
+| `src/lib/animations.ts` | Shared Framer Motion variants |
+| `src/lib/colors.ts` | Shared color schemes for programs/categories |
 | `src/lib/structured-data.ts` | JSON-LD schemas |
 | `messages/en.json` | English translations |
 

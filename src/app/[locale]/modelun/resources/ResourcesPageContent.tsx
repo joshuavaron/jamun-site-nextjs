@@ -50,7 +50,6 @@ function getFormatIcon(format: ResourceFormat) {
       return Video;
     case "PDF":
       return FileText;
-    case "Template":
     case "Worksheet":
       return File;
     default:
@@ -65,8 +64,6 @@ function getFormatColor(format: ResourceFormat) {
       return "bg-red-100 text-red-700";
     case "PDF":
       return "bg-blue-100 text-blue-700";
-    case "Template":
-      return "bg-purple-100 text-purple-700";
     case "Worksheet":
       return "bg-amber-100 text-amber-700";
     default:
@@ -121,13 +118,12 @@ export default function ResourcesPageContent({
   // Helper to get translated category name
   const getCategoryName = (category: ResourceCategory): string => {
     const categoryMap: Record<ResourceCategory, string> = {
-      "Research Guide": t("categoryResearchGuide"),
-      "Position Papers": t("categoryPositionPapers"),
-      "Public Speaking": t("categoryPublicSpeaking"),
-      "Parliamentary Procedure": t("categoryParliamentaryProcedure"),
-      "Country Profiles": t("categoryCountryProfiles"),
-      "Sample Documents": t("categorySampleDocuments"),
-      "Video Tutorials": t("categoryVideoTutorials"),
+      Skills: t("categorySkills"),
+      Background: t("categoryBackground"),
+      Rules: t("categoryRules"),
+      Reference: t("categoryReference"),
+      Examples: t("categoryExamples"),
+      Strategy: t("categoryStrategy"),
     };
     return categoryMap[category] || category;
   };
@@ -135,11 +131,10 @@ export default function ResourcesPageContent({
   // Helper to get translated format name
   const getFormatName = (format: ResourceFormat): string => {
     const formatMap: Record<ResourceFormat, string> = {
-      "Article": t("formatArticle"),
-      "PDF": t("formatPDF"),
-      "Video": t("formatVideo"),
-      "Template": t("formatTemplate"),
-      "Worksheet": t("formatWorksheet"),
+      Article: t("formatArticle"),
+      PDF: t("formatPDF"),
+      Video: t("formatVideo"),
+      Worksheet: t("formatWorksheet"),
     };
     return formatMap[format] || format;
   };
@@ -147,33 +142,28 @@ export default function ResourcesPageContent({
   // Build category options with counts
   const allCategoryOptions: { name: ResourceCategory; count: number }[] = [
     {
-      name: "Research Guide" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Research Guide").length,
+      name: "Skills" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Skills").length,
     },
     {
-      name: "Position Papers" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Position Papers").length,
+      name: "Background" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Background").length,
     },
     {
-      name: "Public Speaking" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Public Speaking").length,
+      name: "Rules" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Rules").length,
     },
     {
-      name: "Parliamentary Procedure" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Parliamentary Procedure")
-        .length,
+      name: "Reference" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Reference").length,
     },
     {
-      name: "Country Profiles" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Country Profiles").length,
+      name: "Examples" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Examples").length,
     },
     {
-      name: "Sample Documents" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Sample Documents").length,
-    },
-    {
-      name: "Video Tutorials" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Video Tutorials").length,
+      name: "Strategy" as ResourceCategory,
+      count: resources.filter((r) => r.category === "Strategy").length,
     },
   ];
   const categoryOptions = allCategoryOptions.filter((c) => c.count > 0);
@@ -191,10 +181,6 @@ export default function ResourcesPageContent({
     {
       name: "Video" as ResourceFormat,
       count: resources.filter((r) => r.format === "Video").length,
-    },
-    {
-      name: "Template" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Template").length,
     },
     {
       name: "Worksheet" as ResourceFormat,

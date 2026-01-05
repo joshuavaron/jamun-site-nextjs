@@ -7,23 +7,17 @@ import mathletesResourcesData from "@/data/mathletes-resources.json";
 
 const contentDirectory = path.join(process.cwd(), "content/mathletes-resources");
 
-// Mathletes resource categories
+// Mathletes resource categories (topic-based per CONTENT-CREATION.md)
 export type MathletesResourceCategory =
-  | "Getting Started"
-  | "Problem Solving"
-  | "Number Theory"
-  | "Algebra"
-  | "Geometry"
-  | "Counting & Probability"
-  | "Mental Math"
-  | "Competition Prep"
-  | "Video Tutorials";
-
-// Resource difficulty levels
-export type MathletesResourceLevel = "Beginner" | "Intermediate" | "Advanced";
+  | "Skills"
+  | "Background"
+  | "Rules"
+  | "Reference"
+  | "Examples"
+  | "Strategy";
 
 // Resource format types
-export type MathletesResourceFormat = "PDF" | "Video" | "Article" | "Template" | "Worksheet";
+export type MathletesResourceFormat = "PDF" | "Video" | "Article" | "Worksheet";
 
 // Resource metadata from frontmatter
 export interface MathletesResourceMeta {
@@ -31,7 +25,6 @@ export interface MathletesResourceMeta {
   title: string;
   description: string;
   category: MathletesResourceCategory;
-  level: MathletesResourceLevel;
   format: MathletesResourceFormat;
   duration?: string; // For videos, e.g., "15 min"
   pages?: number; // For PDFs
@@ -41,6 +34,7 @@ export interface MathletesResourceMeta {
   featured?: boolean;
   tags?: string[];
   publishedAt?: string;
+  canonicalSlug?: string; // Links translations together
 }
 
 // Full resource with MDX content
@@ -67,8 +61,7 @@ export function getMathletesResourceBySlug(slug: string): MathletesResource | nu
     slug,
     title: data.title || "Untitled Resource",
     description: data.description || "",
-    category: data.category || "Getting Started",
-    level: data.level || "Beginner",
+    category: data.category || "Skills",
     format: data.format || "Article",
     duration: data.duration,
     pages: data.pages,
@@ -78,6 +71,7 @@ export function getMathletesResourceBySlug(slug: string): MathletesResource | nu
     featured: data.featured || false,
     tags: data.tags || [],
     publishedAt: data.publishedAt,
+    canonicalSlug: data.canonicalSlug,
     content,
   };
 }

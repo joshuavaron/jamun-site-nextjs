@@ -161,8 +161,7 @@ function generateResourcesData() {
           slug,
           title: data.title || 'Untitled Resource',
           description: data.description || '',
-          category: data.category || 'Research Guide',
-          level: data.level || 'Beginner',
+          category: data.category || 'Skills',
           format: data.format || 'Article',
           duration: data.duration,
           pages: data.pages,
@@ -217,8 +216,7 @@ function generateMockTrialResourcesData() {
         slug,
         title: data.title || 'Untitled Resource',
         description: data.description || '',
-        category: data.category || 'Trial Basics',
-        level: data.level || 'Beginner',
+        category: data.category || 'Skills',
         format: data.format || 'Article',
         duration: data.duration,
         pages: data.pages,
@@ -228,6 +226,7 @@ function generateMockTrialResourcesData() {
         featured: data.featured || false,
         tags: data.tags || [],
         publishedAt: data.publishedAt,
+        canonicalSlug: data.canonicalSlug,
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title));
@@ -264,8 +263,7 @@ function generateMathletesResourcesData() {
         slug,
         title: data.title || 'Untitled Resource',
         description: data.description || '',
-        category: data.category || 'Getting Started',
-        level: data.level || 'Beginner',
+        category: data.category || 'Skills',
         format: data.format || 'Article',
         duration: data.duration,
         pages: data.pages,
@@ -275,6 +273,7 @@ function generateMathletesResourcesData() {
         featured: data.featured || false,
         tags: data.tags || [],
         publishedAt: data.publishedAt,
+        canonicalSlug: data.canonicalSlug,
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title));

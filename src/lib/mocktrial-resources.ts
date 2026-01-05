@@ -7,23 +7,17 @@ import mocktrialResourcesData from "@/data/mocktrial-resources.json";
 
 const contentDirectory = path.join(process.cwd(), "content/mocktrial-resources");
 
-// Mock Trial resource categories
+// Mock Trial resource categories (topic-based per CONTENT-CREATION.md)
 export type MockTrialResourceCategory =
-  | "Trial Basics"
-  | "Opening Statements"
-  | "Direct Examination"
-  | "Cross-Examination"
-  | "Closing Arguments"
-  | "Objections"
-  | "Evidence Rules"
-  | "Witness Preparation"
-  | "Video Tutorials";
-
-// Resource difficulty levels
-export type MockTrialResourceLevel = "Beginner" | "Intermediate" | "Advanced";
+  | "Skills"
+  | "Background"
+  | "Rules"
+  | "Reference"
+  | "Examples"
+  | "Strategy";
 
 // Resource format types
-export type MockTrialResourceFormat = "PDF" | "Video" | "Article" | "Template" | "Worksheet";
+export type MockTrialResourceFormat = "PDF" | "Video" | "Article" | "Worksheet";
 
 // Resource metadata from frontmatter
 export interface MockTrialResourceMeta {
@@ -31,7 +25,6 @@ export interface MockTrialResourceMeta {
   title: string;
   description: string;
   category: MockTrialResourceCategory;
-  level: MockTrialResourceLevel;
   format: MockTrialResourceFormat;
   duration?: string; // For videos, e.g., "15 min"
   pages?: number; // For PDFs
@@ -41,6 +34,7 @@ export interface MockTrialResourceMeta {
   featured?: boolean;
   tags?: string[];
   publishedAt?: string;
+  canonicalSlug?: string; // Links translations together
 }
 
 // Full resource with MDX content
@@ -67,8 +61,7 @@ export function getMockTrialResourceBySlug(slug: string): MockTrialResource | nu
     slug,
     title: data.title || "Untitled Resource",
     description: data.description || "",
-    category: data.category || "Trial Basics",
-    level: data.level || "Beginner",
+    category: data.category || "Skills",
     format: data.format || "Article",
     duration: data.duration,
     pages: data.pages,
@@ -78,6 +71,7 @@ export function getMockTrialResourceBySlug(slug: string): MockTrialResource | nu
     featured: data.featured || false,
     tags: data.tags || [],
     publishedAt: data.publishedAt,
+    canonicalSlug: data.canonicalSlug,
     content,
   };
 }

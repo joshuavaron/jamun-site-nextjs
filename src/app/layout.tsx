@@ -1,10 +1,12 @@
-// Root layout - minimal wrapper that delegates to [locale] layout
-// This is required for next-intl to work with App Router
+import type { ReactNode } from "react";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+type Props = {
+  children: ReactNode;
+};
+
+// Since we have a [locale] segment, this layout is only used
+// for requests that don't match any locale (e.g., /unknown-page)
+// These will be handled by the root not-found.tsx
+export default function RootLayout({ children }: Props) {
   return children;
 }

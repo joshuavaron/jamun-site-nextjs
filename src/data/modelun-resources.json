@@ -4,8 +4,7 @@
       "slug": "crisis-guide",
       "title": "A Short Guide to the Crisis",
       "description": "Learn how crisis committees work, from backroom notes to directives. A comprehensive introduction to crisis committee mechanics, including crisis breaks, backroom arcs, directives, and strategies for success.",
-      "category": "Parliamentary Procedure",
-      "level": "Intermediate",
+      "category": "Rules",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -14,17 +13,17 @@
         "backroom",
         "directives",
         "crisis-notes",
-        "advanced"
+        "committee"
       ],
       "publishedAt": "2024-09-12",
+      "canonicalSlug": "crisis-guide",
       "locale": "en"
     },
     {
       "slug": "ga-guide",
       "title": "A Short Guide to the General Assembly",
       "description": "Learn how General Assembly committees work, from topic selection to voting. A comprehensive guide to the phases of a General Assembly committee, including choosing topics, forming blocs, writing working papers, merging resolutions, and voting procedures.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -37,14 +36,14 @@
         "blocs"
       ],
       "publishedAt": "2024-01-18",
+      "canonicalSlug": "ga-guide",
       "locale": "en"
     },
     {
       "slug": "advanced-debate-strategies",
       "title": "Advanced Debate Strategies",
       "description": "Take your Model UN skills to the next level with advanced strategies for negotiation, bloc building, and parliamentary maneuvering.",
-      "category": "Parliamentary Procedure",
-      "level": "Advanced",
+      "category": "Strategy",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
@@ -55,14 +54,14 @@
         "debate"
       ],
       "publishedAt": "2025-01-14",
+      "canonicalSlug": "advanced-debate-strategies",
       "locale": "en"
     },
     {
       "slug": "country-research-guide",
       "title": "Country Research Guide",
       "description": "How to effectively research your assigned country. A step-by-step guide to researching your assigned country, understanding its foreign policy positions, and representing it accurately in committee.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Background",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -74,14 +73,14 @@
         "getting-started"
       ],
       "publishedAt": "2025-07-08",
+      "canonicalSlug": "country-research-guide",
       "locale": "en"
     },
     {
       "slug": "crisis-committee-guide",
       "title": "Crisis Committee Guide",
       "description": "Everything you need to know about crisis committees, from understanding crisis arcs to writing effective directives.",
-      "category": "Parliamentary Procedure",
-      "level": "Intermediate",
+      "category": "Rules",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
@@ -89,18 +88,18 @@
         "crisis",
         "directives",
         "backroom",
-        "intermediate"
+        "committee"
       ],
       "publishedAt": "2024-10-03",
+      "canonicalSlug": "crisis-committee-guide",
       "locale": "en"
     },
     {
       "slug": "crisis-position-paper-outline",
       "title": "Crisis Committee Position Paper Outline",
       "description": "A structured template for writing crisis committee position papers. A step-by-step outline to help delegates craft effective position papers for crisis committees, covering character introduction, frontroom goals, backroom strategies, and conclusions.",
-      "category": "Position Papers",
-      "level": "Intermediate",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
       "tags": [
@@ -111,14 +110,14 @@
         "preparation"
       ],
       "publishedAt": "2024-07-21",
+      "canonicalSlug": "crisis-position-paper-outline",
       "locale": "en"
     },
     {
       "slug": "delegate-handbook",
       "title": "Delegate Handbook",
       "description": "Complete guide to rules of procedure and parliamentary debate. A comprehensive guide covering everything delegates need to know about Model UN procedures, parliamentary debate, and conference etiquette.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Reference",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -126,19 +125,19 @@
         "handbook",
         "rules",
         "procedure",
-        "beginner",
+        "model-un",
         "getting-started"
       ],
       "publishedAt": "2024-05-19",
+      "canonicalSlug": "delegate-handbook",
       "locale": "en"
     },
     {
       "slug": "directive-outline",
       "title": "Directive Outline",
       "description": "A template for writing crisis committee directives. A simple outline to help delegates structure directives in crisis committees, including title, sponsors, signatories, and operative clauses.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
       "tags": [
@@ -148,15 +147,15 @@
         "writing"
       ],
       "publishedAt": "2025-04-30",
+      "canonicalSlug": "directive-outline",
       "locale": "en"
     },
     {
       "slug": "draft-resolution-outline",
       "title": "Draft Resolution Outline",
       "description": "A template for writing General Assembly draft resolutions. A structured outline to help delegates write formal draft resolutions, including header information, preambulatory clauses, and operative clauses.",
-      "category": "Sample Documents",
-      "level": "Beginner",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
       "tags": [
@@ -167,15 +166,15 @@
         "general-assembly"
       ],
       "publishedAt": "2024-12-05",
+      "canonicalSlug": "draft-resolution-outline",
       "locale": "en"
     },
     {
       "slug": "ga-position-paper-outline",
       "title": "General Assembly Position Paper Outline",
       "description": "A structured template for writing GA position papers. A step-by-step outline to help delegates craft effective position papers for General Assembly committees, covering topic importance, past UN actions, intended solutions, and conclusions.",
-      "category": "Position Papers",
-      "level": "Beginner",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
       "tags": [
@@ -187,14 +186,14 @@
         "preparation"
       ],
       "publishedAt": "2025-08-18",
+      "canonicalSlug": "ga-position-paper-outline",
       "locale": "en"
     },
     {
       "slug": "how-to-research-your-country",
       "title": "How to Research Your Country",
       "description": "A comprehensive guide to researching your assigned country for Model UN, including key sources, strategies, and tips for understanding national positions.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Background",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -202,17 +201,17 @@
         "research",
         "preparation",
         "country",
-        "beginner"
+        "model-un"
       ],
       "publishedAt": "2024-04-22",
+      "canonicalSlug": "how-to-research-your-country",
       "locale": "en"
     },
     {
       "slug": "parliamentary-procedure-basics",
       "title": "Parliamentary Procedure Basics",
       "description": "Master the essential rules and procedures used in Model UN committees, from points and motions to voting procedures.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -220,34 +219,35 @@
         "rules",
         "procedure",
         "motions",
-        "beginner"
+        "model-un"
       ],
       "publishedAt": "2024-02-28",
+      "canonicalSlug": "parliamentary-procedure-basics",
       "locale": "en"
     },
     {
       "slug": "public-speaking-for-delegates",
       "title": "Public Speaking for Delegates",
       "description": "Build confidence and improve your speaking skills with practical tips for delivering effective speeches in committee.",
-      "category": "Public Speaking",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
       "tags": [
         "speaking",
         "presentation",
-        "confidence"
+        "confidence",
+        "public-speaking"
       ],
       "publishedAt": "2024-06-09",
+      "canonicalSlug": "public-speaking-for-delegates",
       "locale": "en"
     },
     {
       "slug": "public-speaking-tips",
       "title": "Public Speaking Tips",
       "description": "Master the art of MUN speeches and debate. Improve your public speaking skills with tips and techniques specifically designed for Model UN, from formal speeches to moderated caucus participation.",
-      "category": "Public Speaking",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -259,14 +259,14 @@
         "communication"
       ],
       "publishedAt": "2024-03-25",
+      "canonicalSlug": "public-speaking-tips",
       "locale": "en"
     },
     {
       "slug": "resolution-writing-guide",
       "title": "Resolution Writing Guide",
       "description": "Learn how to draft effective UN resolutions, including proper formatting, preambulatory and operative clauses.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Skills",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -274,17 +274,17 @@
         "resolution",
         "writing",
         "drafting",
-        "intermediate"
+        "model-un"
       ],
       "publishedAt": "2025-03-17",
+      "canonicalSlug": "resolution-writing-guide",
       "locale": "en"
     },
     {
       "slug": "rules-of-procedure",
       "title": "Rules of Procedure",
       "description": "Official parliamentary rules for committee sessions. The official JAMUN Rules of Procedure document that governs all committee sessions, including voting procedures, motions, and points of order.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -296,14 +296,14 @@
         "motions"
       ],
       "publishedAt": "2024-11-27",
+      "canonicalSlug": "rules-of-procedure",
       "locale": "en"
     },
     {
       "slug": "example-crisis-note",
       "title": "Selected Crisis Note",
       "description": "An example crisis note with commentary on effective techniques. A sample crisis note written as J. Robert Oppenheimer, demonstrating how to establish relationships, stay in character, and pursue backroom goals effectively.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Examples",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
@@ -315,14 +315,14 @@
         "sample"
       ],
       "publishedAt": "2025-10-22",
+      "canonicalSlug": "example-crisis-note",
       "locale": "en"
     },
     {
       "slug": "example-directive",
       "title": "Selected Directive",
       "description": "An example directive showing proper formatting and structure. A sample directive demonstrating how to structure operative clauses with nested sub-clauses, using JAMUN's founding as an example.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Examples",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": false,
@@ -334,14 +334,14 @@
         "formatting"
       ],
       "publishedAt": "2025-05-14",
+      "canonicalSlug": "example-directive",
       "locale": "en"
     },
     {
       "slug": "example-draft-resolution",
       "title": "Selected Draft Resolution",
       "description": "An example draft resolution showing proper formatting and structure. A sample draft resolution on climate change demonstrating preambulatory clauses, operative clauses with nested sub-clauses, and proper UN resolution formatting.",
-      "category": "Sample Documents",
-      "level": "Beginner",
+      "category": "Examples",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
@@ -354,23 +354,25 @@
         "general-assembly"
       ],
       "publishedAt": "2025-11-29",
+      "canonicalSlug": "example-draft-resolution",
       "locale": "en"
     },
     {
       "slug": "writing-position-papers",
       "title": "Writing Effective Position Papers",
       "description": "Learn how to write a compelling position paper that clearly articulates your country's stance and proposed solutions.",
-      "category": "Position Papers",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "JAMUN Staff",
       "featured": true,
       "tags": [
         "writing",
-        "position paper",
-        "preparation"
+        "position-paper",
+        "preparation",
+        "model-un"
       ],
       "publishedAt": "2024-08-15",
+      "canonicalSlug": "writing-position-papers",
       "locale": "en"
     }
   ],
@@ -379,8 +381,7 @@
       "slug": "how-to-research-your-country",
       "title": "Cómo Investigar Tu País",
       "description": "Una guía completa para investigar tu país asignado para Modelo ONU, incluyendo fuentes clave, estrategias y consejos para entender las posiciones nacionales.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Background",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -388,7 +389,7 @@
         "investigación",
         "preparación",
         "país",
-        "principiante"
+        "model-un"
       ],
       "publishedAt": "2024-04-22",
       "canonicalSlug": "how-to-research-your-country",
@@ -398,8 +399,7 @@
       "slug": "public-speaking-tips",
       "title": "Consejos de Oratoria",
       "description": "Domina el arte de los discursos y el debate en MUN. Mejora tus habilidades de oratoria con consejos y técnicas diseñados específicamente para Modelo ONU, desde discursos formales hasta participación en caucus moderados.",
-      "category": "Public Speaking",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -418,8 +418,7 @@
       "slug": "example-directive",
       "title": "Directiva Seleccionada",
       "description": "Un ejemplo de directiva mostrando el formato y estructura apropiados. Una directiva de muestra demostrando cómo estructurar cláusulas operativas con sub-cláusulas anidadas, usando la fundación de JAMUN como ejemplo.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Examples",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
@@ -438,15 +437,15 @@
       "slug": "writing-position-papers",
       "title": "Escribir Documentos de Posición Efectivos",
       "description": "Aprende cómo escribir un documento de posición convincente que articule claramente la postura de tu país y las soluciones propuestas.",
-      "category": "Position Papers",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
       "tags": [
         "redacción",
         "documento-de-posición",
-        "preparación"
+        "preparación",
+        "model-un"
       ],
       "publishedAt": "2024-08-15",
       "canonicalSlug": "writing-position-papers",
@@ -456,9 +455,8 @@
       "slug": "directive-outline",
       "title": "Esquema de Directiva",
       "description": "Una plantilla para escribir directivas de comités de crisis. Un esquema simple para ayudar a los delegados a estructurar directivas en comités de crisis, incluyendo título, patrocinadores, signatarios y cláusulas operativas.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
       "tags": [
@@ -475,9 +473,8 @@
       "slug": "ga-position-paper-outline",
       "title": "Esquema de Documento de Posición de Asamblea General",
       "description": "Una plantilla estructurada para escribir documentos de posición de AG. Un esquema paso a paso para ayudar a los delegados a crear documentos de posición efectivos para comités de Asamblea General, cubriendo la importancia del tema, acciones pasadas de la ONU, soluciones previstas y conclusiones.",
-      "category": "Position Papers",
-      "level": "Beginner",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
       "tags": [
@@ -496,9 +493,8 @@
       "slug": "crisis-position-paper-outline",
       "title": "Esquema de Documento de Posición para Comités de Crisis",
       "description": "Una plantilla estructurada para escribir documentos de posición para comités de crisis. Un esquema paso a paso para ayudar a los delegados a elaborar documentos de posición efectivos para comités de crisis, cubriendo la introducción del personaje, objetivos del frontroom, estrategias de backroom y conclusiones.",
-      "category": "Position Papers",
-      "level": "Intermediate",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
       "tags": [
@@ -516,9 +512,8 @@
       "slug": "draft-resolution-outline",
       "title": "Esquema de Proyecto de Resolución",
       "description": "Una plantilla para escribir proyectos de resolución de Asamblea General. Un esquema estructurado para ayudar a los delegados a redactar proyectos de resolución formales, incluyendo información del encabezado, cláusulas preambulatorias y cláusulas operativas.",
-      "category": "Sample Documents",
-      "level": "Beginner",
-      "format": "Template",
+      "category": "Examples",
+      "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
       "tags": [
@@ -536,8 +531,7 @@
       "slug": "advanced-debate-strategies",
       "title": "Estrategias Avanzadas de Debate",
       "description": "Lleva tus habilidades de Model UN al siguiente nivel con estrategias avanzadas de negociación, formación de bloques y maniobras parlamentarias.",
-      "category": "Parliamentary Procedure",
-      "level": "Advanced",
+      "category": "Strategy",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
@@ -555,8 +549,7 @@
       "slug": "parliamentary-procedure-basics",
       "title": "Fundamentos del Procedimiento Parlamentario",
       "description": "Domina las reglas y procedimientos esenciales utilizados en los comités de Modelo ONU, desde puntos y mociones hasta procedimientos de votación.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -564,7 +557,7 @@
         "reglas",
         "procedimiento",
         "mociones",
-        "principiante"
+        "model-un"
       ],
       "publishedAt": "2024-02-28",
       "canonicalSlug": "parliamentary-procedure-basics",
@@ -574,8 +567,7 @@
       "slug": "crisis-committee-guide",
       "title": "Guía de Comités de Crisis",
       "description": "Todo lo que necesitas saber sobre los comités de crisis, desde comprender los arcos de crisis hasta escribir directivas efectivas.",
-      "category": "Parliamentary Procedure",
-      "level": "Intermediate",
+      "category": "Rules",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
@@ -583,7 +575,7 @@
         "crisis",
         "directivas",
         "backroom",
-        "intermedio"
+        "comité"
       ],
       "publishedAt": "2024-10-03",
       "canonicalSlug": "crisis-committee-guide",
@@ -593,8 +585,7 @@
       "slug": "country-research-guide",
       "title": "Guía de Investigación de Países",
       "description": "Cómo investigar efectivamente tu país asignado. Una guía paso a paso para investigar tu país asignado, comprender sus posiciones de política exterior y representarlo con precisión en el comité.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Background",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -613,8 +604,7 @@
       "slug": "resolution-writing-guide",
       "title": "Guía de Redacción de Resoluciones",
       "description": "Aprende cómo redactar resoluciones efectivas de la ONU, incluyendo el formato apropiado, cláusulas preambulatorias y operativas.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Skills",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -622,7 +612,7 @@
         "resolución",
         "redacción",
         "elaboración",
-        "intermedio"
+        "model-un"
       ],
       "publishedAt": "2025-03-17",
       "canonicalSlug": "resolution-writing-guide",
@@ -632,8 +622,7 @@
       "slug": "delegate-handbook",
       "title": "Manual del Delegado",
       "description": "Guía completa de reglas de procedimiento y debate parlamentario. Una guía integral que cubre todo lo que los delegados necesitan saber sobre los procedimientos de Model UN, debate parlamentario y etiqueta de conferencia.",
-      "category": "Research Guide",
-      "level": "Beginner",
+      "category": "Reference",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -641,7 +630,7 @@
         "manual",
         "reglas",
         "procedimiento",
-        "principiante",
+        "model-un",
         "primeros-pasos"
       ],
       "publishedAt": "2024-05-19",
@@ -652,8 +641,7 @@
       "slug": "example-crisis-note",
       "title": "Nota de Crisis Seleccionada",
       "description": "Un ejemplo de nota de crisis con comentarios sobre técnicas efectivas. Una nota de crisis de muestra escrita como J. Robert Oppenheimer, demostrando cómo establecer relaciones, mantenerse en personaje y perseguir objetivos de backroom de manera efectiva.",
-      "category": "Sample Documents",
-      "level": "Intermediate",
+      "category": "Examples",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
@@ -672,15 +660,15 @@
       "slug": "public-speaking-for-delegates",
       "title": "Oratoria para Delegados",
       "description": "Construye confianza y mejora tus habilidades de habla con consejos prácticos para dar discursos efectivos en el comité.",
-      "category": "Public Speaking",
-      "level": "Beginner",
+      "category": "Skills",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": false,
       "tags": [
         "oratoria",
         "presentación",
-        "confianza"
+        "confianza",
+        "discursos"
       ],
       "publishedAt": "2024-06-09",
       "canonicalSlug": "public-speaking-for-delegates",
@@ -690,8 +678,7 @@
       "slug": "example-draft-resolution",
       "title": "Proyecto de Resolución Seleccionado",
       "description": "Un ejemplo de proyecto de resolución mostrando el formato y estructura apropiados. Un proyecto de resolución de muestra sobre cambio climático demostrando cláusulas preambulatorias, cláusulas operativas con sub-cláusulas anidadas, y el formato apropiado de resoluciones de la ONU.",
-      "category": "Sample Documents",
-      "level": "Beginner",
+      "category": "Examples",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -711,8 +698,7 @@
       "slug": "rules-of-procedure",
       "title": "Reglas de Procedimiento",
       "description": "Reglas parlamentarias oficiales para las sesiones de comité. El documento oficial de Reglas de Procedimiento de JAMUN que rige todas las sesiones de comité, incluyendo procedimientos de votación, mociones y puntos de orden.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -731,8 +717,7 @@
       "slug": "crisis-guide",
       "title": "Una Breve Guía de Crisis",
       "description": "Aprende cómo funcionan los comités de crisis, desde las notas de backroom hasta las directivas. Una introducción completa a la mecánica de los comités de crisis, incluyendo pausas de crisis, arcos de backroom, directivas y estrategias para el éxito.",
-      "category": "Parliamentary Procedure",
-      "level": "Intermediate",
+      "category": "Rules",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
@@ -741,7 +726,7 @@
         "backroom",
         "directivas",
         "notas-de-crisis",
-        "avanzado"
+        "comité"
       ],
       "publishedAt": "2024-09-12",
       "canonicalSlug": "crisis-guide",
@@ -751,8 +736,7 @@
       "slug": "ga-guide",
       "title": "Una Breve Guía de la Asamblea General",
       "description": "Aprende cómo funcionan los comités de Asamblea General, desde la selección de temas hasta la votación. Una guía completa de las fases de un comité de Asamblea General, incluyendo elección de temas, formación de bloques, redacción de documentos de trabajo, fusión de resoluciones y procedimientos de votación.",
-      "category": "Parliamentary Procedure",
-      "level": "Beginner",
+      "category": "Rules",
       "format": "Article",
       "author": "Equipo JAMUN",
       "featured": true,
