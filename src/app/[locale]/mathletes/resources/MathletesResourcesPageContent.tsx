@@ -49,7 +49,6 @@ function getFormatIcon(format: MathletesResourceFormat) {
       return Video;
     case "PDF":
       return FileText;
-    case "Template":
     case "Worksheet":
       return File;
     default:
@@ -64,8 +63,6 @@ function getFormatColor(format: MathletesResourceFormat) {
       return "bg-red-100 text-red-700";
     case "PDF":
       return "bg-emerald-100 text-emerald-700";
-    case "Template":
-      return "bg-teal-100 text-teal-700";
     case "Worksheet":
       return "bg-amber-100 text-amber-700";
     default:
@@ -116,43 +113,31 @@ export default function MathletesResourcesPageContent({
     selectedFormats.size > 0 ||
     searchQuery.length > 0;
 
-  // Build category options with counts
+  // Build category options with counts (topic-based per CONTENT-CREATION.md)
   const allCategoryOptions: { name: MathletesResourceCategory; count: number }[] = [
     {
-      name: "Getting Started" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Getting Started").length,
+      name: "Skills" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Skills").length,
     },
     {
-      name: "Problem Solving" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Problem Solving").length,
+      name: "Background" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Background").length,
     },
     {
-      name: "Number Theory" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Number Theory").length,
+      name: "Rules" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Rules").length,
     },
     {
-      name: "Algebra" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Algebra").length,
+      name: "Reference" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Reference").length,
     },
     {
-      name: "Geometry" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Geometry").length,
+      name: "Examples" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Examples").length,
     },
     {
-      name: "Counting & Probability" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Counting & Probability").length,
-    },
-    {
-      name: "Mental Math" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Mental Math").length,
-    },
-    {
-      name: "Competition Prep" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Competition Prep").length,
-    },
-    {
-      name: "Video Tutorials" as MathletesResourceCategory,
-      count: resources.filter((r) => r.category === "Video Tutorials").length,
+      name: "Strategy" as MathletesResourceCategory,
+      count: resources.filter((r) => r.category === "Strategy").length,
     },
   ];
   const categoryOptions = allCategoryOptions.filter((c) => c.count > 0);
@@ -170,10 +155,6 @@ export default function MathletesResourcesPageContent({
     {
       name: "Video" as MathletesResourceFormat,
       count: resources.filter((r) => r.format === "Video").length,
-    },
-    {
-      name: "Template" as MathletesResourceFormat,
-      count: resources.filter((r) => r.format === "Template").length,
     },
     {
       name: "Worksheet" as MathletesResourceFormat,

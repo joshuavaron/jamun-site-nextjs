@@ -613,21 +613,21 @@ export default function ProgramsPage() {
                   <h4 className={cn("font-semibold mb-3", program.textColor)}>
                     {t("timeCommitment")}
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                  <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
                     <div className="flex items-center gap-2">
-                      <Clock className={cn("w-4 h-4", program.textColor)} />
+                      <Clock className={cn("w-4 h-4 flex-shrink-0", program.textColor)} />
                       <span className="text-gray-700">
                         {program.schedule.commitment}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Calendar className={cn("w-4 h-4", program.textColor)} />
+                      <Calendar className={cn("w-4 h-4 flex-shrink-0", program.textColor)} />
                       <span className="text-gray-700">
                         {program.schedule.practice}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Trophy className={cn("w-4 h-4", program.textColor)} />
+                      <Trophy className={cn("w-4 h-4 flex-shrink-0", program.textColor)} />
                       <span className="text-gray-700">
                         {program.schedule.competitions}
                       </span>

@@ -8,21 +8,17 @@ import resourcesData from "@/data/modelun-resources.json";
 const contentDirectory = path.join(process.cwd(), "content/modelun-resources");
 const defaultLocale = "en";
 
-// Resource categories
+// Resource categories (topic-based per CONTENT-CREATION.md)
 export type ResourceCategory =
-  | "Research Guide"
-  | "Position Papers"
-  | "Public Speaking"
-  | "Parliamentary Procedure"
-  | "Country Profiles"
-  | "Sample Documents"
-  | "Video Tutorials";
-
-// Resource difficulty levels
-export type ResourceLevel = "Beginner" | "Intermediate" | "Advanced";
+  | "Skills"
+  | "Background"
+  | "Rules"
+  | "Reference"
+  | "Examples"
+  | "Strategy";
 
 // Resource format types
-export type ResourceFormat = "PDF" | "Video" | "Article" | "Template" | "Worksheet";
+export type ResourceFormat = "PDF" | "Video" | "Article" | "Worksheet";
 
 // Resource metadata from frontmatter
 export interface ResourceMeta {
@@ -30,7 +26,6 @@ export interface ResourceMeta {
   title: string;
   description: string;
   category: ResourceCategory;
-  level: ResourceLevel;
   format: ResourceFormat;
   duration?: string; // For videos, e.g., "15 min"
   pages?: number; // For PDFs
@@ -94,8 +89,7 @@ function parseResourceFile(fullPath: string, slug: string, locale: string): Reso
     slug,
     title: data.title || "Untitled Resource",
     description: data.description || "",
-    category: data.category || "Research Guide",
-    level: data.level || "Beginner",
+    category: data.category || "Skills",
     format: data.format || "Article",
     duration: data.duration,
     pages: data.pages,
@@ -172,11 +166,6 @@ export function getRelatedResources(currentSlug: string, limit: number = 4, loca
       // Same category: +3 points
       if (resource.category === currentResource.category) {
         score += 3;
-      }
-
-      // Same level: +2 points
-      if (resource.level === currentResource.level) {
-        score += 2;
       }
 
       // Shared tags: +1 point per tag

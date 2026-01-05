@@ -16,7 +16,6 @@ import {
   File,
   Download,
   Clock,
-  GraduationCap,
   Star,
   Tag,
   Calendar,
@@ -25,7 +24,7 @@ import {
 } from "lucide-react";
 import { Section, Button } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Resource, ResourceMeta, ResourceFormat, ResourceLevel } from "@/lib/resources";
+import { Resource, ResourceMeta, ResourceFormat, ResourceCategory } from "@/lib/resources";
 import { cn } from "@/lib/utils";
 
 interface ResourcePageContentProps {
@@ -40,7 +39,6 @@ function renderFormatIcon(format: ResourceFormat, className?: string) {
       return <Video className={className} />;
     case "PDF":
       return <FileText className={className} />;
-    case "Template":
     case "Worksheet":
       return <File className={className} />;
     default:
@@ -55,8 +53,6 @@ function getFormatColor(format: ResourceFormat) {
       return { bg: "bg-red-100", text: "text-red-700", border: "border-red-200" };
     case "PDF":
       return { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" };
-    case "Template":
-      return { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-200" };
     case "Worksheet":
       return { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" };
     default:
@@ -64,19 +60,34 @@ function getFormatColor(format: ResourceFormat) {
   }
 }
 
-// Level colors
-const levelColors: Record<ResourceLevel, { bg: string; text: string; border: string }> = {
-  Beginner: {
-    bg: "bg-green-100",
-    text: "text-green-700",
-    border: "border-green-200",
+// Category colors (topic-based categories per CONTENT-CREATION.md)
+const categoryColors: Record<ResourceCategory, { bg: string; text: string; border: string }> = {
+  Skills: {
+    bg: "bg-blue-100",
+    text: "text-blue-700",
+    border: "border-blue-200",
   },
-  Intermediate: {
+  Background: {
+    bg: "bg-purple-100",
+    text: "text-purple-700",
+    border: "border-purple-200",
+  },
+  Rules: {
     bg: "bg-amber-100",
     text: "text-amber-700",
     border: "border-amber-200",
   },
-  Advanced: {
+  Reference: {
+    bg: "bg-green-100",
+    text: "text-green-700",
+    border: "border-green-200",
+  },
+  Examples: {
+    bg: "bg-indigo-100",
+    text: "text-indigo-700",
+    border: "border-indigo-200",
+  },
+  Strategy: {
     bg: "bg-red-100",
     text: "text-red-700",
     border: "border-red-200",
@@ -91,32 +102,17 @@ export default function ResourcePageContent({
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   const formatColor = getFormatColor(resource.format);
-  const levelColor = levelColors[resource.level] || levelColors.Beginner;
-
-  // Get translated level name
-  const getLevelName = (level: ResourceLevel) => {
-    switch (level) {
-      case "Beginner":
-        return t("levelBeginner");
-      case "Intermediate":
-        return t("levelIntermediate");
-      case "Advanced":
-        return t("levelAdvanced");
-      default:
-        return level;
-    }
-  };
+  const categoryColor = categoryColors[resource.category] || categoryColors.Skills;
 
   // Get translated category name
   const getCategoryName = (category: string): string => {
     const categoryMap: Record<string, string> = {
-      "Research Guide": t("categoryResearchGuide"),
-      "Position Papers": t("categoryPositionPapers"),
-      "Public Speaking": t("categoryPublicSpeaking"),
-      "Parliamentary Procedure": t("categoryParliamentaryProcedure"),
-      "Country Profiles": t("categoryCountryProfiles"),
-      "Sample Documents": t("categorySampleDocuments"),
-      "Video Tutorials": t("categoryVideoTutorials"),
+      Skills: t("categorySkills"),
+      Background: t("categoryBackground"),
+      Rules: t("categoryRules"),
+      Reference: t("categoryReference"),
+      Examples: t("categoryExamples"),
+      Strategy: t("categoryStrategy"),
     };
     return categoryMap[category] || category;
   };
@@ -182,17 +178,17 @@ export default function ResourcePageContent({
               {resource.format}
             </span>
 
-            {/* Level badge */}
+            {/* Category badge */}
             <span
               className={cn(
                 "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                levelColor.bg,
-                levelColor.text,
-                levelColor.border
+                categoryColor.bg,
+                categoryColor.text,
+                categoryColor.border
               )}
             >
-              <GraduationCap className="w-4 h-4" />
-              {getLevelName(resource.level)}
+              <BookOpen className="w-4 h-4" />
+              {getCategoryName(resource.category)}
             </span>
 
             {/* Featured badge */}
@@ -203,16 +199,6 @@ export default function ResourcePageContent({
               </span>
             )}
           </motion.div>
-
-          {/* Category */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3"
-          >
-            {getCategoryName(resource.category)}
-          </motion.p>
 
           {/* Title */}
           <motion.h1

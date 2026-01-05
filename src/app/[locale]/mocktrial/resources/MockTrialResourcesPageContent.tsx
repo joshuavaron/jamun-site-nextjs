@@ -49,7 +49,6 @@ function getFormatIcon(format: MockTrialResourceFormat) {
       return Video;
     case "PDF":
       return FileText;
-    case "Template":
     case "Worksheet":
       return File;
     default:
@@ -64,8 +63,6 @@ function getFormatColor(format: MockTrialResourceFormat) {
       return "bg-red-100 text-red-700";
     case "PDF":
       return "bg-purple-100 text-purple-700";
-    case "Template":
-      return "bg-violet-100 text-violet-700";
     case "Worksheet":
       return "bg-amber-100 text-amber-700";
     default:
@@ -116,43 +113,31 @@ export default function MockTrialResourcesPageContent({
     selectedFormats.size > 0 ||
     searchQuery.length > 0;
 
-  // Build category options with counts
+  // Build category options with counts (topic-based per CONTENT-CREATION.md)
   const allCategoryOptions: { name: MockTrialResourceCategory; count: number }[] = [
     {
-      name: "Trial Basics" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Trial Basics").length,
+      name: "Skills" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Skills").length,
     },
     {
-      name: "Opening Statements" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Opening Statements").length,
+      name: "Background" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Background").length,
     },
     {
-      name: "Direct Examination" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Direct Examination").length,
+      name: "Rules" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Rules").length,
     },
     {
-      name: "Cross-Examination" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Cross-Examination").length,
+      name: "Reference" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Reference").length,
     },
     {
-      name: "Closing Arguments" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Closing Arguments").length,
+      name: "Examples" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Examples").length,
     },
     {
-      name: "Objections" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Objections").length,
-    },
-    {
-      name: "Evidence Rules" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Evidence Rules").length,
-    },
-    {
-      name: "Witness Preparation" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Witness Preparation").length,
-    },
-    {
-      name: "Video Tutorials" as MockTrialResourceCategory,
-      count: resources.filter((r) => r.category === "Video Tutorials").length,
+      name: "Strategy" as MockTrialResourceCategory,
+      count: resources.filter((r) => r.category === "Strategy").length,
     },
   ];
   const categoryOptions = allCategoryOptions.filter((c) => c.count > 0);
@@ -170,10 +155,6 @@ export default function MockTrialResourcesPageContent({
     {
       name: "Video" as MockTrialResourceFormat,
       count: resources.filter((r) => r.format === "Video").length,
-    },
-    {
-      name: "Template" as MockTrialResourceFormat,
-      count: resources.filter((r) => r.format === "Template").length,
     },
     {
       name: "Worksheet" as MockTrialResourceFormat,
