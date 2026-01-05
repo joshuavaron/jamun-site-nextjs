@@ -8,9 +8,6 @@ import committeeData from "@/data/committees.json";
 const contentDirectory = path.join(process.cwd(), "content/committees");
 const defaultLocale = "en";
 
-// Detect if we're in an edge runtime environment (no fs access)
-const isEdgeRuntime = typeof process.env.NEXT_RUNTIME === 'undefined' ||
-  (typeof globalThis !== 'undefined' && 'caches' in globalThis);
 
 // Committee executive (chair, vice chair, etc.)
 export interface CommitteeExecutive {
