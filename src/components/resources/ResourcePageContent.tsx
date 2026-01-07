@@ -21,15 +21,19 @@ import {
   Calendar,
   User,
   Printer,
+  Scale,
+  Calculator,
 } from "lucide-react";
 import { Section, Button } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Resource, ResourceMeta, ResourceFormat, ResourceCategory } from "@/lib/resources";
+import { Resource, ResourceMeta, ResourceFormat, ResourceCategory, ProgramConfig } from "@/lib/program-resources";
 import { cn } from "@/lib/utils";
+import ResourceNavSidebar from "./ResourceNavSidebar";
 
 interface ResourcePageContentProps {
   resource: Resource;
   relatedResources: ResourceMeta[];
+  programConfig: ProgramConfig;
 }
 
 // Format icons - returns JSX element
@@ -62,45 +66,35 @@ function getFormatColor(format: ResourceFormat) {
 
 // Category colors (topic-based categories per CONTENT-CREATION.md)
 const categoryColors: Record<ResourceCategory, { bg: string; text: string; border: string }> = {
-  Skills: {
-    bg: "bg-blue-100",
-    text: "text-blue-700",
-    border: "border-blue-200",
-  },
-  Background: {
-    bg: "bg-purple-100",
-    text: "text-purple-700",
-    border: "border-purple-200",
-  },
-  Rules: {
-    bg: "bg-amber-100",
-    text: "text-amber-700",
-    border: "border-amber-200",
-  },
-  Reference: {
-    bg: "bg-green-100",
-    text: "text-green-700",
-    border: "border-green-200",
-  },
-  Examples: {
-    bg: "bg-indigo-100",
-    text: "text-indigo-700",
-    border: "border-indigo-200",
-  },
-  Strategy: {
-    bg: "bg-red-100",
-    text: "text-red-700",
-    border: "border-red-200",
-  },
+  Skills: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
+  Background: { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-200" },
+  Rules: { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" },
+  Reference: { bg: "bg-green-100", text: "text-green-700", border: "border-green-200" },
+  Examples: { bg: "bg-indigo-100", text: "text-indigo-700", border: "border-indigo-200" },
+  Strategy: { bg: "bg-red-100", text: "text-red-700", border: "border-red-200" },
 };
+
+// Get the program icon component
+function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
+  switch (iconName) {
+    case "Scale":
+      return <Scale className={className} />;
+    case "Calculator":
+      return <Calculator className={className} />;
+    default:
+      return <BookOpen className={className} />;
+  }
+}
 
 export default function ResourcePageContent({
   resource,
   relatedResources,
+  programConfig,
 }: ResourcePageContentProps) {
-  const t = useTranslations("ResourcePage");
+  const t = useTranslations(programConfig.detailTranslationNamespace);
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
+  const { colors, basePath, iconName } = programConfig;
   const formatColor = getFormatColor(resource.format);
   const categoryColor = categoryColors[resource.category] || categoryColors.Skills;
 
@@ -133,13 +127,59 @@ export default function ResourcePageContent({
     window.print();
   };
 
+  // Dynamic classes based on program colors
+  const getGradientTextClasses = () => cn(
+    "bg-gradient-to-r bg-clip-text text-transparent",
+    programConfig.type === "mocktrial"
+      ? "from-purple-600 via-violet-600 to-purple-600"
+      : "from-emerald-600 via-jamun-blue to-emerald-600"
+  );
+
+  const getDownloadButtonClasses = () => cn(
+    "inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full text-white transition-colors",
+    colors.primaryBg,
+    `hover:${colors.primaryBg.replace("600", "700")}`
+  );
+
+  const getProseClasses = () => cn(
+    "prose prose-lg prose-gray max-w-none",
+    "prose-headings:text-gray-900 prose-headings:font-semibold",
+    "prose-h1:text-3xl prose-h1:md:text-4xl prose-h1:mb-6 prose-h1:mt-10",
+    "prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200",
+    "prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mb-3 prose-h3:mt-8",
+    "prose-h4:text-lg prose-h4:md:text-xl prose-h4:mb-2 prose-h4:mt-6",
+    "prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4",
+    "prose-strong:text-gray-900 prose-strong:font-semibold",
+    "prose-ul:text-gray-600 prose-ul:my-4",
+    "prose-ol:text-gray-600 prose-ol:my-4",
+    "prose-li:text-gray-600 prose-li:my-1",
+    // Dynamic blockquote color based on program
+    programConfig.type === "mocktrial"
+      ? "prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50"
+      : "prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-emerald-50",
+    "prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:text-gray-700 prose-blockquote:italic prose-blockquote:not-italic",
+    "prose-hr:my-8 prose-hr:border-gray-200",
+    // Dynamic link color based on program
+    programConfig.type === "mocktrial"
+      ? "prose-a:text-purple-600 prose-a:no-underline hover:prose-a:underline"
+      : "prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline",
+    "prose-table:w-full prose-table:border-collapse",
+    "prose-th:bg-gray-50 prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold",
+    "prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-2"
+  );
+
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50/50 via-white to-sky-50 py-16 md:py-20 lg:py-24">
+      <section className={cn(
+        "relative overflow-hidden bg-gradient-to-br py-16 md:py-20 lg:py-24",
+        colors.gradientFrom,
+        colors.gradientVia,
+        colors.gradientTo
+      )}>
         {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-emerald-400/10 to-sky-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10 rounded-full blur-3xl -z-10" />
+        <div className={cn("absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob1)} />
+        <div className={cn("absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob2)} />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back link */}
@@ -150,8 +190,11 @@ export default function ResourcePageContent({
             className="mb-6"
           >
             <Link
-              href="/modelun/resources"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-emerald-600 transition-colors group"
+              href={basePath}
+              className={cn(
+                "inline-flex items-center gap-2 text-gray-600 transition-colors group",
+                `hover:${colors.primaryText}`
+              )}
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               {t("allResources")}
@@ -187,7 +230,7 @@ export default function ResourcePageContent({
                 categoryColor.border
               )}
             >
-              <BookOpen className="w-4 h-4" />
+              <ProgramIcon iconName={iconName} className="w-4 h-4" />
               {getCategoryName(resource.category)}
             </span>
 
@@ -273,7 +316,7 @@ export default function ResourcePageContent({
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition-colors"
+                className={getDownloadButtonClasses()}
               >
                 <Download className="w-5 h-5" />
                 {t("downloadResource")}
@@ -293,77 +336,70 @@ export default function ResourcePageContent({
         </div>
       </section>
 
-      {/* Content Section */}
-      <Section background="white" className="py-16 md:py-20">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="prose prose-lg prose-gray max-w-none
-              prose-headings:text-gray-900 prose-headings:font-semibold
-              prose-h1:text-3xl prose-h1:md:text-4xl prose-h1:mb-6 prose-h1:mt-10
-              prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200
-              prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mb-3 prose-h3:mt-8
-              prose-h4:text-lg prose-h4:md:text-xl prose-h4:mb-2 prose-h4:mt-6
-              prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4
-              prose-strong:text-gray-900 prose-strong:font-semibold
-              prose-ul:text-gray-600 prose-ul:my-4
-              prose-ol:text-gray-600 prose-ol:my-4
-              prose-li:text-gray-600 prose-li:my-1
-              prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-emerald-50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:text-gray-700 prose-blockquote:italic prose-blockquote:not-italic
-              prose-hr:my-8 prose-hr:border-gray-200
-              prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline
-              prose-table:w-full prose-table:border-collapse
-              prose-th:bg-gray-50 prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold
-              prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-2
-            "
-          >
-            {mdxSource ? (
-              <MDXRemote {...mdxSource} components={MDXComponents} />
-            ) : (
-              <div className="space-y-4">
-                <div className="h-6 bg-gray-200 rounded animate-pulse w-3/4" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-4/6" />
-                <div className="h-6 bg-gray-200 rounded animate-pulse w-2/3 mt-8" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
-              </div>
-            )}
-          </motion.div>
+      {/* Content Section with Sidebar */}
+      <section className="bg-white">
+        <div className="flex">
+          {/* Left Sidebar - Navigation */}
+          <aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0 bg-gray-50/50" data-print-hidden="true">
+            <div className="sticky top-16 h-[calc(100vh-4rem)]">
+              <ResourceNavSidebar />
+            </div>
+          </aside>
 
-          {/* Tags */}
-          {resource.tags && resource.tags.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6 }}
-              className="mt-12 pt-8 border-t border-gray-200"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <Tag className="w-5 h-5 text-gray-400" />
-                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                  {t("tags")}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {resource.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-600 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          )}
+          {/* Main Content */}
+          <div className="flex-1 min-w-0 py-16 md:py-20 px-6 sm:px-8 lg:px-12 xl:px-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className={getProseClasses()}
+              >
+                {mdxSource ? (
+                  <MDXRemote {...mdxSource} components={MDXComponents} />
+                ) : (
+                  <div className="space-y-4">
+                    <div className="h-6 bg-gray-200 rounded animate-pulse w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                    <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
+                    <div className="h-4 bg-gray-200 rounded animate-pulse w-4/6" />
+                    <div className="h-6 bg-gray-200 rounded animate-pulse w-2/3 mt-8" />
+                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
+                    <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Tags */}
+              {resource.tags && resource.tags.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                  className="mt-12 pt-8 border-t border-gray-200"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <Tag className="w-5 h-5 text-gray-400" />
+                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                      {t("tags")}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {resource.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-600 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+          </div>
         </div>
-      </Section>
+      </section>
 
       {/* Recommended Resources Section */}
       {relatedResources.length > 0 && (
@@ -376,12 +412,12 @@ export default function ResourcePageContent({
             className="max-w-6xl mx-auto"
           >
             <div className="text-center mb-12">
-              <p className="text-sm font-semibold text-emerald-600 uppercase tracking-widest mb-4">
+              <p className={cn("text-sm font-semibold uppercase tracking-widest mb-4", colors.primaryText)}>
                 {t("continueLearningEyebrow")}
               </p>
               <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
                 {t("recommendedTitle")}
-                <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
+                <span className={getGradientTextClasses()}>
                   {t("recommendedTitleHighlight")}
                 </span>
               </h2>
@@ -401,7 +437,7 @@ export default function ResourcePageContent({
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
-                    <Link href={`/modelun/resources/${related.slug}`}>
+                    <Link href={`${basePath}/${related.slug}`}>
                       <motion.div
                         whileHover={{ y: -4 }}
                         className="group bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
@@ -430,7 +466,10 @@ export default function ResourcePageContent({
                         </p>
 
                         {/* Title */}
-                        <h4 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2">
+                        <h4 className={cn(
+                          "text-base font-semibold text-gray-900 mb-2 transition-colors line-clamp-2",
+                          `group-hover:${colors.primaryText}`
+                        )}>
                           {related.title}
                         </h4>
 
@@ -441,7 +480,10 @@ export default function ResourcePageContent({
 
                         {/* Arrow indicator */}
                         <div className="mt-4 pt-3 border-t border-gray-100">
-                          <span className="inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+                          <span className={cn(
+                            "inline-flex items-center text-sm font-medium",
+                            colors.primaryText
+                          )}>
                             {t("readMore")}
                             <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                           </span>
@@ -465,16 +507,16 @@ export default function ResourcePageContent({
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
-            <BookOpen className="w-4 h-4 text-emerald-600" />
-            <span className="text-sm font-medium text-emerald-700">
+          <div className={cn("inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full", colors.primaryBgLight)}>
+            <ProgramIcon iconName={iconName} className={cn("w-4 h-4", colors.primaryText)} />
+            <span className={cn("text-sm font-medium", colors.primaryTextLight)}>
               {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
             {t("ctaTitle")}
-            <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
+            <span className={getGradientTextClasses()}>
               {t("ctaTitleHighlight")}
             </span>
           </h2>
@@ -485,20 +527,19 @@ export default function ResourcePageContent({
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/register" size="lg" className="group">
-                {t("registerButton")}
+              <Button href={t("primaryButtonHref")} size="lg" className="group">
+                {t("primaryButton")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/modelun/resources" variant="outline" size="lg">
+              <Button href={basePath} variant="outline" size="lg">
                 {t("browseAllButton")}
               </Button>
             </motion.div>
           </div>
         </motion.div>
       </Section>
-
     </main>
   );
 }

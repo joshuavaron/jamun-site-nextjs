@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { getAllSlugsAllLocales } from "@/lib/blog";
 import { getAllCommitteeSlugsAllLocales } from "@/lib/committees";
-import { getAllResourceSlugsAllLocales } from "@/lib/resources";
+import { getAllResourceSlugsAllLocales } from "@/lib/program-resources";
 import { routing } from "@/i18n/routing";
 
 export const dynamic = "force-static";
@@ -74,7 +74,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Dynamic content slugs
   const blogSlugs = getAllSlugsAllLocales();
   const committeeSlugs = getAllCommitteeSlugsAllLocales();
-  const resourceSlugs = getAllResourceSlugsAllLocales();
+  const modelunResourceSlugs = getAllResourceSlugsAllLocales("modelun");
+  const mocktrialResourceSlugs = getAllResourceSlugsAllLocales("mocktrial");
+  const mathletesResourceSlugs = getAllResourceSlugsAllLocales("mathletes");
 
   // Generate entries for all static pages across all locales
   const staticPageEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
@@ -94,10 +96,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Resource pages with actual file modification dates
-  const resourcePages: MetadataRoute.Sitemap = resourceSlugs.map(({ slug, locale }) => ({
+  // Model UN resource pages with actual file modification dates
+  const modelunResourcePages: MetadataRoute.Sitemap = modelunResourceSlugs.map(({ slug, locale }) => ({
     url: getLocalizedUrl(`/modelun/resources/${slug}`, locale),
     lastModified: getContentModifiedDate("modelun-resources", slug, locale),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  // Mock Trial resource pages with actual file modification dates
+  const mocktrialResourcePages: MetadataRoute.Sitemap = mocktrialResourceSlugs.map(({ slug, locale }) => ({
+    url: getLocalizedUrl(`/mocktrial/resources/${slug}`, locale),
+    lastModified: getContentModifiedDate("mocktrial-resources", slug, locale),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  // Mathletes resource pages with actual file modification dates
+  const mathletesResourcePages: MetadataRoute.Sitemap = mathletesResourceSlugs.map(({ slug, locale }) => ({
+    url: getLocalizedUrl(`/mathletes/resources/${slug}`, locale),
+    lastModified: getContentModifiedDate("mathletes-resources", slug, locale),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));
@@ -113,7 +131,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...staticPageEntries,
     ...committeePages,
-    ...resourcePages,
+    ...modelunResourcePages,
+    ...mocktrialResourcePages,
+    ...mathletesResourcePages,
     ...blogPostPages,
   ];
 }

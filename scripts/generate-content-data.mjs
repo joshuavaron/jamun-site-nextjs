@@ -197,44 +197,53 @@ function generateMockTrialResourcesData() {
   const contentDirectory = path.join(process.cwd(), 'content/mocktrial-resources');
   const outputFile = path.join(outputDir, 'mocktrial-resources.json');
 
-  if (!fs.existsSync(contentDirectory)) {
-    fs.writeFileSync(outputFile, JSON.stringify({ resources: [] }, null, 2));
-    console.log(`Generated ${outputFile} with 0 Mock Trial resources (directory not found)`);
-    return;
+  function getAllResources(locale) {
+    const localeDir = path.join(contentDirectory, locale);
+
+    if (!fs.existsSync(localeDir)) {
+      return [];
+    }
+
+    const files = fs.readdirSync(localeDir);
+    const resources = files
+      .filter((file) => file.endsWith('.mdx'))
+      .map((file) => {
+        const slug = file.replace(/\.mdx$/, '');
+        const fullPath = path.join(localeDir, file);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const { data } = matter(fileContents);
+
+        return {
+          slug,
+          title: data.title || 'Untitled Resource',
+          description: data.description || '',
+          category: data.category || 'Skills',
+          format: data.format || 'Article',
+          duration: data.duration,
+          pages: data.pages,
+          downloadUrl: data.downloadUrl,
+          image: data.image,
+          author: data.author,
+          featured: data.featured || false,
+          tags: data.tags || [],
+          publishedAt: data.publishedAt,
+          canonicalSlug: data.canonicalSlug,
+          locale,
+        };
+      })
+      .sort((a, b) => a.title.localeCompare(b.title));
+
+    return resources;
   }
 
-  const files = fs.readdirSync(contentDirectory);
-  const resources = files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, '');
-      const fullPath = path.join(contentDirectory, file);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || 'Untitled Resource',
-        description: data.description || '',
-        category: data.category || 'Skills',
-        format: data.format || 'Article',
-        duration: data.duration,
-        pages: data.pages,
-        downloadUrl: data.downloadUrl,
-        image: data.image,
-        author: data.author,
-        featured: data.featured || false,
-        tags: data.tags || [],
-        publishedAt: data.publishedAt,
-        canonicalSlug: data.canonicalSlug,
-      };
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  const data = { resources };
+  const data = {
+    en: getAllResources('en'),
+    es: getAllResources('es'),
+    zh: getAllResources('zh'),
+  };
 
   fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
-  console.log(`Generated ${outputFile} with ${resources.length} Mock Trial resources`);
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH Mock Trial resources`);
 }
 
 // ============================================
@@ -244,44 +253,53 @@ function generateMathletesResourcesData() {
   const contentDirectory = path.join(process.cwd(), 'content/mathletes-resources');
   const outputFile = path.join(outputDir, 'mathletes-resources.json');
 
-  if (!fs.existsSync(contentDirectory)) {
-    fs.writeFileSync(outputFile, JSON.stringify({ resources: [] }, null, 2));
-    console.log(`Generated ${outputFile} with 0 Mathletes resources (directory not found)`);
-    return;
+  function getAllResources(locale) {
+    const localeDir = path.join(contentDirectory, locale);
+
+    if (!fs.existsSync(localeDir)) {
+      return [];
+    }
+
+    const files = fs.readdirSync(localeDir);
+    const resources = files
+      .filter((file) => file.endsWith('.mdx'))
+      .map((file) => {
+        const slug = file.replace(/\.mdx$/, '');
+        const fullPath = path.join(localeDir, file);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const { data } = matter(fileContents);
+
+        return {
+          slug,
+          title: data.title || 'Untitled Resource',
+          description: data.description || '',
+          category: data.category || 'Skills',
+          format: data.format || 'Article',
+          duration: data.duration,
+          pages: data.pages,
+          downloadUrl: data.downloadUrl,
+          image: data.image,
+          author: data.author,
+          featured: data.featured || false,
+          tags: data.tags || [],
+          publishedAt: data.publishedAt,
+          canonicalSlug: data.canonicalSlug,
+          locale,
+        };
+      })
+      .sort((a, b) => a.title.localeCompare(b.title));
+
+    return resources;
   }
 
-  const files = fs.readdirSync(contentDirectory);
-  const resources = files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, '');
-      const fullPath = path.join(contentDirectory, file);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(fileContents);
-
-      return {
-        slug,
-        title: data.title || 'Untitled Resource',
-        description: data.description || '',
-        category: data.category || 'Skills',
-        format: data.format || 'Article',
-        duration: data.duration,
-        pages: data.pages,
-        downloadUrl: data.downloadUrl,
-        image: data.image,
-        author: data.author,
-        featured: data.featured || false,
-        tags: data.tags || [],
-        publishedAt: data.publishedAt,
-        canonicalSlug: data.canonicalSlug,
-      };
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
-
-  const data = { resources };
+  const data = {
+    en: getAllResources('en'),
+    es: getAllResources('es'),
+    zh: getAllResources('zh'),
+  };
 
   fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
-  console.log(`Generated ${outputFile} with ${resources.length} Mathletes resources`);
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH Mathletes resources`);
 }
 
 // Run all generators

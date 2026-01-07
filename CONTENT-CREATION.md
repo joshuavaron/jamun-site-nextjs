@@ -249,3 +249,157 @@ Cautions or things to avoid
 |----------|----------|----------|
 | Data | Data | Data |
 ```
+
+## Navigation Sidebar System
+
+Resource pages include an interactive navigation sidebar that allows users to:
+
+1. **Navigate by heading** - Click any heading to jump to that section
+2. **Bookmark headings** - Save headings for quick reference
+3. **Select subpoints** - Click individual subpoints to highlight them
+4. **Filter to saved items** - View only bookmarked/selected content
+5. **Share selections** - Export/import selections via shareable codes
+
+### How It Works
+
+The navigation system automatically detects:
+- **Headings**: All H1, H2, and H3 elements with IDs
+- **Subpoints**: Paragraphs that start with legal-style markers like `(a)`, `(1)`, `(A)`, `(i)`, etc.
+
+### Structuring Content for Navigation
+
+To maximize the navigation system's effectiveness:
+
+#### Heading Hierarchy
+
+Use a consistent heading structure:
+
+```markdown
+# Document Title (H1)
+
+## Article I. Major Section (H2)
+
+### Rule 101. Subsection (H3)
+
+Content paragraphs here...
+
+### Rule 102. Another Subsection (H3)
+
+More content...
+
+## Article II. Next Major Section (H2)
+```
+
+- **H1**: Document title (one per page)
+- **H2**: Major sections/articles
+- **H3**: Individual rules, subsections, or topics
+
+All headings automatically get IDs derived from their text (slugified), enabling:
+- Direct linking via URL hash (e.g., `/resources/page#rule-101`)
+- Bookmarking in the navigation sidebar
+- Scroll tracking for progress indicator
+
+#### Subpoint Formatting
+
+For selectable subpoints (legal rules, numbered lists, etc.), use this pattern:
+
+```markdown
+**(a)** First point text here.
+
+**(b)** Second point text here.
+
+**(1)** Numbered point.
+
+**(2)** Another numbered point.
+
+**(A)** Uppercase letter point.
+
+**(i)** Roman numeral point.
+```
+
+**Key requirements for subpoints:**
+- Start paragraph with marker in bold: `**(a)**`, `**(1)**`, `**(A)**`, `**(i)**`, etc.
+- Follow marker with a space, then the content
+- Each subpoint should be its own paragraph (blank line before and after)
+- Supported marker types:
+  - Lowercase letters: `(a)`, `(b)`, `(c)`...
+  - Numbers: `(1)`, `(2)`, `(3)`...
+  - Uppercase letters: `(A)`, `(B)`, `(C)`...
+  - Roman numerals: `(i)`, `(ii)`, `(iii)`, `(iv)`...
+
+#### Nested Subpoints
+
+For hierarchical content (like legal rules), nest subpoints by indentation level:
+
+```markdown
+**(a) Main Point.** Description of the main point.
+
+**(1)** First sub-point under (a).
+
+**(A)** Sub-sub-point under (1).
+
+**(B)** Another sub-sub-point.
+
+**(2)** Second sub-point under (a).
+
+**(b) Second Main Point.** Description continues...
+```
+
+The system automatically:
+- Detects nesting levels based on marker type
+- Draws connecting lines showing hierarchy
+- Propagates selections (selecting a child selects its parents)
+- Propagates deselections (deselecting a parent deselects its children)
+
+### Selection Behavior
+
+**Backward propagation (selecting):**
+- Selecting a subpoint automatically bookmarks all parent headings
+- Selecting a child heading automatically bookmarks parent headings
+
+**Forward propagation (deselecting):**
+- Unbookmarking a heading deselects all subpoints under it
+- Unbookmarking a heading unbookmarks all child headings
+
+### Share/Import Feature
+
+Users can share their selections using alphanumeric codes:
+- Codes encode which headings are bookmarked and which subpoints are selected
+- Codes are page-specific (same code works on the same page across devices)
+- Useful for teachers sharing study guides or students comparing notes
+
+### Example: Federal Rules of Evidence Structure
+
+```markdown
+# Federal Rules of Evidence
+
+## Article I. General Provisions
+
+### Rule 101. Scope; Definitions
+
+**(a) Scope.** These rules apply to proceedings in United States courts.
+
+**(b) Definitions.** In these rules:
+
+**(1)** "civil case" means a civil action or proceeding;
+
+**(2)** "criminal case" includes a criminal proceeding;
+
+**(3)** "public office" includes a public agency;
+
+### Rule 102. Purpose
+
+These rules should be construed so as to administer every proceeding fairly...
+
+## Article II. Judicial Notice
+
+### Rule 201. Judicial Notice of Adjudicative Facts
+
+**(a) Scope.** This rule governs judicial notice...
+```
+
+This structure provides:
+- Clear navigation hierarchy in the sidebar
+- Selectable individual rules and sub-rules
+- Shareable study selections
+- Progress tracking as users scroll
