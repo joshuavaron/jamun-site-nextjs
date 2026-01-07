@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getAllResources } from "@/lib/resources";
-import ResourcesPageContent from "./ResourcesPageContent";
+import { getAllResources, getProgramConfig } from "@/lib/program-resources";
+import { ResourcesPageContent } from "@/components/resources";
 import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
@@ -9,14 +9,15 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
+const programConfig = getProgramConfig("modelun");
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ResourcesPageMetadata" });
+  const t = await getTranslations({ locale, namespace: programConfig.metaTranslationNamespace });
 
   return {
     title: t("title"),
@@ -38,13 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("ogDescription"),
       url: `${siteConfig.url}/modelun/resources`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
     },
     alternates: {
       canonical: `${siteConfig.url}/modelun/resources`,
       languages: {
         en: "/modelun/resources",
         es: "/es/modelun/resources",
+        zh: "/zh/modelun/resources",
       },
     },
   };
@@ -53,7 +55,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ResourcesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const resources = getAllResources(locale);
+  const resources = getAllResources("modelun", locale);
 
-  return <ResourcesPageContent resources={resources} />;
+  return <ResourcesPageContent resources={resources} programConfig={programConfig} />;
 }

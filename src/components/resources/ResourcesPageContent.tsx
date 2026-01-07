@@ -18,16 +18,20 @@ import {
   Clock,
   Layers,
   Rocket,
+  Scale,
+  Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   ResourceMeta,
   ResourceCategory,
   ResourceFormat,
-} from "@/lib/resources";
+  ProgramConfig,
+} from "@/lib/program-resources";
 
 interface ResourcesPageContentProps {
   resources: ResourceMeta[];
+  programConfig: ProgramConfig;
 }
 
 const containerVariants = {
@@ -71,17 +75,28 @@ function getFormatColor(format: ResourceFormat) {
   }
 }
 
+// Get the program icon component
+function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
+  switch (iconName) {
+    case "Scale":
+      return <Scale className={className} />;
+    case "Calculator":
+      return <Calculator className={className} />;
+    default:
+      return <BookOpen className={className} />;
+  }
+}
+
 export default function ResourcesPageContent({
   resources,
+  programConfig,
 }: ResourcesPageContentProps) {
-  const t = useTranslations("ResourcesPage");
-  const [selectedCategories, setSelectedCategories] = useState<
-    Set<ResourceCategory>
-  >(new Set());
-  const [selectedFormats, setSelectedFormats] = useState<Set<ResourceFormat>>(
-    new Set()
-  );
+  const t = useTranslations(programConfig.translationNamespace);
+  const [selectedCategories, setSelectedCategories] = useState<Set<ResourceCategory>>(new Set());
+  const [selectedFormats, setSelectedFormats] = useState<Set<ResourceFormat>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { colors, basePath, iconName } = programConfig;
 
   // Toggle functions for multi-select
   const toggleCategory = (category: ResourceCategory) => {
@@ -141,58 +156,27 @@ export default function ResourcesPageContent({
 
   // Build category options with counts
   const allCategoryOptions: { name: ResourceCategory; count: number }[] = [
-    {
-      name: "Skills" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Skills").length,
-    },
-    {
-      name: "Background" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Background").length,
-    },
-    {
-      name: "Rules" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Rules").length,
-    },
-    {
-      name: "Reference" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Reference").length,
-    },
-    {
-      name: "Examples" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Examples").length,
-    },
-    {
-      name: "Strategy" as ResourceCategory,
-      count: resources.filter((r) => r.category === "Strategy").length,
-    },
+    { name: "Skills" as ResourceCategory, count: resources.filter((r) => r.category === "Skills").length },
+    { name: "Background" as ResourceCategory, count: resources.filter((r) => r.category === "Background").length },
+    { name: "Rules" as ResourceCategory, count: resources.filter((r) => r.category === "Rules").length },
+    { name: "Reference" as ResourceCategory, count: resources.filter((r) => r.category === "Reference").length },
+    { name: "Examples" as ResourceCategory, count: resources.filter((r) => r.category === "Examples").length },
+    { name: "Strategy" as ResourceCategory, count: resources.filter((r) => r.category === "Strategy").length },
   ];
   const categoryOptions = allCategoryOptions.filter((c) => c.count > 0);
 
   // Format options
   const allFormatOptions: { name: ResourceFormat; count: number }[] = [
-    {
-      name: "Article" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Article").length,
-    },
-    {
-      name: "PDF" as ResourceFormat,
-      count: resources.filter((r) => r.format === "PDF").length,
-    },
-    {
-      name: "Video" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Video").length,
-    },
-    {
-      name: "Worksheet" as ResourceFormat,
-      count: resources.filter((r) => r.format === "Worksheet").length,
-    },
+    { name: "Article" as ResourceFormat, count: resources.filter((r) => r.format === "Article").length },
+    { name: "PDF" as ResourceFormat, count: resources.filter((r) => r.format === "PDF").length },
+    { name: "Video" as ResourceFormat, count: resources.filter((r) => r.format === "Video").length },
+    { name: "Worksheet" as ResourceFormat, count: resources.filter((r) => r.format === "Worksheet").length },
   ];
   const formatOptions = allFormatOptions.filter((f) => f.count > 0);
 
   const filteredResources = resources.filter((resource) => {
     const matchesCategory =
-      selectedCategories.size === 0 ||
-      selectedCategories.has(resource.category);
+      selectedCategories.size === 0 || selectedCategories.has(resource.category);
     const matchesFormat =
       selectedFormats.size === 0 || selectedFormats.has(resource.format);
     const matchesSearch =
@@ -208,13 +192,43 @@ export default function ResourcesPageContent({
   const featuredCount = resources.filter((r) => r.featured).length;
   const categoryCount = categoryOptions.length;
 
+  // Dynamic class helpers based on program colors
+  const getBadgeClasses = () => cn(
+    "inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium rounded-full border",
+    colors.primaryBgLight,
+    colors.primaryTextLight,
+    colors.primaryBorder
+  );
+
+  const getSearchFocusClasses = () => cn(
+    "focus:ring-2 focus:border-transparent transition-all",
+    colors.primaryRing,
+    colors.primaryText.replace("text-", "focus:border-")
+  );
+
+  const getSelectedCategoryClasses = () => cn(colors.primaryBg, "text-white");
+  const getSelectedFormatClasses = () => "bg-jamun-blue text-white";
+
+  const getClearButtonClasses = () => cn(
+    "text-sm font-medium flex items-center gap-1 hover:opacity-80",
+    colors.primaryText
+  );
+
+  const getHoverTextClasses = () => colors.primaryText;
+  const getDownloadTextClasses = () => colors.primaryText;
+
   return (
     <main>
       {/* Hero Section with Filters */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50/50 via-white to-sky-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
+      <section className={cn(
+        "relative overflow-hidden bg-gradient-to-br min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24",
+        colors.gradientFrom,
+        colors.gradientVia,
+        colors.gradientTo
+      )}>
         {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-emerald-400/10 to-sky-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10 rounded-full blur-3xl -z-10" />
+        <div className={cn("absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob1)} />
+        <div className={cn("absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob2)} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-sky-100/20 to-emerald-100/20 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -229,9 +243,9 @@ export default function ResourcesPageContent({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200"
+                className={getBadgeClasses()}
               >
-                <BookOpen className="w-4 h-4" />
+                <ProgramIcon iconName={iconName} className="w-4 h-4" />
                 {t("heroBadge")}
               </motion.span>
 
@@ -240,7 +254,12 @@ export default function ResourcesPageContent({
                 <TypewriterText
                   text={t("heroTitleHighlight")}
                   delay={0.3 + 9 * 0.03}
-                  className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent"
+                  className={cn(
+                    "bg-gradient-to-r bg-clip-text text-transparent",
+                    programConfig.type === "mocktrial"
+                      ? "from-purple-600 via-violet-600 to-purple-600"
+                      : "from-emerald-600 via-jamun-blue to-emerald-600"
+                  )}
                 />
               </h1>
 
@@ -266,7 +285,10 @@ export default function ResourcesPageContent({
                   placeholder={t("searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all"
+                  className={cn(
+                    "w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none",
+                    getSearchFocusClasses()
+                  )}
                 />
               </motion.div>
 
@@ -278,7 +300,7 @@ export default function ResourcesPageContent({
                 className="flex flex-wrap gap-6 mt-8"
               >
                 <div className="flex items-center gap-2 text-gray-600">
-                  <BookOpen className="w-5 h-5 text-emerald-600" />
+                  <ProgramIcon iconName={iconName} className={cn("w-5 h-5", colors.primaryText)} />
                   <span className="text-sm">
                     <strong className="text-gray-900">{resources.length}</strong>{" "}
                     {t("resources")}
@@ -291,13 +313,15 @@ export default function ResourcesPageContent({
                     {t("categories")}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Star className="w-5 h-5 text-amber-600" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{featuredCount}</strong>{" "}
-                    {t("featured")}
-                  </span>
-                </div>
+                {featuredCount > 0 && (
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Star className="w-5 h-5 text-amber-600" />
+                    <span className="text-sm">
+                      <strong className="text-gray-900">{featuredCount}</strong>{" "}
+                      {t("featured")}
+                    </span>
+                  </div>
+                )}
               </motion.div>
             </motion.div>
 
@@ -315,7 +339,7 @@ export default function ResourcesPageContent({
                 {hasActiveFilters && (
                   <button
                     onClick={clearAllFilters}
-                    className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1"
+                    className={getClearButtonClasses()}
                   >
                     <X className="w-4 h-4" />
                     {t("clearAll")}
@@ -325,38 +349,40 @@ export default function ResourcesPageContent({
 
               <div className="space-y-6">
                 {/* Category Filter */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                    <Layers className="w-4 h-4" />
-                    {t("categoryLabel")}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {categoryOptions.map((category) => (
-                      <button
-                        key={category.name}
-                        onClick={() => toggleCategory(category.name)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                          selectedCategories.has(category.name)
-                            ? "bg-emerald-600 text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        )}
-                      >
-                        {getCategoryName(category.name)}
-                        <span
+                {categoryOptions.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                      <Layers className="w-4 h-4" />
+                      {t("categoryLabel")}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {categoryOptions.map((category) => (
+                        <button
+                          key={category.name}
+                          onClick={() => toggleCategory(category.name)}
                           className={cn(
-                            "ml-1.5 text-xs",
+                            "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
                             selectedCategories.has(category.name)
-                              ? "text-white/70"
-                              : "text-gray-400"
+                              ? getSelectedCategoryClasses()
+                              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                           )}
                         >
-                          ({category.count})
-                        </span>
-                      </button>
-                    ))}
+                          {getCategoryName(category.name)}
+                          <span
+                            className={cn(
+                              "ml-1.5 text-xs",
+                              selectedCategories.has(category.name)
+                                ? "text-white/70"
+                                : "text-gray-400"
+                            )}
+                          >
+                            ({category.count})
+                          </span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Format Filter */}
                 {formatOptions.length > 0 && (
@@ -373,7 +399,7 @@ export default function ResourcesPageContent({
                           className={cn(
                             "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
                             selectedFormats.has(format.name)
-                              ? "bg-jamun-blue text-white"
+                              ? getSelectedFormatClasses()
                               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                           )}
                         >
@@ -414,7 +440,24 @@ export default function ResourcesPageContent({
           subtitle={t("sectionSubtitle")}
         />
 
-        {filteredResources.length === 0 ? (
+        {/* Empty state for no resources at all */}
+        {resources.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16"
+          >
+            <div className={cn("w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center", colors.primaryBgLight)}>
+              <ProgramIcon iconName={iconName} className={cn("w-8 h-8", colors.primaryText)} />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              {t("comingSoonTitle")}
+            </h3>
+            <p className="text-gray-600 mb-6">
+              {t("comingSoonDescription")}
+            </p>
+          </motion.div>
+        ) : filteredResources.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -445,7 +488,7 @@ export default function ResourcesPageContent({
               const FormatIcon = getFormatIcon(resource.format);
               return (
                 <motion.div key={resource.slug} variants={itemVariants}>
-                  <Link href={`/modelun/resources/${resource.slug}`}>
+                  <Link href={`${basePath}/${resource.slug}`}>
                     <motion.div
                       whileHover={{ y: -4 }}
                       className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
@@ -474,7 +517,10 @@ export default function ResourcesPageContent({
                       </p>
 
                       {/* Title */}
-                      <h4 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                      <h4 className={cn(
+                        "text-lg font-semibold text-gray-900 mb-2 transition-colors",
+                        `group-hover:${getHoverTextClasses()}`
+                      )}>
                         {resource.title}
                       </h4>
 
@@ -499,7 +545,7 @@ export default function ResourcesPageContent({
                             </span>
                           )}
                           {resource.downloadUrl && (
-                            <span className="flex items-center gap-1 text-emerald-600">
+                            <span className={cn("flex items-center gap-1", getDownloadTextClasses())}>
                               <Download className="w-4 h-4" />
                               {t("download")}
                             </span>
@@ -524,16 +570,21 @@ export default function ResourcesPageContent({
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-emerald-100 rounded-full">
-            <Rocket className="w-4 h-4 text-emerald-600" />
-            <span className="text-sm font-medium text-emerald-700">
+          <div className={cn("inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full", colors.primaryBgLight)}>
+            <Rocket className={cn("w-4 h-4", colors.primaryText)} />
+            <span className={cn("text-sm font-medium", colors.primaryTextLight)}>
               {t("ctaBadge")}
             </span>
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
             {t("ctaTitle")}
-            <span className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent">
+            <span className={cn(
+              "bg-gradient-to-r bg-clip-text text-transparent",
+              programConfig.type === "mocktrial"
+                ? "from-purple-600 via-violet-600 to-purple-600"
+                : "from-emerald-600 via-jamun-blue to-emerald-600"
+            )}>
               {t("ctaTitleHighlight")}
             </span>
           </h2>
@@ -544,14 +595,14 @@ export default function ResourcesPageContent({
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/register" size="lg" className="group">
-                {t("registerButton")}
+              <Button href={t("primaryButtonHref")} size="lg" className="group">
+                {t("primaryButton")}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/modelun/committees" variant="outline" size="lg">
-                {t("exploreCommitteesButton")}
+              <Button href={t("secondaryButtonHref")} variant="outline" size="lg">
+                {t("secondaryButton")}
               </Button>
             </motion.div>
           </div>
@@ -565,8 +616,8 @@ export default function ResourcesPageContent({
           >
             {t("questionsText")}{" "}
             <a
-              href="mailto:modelun@jamun.org"
-              className="text-emerald-600 hover:text-emerald-700 transition-colors font-medium"
+              href={`mailto:${programConfig.contactEmail}`}
+              className={cn("transition-colors font-medium hover:opacity-80", colors.primaryText)}
             >
               {t("contactLink")}
             </a>

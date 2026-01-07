@@ -23,14 +23,14 @@ export function LayoutWrapper({
   const isHeaderless = HEADERLESS_PAGES.some((page) => pathname.startsWith(page));
 
   if (isHeaderless) {
-    return <main className="min-h-screen overflow-x-hidden">{children}</main>;
+    return <main className="min-h-screen overflow-x-clip">{children}</main>;
   }
 
   return (
     <>
       {scrollToTop}
       {header}
-      <main className="min-h-screen pt-14 md:pt-16 overflow-x-hidden">{children}</main>
+      <main className="min-h-screen pt-14 md:pt-16 overflow-x-clip">{children}</main>
       {footer}
     </>
   );
