@@ -52,6 +52,7 @@ function generateCommitteeData() {
           isAdHoc: data.isAdHoc || false,
           redHerringTopics: data.redHerringTopics || [],
           canonicalSlug: data.canonicalSlug,
+          backgroundGuide: data.backgroundGuide,
           locale,
         };
       })
@@ -302,6 +303,53 @@ function generateMathletesResourcesData() {
   console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH Mathletes resources`);
 }
 
+// ============================================
+// BACKGROUND GUIDES
+// ============================================
+function generateBackgroundGuidesData() {
+  const contentDirectory = path.join(process.cwd(), 'content/background-guides');
+  const outputFile = path.join(outputDir, 'background-guides.json');
+
+  function getAllGuides(locale) {
+    const localeDir = path.join(contentDirectory, locale);
+
+    if (!fs.existsSync(localeDir)) {
+      return [];
+    }
+
+    const files = fs.readdirSync(localeDir);
+    const guides = files
+      .filter((file) => file.endsWith('.mdx'))
+      .map((file) => {
+        const slug = file.replace(/\.mdx$/, '');
+        const fullPath = path.join(localeDir, file);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+        const { data } = matter(fileContents);
+
+        return {
+          slug,
+          title: data.title || 'Untitled Background Guide',
+          author: data.author || 'JAMUN Staff',
+          publishedAt: data.publishedAt || '',
+          canonicalSlug: data.canonicalSlug,
+          locale,
+        };
+      })
+      .sort((a, b) => a.title.localeCompare(b.title));
+
+    return guides;
+  }
+
+  const data = {
+    en: getAllGuides('en'),
+    es: getAllGuides('es'),
+    zh: getAllGuides('zh'),
+  };
+
+  fs.writeFileSync(outputFile, JSON.stringify(data, null, 2));
+  console.log(`Generated ${outputFile} with ${data.en.length} EN, ${data.es.length} ES, and ${data.zh.length} ZH background guides`);
+}
+
 // Run all generators
 console.log('Generating content data for Cloudflare Workers...\n');
 generateCommitteeData();
@@ -309,4 +357,5 @@ generateBlogData();
 generateResourcesData();
 generateMockTrialResourcesData();
 generateMathletesResourcesData();
+generateBackgroundGuidesData();
 console.log('\nAll content data generated successfully!');

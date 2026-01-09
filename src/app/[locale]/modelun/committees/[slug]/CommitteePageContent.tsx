@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import {
   ArrowLeft,
+  ArrowRight,
   Users,
   Globe,
   FileText,
@@ -429,8 +430,35 @@ export default function CommitteePageContent({
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
                 {t("committeeDocuments")}
               </h2>
-              {committee.documents.length > 0 ? (
+              {(committee.backgroundGuide || committee.documents.length > 0) ? (
                 <div className="space-y-4">
+                  {/* Background Guide Link (if available) */}
+                  {committee.backgroundGuide && (
+                    <motion.div whileHover={{ y: -2 }}>
+                      <Link
+                        href={`/modelun/background-guides/${committee.backgroundGuide}`}
+                        className="group flex items-center gap-4 bg-white rounded-xl p-5 border border-gray-200 hover:border-jamun-blue/30 hover:shadow-md transition-all duration-300"
+                      >
+                        <div className="w-12 h-12 rounded-xl bg-jamun-blue/10 flex items-center justify-center group-hover:bg-jamun-blue/20 transition-colors">
+                          <BookOpen className="w-6 h-6 text-jamun-blue" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-gray-900 group-hover:text-jamun-blue transition-colors">
+                            {t("backgroundGuide")}
+                          </p>
+                          <p className="text-sm text-gray-500 truncate">
+                            {t("backgroundGuideDescription")}
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-jamun-blue group-hover:text-white transition-all">
+                            <ArrowRight className="w-5 h-5" />
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  )}
+                  {/* Other Documents (PDF downloads) */}
                   {committee.documents.map((doc, index) => {
                     const IconComponent = documentIcons[doc.icon || "other"] || File;
                     return (

@@ -51,6 +51,7 @@ export interface CommitteeMeta {
   isAdHoc?: boolean;
   redHerringTopics?: string[];
   canonicalSlug?: string; // Links translations together
+  backgroundGuide?: string; // Slug of associated background guide
   locale: string;
 }
 
@@ -124,6 +125,7 @@ function parseCommitteeFile(fullPath: string, slug: string, locale: string): Com
     isAdHoc: data.isAdHoc || false,
     redHerringTopics: data.redHerringTopics || [],
     canonicalSlug: data.canonicalSlug,
+    backgroundGuide: data.backgroundGuide,
     locale,
     letterFromChair: content,
   };
