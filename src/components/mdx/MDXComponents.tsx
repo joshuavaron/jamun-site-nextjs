@@ -221,6 +221,38 @@ function getTextContent(children: React.ReactNode): string {
   return "";
 }
 
+// Recursively filter out footnote backref elements from remark-gfm
+// These are nested inside <p> tags within <li> elements
+function filterFootnoteBackrefs(children: React.ReactNode): React.ReactNode {
+  return React.Children.map(children, (child) => {
+    if (!React.isValidElement(child)) {
+      return child;
+    }
+
+    const props = child.props as Record<string, unknown>;
+
+    // Check for data-footnote-backref attribute (remark-gfm adds this)
+    if (props['data-footnote-backref']) {
+      return null;
+    }
+
+    // Check for footnote-backref class
+    if (typeof props.className === 'string' && props.className.includes('data-footnote-backref')) {
+      return null;
+    }
+
+    // Recursively filter children if they exist
+    if (props.children) {
+      return React.cloneElement(child, {
+        ...props,
+        children: filterFootnoteBackrefs(props.children as React.ReactNode)
+      } as React.Attributes);
+    }
+
+    return child;
+  });
+}
+
 // Helper to find parent subpoints (elements with lower level that come before this one)
 function getParentSubpoints(el: HTMLParagraphElement, allSubpoints: HTMLParagraphElement[]): HTMLParagraphElement[] {
   const myIndex = allSubpoints.indexOf(el);
@@ -885,7 +917,58 @@ function BookmarkableHeading({
   );
 }
 
+// Footnote reference component (the superscript number in the text)
+// Note: remark-gfm already wraps this in <sup>, so we don't add another wrapper
+const FootnoteRef = ({ targetId, uniqueId, children }: { targetId?: string; uniqueId?: string; children: React.ReactNode }) => {
+  // targetId is the footnote number to link to (e.g., "8" links to fn-8)
+  const footnoteId = targetId || getTextContent(children);
+  // Use the unique ID from remark-gfm (handles multiple refs like fnref-19-2)
+  const elementId = uniqueId || `user-content-fnref-${footnoteId}`;
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const footnoteElement = document.getElementById(`user-content-fn-${footnoteId}`) ||
+                           document.getElementById(`fn-${footnoteId}`);
+    if (footnoteElement) {
+      footnoteElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Add a brief highlight effect
+      footnoteElement.classList.add('footnote-highlight');
+      setTimeout(() => footnoteElement.classList.remove('footnote-highlight'), 2000);
+    }
+  };
+
+  return (
+    <a
+      href={`#user-content-fn-${footnoteId}`}
+      id={elementId}
+      onClick={handleClick}
+      className="footnote-ref text-jamun-blue hover:text-jamun-blue-dark no-underline font-medium transition-colors"
+      aria-describedby={`user-content-fn-${footnoteId}`}
+    >
+      [{children}]
+    </a>
+  );
+};
+
 const components: MDXComponents = {
+  // Footnote section container (wraps the list of footnotes)
+  section: ({ children, ...props }) => {
+    // Check if this is the footnotes section by looking for data-footnotes attribute
+    const dataFootnotes = (props as { 'data-footnotes'?: boolean })['data-footnotes'];
+    if (dataFootnotes) {
+      return (
+        <section className="footnotes-section mt-12 pt-8 border-t border-gray-200" {...props}>
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">References</h2>
+          {children}
+        </section>
+      );
+    }
+    return <section {...props}>{children}</section>;
+  },
+  // Superscript - pass through (footnote ref handling is in the `a` component)
+  sup: ({ children, ...props }) => {
+    return <sup {...props}>{children}</sup>;
+  },
   h1: ({ children }) => (
     <BookmarkableHeading level={1} className="text-3xl md:text-4xl font-semibold text-gray-900 mt-10 mb-6 first:mt-0">
       {children}
@@ -918,7 +1001,20 @@ const components: MDXComponents = {
       <p className="text-gray-700 leading-relaxed mb-6">{children}</p>
     );
   },
-  a: ({ href, children }) => {
+  a: ({ href, children, id, ...props }) => {
+    // Check if this is a footnote reference (remark-gfm puts data-footnote-ref on the <a>)
+    // Structure: <sup><a data-footnote-ref href="#user-content-fn-N" id="user-content-fnref-N">N</a></sup>
+    // Note: For multiple refs to same footnote, remark-gfm appends -2, -3 etc. to id (e.g., fnref-19-2)
+    if ((props as { 'data-footnote-ref'?: boolean })['data-footnote-ref']) {
+      // Extract footnote ID from href for the target link (e.g., "#user-content-fn-8" -> "8")
+      const footnoteId = href?.replace('#user-content-fn-', '') || getTextContent(children);
+      // Preserve the ORIGINAL unique id from remark-gfm (handles multiple refs like fnref-19-2)
+      const originalId = (id as string) || `user-content-fnref-${footnoteId}`;
+      // Display the sequential number from remark-gfm (matches list position), not the original label
+      const displayNumber = getTextContent(children);
+      return <FootnoteRef targetId={footnoteId} uniqueId={originalId}>{displayNumber}</FootnoteRef>;
+    }
+
     const isExternal = href?.startsWith("http");
     if (isExternal) {
       return (
@@ -951,7 +1047,85 @@ const components: MDXComponents = {
       {children}
     </ol>
   ),
-  li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  li: ({ children, ...props }) => {
+    // Check if this is a footnote item (has id starting with "user-content-fn-")
+    const id = (props as { id?: string }).id;
+    if (id && id.startsWith('user-content-fn-')) {
+      const footnoteId = id.replace('user-content-fn-', '');
+      // Recursively filter out the existing backref links from remark-gfm
+      // The backref is nested inside <p> tags with data-footnote-backref attribute
+      const filteredChildren = filterFootnoteBackrefs(children);
+
+      // Create the backref link
+      const backrefLink = (
+        <a
+          key="backref"
+          href={`#user-content-fnref-${footnoteId}`}
+          onClick={(e) => {
+            e.preventDefault();
+            const refElement = document.getElementById(`user-content-fnref-${footnoteId}`);
+            if (refElement) {
+              refElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }}
+          className="footnote-backref text-jamun-blue hover:text-jamun-blue-dark no-underline ml-1"
+          aria-label="Back to content"
+        >
+          ↩
+        </a>
+      );
+
+      // Append backref to the last paragraph's content (inline)
+      const appendBackrefToChildren = (node: React.ReactNode): React.ReactNode => {
+        if (!React.isValidElement(node)) {
+          return node;
+        }
+        const element = node as React.ReactElement<{ children?: React.ReactNode }>;
+        const childArray = React.Children.toArray(element.props.children);
+        // If this is a paragraph, append the backref at the end
+        if (element.type === 'p' || (typeof element.type === 'function' && (element.type as { name?: string }).name === 'p')) {
+          return React.cloneElement(element, {}, ...childArray, backrefLink);
+        }
+        // Otherwise, recursively check the last child
+        if (childArray.length > 0) {
+          const lastIndex = childArray.length - 1;
+          const lastChild = childArray[lastIndex];
+          if (React.isValidElement(lastChild)) {
+            const updatedLast = appendBackrefToChildren(lastChild);
+            return React.cloneElement(element, {}, ...childArray.slice(0, lastIndex), updatedLast);
+          }
+        }
+        return node;
+      };
+
+      // Try to append backref inline; if children is an array, process the last element
+      let contentWithBackref: React.ReactNode;
+      const childArray = React.Children.toArray(filteredChildren);
+      if (childArray.length > 0) {
+        const lastIndex = childArray.length - 1;
+        const lastChild = childArray[lastIndex];
+        if (React.isValidElement(lastChild)) {
+          const updatedLast = appendBackrefToChildren(lastChild);
+          contentWithBackref = [...childArray.slice(0, lastIndex), updatedLast];
+        } else {
+          // Last child is text, just append backref after
+          contentWithBackref = <>{filteredChildren}{backrefLink}</>;
+        }
+      } else {
+        contentWithBackref = <>{filteredChildren}{backrefLink}</>;
+      }
+
+      return (
+        <li
+          id={id}
+          className="leading-relaxed footnote-item text-sm text-gray-600 py-2 px-3 rounded-lg transition-colors"
+        >
+          {contentWithBackref}
+        </li>
+      );
+    }
+    return <li className="leading-relaxed">{children}</li>;
+  },
   blockquote: ({ children }) => (
     <blockquote className="border-l-4 border-jamun-blue/30 pl-6 pr-4 py-4 my-6 bg-jamun-blue/5 rounded-r-lg text-gray-700 italic [&_p]:mb-0">
       {children}

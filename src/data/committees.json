@@ -66,12 +66,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/african-union-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
           "file": "/files/committees/rules-of-procedure.pdf",
@@ -309,6 +303,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "au-assembly",
       "locale": "en"
     },
     {
@@ -339,12 +334,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/american-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -355,6 +344,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "union-high-command",
       "locale": "en"
     },
     {
@@ -380,12 +370,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/asean-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -564,6 +548,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "asean",
       "locale": "en"
     },
     {
@@ -590,12 +575,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/chinese-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -606,6 +585,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "chinese-civil-war",
       "locale": "en"
     },
     {
@@ -636,12 +616,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/cuban-missile-crisis-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -652,6 +626,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "excomm-cuban-missile-crisis",
       "locale": "en"
     },
     {
@@ -677,12 +652,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/disec-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -841,6 +810,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "disec",
       "locale": "en"
     },
     {
@@ -870,12 +840,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/ecosoc-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -1134,6 +1098,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "ecosoc-government-embezzlement",
       "locale": "en"
     },
     {
@@ -1159,12 +1124,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/european-union-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -1291,6 +1250,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "european-union-border-security",
       "locale": "en"
     },
     {
@@ -1317,12 +1277,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/haiti-independence-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -1333,6 +1287,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "haitian-revolution",
       "locale": "en"
     },
     {
@@ -1363,12 +1318,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/rwandan-genocide-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -1379,6 +1328,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "rwanda-1994-rpf",
       "locale": "en"
     },
     {
@@ -1404,12 +1354,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/sochum-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -1668,6 +1612,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "sochum",
       "locale": "en"
     },
     {
@@ -1697,12 +1642,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/specpol-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -1841,6 +1780,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "specpol",
       "locale": "en"
     },
     {
@@ -1867,12 +1807,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/sudan-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -1883,6 +1817,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "usf-anya-nya-1965",
       "locale": "en"
     },
     {
@@ -1909,12 +1844,6 @@
       ],
       "documents": [
         {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the historical context and key figures",
-          "file": "/files/committees/great-depression-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
           "title": "Crisis Procedures",
           "description": "Guide to crisis committee procedures and directive writing",
           "file": "/files/committees/crisis-procedures.pdf",
@@ -1925,6 +1854,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "great-depression-1932",
       "locale": "en"
     },
     {
@@ -1954,12 +1884,6 @@
         }
       ],
       "documents": [
-        {
-          "title": "Background Guide",
-          "description": "Comprehensive guide covering the topic, key issues, and questions to consider",
-          "file": "/files/committees/unicef-background-guide.pdf",
-          "icon": "background-guide"
-        },
         {
           "title": "Rules of Procedure",
           "description": "Parliamentary procedures and rules for committee sessions",
@@ -2098,6 +2022,7 @@
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
+      "backgroundGuide": "unicef",
       "locale": "en"
     }
   ],

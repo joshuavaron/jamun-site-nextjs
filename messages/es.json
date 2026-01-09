@@ -135,6 +135,8 @@
     "committeeExecutives": "Ejecutivos del Comité",
     "letterFromChair": "Carta del Presidente",
     "committeeDocuments": "Documentos del Comité",
+    "backgroundGuide": "Guía de Antecedentes",
+    "backgroundGuideDescription": "Lee la guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
     "documentsComingSoon": "Los documentos serán subidos pronto. ¡Vuelve más tarde!",
     "countryAssignmentsEyebrow": "Asignaciones de Países",
     "countryAssignmentsTitle": "Delegaciones Disponibles",
@@ -1685,5 +1687,16 @@
     "resourceTitle": "No se pudo cargar el recurso",
     "resourceDescription": "No se pudo cargar este recurso. Es posible que se haya movido o que haya habido un problema temporal.",
     "backToResources": "Volver a Recursos"
+  },
+  "BackgroundGuidePage": {
+    "notFoundTitle": "Guía de Antecedentes No Encontrada | JAMUN Modelo ONU",
+    "backgroundGuide": "Guía de Antecedentes",
+    "backToCommittee": "Volver al Comité",
+    "backToCommittees": "Todos los Comités",
+    "saveAsPdf": "Guardar como PDF",
+    "readyToParticipate": "¿Listo para participar en",
+    "viewCommitteeDetails": "Consulta la página del comité para más detalles, asignaciones de países e información de registro.",
+    "viewCommittee": "Ver Comité",
+    "browseAllCommittees": "Ver Todos los Comités"
   }
 }

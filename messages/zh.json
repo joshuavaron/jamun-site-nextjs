@@ -135,6 +135,8 @@
     "committeeExecutives": "委员会主席团",
     "letterFromChair": "主席致辞",
     "committeeDocuments": "委员会文件",
+    "backgroundGuide": "背景指南",
+    "backgroundGuideDescription": "阅读涵盖议题、关键问题和需要考虑的问题的综合指南",
     "documentsComingSoon": "文件即将上传，请稍后查看！",
     "countryAssignmentsEyebrow": "国家分配",
     "countryAssignmentsTitle": "可选代表团",
@@ -1686,5 +1688,16 @@
     "resourceTitle": "无法加载资源",
     "resourceDescription": "无法加载此资源。它可能已被移动或出现临时问题。",
     "backToResources": "返回资源"
+  },
+  "BackgroundGuidePage": {
+    "notFoundTitle": "未找到背景指南 | JAMUN 模拟联合国",
+    "backgroundGuide": "背景指南",
+    "backToCommittee": "返回委员会",
+    "backToCommittees": "所有委员会",
+    "saveAsPdf": "保存为PDF",
+    "readyToParticipate": "准备好参加",
+    "viewCommitteeDetails": "查看委员会页面了解更多详情、国家分配和注册信息。",
+    "viewCommittee": "查看委员会",
+    "browseAllCommittees": "浏览所有委员会"
   }
 }

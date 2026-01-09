@@ -135,6 +135,8 @@
     "committeeExecutives": "Committee Executives",
     "letterFromChair": "Letter from the Chair",
     "committeeDocuments": "Committee Documents",
+    "backgroundGuide": "Background Guide",
+    "backgroundGuideDescription": "Read the comprehensive guide covering the topic, key issues, and questions to consider",
     "documentsComingSoon": "Documents will be uploaded soon. Check back later!",
     "countryAssignmentsEyebrow": "Country Assignments",
     "countryAssignmentsTitle": "Available Delegations",
@@ -1685,5 +1687,16 @@
     "resourceTitle": "Unable to load resource",
     "resourceDescription": "This resource couldn't be loaded. It may have been moved or there was a temporary issue.",
     "backToResources": "Back to Resources"
+  },
+  "BackgroundGuidePage": {
+    "notFoundTitle": "Background Guide Not Found | JAMUN Model UN",
+    "backgroundGuide": "Background Guide",
+    "backToCommittee": "Back to Committee",
+    "backToCommittees": "All Committees",
+    "saveAsPdf": "Save as PDF",
+    "readyToParticipate": "Ready to participate in",
+    "viewCommitteeDetails": "View the committee page for more details, country assignments, and registration information.",
+    "viewCommittee": "View Committee",
+    "browseAllCommittees": "Browse All Committees"
   }
 }
