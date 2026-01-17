@@ -1763,6 +1763,9 @@
     "selectAll": "全选",
     "selectTwoOrMore": "选择2个以上书签进行组合",
     "selected": "已选择",
+    "yourResearch": "你的研究",
+    "noneYet": "暂无",
+    "fillInComprehensionFirst": "请先填写理解层，以便在这里查看您的研究",
     "layers": {
       "comprehension": "理解",
       "ideaFormation": "形成想法",

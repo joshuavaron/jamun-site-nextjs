@@ -25,7 +25,8 @@ import {
   PARAGRAPH_LABELS,
   type IdeaFormationQuestion,
 } from "@/lib/bg-writer/questions";
-import type { ParagraphType, ClassifiedBookmark } from "@/lib/bg-writer/types";
+import type { ParagraphType, ClassifiedBookmark, BookmarkCategory } from "@/lib/bg-writer/types";
+import { CATEGORY_TO_L4_QUESTION, BOOKMARK_CATEGORY_LABELS } from "@/lib/bg-writer/types";
 
 // Group questions by paragraph
 function groupQuestionsByParagraph(
@@ -137,6 +138,14 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
     [summarizeSelectedBookmarks]
   );
 
+  // Get L4 (comprehension) answer by question ID
+  const getL4Answer = useCallback(
+    (questionId: string): string => {
+      return getAnswer("comprehension", questionId);
+    },
+    [getAnswer]
+  );
+
   if (!draft) {
     return (
       <div className="flex items-center justify-center py-12 text-gray-500">
@@ -241,6 +250,7 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
                           handleCombineBookmarks(question.id, bookmarks)
                         }
                         isCombining={aiLoading.summarizing}
+                        getL4Answer={getL4Answer}
                       />
                     ))}
                   </div>
@@ -264,6 +274,8 @@ interface IdeaFormationCardProps {
   summary?: string;
   onCombineBookmarks: (bookmarks: ClassifiedBookmark[]) => Promise<{ success: boolean; summary?: string }>;
   isCombining: boolean;
+  /** Function to get L4 answer by question ID */
+  getL4Answer: (questionId: string) => string;
 }
 
 function IdeaFormationCard({
@@ -273,8 +285,33 @@ function IdeaFormationCard({
   summary,
   onCombineBookmarks,
   isCombining,
+  getL4Answer,
 }: IdeaFormationCardProps) {
   const t = useTranslations("BGWriter");
+  const [showL4Answers, setShowL4Answers] = useState(false);
+
+  // Get L4 answers for relevant categories
+  const l4Answers = useMemo(() => {
+    if (!question.l4Sources || question.l4Sources.length === 0) return [];
+
+    return question.l4Sources
+      .map((category) => {
+        const questionId = CATEGORY_TO_L4_QUESTION[category as BookmarkCategory];
+        if (!questionId) return null;
+
+        const answer = getL4Answer(questionId);
+        if (!answer?.trim()) return null;
+
+        return {
+          category: category as BookmarkCategory,
+          label: BOOKMARK_CATEGORY_LABELS[category as BookmarkCategory] || category,
+          answer: answer.trim(),
+        };
+      })
+      .filter(Boolean) as Array<{ category: BookmarkCategory; label: string; answer: string }>;
+  }, [question.l4Sources, getL4Answer]);
+
+  const hasL4Content = l4Answers.length > 0;
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -297,6 +334,76 @@ function IdeaFormationCard({
             <span className="font-medium">{t("byCombining")}:</span>{" "}
             {question.combineFrom}
           </p>
+        </div>
+      )}
+
+      {/* Your Research (L4 answers) - Show what student wrote in Comprehension layer */}
+      {question.l4Sources && question.l4Sources.length > 0 && (
+        <div className="mb-4">
+          <button
+            onClick={() => setShowL4Answers(!showL4Answers)}
+            className={cn(
+              "flex w-full items-center justify-between rounded-lg border p-2 text-left text-xs transition-colors",
+              hasL4Content
+                ? "border-green-200 bg-green-50 text-green-800 hover:bg-green-100"
+                : "border-gray-200 bg-gray-50 text-gray-500"
+            )}
+          >
+            <div className="flex items-center gap-2">
+              <svg
+                className={cn("h-4 w-4", hasL4Content ? "text-green-600" : "text-gray-400")}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              <span className="font-medium">
+                {t("yourResearch")} {hasL4Content ? `(${l4Answers.length})` : `(${t("noneYet")})`}
+              </span>
+            </div>
+            <motion.span animate={{ rotate: showL4Answers ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </motion.span>
+          </button>
+
+          <AnimatePresence>
+            {showL4Answers && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-2 space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                  {hasL4Content ? (
+                    l4Answers.map((item) => (
+                      <div key={item.category} className="rounded border border-gray-200 bg-white p-2">
+                        <div className="mb-1 flex items-center gap-1">
+                          <span className="rounded bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-700">
+                            {item.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-700 whitespace-pre-wrap">{item.answer}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="py-2 text-center text-xs text-gray-500">
+                      {t("fillInComprehensionFirst")}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       )}
 

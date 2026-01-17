@@ -124,6 +124,38 @@ export const BOOKMARK_CATEGORY_LABELS: Record<BookmarkCategory, string> = {
   other: "Other",
 };
 
+/**
+ * Maps bookmark categories to their corresponding L4 comprehension question IDs.
+ * This allows Layer 3 to show the student's L4 answers for relevant categories.
+ */
+export const CATEGORY_TO_L4_QUESTION: Record<BookmarkCategory, string | null> = {
+  topic_definition: "topicDefinition",
+  key_terms: "keyTerms",
+  scope: "scope",
+  origin: "origin",
+  timeline: "timeline",
+  evolution: "evolution",
+  present_state: "presentState",
+  key_statistics: "keyStatistics",
+  recent_developments: "recentDevelopments",
+  affected_populations: "affectedPopulations",
+  key_actors: "keyActors",
+  power_dynamics: "powerDynamics",
+  un_actions: "unActions",
+  regional_efforts: "regionalEfforts",
+  success_stories: "successStories",
+  failures: "failures",
+  major_debates: "majorDebates",
+  competing_interests: "competingInterests",
+  barriers: "barriers",
+  country_involvement: "countryInvolvement",
+  past_positions: "pastPositions",
+  country_interests: "countryInterests",
+  allies: "allies",
+  constraints: "constraints",
+  other: null,
+};
+
 // =============================================================================
 // BOOKMARK TYPES
 // =============================================================================

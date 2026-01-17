@@ -1762,6 +1762,9 @@
     "selectAll": "Select All",
     "selectTwoOrMore": "Select 2+ bookmarks to combine",
     "selected": "selected",
+    "yourResearch": "Your Research",
+    "noneYet": "none yet",
+    "fillInComprehensionFirst": "Fill in the Comprehension layer first to see your research here",
     "layers": {
       "comprehension": "Comprehension",
       "ideaFormation": "Idea Formation",
