@@ -8,7 +8,7 @@
  * - Rate limiting support utilities
  */
 
-import type { BGWriterDraft, LayerType, TransformType } from "./types";
+import type { BGWriterDraft, LayerType, TransformType, BookmarkSection } from "./types";
 import {
   getQuestionsForLayer,
   getQuestionById,
@@ -24,6 +24,96 @@ import {
   type PriorContext,
 } from "./ai-polish";
 
+/**
+ * Extract keywords from text for relevance matching.
+ * Filters out common stop words and returns lowercase keywords.
+ */
+function extractKeywords(text: string): Set<string> {
+  const stopWords = new Set([
+    "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for",
+    "of", "with", "by", "from", "is", "are", "was", "were", "be", "been",
+    "being", "have", "has", "had", "do", "does", "did", "will", "would",
+    "could", "should", "may", "might", "must", "shall", "can", "this",
+    "that", "these", "those", "it", "its", "as", "if", "when", "than",
+    "so", "no", "not", "only", "own", "same", "too", "very", "just",
+    "also", "now", "here", "there", "where", "how", "all", "each",
+    "every", "both", "few", "more", "most", "other", "some", "such",
+    "what", "which", "who", "whom", "why", "into", "through", "during",
+    "before", "after", "above", "below", "between", "under", "again",
+    "further", "then", "once", "about", "over", "out", "up", "down",
+    "off", "any", "our", "your", "their", "his", "her", "we", "they",
+    "you", "i", "me", "him", "them", "us", "my", "he", "she",
+  ]);
+
+  const words = text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .split(/\s+/)
+    .filter(word => word.length > 2 && !stopWords.has(word));
+
+  return new Set(words);
+}
+
+/**
+ * Calculate relevance score between a bookmark section and query keywords.
+ * Higher score = more relevant.
+ */
+function calculateRelevance(section: BookmarkSection, queryKeywords: Set<string>): number {
+  if (queryKeywords.size === 0) return 0;
+
+  // Extract keywords from both heading and content
+  const headingKeywords = extractKeywords(section.headingText);
+  const contentKeywords = extractKeywords(section.content);
+
+  let score = 0;
+
+  // Heading matches are worth more (3 points each)
+  for (const keyword of queryKeywords) {
+    if (headingKeywords.has(keyword)) {
+      score += 3;
+    }
+  }
+
+  // Content matches (1 point each)
+  for (const keyword of queryKeywords) {
+    if (contentKeywords.has(keyword)) {
+      score += 1;
+    }
+  }
+
+  return score;
+}
+
+/**
+ * Select the most relevant bookmark sections based on query context.
+ * Returns up to `limit` sections sorted by relevance.
+ */
+function selectRelevantSections(
+  sections: BookmarkSection[],
+  queryContext: string,
+  limit: number = 3
+): BookmarkSection[] {
+  if (sections.length <= limit) {
+    return sections;
+  }
+
+  const queryKeywords = extractKeywords(queryContext);
+
+  // Score each section
+  const scored = sections.map(section => ({
+    section,
+    score: calculateRelevance(section, queryKeywords),
+  }));
+
+  // Sort by score descending, then take top `limit`
+  scored.sort((a, b) => b.score - a.score);
+
+  // Return sections with non-zero scores first, then fill with others if needed
+  const relevant = scored.slice(0, limit).map(s => s.section);
+
+  return relevant;
+}
+
 /** Layer order for determining which layers are "previous" */
 const LAYER_ORDER: LayerType[] = [
   "comprehension",
@@ -37,9 +127,10 @@ const LAYER_ORDER: LayerType[] = [
  * This helps the AI use specific information the student has already written.
  *
  * @param draft - The current draft state
+ * @param queryContext - Optional context string for relevance filtering (e.g., question text, section name)
  * @returns PriorContext object with available information
  */
-function gatherPriorContext(draft: BGWriterDraft): PriorContext {
+function gatherPriorContext(draft: BGWriterDraft, queryContext?: string): PriorContext {
   const priorContext: PriorContext = {};
 
   // From comprehension layer
@@ -73,6 +164,60 @@ function gatherPriorContext(draft: BGWriterDraft): PriorContext {
   }
   if (!priorContext.proposedSolutions && research.res_proposed_solutions?.trim()) {
     priorContext.proposedSolutions = research.res_proposed_solutions;
+  }
+
+  // Include bookmarked topics and content from background guides
+  if (draft.importedBookmarks && draft.importedBookmarks.length > 0) {
+    const allTopics: string[] = [];
+    const allSections: BookmarkSection[] = [];
+
+    for (const source of draft.importedBookmarks) {
+      if (source.headingTexts && source.headingTexts.length > 0) {
+        allTopics.push(...source.headingTexts);
+      }
+      // Collect all sections with content
+      if (source.sections && source.sections.length > 0) {
+        for (const section of source.sections) {
+          if (section.content?.trim()) {
+            allSections.push(section);
+          }
+        }
+      }
+    }
+
+    if (allTopics.length > 0) {
+      priorContext.backgroundGuideTopics = allTopics;
+    }
+
+    // Select most relevant sections (limit to 3) based on query context
+    if (allSections.length > 0) {
+      // Build query context from: explicit query, topic, country, and existing draft content
+      const contextParts: string[] = [];
+      if (queryContext) contextParts.push(queryContext);
+      if (draft.topic) contextParts.push(draft.topic);
+      if (draft.country) contextParts.push(draft.country);
+      // Include some existing answers for better context matching
+      if (priorContext.whyImportant) contextParts.push(priorContext.whyImportant);
+      if (priorContext.keyEvents) contextParts.push(priorContext.keyEvents);
+
+      const fullQueryContext = contextParts.join(" ");
+
+      // Select the 3 most relevant sections
+      const relevantSections = selectRelevantSections(allSections, fullQueryContext, 3);
+
+      const contentParts = relevantSections.map(
+        section => `## ${section.headingText}\n${section.content}`
+      );
+
+      if (contentParts.length > 0) {
+        // Limit total content to avoid exceeding token limits
+        const fullContent = contentParts.join("\n\n");
+        priorContext.backgroundGuideContent =
+          fullContent.length > 3000
+            ? fullContent.slice(0, 3000) + "\n\n[Content truncated...]"
+            : fullContent;
+      }
+    }
   }
 
   return priorContext;
@@ -300,10 +445,7 @@ export async function performAutofillWithAI(
     paperContext.committee?.trim() &&
     paperContext.topic?.trim();
 
-  // Gather prior context from what the student has already written
-  const priorContext = gatherPriorContext(draft);
-
-  console.log("[Autofill] Starting autofill for layer:", targetLayer, { useAI, canUseAI, paperContext, priorContext });
+  console.log("[Autofill] Starting autofill for layer:", targetLayer, { useAI, canUseAI, paperContext });
 
   // Get questions for target layer that have autoPopulateFrom
   const questions = getQuestionsForLayer(targetLayer);
@@ -327,6 +469,8 @@ export async function performAutofillWithAI(
     transform: string | undefined;
     isMultiSource: boolean;
     localValue: string;
+    section: string | undefined;
+    translationKey: string;
   }> = [];
 
   for (const question of autoPopulateQuestions) {
@@ -375,6 +519,8 @@ export async function performAutofillWithAI(
           transform,
           isMultiSource,
           localValue,
+          section: question.section,
+          translationKey: question.translationKey,
         });
       }
     } catch (error) {
@@ -397,11 +543,23 @@ export async function performAutofillWithAI(
 
       if (aiTransform) {
         try {
+          // Build question-specific context for relevance filtering
+          // Include section name and question key to help select relevant bookmark sections
+          const questionContext = [
+            task.section,
+            task.translationKey,
+            task.questionId,
+          ].filter(Boolean).join(" ");
+
+          // Gather prior context with question-specific relevance filtering
+          const priorContext = gatherPriorContext(draft, questionContext);
+
           const polishResult = await polishText({
             text: task.localValue,
             context: paperContext!,
             transformType: aiTransform,
             priorContext,
+            targetLayer: targetLayer as "initialContent" | "research",
           });
 
           if (polishResult.success && polishResult.polishedText.trim()) {

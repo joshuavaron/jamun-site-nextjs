@@ -15,8 +15,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui";
 import { useBGWriter } from "./BGWriterContext";
-import { loadBookmarks } from "@/components/mdx/subpoint-storage";
-import type { BookmarkSource } from "@/lib/bg-writer/types";
+import { loadBookmarks, loadBookmarkContent } from "@/components/mdx/subpoint-storage";
+import type { BookmarkSource, BookmarkSection } from "@/lib/bg-writer/types";
 
 interface AvailableGuide {
   pathname: string;
@@ -70,6 +70,19 @@ export function BookmarksSidebar() {
   const [showImportModal, setShowImportModal] = useState(false);
   const [availableGuides, setAvailableGuides] = useState<AvailableGuide[]>([]);
   const [selectedGuides, setSelectedGuides] = useState<Set<string>>(new Set());
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections((prev) => {
+      const next = new Set(prev);
+      if (next.has(sectionId)) {
+        next.delete(sectionId);
+      } else {
+        next.add(sectionId);
+      }
+      return next;
+    });
+  };
 
   // Load available guides when modal opens
   useEffect(() => {
@@ -88,14 +101,40 @@ export function BookmarksSidebar() {
       const guide = availableGuides.find((g) => g.pathname === pathname);
       if (guide) {
         const bookmarkIds = Array.from(loadBookmarks(pathname));
-        // For now, we store IDs - in a full implementation, we'd fetch actual heading text
+        const bookmarkContent = loadBookmarkContent(pathname);
+
+        // Build sections array with actual content
+        const sections: BookmarkSection[] = bookmarkIds
+          .map((id) => {
+            const data = bookmarkContent.get(id);
+            if (data) {
+              return {
+                id: data.id,
+                headingText: data.headingText,
+                content: data.content,
+              };
+            }
+            // Fallback if no content stored (old bookmarks)
+            return {
+              id,
+              headingText: id
+                .replace(/-/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase()),
+              content: "",
+            };
+          })
+          .filter((s) => s.content.trim()); // Only include sections with content
+
         const source: BookmarkSource = {
           pathname,
           title: guide.title,
           headingIds: bookmarkIds,
-          headingTexts: bookmarkIds.map((id) =>
-            id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+          headingTexts: bookmarkIds.map(
+            (id) =>
+              bookmarkContent.get(id)?.headingText ||
+              id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
           ),
+          sections,
           importedAt: new Date().toISOString(),
         };
         addBookmarkSource(source);
@@ -189,20 +228,65 @@ export function BookmarksSidebar() {
                             <X className="h-3.5 w-3.5" />
                           </button>
                         </div>
-                        <div className="space-y-1">
-                          {source.headingTexts.slice(0, 5).map((text, i) => (
-                            <p
-                              key={i}
-                              className="truncate text-xs text-gray-500"
-                            >
-                              • {text}
-                            </p>
-                          ))}
-                          {source.headingTexts.length > 5 && (
-                            <p className="text-xs text-gray-400">
-                              +{source.headingTexts.length - 5} more
-                            </p>
+                        <div className="space-y-2 max-h-64 overflow-y-auto">
+                          {source.sections && source.sections.length > 0 ? (
+                            // Show expandable sections with actual content
+                            source.sections.map((section) => {
+                              const sectionKey = `${source.pathname}:${section.id}`;
+                              const isOpen = expandedSections.has(sectionKey);
+                              return (
+                                <div
+                                  key={section.id}
+                                  className="rounded border border-gray-200 bg-white"
+                                >
+                                  <button
+                                    onClick={() => toggleSection(sectionKey)}
+                                    className="flex w-full items-center justify-between px-2 py-1.5 text-left"
+                                  >
+                                    <span className="text-xs font-medium text-gray-700 truncate">
+                                      {section.headingText}
+                                    </span>
+                                    {isOpen ? (
+                                      <ChevronUp className="h-3 w-3 flex-shrink-0 text-gray-400" />
+                                    ) : (
+                                      <ChevronDown className="h-3 w-3 flex-shrink-0 text-gray-400" />
+                                    )}
+                                  </button>
+                                  <AnimatePresence>
+                                    {isOpen && (
+                                      <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.15 }}
+                                        className="overflow-hidden"
+                                      >
+                                        <p className="border-t border-gray-100 px-2 py-2 text-xs text-gray-600 whitespace-pre-wrap">
+                                          {section.content || "No content available"}
+                                        </p>
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </div>
+                              );
+                            })
+                          ) : (
+                            // Fallback: show heading texts only (old data)
+                            source.headingTexts.slice(0, 5).map((text, i) => (
+                              <p
+                                key={i}
+                                className="truncate text-xs text-gray-500"
+                              >
+                                • {text}
+                              </p>
+                            ))
                           )}
+                          {(!source.sections || source.sections.length === 0) &&
+                            source.headingTexts.length > 5 && (
+                              <p className="text-xs text-gray-400">
+                                +{source.headingTexts.length - 5} more
+                              </p>
+                            )}
                         </div>
                       </div>
                     ))}
