@@ -17,10 +17,24 @@ export interface PaperContext {
   topic: string;
 }
 
+/**
+ * Prior context from earlier sections that helps the AI
+ * understand what the student has already written.
+ */
+export interface PriorContext {
+  whyImportant?: string;
+  keyEvents?: string;
+  countryPosition?: string;
+  pastActions?: string;
+  proposedSolutions?: string;
+}
+
 export interface PolishOptions {
   text: string;
   context: PaperContext;
   transformType: AITransformType;
+  /** Prior answers from previous sections for better context */
+  priorContext?: PriorContext;
 }
 
 export interface PolishResult {
@@ -37,7 +51,7 @@ export interface PolishResult {
  * @returns The polished text or original on failure
  */
 export async function polishText(options: PolishOptions): Promise<PolishResult> {
-  const { text, context, transformType } = options;
+  const { text, context, transformType, priorContext } = options;
 
   // Don't call API for empty text
   if (!text.trim()) {
@@ -66,6 +80,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
         text,
         context,
         transformType,
+        priorContext,
       }),
     });
 

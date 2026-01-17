@@ -21,6 +21,7 @@ import {
   polishText,
   mapToAITransform,
   type PaperContext,
+  type PriorContext,
 } from "./ai-polish";
 
 /** Layer order for determining which layers are "previous" */
@@ -30,6 +31,52 @@ const LAYER_ORDER: LayerType[] = [
   "research",
   "finalDraft",
 ];
+
+/**
+ * Gather prior context from the draft to provide to the AI.
+ * This helps the AI use specific information the student has already written.
+ *
+ * @param draft - The current draft state
+ * @returns PriorContext object with available information
+ */
+function gatherPriorContext(draft: BGWriterDraft): PriorContext {
+  const priorContext: PriorContext = {};
+
+  // From comprehension layer
+  const comp = draft.layers.comprehension;
+  if (comp.comp_why_important?.trim()) {
+    priorContext.whyImportant = comp.comp_why_important;
+  }
+  if (comp.comp_key_events?.trim()) {
+    priorContext.keyEvents = comp.comp_key_events;
+  }
+
+  // From initial content layer
+  const init = draft.layers.initialContent;
+  if (init.init_country_position?.trim()) {
+    priorContext.countryPosition = init.init_country_position;
+  }
+  if (init.init_past_actions?.trim()) {
+    priorContext.pastActions = init.init_past_actions;
+  }
+  if (init.init_proposed_solutions?.trim()) {
+    priorContext.proposedSolutions = init.init_proposed_solutions;
+  }
+
+  // Also check research layer for more detailed answers
+  const research = draft.layers.research;
+  if (!priorContext.countryPosition && research.res_country_position?.trim()) {
+    priorContext.countryPosition = research.res_country_position;
+  }
+  if (!priorContext.pastActions && research.res_past_actions?.trim()) {
+    priorContext.pastActions = research.res_past_actions;
+  }
+  if (!priorContext.proposedSolutions && research.res_proposed_solutions?.trim()) {
+    priorContext.proposedSolutions = research.res_proposed_solutions;
+  }
+
+  return priorContext;
+}
 
 /**
  * Fast string hash using djb2 algorithm.
@@ -253,7 +300,10 @@ export async function performAutofillWithAI(
     paperContext.committee?.trim() &&
     paperContext.topic?.trim();
 
-  console.log("[Autofill] Starting autofill for layer:", targetLayer, { useAI, canUseAI, paperContext });
+  // Gather prior context from what the student has already written
+  const priorContext = gatherPriorContext(draft);
+
+  console.log("[Autofill] Starting autofill for layer:", targetLayer, { useAI, canUseAI, paperContext, priorContext });
 
   // Get questions for target layer that have autoPopulateFrom
   const questions = getQuestionsForLayer(targetLayer);
@@ -351,6 +401,7 @@ export async function performAutofillWithAI(
             text: task.localValue,
             context: paperContext!,
             transformType: aiTransform,
+            priorContext,
           });
 
           if (polishResult.success && polishResult.polishedText.trim()) {
