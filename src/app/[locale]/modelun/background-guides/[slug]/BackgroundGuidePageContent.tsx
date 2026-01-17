@@ -15,6 +15,7 @@ import {
   User,
   Printer,
   Users,
+  PenLine,
 } from "lucide-react";
 import { Section, Button } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
@@ -181,16 +182,24 @@ export default function BackgroundGuidePageContent({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
             className="mt-8 flex flex-wrap gap-3"
+            data-print-hidden="true"
           >
             {/* Print/Save as PDF button */}
             <button
               onClick={handlePrintPDF}
-              data-print-hidden="true"
               className="inline-flex items-center gap-2 px-6 py-3 bg-jamun-blue text-white font-semibold rounded-full hover:bg-jamun-blue/90 transition-colors"
             >
               <Printer className="w-5 h-5" />
               {t("saveAsPdf")}
             </button>
+            {/* Position Paper Writer link */}
+            <Link
+              href="/modelun/resources/position-paper-writer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-jamun-blue font-semibold rounded-full border-2 border-jamun-blue hover:bg-jamun-blue/5 transition-colors"
+            >
+              <PenLine className="w-5 h-5" />
+              {t("writePositionPaper")}
+            </Link>
           </motion.div>
         </div>
       </section>
