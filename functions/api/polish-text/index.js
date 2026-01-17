@@ -7,54 +7,12 @@
  * Free tier: 10,000 neurons/day (~100-200 requests)
  */
 
-// Cloudflare Workers AI types
-interface Ai {
-  run(
-    model: string,
-    options: { prompt: string; max_tokens?: number }
-  ): Promise<{ response: string }>;
-}
-
-interface Env {
-  AI: Ai;
-}
-
-// Cloudflare Pages Function types
-interface EventContext<E = Env> {
-  request: Request;
-  env: E;
-  params: Record<string, string>;
-  waitUntil: (promise: Promise<unknown>) => void;
-  passThroughOnException: () => void;
-}
-
-type PagesFunction<E = Env> = (context: EventContext<E>) => Response | Promise<Response>;
-
-export interface PolishRequestBody {
-  text: string;
-  context: {
-    country: string;
-    committee: string;
-    topic: string;
-  };
-  transformType:
-    | "bullets-to-paragraph"
-    | "expand-sentence"
-    | "formalize"
-    | "combine-solutions";
-}
-
-interface PolishResponseBody {
-  polishedText: string;
-  error?: string;
-}
-
 // Rate limiting: track requests per IP (simple in-memory, resets on cold start)
-const requestCounts = new Map<string, { count: number; resetTime: number }>();
+const requestCounts = new Map();
 const RATE_LIMIT = 20; // requests per minute per IP
 const RATE_WINDOW_MS = 60 * 1000;
 
-function checkRateLimit(ip: string): boolean {
+function checkRateLimit(ip) {
   const now = Date.now();
   const record = requestCounts.get(ip);
 
@@ -71,14 +29,10 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-function buildPrompt(
-  text: string,
-  context: PolishRequestBody["context"],
-  transformType: PolishRequestBody["transformType"]
-): string {
+function buildPrompt(text, context, transformType) {
   const { country, committee, topic } = context;
 
-  const prompts: Record<PolishRequestBody["transformType"], string> = {
+  const prompts = {
     "bullets-to-paragraph": `You are helping a middle school student write a Model UN position paper.
 
 Convert these bullet points into a well-written paragraph. Keep the content accurate but make it flow naturally.
@@ -132,7 +86,7 @@ Write a paragraph that presents these solutions professionally, using transition
   return prompts[transformType];
 }
 
-export const onRequestPost: PagesFunction<Env> = async (context) => {
+export async function onRequestPost(context) {
   // CORS headers
   const corsHeaders = {
     "Access-Control-Allow-Origin": "*",
@@ -151,26 +105,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       context.request.headers.get("CF-Connecting-IP") || "unknown";
     if (!checkRateLimit(clientIP)) {
       return Response.json(
-        { error: "Rate limit exceeded. Please wait a moment." } as PolishResponseBody,
+        { error: "Rate limit exceeded. Please wait a moment." },
         { status: 429, headers: corsHeaders }
       );
     }
 
     // Parse request
-    const body = (await context.request.json()) as PolishRequestBody;
+    const body = await context.request.json();
     const { text, context: paperContext, transformType } = body;
 
     // Validate input
     if (!text?.trim()) {
       return Response.json(
-        { error: "No text provided", polishedText: "" } as PolishResponseBody,
+        { error: "No text provided", polishedText: "" },
         { status: 400, headers: corsHeaders }
       );
     }
 
     if (!paperContext?.country || !paperContext?.committee || !paperContext?.topic) {
       return Response.json(
-        { error: "Missing context (country, committee, or topic)", polishedText: "" } as PolishResponseBody,
+        { error: "Missing context (country, committee, or topic)", polishedText: "" },
         { status: 400, headers: corsHeaders }
       );
     }
@@ -183,7 +137,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ];
     if (!validTransforms.includes(transformType)) {
       return Response.json(
-        { error: "Invalid transform type", polishedText: "" } as PolishResponseBody,
+        { error: "Invalid transform type", polishedText: "" },
         { status: 400, headers: corsHeaders }
       );
     }
@@ -200,7 +154,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const polishedText = result.response?.trim() || text;
 
     return Response.json(
-      { polishedText } as PolishResponseBody,
+      { polishedText },
       { headers: corsHeaders }
     );
   } catch (error) {
@@ -211,8 +165,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       {
         error: "AI processing failed",
         polishedText: "",
-      } as PolishResponseBody,
+      },
       { status: 500, headers: corsHeaders }
     );
   }
-};
+}
+
+// Handle OPTIONS requests for CORS preflight
+export async function onRequestOptions() {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
