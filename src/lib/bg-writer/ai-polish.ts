@@ -56,6 +56,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
   try {
     console.log("[AI Polish] Calling /api/polish-text with:", { transformType, textLength: text.length, context });
 
+    // Note: No trailing slash - Cloudflare Pages Functions don't use trailingSlash
     const response = await fetch("/api/polish-text", {
       method: "POST",
       headers: {
