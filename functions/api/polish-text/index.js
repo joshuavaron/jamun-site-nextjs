@@ -66,7 +66,7 @@ ${contextSection}
 Turn these bullet points into a short, readable paragraph:
 ${text}
 
-Keep it simple and natural - like how a student would actually talk about this topic. Use the background information provided to make it specific and accurate. Output only the paragraph.`,
+IMPORTANT: Output ONLY the paragraph text. No quotes, no preamble like "Here's a paragraph", no explanations. Just the content itself.`,
 
     "expand-sentence": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy.
 
@@ -75,9 +75,9 @@ Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
 Expand this into 2-3 sentences with more detail:
-"${text}"
+${text}
 
-Keep it simple and natural. Use the background information to add specific details. Output only the expanded text.`,
+IMPORTANT: Output ONLY the expanded text. No quotes, no preamble, no explanations. Just the content itself.`,
 
     formalize: `You are helping a middle school student write a Model UN position paper. The writing should sound confident but still like a student wrote it - not like a government document.
 
@@ -86,9 +86,9 @@ Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
 Polish this text to sound a bit more professional while keeping it readable:
-"${text}"
+${text}
 
-Don't make it sound robotic or overly formal. Keep the student's voice. Use the background information to make it more specific. Output only the polished text.`,
+IMPORTANT: Output ONLY the polished text. No quotes, no preamble, no explanations. Just the content itself.`,
 
     "combine-solutions": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would.
 
@@ -99,7 +99,7 @@ ${contextSection}
 Combine these solutions into one smooth paragraph:
 ${text}
 
-Use simple transitions like "First," "Also," and "Finally." Keep it clear and direct - not overly formal. Use the background information to make the solutions more specific. Output only the paragraph.`,
+IMPORTANT: Output ONLY the paragraph text. No quotes, no preamble like "Here's the combined paragraph", no explanations. Just the content itself.`,
   };
 
   return prompts[transformType];
@@ -169,8 +169,31 @@ export async function onRequestPost(context) {
       max_tokens: 500,
     });
 
-    // Return polished text
-    const polishedText = result.response?.trim() || text;
+    // Clean up the response - remove quotes and common preambles
+    let polishedText = result.response?.trim() || text;
+
+    // Remove surrounding quotes if present
+    if ((polishedText.startsWith('"') && polishedText.endsWith('"')) ||
+        (polishedText.startsWith("'") && polishedText.endsWith("'"))) {
+      polishedText = polishedText.slice(1, -1).trim();
+    }
+
+    // Remove common preambles the model might add
+    const preambles = [
+      /^Here['']?s (?:a |the )?(?:paragraph|text|polished text|expanded text|combined paragraph)[:\s]*/i,
+      /^(?:The )?(?:paragraph|text|polished text|expanded text) (?:is|reads)[:\s]*/i,
+      /^Sure[,!]?\s*/i,
+      /^Here you go[:\s]*/i,
+    ];
+    for (const pattern of preambles) {
+      polishedText = polishedText.replace(pattern, "");
+    }
+
+    // Remove quotes again after stripping preambles
+    if ((polishedText.startsWith('"') && polishedText.endsWith('"')) ||
+        (polishedText.startsWith("'") && polishedText.endsWith("'"))) {
+      polishedText = polishedText.slice(1, -1).trim();
+    }
 
     return Response.json(
       { polishedText },
