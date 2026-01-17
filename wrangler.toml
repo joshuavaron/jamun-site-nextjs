@@ -3,6 +3,7 @@
 
 name = "jamun-site"
 compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
 
 # Build output directory (where Next.js static export goes)
 pages_build_output_dir = "out"
