@@ -1762,6 +1762,9 @@
     "selectAll": "Seleccionar Todo",
     "selectTwoOrMore": "Selecciona 2+ marcadores para combinar",
     "selected": "seleccionados",
+    "yourResearch": "Tu Investigación",
+    "noneYet": "ninguno aún",
+    "fillInComprehensionFirst": "Completa la capa de Comprensión primero para ver tu investigación aquí",
     "layers": {
       "comprehension": "Comprensión",
       "ideaFormation": "Formación de Ideas",

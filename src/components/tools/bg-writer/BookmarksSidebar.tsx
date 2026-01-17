@@ -65,7 +65,12 @@ function getAvailableGuides(): AvailableGuide[] {
 
 export function BookmarksSidebar() {
   const t = useTranslations("BGWriter");
-  const { importedBookmarks, addBookmarkSource, removeBookmarkSource } = useBGWriter();
+  const {
+    importedBookmarks,
+    addBookmarkSource,
+    removeBookmarkSource,
+    importAndClassifyBookmarks,
+  } = useBGWriter();
   const [isExpanded, setIsExpanded] = useState(true);
   const [showImportModal, setShowImportModal] = useState(false);
   const [availableGuides, setAvailableGuides] = useState<AvailableGuide[]>([]);
@@ -96,8 +101,12 @@ export function BookmarksSidebar() {
     }
   }, [showImportModal, importedBookmarks]);
 
-  const handleImport = () => {
-    selectedGuides.forEach((pathname) => {
+  const [isImporting, setIsImporting] = useState(false);
+
+  const handleImport = async () => {
+    setIsImporting(true);
+
+    for (const pathname of selectedGuides) {
       const guide = availableGuides.find((g) => g.pathname === pathname);
       if (guide) {
         const bookmarkIds = Array.from(loadBookmarks(pathname));
@@ -138,8 +147,22 @@ export function BookmarksSidebar() {
           importedAt: new Date().toISOString(),
         };
         addBookmarkSource(source);
+
+        // Also classify and add to classifiedBookmarks (v2 system)
+        // This makes them available in the Idea Formation layer
+        if (sections.length > 0) {
+          const bookmarksToClassify = sections.map((s) => ({
+            content: s.content,
+            headingText: s.headingText,
+            sourceTitle: guide.title,
+            sourcePathname: pathname,
+          }));
+          await importAndClassifyBookmarks(bookmarksToClassify);
+        }
       }
-    });
+    }
+
+    setIsImporting(false);
     setShowImportModal(false);
   };
 
@@ -361,9 +384,9 @@ export function BookmarksSidebar() {
                 </Button>
                 <Button
                   onClick={handleImport}
-                  disabled={selectedGuides.size === 0}
+                  disabled={selectedGuides.size === 0 || isImporting}
                 >
-                  {t("bookmarks.importSelected")}
+                  {isImporting ? "Classifying..." : t("bookmarks.importSelected")}
                 </Button>
               </div>
             </motion.div>
