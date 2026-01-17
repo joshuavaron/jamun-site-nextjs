@@ -1861,7 +1861,8 @@
       "successWithAI": "IA mejoró {aiCount} de {count} campos",
       "noChanges": "Sin datos nuevos",
       "error": "Error al autocompletar",
-      "hint": "Completar con IA desde pasos anteriores"
+      "hint": "Completar con IA desde pasos anteriores",
+      "aiFilled": "Completado por IA"
     },
     "bookmarks": {
       "title": "Material de Referencia",

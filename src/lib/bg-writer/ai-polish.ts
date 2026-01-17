@@ -54,6 +54,8 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
   }
 
   try {
+    console.log("[AI Polish] Calling /api/polish-text with:", { transformType, textLength: text.length, context });
+
     const response = await fetch("/api/polish-text", {
       method: "POST",
       headers: {
@@ -66,9 +68,12 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
       }),
     });
 
+    console.log("[AI Polish] Response status:", response.status);
+
     if (!response.ok) {
       // Handle rate limiting specially
       if (response.status === 429) {
+        console.warn("[AI Polish] Rate limited");
         return {
           success: false,
           polishedText: text,
@@ -78,6 +83,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
 
       // Other errors - return original text
       const errorData = await response.json().catch(() => ({}));
+      console.error("[AI Polish] Error response:", errorData);
       return {
         success: false,
         polishedText: text,
@@ -86,6 +92,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
     }
 
     const data = (await response.json()) as { polishedText: string; error?: string };
+    console.log("[AI Polish] Success response:", { polishedTextLength: data.polishedText?.length, error: data.error });
 
     // If we got polished text, use it; otherwise fall back to original
     if (data.polishedText?.trim()) {
@@ -102,7 +109,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
     };
   } catch (error) {
     // Network errors, etc. - return original text
-    console.error("AI polish network error:", error);
+    console.error("[AI Polish] Network error:", error);
     return {
       success: false,
       polishedText: text,

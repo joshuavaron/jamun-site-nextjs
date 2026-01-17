@@ -1862,7 +1862,8 @@
       "successWithAI": "AI优化了{count}个字段中的{aiCount}个",
       "noChanges": "没有新数据",
       "error": "自动填充失败",
-      "hint": "使用AI从之前步骤填充"
+      "hint": "使用AI从之前步骤填充",
+      "aiFilled": "AI填充"
     },
     "bookmarks": {
       "title": "参考资料",
