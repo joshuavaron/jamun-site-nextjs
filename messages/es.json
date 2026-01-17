@@ -1853,6 +1853,16 @@
       "preview": "Vista Previa",
       "edit": "Editar"
     },
+    "autofill": {
+      "button": "IA Autocompletar",
+      "filling": "Procesando IA...",
+      "cooldown": "Espera {seconds}s",
+      "success": "Se completaron {count} campos",
+      "successWithAI": "IA mejoró {aiCount} de {count} campos",
+      "noChanges": "Sin datos nuevos",
+      "error": "Error al autocompletar",
+      "hint": "Completar con IA desde pasos anteriores"
+    },
     "bookmarks": {
       "title": "Material de Referencia",
       "importFrom": "Importar de Guía de Antecedentes",

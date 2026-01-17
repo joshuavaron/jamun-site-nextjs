@@ -1854,6 +1854,16 @@
       "preview": "预览",
       "edit": "编辑"
     },
+    "autofill": {
+      "button": "AI自动填充",
+      "filling": "AI处理中...",
+      "cooldown": "等待{seconds}秒",
+      "success": "已填充{count}个字段",
+      "successWithAI": "AI优化了{count}个字段中的{aiCount}个",
+      "noChanges": "没有新数据",
+      "error": "自动填充失败",
+      "hint": "使用AI从之前步骤填充"
+    },
     "bookmarks": {
       "title": "参考资料",
       "importFrom": "从背景指南导入",

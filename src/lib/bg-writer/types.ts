@@ -78,6 +78,26 @@ export interface LayerInfo {
   icon: string;
 }
 
+/**
+ * State for the autofill system
+ */
+export interface AutofillState {
+  /** Timestamp of last autofill operation */
+  lastAutofillTimestamp: number | null;
+  /** Hash of source data at last autofill (for change detection) */
+  lastAutofillSourceHash: string | null;
+  /** Whether autofill is currently in progress */
+  isAutofilling: boolean;
+  /** Seconds remaining in cooldown period */
+  cooldownRemaining: number;
+}
+
+/** Cooldown duration in seconds between autofill operations */
+export const AUTOFILL_COOLDOWN_SECONDS = 3;
+
+/** Debounce duration in milliseconds for rapid clicks */
+export const AUTOFILL_DEBOUNCE_MS = 100;
+
 export const LAYER_INFO: Record<LayerType, LayerInfo> = {
   comprehension: {
     type: "comprehension",
