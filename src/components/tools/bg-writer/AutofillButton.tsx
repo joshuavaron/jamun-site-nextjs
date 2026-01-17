@@ -30,8 +30,8 @@ export function AutofillButton() {
   });
 
   // Don't show on comprehension layer (nothing to autofill from)
-  // or final draft layer (uses template generation instead)
-  if (currentLayer === "comprehension" || currentLayer === "finalDraft") {
+  // or final paper layer (uses template generation instead)
+  if (currentLayer === "comprehension" || currentLayer === "finalPaper") {
     return null;
   }
 

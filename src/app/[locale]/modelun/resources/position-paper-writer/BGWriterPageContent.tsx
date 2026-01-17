@@ -14,8 +14,8 @@ import {
   BookmarksSidebar,
   ExportImportPanel,
   ComprehensionLayer,
-  InitialContentLayer,
-  ResearchLayer,
+  IdeaFormationLayer,
+  ParagraphComponentsLayer,
   FinalDraftLayer,
 } from "@/components/tools/bg-writer";
 
@@ -27,11 +27,11 @@ function BGWriterContent() {
     switch (currentLayer) {
       case "comprehension":
         return <ComprehensionLayer />;
-      case "initialContent":
-        return <InitialContentLayer />;
-      case "research":
-        return <ResearchLayer />;
-      case "finalDraft":
+      case "ideaFormation":
+        return <IdeaFormationLayer />;
+      case "paragraphComponents":
+        return <ParagraphComponentsLayer />;
+      case "finalPaper":
         return <FinalDraftLayer />;
       default:
         return <ComprehensionLayer />;

@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { fadeInUp } from "@/lib/animations";
 import type { QuestionInputType } from "@/lib/bg-writer/types";
 
 interface QuestionCardProps {
@@ -135,8 +133,7 @@ export function QuestionCard({
   };
 
   return (
-    <motion.div
-      variants={fadeInUp}
+    <div
       className={cn(
         "rounded-xl border p-6 shadow-sm",
         isAIFilled && value
@@ -168,6 +165,6 @@ export function QuestionCard({
       </div>
 
       {renderInput()}
-    </motion.div>
+    </div>
   );
 }

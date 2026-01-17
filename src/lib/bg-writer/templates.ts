@@ -1,17 +1,18 @@
 /**
  * Position Paper Template Generator
  *
- * Generates the final draft template by directly assembling
- * the structured paragraphs from Layer 3.
+ * Version 2 - Generates the final draft by assembling the 24 polished
+ * sections from Layer 2 (paragraphComponents) into a 5-paragraph paper.
  *
- * IMPORTANT: This template uses "effective values" which means:
- * - If the user has typed content, use that
- * - Otherwise, compute the auto-populated value from earlier layers
- *   by recursively following the entire auto-populate chain
+ * Per PP-Writer.md:
+ * - Intro (5 sections): hook, context, alternate perspective, call to action, thesis
+ * - Background (6 sections): intro sentence, fact1, analysis1, fact2, analysis2, summary
+ * - Position (5 sections): intro sentence, statement, evidence, analysis, reasoning
+ * - Solutions (5 sections): intro sentence, proposal, evidence, connection, alternate
+ * - Conclusion (3 sections): summary of evidence, position, solution
  */
 
 import type { BGWriterDraft } from "./types";
-import { getQuestionById, getEffectiveValueRecursive } from "./questions";
 
 type TranslateFunction = (key: string, values?: Record<string, string | number>) => string;
 
@@ -38,41 +39,24 @@ function combineToParagraph(...texts: (string | undefined)[]): string {
 }
 
 /**
- * Create a layer data accessor for a draft
- * This allows the recursive function to access draft data
- */
-function createDraftAccessor(draft: BGWriterDraft) {
-  return {
-    getDirectValue: (questionId: string) => {
-      const question = getQuestionById(questionId);
-      if (!question) return "";
-      const layer = question.layer;
-      if (layer === "finalDraft") return draft.layers.finalDraft;
-      return draft.layers[layer][questionId] || "";
-    },
-    country: draft.country || "Our delegation",
-  };
-}
-
-
-/**
  * Generate position paper template from draft data
  *
- * This version directly uses the structured fields from Layer 3,
- * making the final draft nearly complete if all sections are filled.
+ * Assembles the 5-paragraph paper from Layer 2 (paragraphComponents):
+ * - Introduction paragraph
+ * - Background paragraph
+ * - Position paragraph
+ * - Solutions paragraph
+ * - Conclusion paragraph
  */
 export function generatePositionPaperTemplate(
   draft: BGWriterDraft,
   t: TranslateFunction
 ): string {
   const { country, committee, topic, layers } = draft;
-  const { initialContent } = layers;
+  const { paragraphComponents } = layers;
 
-  // Create accessor for recursive value lookup
-  const accessor = createDraftAccessor(draft);
-
-  // Helper to get effective value (user input or recursively computed auto-populated)
-  const getValue = (questionId: string) => getEffectiveValueRecursive(questionId, accessor);
+  // Helper to get direct L2 value
+  const getL2 = (key: string) => paragraphComponents[key] || "";
 
   const sections: string[] = [];
 
@@ -85,153 +69,173 @@ export function generatePositionPaperTemplate(
   sections.push("---");
   sections.push("");
 
-  // Introduction - Build from Layer 3 (with auto-population from Layer 2)
+  // =========================================================================
+  // INTRODUCTION PARAGRAPH
+  // =========================================================================
   sections.push(`## ${t("finalDraftTemplate.introduction")}`);
   sections.push("");
 
   const introParagraph = combineToParagraph(
-    getValue("introTopicSentence"),
-    getValue("introContext"),
-    getValue("introThesis"),
-    getValue("introPreview")
+    getL2("introSentence"),       // Hook sentence
+    getL2("broadContext"),        // Broad context
+    getL2("alternatePerspective"),// Alternate perspective
+    getL2("callToAction"),        // Call to action
+    getL2("thesis")               // Thesis statement
   );
 
   if (introParagraph) {
     sections.push(introParagraph);
   } else {
-    // Fallback to Layer 2 building blocks directly
-    const fallback = combineToParagraph(
-      initialContent.hookSentence,
-      initialContent.topicImportance,
-      initialContent.thesisStatement
-    );
-    sections.push(fallback || `[${t("finalDraftTemplate.introPlaceholder")}]`);
+    sections.push(`[${t("finalDraftTemplate.introPlaceholder")}]`);
   }
   sections.push("");
 
-  // Background - Build from Layer 3 (with auto-population)
+  // =========================================================================
+  // BACKGROUND PARAGRAPH
+  // =========================================================================
   sections.push(`## ${t("finalDraftTemplate.background")}`);
   sections.push("");
 
   const bgParagraph = combineToParagraph(
-    getValue("bgTopicSentence"),
-    getValue("bgEvidence"),
-    getValue("bgAnalysis"),
-    getValue("bgTransition")
+    getL2("bgIntroSentence"),    // Background intro sentence
+    getL2("keyFact1"),           // Key fact 1
+    getL2("analysis1"),          // Analysis of fact 1
+    getL2("keyFact2"),           // Key fact 2
+    getL2("analysis2"),          // Analysis of fact 2
+    getL2("bgSummary")           // Background summary
   );
 
   if (bgParagraph) {
     sections.push(bgParagraph);
   } else {
-    // Fallback to Layer 2 building blocks directly
-    const fallback = combineToParagraph(
-      initialContent.backgroundContext,
-      initialContent.keyEventsDescription,
-      initialContent.currentSituation
-    );
-    sections.push(fallback || `[${t("finalDraftTemplate.backgroundPlaceholder")}]`);
+    sections.push(`[${t("finalDraftTemplate.backgroundPlaceholder")}]`);
   }
   sections.push("");
 
-  // Country Position - Build from Layer 3 (with auto-population)
+  // =========================================================================
+  // POSITION PARAGRAPH
+  // =========================================================================
   sections.push(`## ${t("finalDraftTemplate.position")}`);
   sections.push("");
 
   const posParagraph = combineToParagraph(
-    getValue("posTopicSentence"),
-    getValue("posEvidence"),
-    getValue("posAnalysis")
+    getL2("posIntroSentence"),   // Position intro sentence
+    getL2("positionStatement"),  // Position statement
+    getL2("posEvidence"),        // Position evidence
+    getL2("posAnalysis"),        // Position analysis
+    getL2("reasoning")           // Reasoning
   );
 
   if (posParagraph) {
     sections.push(posParagraph);
   } else {
-    // Fallback to Layer 2 building blocks directly
-    const fallback = combineToParagraph(
-      initialContent.positionStatement,
-      initialContent.positionReason1,
-      initialContent.positionReason2,
-      initialContent.pastActions
-    );
-    sections.push(fallback || `[${t("finalDraftTemplate.positionPlaceholder")}]`);
+    sections.push(`[${t("finalDraftTemplate.positionPlaceholder")}]`);
   }
   sections.push("");
 
-  // Counterargument section (if provided - these don't have auto-population)
-  const counterargument = getValue("posCounterargument");
-  const rebuttal = getValue("posRebuttal");
-  if (counterargument || rebuttal) {
-    sections.push(`### ${t("finalDraftTemplate.counterarguments")}`);
-    sections.push("");
-    const counterParagraph = combineToParagraph(counterargument, rebuttal);
-    sections.push(counterParagraph);
-    sections.push("");
-  }
-
-  // Proposed Solutions - Build from Layer 3 (with auto-population)
+  // =========================================================================
+  // SOLUTIONS PARAGRAPH
+  // =========================================================================
   sections.push(`## ${t("finalDraftTemplate.solutions")}`);
   sections.push("");
 
   const solParagraph = combineToParagraph(
-    getValue("solTopicSentence"),
-    getValue("solSolution1Full"),
-    getValue("solSolution2Full"),
-    getValue("solSolution3Full"),
-    getValue("solImplementation")
+    getL2("solIntroSentence"),      // Solutions intro sentence
+    getL2("solutionProposal"),      // Main solution proposal
+    getL2("solEvidence"),           // Solution evidence
+    getL2("connectionToSolution"),  // Connection to solution
+    getL2("alternateSolution")      // Alternate solution
   );
 
   if (solParagraph) {
     sections.push(solParagraph);
   } else {
-    // Fallback to Layer 2 building blocks directly
-    const solutions = [
-      initialContent.solution1,
-      initialContent.solution2,
-      initialContent.solution3,
-    ].filter(Boolean);
-
-    if (solutions.length > 0) {
-      sections.push(`${country || "Our delegation"} proposes the following solutions to address this issue.`);
-      solutions.forEach((sol, i) => {
-        if (sol) {
-          const prefix = i === 0 ? "First" : i === 1 ? "Second" : "Third";
-          const sentence = sol.trim();
-          const lowercased = sentence.charAt(0).toLowerCase() + sentence.slice(1);
-          sections.push(`${prefix}, ${lowercased}${sentence.endsWith(".") ? "" : "."}`);
-        }
-      });
-    } else {
-      sections.push(`[${t("finalDraftTemplate.solutionsPlaceholder")}]`);
-    }
+    sections.push(`[${t("finalDraftTemplate.solutionsPlaceholder")}]`);
   }
   sections.push("");
 
-  // Conclusion - Build from Layer 3 (with auto-population)
+  // =========================================================================
+  // CONCLUSION PARAGRAPH
+  // =========================================================================
   sections.push(`## ${t("finalDraftTemplate.conclusion")}`);
   sections.push("");
 
   const conParagraph = combineToParagraph(
-    getValue("conRestatement"),
-    getValue("conSummary"),
-    getValue("conCallToAction")
+    getL2("summaryEvidence"),    // Summary of evidence
+    getL2("summaryPosition"),    // Summary of position
+    getL2("summarySolution")     // Summary of solution
   );
 
   if (conParagraph) {
     sections.push(conParagraph);
-  } else if (initialContent.thesisStatement) {
-    // Generate a conclusion from the thesis
-    sections.push(
-      `In conclusion, ${country || "[Country]"} remains committed to working with the international community to address ${topic || "this issue"}. ${ensurePeriod(initialContent.thesisStatement)} ${country || "Our delegation"} looks forward to collaborating with fellow member states to develop effective and lasting solutions.`
-    );
   } else {
+    // Generate a basic conclusion if nothing is filled
     sections.push(`[${t("finalDraftTemplate.conclusionPlaceholder")}]`);
   }
   sections.push("");
 
-  // Footer
+  // =========================================================================
+  // FOOTER
+  // =========================================================================
   sections.push("---");
   sections.push("");
   sections.push(`*${t("finalDraftTemplate.footer", { country: country || "[Country]" })}*`);
 
   return sections.join("\n");
+}
+
+/**
+ * Generate a preview of a specific paragraph
+ */
+export function generateParagraphPreview(
+  draft: BGWriterDraft,
+  paragraph: "intro" | "background" | "position" | "solutions" | "conclusion"
+): string {
+  const { paragraphComponents } = draft.layers;
+
+  const getL2 = (key: string) => paragraphComponents[key] || "";
+
+  switch (paragraph) {
+    case "intro":
+      return combineToParagraph(
+        getL2("introSentence"),
+        getL2("broadContext"),
+        getL2("alternatePerspective"),
+        getL2("callToAction"),
+        getL2("thesis")
+      );
+    case "background":
+      return combineToParagraph(
+        getL2("bgIntroSentence"),
+        getL2("keyFact1"),
+        getL2("analysis1"),
+        getL2("keyFact2"),
+        getL2("analysis2"),
+        getL2("bgSummary")
+      );
+    case "position":
+      return combineToParagraph(
+        getL2("posIntroSentence"),
+        getL2("positionStatement"),
+        getL2("posEvidence"),
+        getL2("posAnalysis"),
+        getL2("reasoning")
+      );
+    case "solutions":
+      return combineToParagraph(
+        getL2("solIntroSentence"),
+        getL2("solutionProposal"),
+        getL2("solEvidence"),
+        getL2("connectionToSolution"),
+        getL2("alternateSolution")
+      );
+    case "conclusion":
+      return combineToParagraph(
+        getL2("summaryEvidence"),
+        getL2("summaryPosition"),
+        getL2("summarySolution")
+      );
+    default:
+      return "";
+  }
 }

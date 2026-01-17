@@ -1,24 +1,115 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+/**
+ * FinalDraftLayer - Layer 1: Final Position Paper
+ *
+ * Per PP-Writer.md: The grand finale with satisfying assembly
+ *
+ * Features:
+ * - Live preview: Watch paper assemble as Layer 2 fills in
+ * - Section highlighting: Click section to jump to its L2 input
+ * - Conclusion helper: "Help me summarize" button (Mode 4) with typing animation
+ * - Edit mode: Toggle to directly edit assembled paper
+ * - Export options: Copy, download as .txt, word count
+ * - Visual completion: Progress ring showing paper completeness
+ */
+
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Lightbulb, Copy, Check, Download, Eye, Edit3 } from "lucide-react";
-import { fadeInUp } from "@/lib/animations";
+import {
+  Lightbulb,
+  Copy,
+  Check,
+  Download,
+  Eye,
+  Edit3,
+  Sparkles,
+  FileText,
+} from "lucide-react";
+import { fadeInUp, defaultViewport } from "@/lib/animations";
 import { Button } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { useBGWriter } from "../BGWriterContext";
+import { AIAssistButton } from "../AIAssistButton";
 import { generatePositionPaperTemplate } from "@/lib/bg-writer/templates";
+import { PARAGRAPH_ORDER, PARAGRAPH_LABELS } from "@/lib/bg-writer/questions";
+import type { ParagraphType } from "@/lib/bg-writer/types";
 
 type ViewMode = "preview" | "edit";
 
-/**
- * Renders markdown-like content as styled HTML
- */
-function RenderedPaper({ content }: {
-  content: string;
+// Progress ring component
+function ProgressRing({
+  progress,
+  size = 60,
+  strokeWidth = 6,
+}: {
+  progress: number;
+  size?: number;
+  strokeWidth?: number;
 }) {
-  // Parse the markdown-ish content into sections
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (progress / 100) * circumference;
+
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg
+        className="-rotate-90 transform"
+        width={size}
+        height={size}
+      >
+        {/* Background circle */}
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          className="text-gray-200"
+        />
+        {/* Progress circle */}
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={strokeWidth}
+          strokeLinecap="round"
+          className={cn(
+            progress === 100
+              ? "text-green-500"
+              : progress >= 50
+              ? "text-amber-500"
+              : "text-jamun-blue"
+          )}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{
+            strokeDasharray: circumference,
+          }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="text-sm font-semibold text-gray-700">{progress}%</span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Renders markdown-like content as styled HTML with clickable sections
+ */
+function RenderedPaper({
+  content,
+  onSectionClick,
+}: {
+  content: string;
+  onSectionClick?: (paragraph: ParagraphType) => void;
+}) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let currentKey = 0;
@@ -27,23 +118,37 @@ function RenderedPaper({ content }: {
     const line = lines[i];
     const trimmed = line.trim();
 
-    // Skip empty lines (we handle spacing with CSS)
     if (!trimmed) continue;
 
     // Main title (# heading)
     if (trimmed.startsWith("# ")) {
       elements.push(
-        <h1 key={currentKey++} className="mb-2 text-center text-2xl font-bold text-gray-900 md:text-3xl">
+        <h1
+          key={currentKey++}
+          className="mb-2 text-center text-2xl font-bold text-gray-900 md:text-3xl"
+        >
           {trimmed.slice(2)}
         </h1>
       );
       continue;
     }
 
-    // Section headers (## heading)
+    // Section headers (## heading) - make clickable
     if (trimmed.startsWith("## ")) {
+      const sectionName = trimmed.slice(3).toLowerCase();
+      const paragraph = PARAGRAPH_ORDER.find(
+        (p) => PARAGRAPH_LABELS[p].toLowerCase() === sectionName
+      );
+
       elements.push(
-        <h2 key={currentKey++} className="mb-3 mt-8 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-800">
+        <h2
+          key={currentKey++}
+          onClick={() => paragraph && onSectionClick?.(paragraph)}
+          className={cn(
+            "mb-3 mt-8 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-800",
+            paragraph && onSectionClick && "cursor-pointer hover:text-jamun-blue"
+          )}
+        >
           {trimmed.slice(3)}
         </h2>
       );
@@ -53,7 +158,10 @@ function RenderedPaper({ content }: {
     // Subsection headers (### heading)
     if (trimmed.startsWith("### ")) {
       elements.push(
-        <h3 key={currentKey++} className="mb-2 mt-6 text-lg font-medium text-gray-700">
+        <h3
+          key={currentKey++}
+          className="mb-2 mt-6 text-lg font-medium text-gray-700"
+        >
           {trimmed.slice(4)}
         </h3>
       );
@@ -62,13 +170,11 @@ function RenderedPaper({ content }: {
 
     // Horizontal rule
     if (trimmed === "---") {
-      elements.push(
-        <hr key={currentKey++} className="my-6 border-gray-200" />
-      );
+      elements.push(<hr key={currentKey++} className="my-6 border-gray-200" />);
       continue;
     }
 
-    // Bold metadata lines (like **Committee:** ...)
+    // Bold metadata lines
     if (trimmed.startsWith("**") && trimmed.includes(":**")) {
       const match = trimmed.match(/^\*\*(.+?):\*\*\s*(.*)$/);
       if (match) {
@@ -82,10 +188,13 @@ function RenderedPaper({ content }: {
       }
     }
 
-    // Italic footer (starts with *)
+    // Italic footer
     if (trimmed.startsWith("*") && trimmed.endsWith("*") && !trimmed.startsWith("**")) {
       elements.push(
-        <p key={currentKey++} className="mt-8 text-center text-sm italic text-gray-500">
+        <p
+          key={currentKey++}
+          className="mt-8 text-center text-sm italic text-gray-500"
+        >
           {trimmed.slice(1, -1)}
         </p>
       );
@@ -95,7 +204,10 @@ function RenderedPaper({ content }: {
     // Placeholder text (in brackets)
     if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
       elements.push(
-        <p key={currentKey++} className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 px-4 py-6 text-center text-gray-400 italic">
+        <p
+          key={currentKey++}
+          className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 px-4 py-6 text-center italic text-gray-400"
+        >
           {trimmed.slice(1, -1)}
         </p>
       );
@@ -111,30 +223,48 @@ function RenderedPaper({ content }: {
   }
 
   return (
-    <article className="prose prose-gray max-w-none">
-      {elements}
-    </article>
+    <article className="prose prose-gray max-w-none">{elements}</article>
   );
 }
 
 export function FinalDraftLayer() {
   const t = useTranslations("BGWriter");
-  const { draft, updateFinalDraft } = useBGWriter();
+  const {
+    draft,
+    updateFinalPaper,
+    setCurrentLayer,
+    generateConclusionDraft,
+    aiLoading,
+  } = useBGWriter();
+
   const [copied, setCopied] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("preview");
+  const [conclusionDraft, setConclusionDraft] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const template = draft ? generatePositionPaperTemplate(draft, t) : "";
-  const content = draft?.layers.finalDraft || "";
+  const content = draft?.layers.finalPaper || "";
   const displayContent = content || template;
 
-  // Word count (exclude markdown syntax)
+  // Calculate completion percentage based on Layer 2 fields
+  const completionPercent = useCallback((): number => {
+    if (!draft) return 0;
+
+    const l2 = draft.layers.paragraphComponents;
+    const fields = Object.values(l2);
+    const filled = fields.filter((v) => v?.trim()).length;
+    const total = 24; // Total L2 sections per spec
+
+    return Math.round((filled / total) * 100);
+  }, [draft]);
+
+  // Word count
   const plainText = displayContent
-    .replace(/^#{1,3}\s+/gm, "") // Remove headings
-    .replace(/\*\*(.+?)\*\*/g, "$1") // Remove bold
-    .replace(/\*(.+?)\*/g, "$1") // Remove italic
-    .replace(/^---$/gm, "") // Remove hr
-    .replace(/\[|\]/g, ""); // Remove brackets
+    .replace(/^#{1,3}\s+/gm, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/^---$/gm, "")
+    .replace(/\[|\]/g, "");
 
   const wordCount = plainText
     .trim()
@@ -150,13 +280,12 @@ export function FinalDraftLayer() {
   }, [displayContent, viewMode]);
 
   const handleCopy = async () => {
-    // Copy plain text version for pasting into documents
     const plainVersion = displayContent
-      .replace(/^#{1,3}\s+/gm, "") // Remove markdown headings but keep text
-      .replace(/\*\*(.+?)\*\*/g, "$1") // Remove bold markers
-      .replace(/\*(.+?)\*/g, "$1") // Remove italic markers
-      .replace(/^---$/gm, "\n") // Replace hr with newline
-      .replace(/\n{3,}/g, "\n\n"); // Collapse multiple newlines
+      .replace(/^#{1,3}\s+/gm, "")
+      .replace(/\*\*(.+?)\*\*/g, "$1")
+      .replace(/\*(.+?)\*/g, "$1")
+      .replace(/^---$/gm, "\n")
+      .replace(/\n{3,}/g, "\n\n");
 
     await navigator.clipboard.writeText(plainVersion);
     setCopied(true);
@@ -164,7 +293,6 @@ export function FinalDraftLayer() {
   };
 
   const handleDownload = () => {
-    // Download as .txt for easier use
     const plainVersion = displayContent
       .replace(/^#{1,3}\s+/gm, "")
       .replace(/\*\*(.+?)\*\*/g, "$1")
@@ -184,22 +312,106 @@ export function FinalDraftLayer() {
   };
 
   const handleChange = (value: string) => {
-    updateFinalDraft(value);
+    updateFinalPaper(value);
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleSectionClick = (_paragraph: ParagraphType) => {
+    setCurrentLayer("paragraphComponents");
+    // TODO: Scroll to the paragraph section
+  };
+
+  const handleGenerateConclusion = async () => {
+    const result = await generateConclusionDraft();
+    return {
+      success: result.success,
+      result: result.draft,
+      error: result.error,
+    };
   };
 
   if (!draft) return null;
+
+  const progress = completionPercent();
 
   return (
     <motion.div
       initial="hidden"
       animate="visible"
       variants={fadeInUp}
+      viewport={defaultViewport}
       className="space-y-6"
     >
-      {/* Tip */}
-      <div className="flex items-start gap-3 rounded-xl border border-green-200 bg-green-50 p-4">
-        <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-green-600" />
-        <p className="text-sm text-gray-700">{t("tips.finalDraft")}</p>
+      {/* Header with progress */}
+      <div className="flex flex-col gap-4 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-green-600" />
+          <div>
+            <h3 className="text-sm font-semibold text-gray-800">
+              {t("finalPaperTitle")}
+            </h3>
+            <p className="mt-1 text-sm text-gray-600">
+              {t("finalPaperDescription")}
+            </p>
+          </div>
+        </div>
+        <ProgressRing progress={progress} />
+      </div>
+
+      {/* Conclusion helper (Mode 4) */}
+      <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-start gap-3">
+            <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-pink-600" />
+            <div>
+              <h4 className="text-sm font-semibold text-gray-800">
+                {t("needHelpWithConclusion")}
+              </h4>
+              <p className="mt-1 text-sm text-gray-600">
+                {t("conclusionHelperDescription")}
+              </p>
+            </div>
+          </div>
+          <AIAssistButton
+            mode="draftConclusion"
+            onTrigger={handleGenerateConclusion}
+            disabled={aiLoading.draftingConclusion || progress < 30}
+            disabledMessage={progress < 30 ? t("fillMoreSectionsFirst") : undefined}
+            showResultInline={true}
+            onResult={(result) => setConclusionDraft(result)}
+          />
+        </div>
+
+        {/* Show draft conclusion */}
+        <AnimatePresence>
+          {conclusionDraft && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="mt-4 overflow-hidden"
+            >
+              <div className="rounded-lg bg-white p-3 shadow-sm">
+                <p className="text-sm font-medium text-gray-700">
+                  {t("suggestedConclusion")}:
+                </p>
+                <p className="mt-1 text-sm italic text-gray-600">
+                  &ldquo;{conclusionDraft}&rdquo;
+                </p>
+                <button
+                  onClick={() => {
+                    // Insert into conclusion section
+                    // For now, just copy to clipboard
+                    navigator.clipboard.writeText(conclusionDraft);
+                  }}
+                  className="mt-2 text-xs text-jamun-blue hover:underline"
+                >
+                  {t("copyThisConclusion")}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Editor card */}
@@ -243,12 +455,7 @@ export function FinalDraftLayer() {
               </button>
             </div>
 
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleCopy}
-              className="gap-2"
-            >
+            <Button variant="ghost" size="sm" onClick={handleCopy} className="gap-2">
               {copied ? (
                 <>
                   <Check className="h-4 w-4" />
@@ -277,7 +484,10 @@ export function FinalDraftLayer() {
         <div className="p-6">
           {viewMode === "preview" ? (
             <div className="rounded-lg border border-gray-100 bg-gradient-to-b from-white to-gray-50/50 p-6 shadow-inner md:p-8 lg:p-10">
-              <RenderedPaper content={displayContent} />
+              <RenderedPaper
+                content={displayContent}
+                onSectionClick={handleSectionClick}
+              />
             </div>
           ) : (
             <textarea
@@ -305,6 +515,27 @@ export function FinalDraftLayer() {
           </div>
         </div>
       </div>
+
+      {/* Section quick links */}
+      <div className="rounded-xl border border-gray-200 bg-white p-4">
+        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-700">
+          <FileText className="h-4 w-4" />
+          {t("quickJumpToSection")}
+        </h4>
+        <div className="flex flex-wrap gap-2">
+          {PARAGRAPH_ORDER.map((paragraph) => (
+            <button
+              key={paragraph}
+              onClick={() => handleSectionClick(paragraph)}
+              className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-jamun-blue hover:bg-jamun-blue/5 hover:text-jamun-blue"
+            >
+              {PARAGRAPH_LABELS[paragraph]}
+            </button>
+          ))}
+        </div>
+      </div>
     </motion.div>
   );
 }
+
+export default FinalDraftLayer;

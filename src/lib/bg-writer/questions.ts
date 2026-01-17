@@ -1,655 +1,1332 @@
 /**
- * Position Paper Writer Question Definitions
+ * Position Paper Writer Questions
  *
- * Redesigned for maximum scaffolding - completing each section
- * directly builds the final position paper.
+ * Complete question definitions aligned with PP-Writer.md specification.
  *
- * Layer 1: Gather raw materials (facts, research, country info)
- * Layer 2: Build paragraph components (sentences, points)
- * Layer 3: Structure paragraphs with TEEA (Topic, Evidence, Explanation, Action)
- * Layer 4: Auto-assembled final paper
+ * Layer Structure:
+ * - Layer 4 (comprehension): 25 questions organized by 7 categories
+ * - Layer 3 (ideaFormation): Bridge questions - form ideas from L4 research
+ * - Layer 2 (paragraphComponents): 24 polished sentence sections
+ * - Layer 1 (finalPaper): Auto-assembled from Layer 2
  */
 
-import type { QuestionDefinition, LayerType } from "./types";
+import type {
+  QuestionDefinition,
+  LayerType,
+  ParagraphType,
+  BookmarkCategory,
+  BGWriterDraft,
+} from "./types";
 
-export const QUESTIONS: QuestionDefinition[] = [
-  // ============================================
-  // LAYER 1: COMPREHENSION
-  // Gather all raw materials from background guide
-  // ============================================
-  {
-    id: "country",
-    layer: "comprehension",
-    translationKey: "country",
-    inputType: "text",
-    required: true,
-  },
-  {
-    id: "committee",
-    layer: "comprehension",
-    translationKey: "committee",
-    inputType: "text",
-    required: true,
-  },
-  {
-    id: "topic",
-    layer: "comprehension",
-    translationKey: "topic",
-    inputType: "text",
-    required: true,
-  },
+// =============================================================================
+// LAYER 4: BACKGROUND GUIDE COMPREHENSION (25 questions)
+// =============================================================================
+
+const COMPREHENSION_QUESTIONS: QuestionDefinition[] = [
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Topic Fundamentals (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
   {
     id: "topicDefinition",
     layer: "comprehension",
     translationKey: "topicDefinition",
     helpTextKey: "topicDefinitionHelp",
     inputType: "textarea",
+    required: true,
+    categoryGroup: "topicFundamentals",
+    l4Sources: ["topic_definition"],
   },
   {
-    id: "keyFacts",
+    id: "keyTerms",
     layer: "comprehension",
-    translationKey: "keyFacts",
-    helpTextKey: "keyFactsHelp",
+    translationKey: "keyTerms",
+    helpTextKey: "keyTermsHelp",
     inputType: "bullets",
+    categoryGroup: "topicFundamentals",
+    l4Sources: ["key_terms"],
   },
   {
-    id: "historicalEvents",
+    id: "scope",
     layer: "comprehension",
-    translationKey: "historicalEvents",
-    helpTextKey: "historicalEventsHelp",
-    inputType: "bullets",
-  },
-  {
-    id: "countryBasicPosition",
-    layer: "comprehension",
-    translationKey: "countryBasicPosition",
-    helpTextKey: "countryBasicPositionHelp",
+    translationKey: "scope",
+    helpTextKey: "scopeHelp",
     inputType: "textarea",
-  },
-  {
-    id: "countryActions",
-    layer: "comprehension",
-    translationKey: "countryActions",
-    helpTextKey: "countryActionsHelp",
-    inputType: "bullets",
+    categoryGroup: "topicFundamentals",
+    l4Sources: ["scope"],
   },
 
-  // ============================================
-  // LAYER 2: BUILDING BLOCKS
-  // Write specific sentences that become paragraphs
-  // ============================================
-
-  // INTRODUCTION BUILDING BLOCKS
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Historical Context (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
   {
-    id: "hookSentence",
-    layer: "initialContent",
-    translationKey: "hookSentence",
-    helpTextKey: "hookSentenceHelp",
+    id: "origin",
+    layer: "comprehension",
+    translationKey: "origin",
+    helpTextKey: "originHelp",
     inputType: "textarea",
-    section: "introduction",
+    categoryGroup: "historicalContext",
+    l4Sources: ["origin"],
   },
   {
-    id: "topicImportance",
-    layer: "initialContent",
-    translationKey: "topicImportance",
-    helpTextKey: "topicImportanceHelp",
+    id: "timeline",
+    layer: "comprehension",
+    translationKey: "timeline",
+    helpTextKey: "timelineHelp",
+    inputType: "bullets",
+    categoryGroup: "historicalContext",
+    l4Sources: ["timeline"],
+  },
+  {
+    id: "evolution",
+    layer: "comprehension",
+    translationKey: "evolution",
+    helpTextKey: "evolutionHelp",
     inputType: "textarea",
-    section: "introduction",
+    categoryGroup: "historicalContext",
+    l4Sources: ["evolution"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Current Situation (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "presentState",
+    layer: "comprehension",
+    translationKey: "presentState",
+    helpTextKey: "presentStateHelp",
+    inputType: "textarea",
+    categoryGroup: "currentSituation",
+    l4Sources: ["present_state"],
+  },
+  {
+    id: "keyStatistics",
+    layer: "comprehension",
+    translationKey: "keyStatistics",
+    helpTextKey: "keyStatisticsHelp",
+    inputType: "bullets",
+    categoryGroup: "currentSituation",
+    l4Sources: ["key_statistics"],
+  },
+  {
+    id: "recentDevelopments",
+    layer: "comprehension",
+    translationKey: "recentDevelopments",
+    helpTextKey: "recentDevelopmentsHelp",
+    inputType: "bullets",
+    categoryGroup: "currentSituation",
+    l4Sources: ["recent_developments"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Stakeholders (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "affectedPopulations",
+    layer: "comprehension",
+    translationKey: "affectedPopulations",
+    helpTextKey: "affectedPopulationsHelp",
+    inputType: "textarea",
+    categoryGroup: "stakeholders",
+    l4Sources: ["affected_populations"],
+  },
+  {
+    id: "keyActors",
+    layer: "comprehension",
+    translationKey: "keyActors",
+    helpTextKey: "keyActorsHelp",
+    inputType: "bullets",
+    categoryGroup: "stakeholders",
+    l4Sources: ["key_actors"],
+  },
+  {
+    id: "powerDynamics",
+    layer: "comprehension",
+    translationKey: "powerDynamics",
+    helpTextKey: "powerDynamicsHelp",
+    inputType: "textarea",
+    categoryGroup: "stakeholders",
+    l4Sources: ["power_dynamics"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Existing Efforts (4 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "unActions",
+    layer: "comprehension",
+    translationKey: "unActions",
+    helpTextKey: "unActionsHelp",
+    inputType: "bullets",
+    categoryGroup: "existingEfforts",
+    l4Sources: ["un_actions"],
+  },
+  {
+    id: "regionalEfforts",
+    layer: "comprehension",
+    translationKey: "regionalEfforts",
+    helpTextKey: "regionalEffortsHelp",
+    inputType: "bullets",
+    categoryGroup: "existingEfforts",
+    l4Sources: ["regional_efforts"],
+  },
+  {
+    id: "successStories",
+    layer: "comprehension",
+    translationKey: "successStories",
+    helpTextKey: "successStoriesHelp",
+    inputType: "bullets",
+    categoryGroup: "existingEfforts",
+    l4Sources: ["success_stories"],
+  },
+  {
+    id: "failures",
+    layer: "comprehension",
+    translationKey: "failures",
+    helpTextKey: "failuresHelp",
+    inputType: "bullets",
+    categoryGroup: "existingEfforts",
+    l4Sources: ["failures"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Points of Contention (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "majorDebates",
+    layer: "comprehension",
+    translationKey: "majorDebates",
+    helpTextKey: "majorDebatesHelp",
+    inputType: "bullets",
+    categoryGroup: "pointsOfContention",
+    l4Sources: ["major_debates"],
+  },
+  {
+    id: "competingInterests",
+    layer: "comprehension",
+    translationKey: "competingInterests",
+    helpTextKey: "competingInterestsHelp",
+    inputType: "textarea",
+    categoryGroup: "pointsOfContention",
+    l4Sources: ["competing_interests"],
+  },
+  {
+    id: "barriers",
+    layer: "comprehension",
+    translationKey: "barriers",
+    helpTextKey: "barriersHelp",
+    inputType: "bullets",
+    categoryGroup: "pointsOfContention",
+    l4Sources: ["barriers"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Country-Specific Research (6 questions - includes country/committee/topic)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "country",
+    layer: "comprehension",
+    translationKey: "country",
+    helpTextKey: "countryHelp",
+    inputType: "text",
+    required: true,
+    categoryGroup: "countrySpecific",
+  },
+  {
+    id: "committee",
+    layer: "comprehension",
+    translationKey: "committee",
+    helpTextKey: "committeeHelp",
+    inputType: "text",
+    required: true,
+    categoryGroup: "countrySpecific",
+  },
+  {
+    id: "topic",
+    layer: "comprehension",
+    translationKey: "topic",
+    helpTextKey: "topicHelp",
+    inputType: "text",
+    required: true,
+    categoryGroup: "countrySpecific",
+  },
+  {
+    id: "countryInvolvement",
+    layer: "comprehension",
+    translationKey: "countryInvolvement",
+    helpTextKey: "countryInvolvementHelp",
+    inputType: "textarea",
+    categoryGroup: "countrySpecific",
+    l4Sources: ["country_involvement"],
+  },
+  {
+    id: "pastPositions",
+    layer: "comprehension",
+    translationKey: "pastPositions",
+    helpTextKey: "pastPositionsHelp",
+    inputType: "bullets",
+    categoryGroup: "countrySpecific",
+    l4Sources: ["past_positions"],
+  },
+  {
+    id: "countryInterests",
+    layer: "comprehension",
+    translationKey: "countryInterests",
+    helpTextKey: "countryInterestsHelp",
+    inputType: "textarea",
+    categoryGroup: "countrySpecific",
+    l4Sources: ["country_interests"],
+  },
+  {
+    id: "allies",
+    layer: "comprehension",
+    translationKey: "allies",
+    helpTextKey: "alliesHelp",
+    inputType: "bullets",
+    categoryGroup: "countrySpecific",
+    l4Sources: ["allies"],
+  },
+  {
+    id: "constraints",
+    layer: "comprehension",
+    translationKey: "constraints",
+    helpTextKey: "constraintsHelp",
+    inputType: "bullets",
+    categoryGroup: "countrySpecific",
+    l4Sources: ["constraints"],
+  },
+];
+
+// =============================================================================
+// LAYER 3: IDEA FORMATION (Bridge layer - one per L2 section)
+// =============================================================================
+
+const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Introduction Ideas (5 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "ideaIntroSentence",
+    layer: "ideaFormation",
+    translationKey: "ideaIntroSentence",
+    helpTextKey: "ideaIntroSentenceHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    ideaGoal: "A hook that grabs attention and names the topic",
+    combineFrom: "Topic Definition + a striking statistic or question",
+    l4Sources: ["topic_definition", "key_statistics"],
+  },
+  {
+    id: "ideaBroadContext",
+    layer: "ideaFormation",
+    translationKey: "ideaBroadContext",
+    helpTextKey: "ideaBroadContextHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    ideaGoal: "Why this matters: who's affected, how long it's been a problem, how widespread",
+    combineFrom: "Affected Populations + Timeline + Current Situation",
+    l4Sources: ["affected_populations", "timeline", "present_state"],
+  },
+  {
+    id: "ideaAlternatePerspective",
+    layer: "ideaFormation",
+    translationKey: "ideaAlternatePerspective",
+    helpTextKey: "ideaAlternatePerspectiveHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    ideaGoal: "What opponents believe and why it's understandable",
+    combineFrom: "Points of Contention + Competing Interests",
+    l4Sources: ["major_debates", "competing_interests"],
+  },
+  {
+    id: "ideaCallToAction",
+    layer: "ideaFormation",
+    translationKey: "ideaCallToAction",
+    helpTextKey: "ideaCallToActionHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    ideaGoal: "Why we must act now, not later",
+    combineFrom: "Recent Developments + Barriers to Progress",
+    l4Sources: ["recent_developments", "barriers"],
+  },
+  {
+    id: "ideaThesis",
+    layer: "ideaFormation",
+    translationKey: "ideaThesis",
+    helpTextKey: "ideaThesisHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    ideaGoal: "Your country's main argument in one idea",
+    combineFrom: "Country's Position + Country's Interests + hint at solution",
+    l4Sources: ["past_positions", "country_interests", "success_stories"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Background Ideas (6 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "ideaBgIntro",
+    layer: "ideaFormation",
+    translationKey: "ideaBgIntro",
+    helpTextKey: "ideaBgIntroHelp",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "What background the reader needs to understand",
+    combineFrom: "Topic Definition + Scope",
+    l4Sources: ["topic_definition", "scope"],
+  },
+  {
+    id: "ideaKeyFact1",
+    layer: "ideaFormation",
+    translationKey: "ideaKeyFact1",
+    helpTextKey: "ideaKeyFact1Help",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "One important fact that shows the problem's scale or severity",
+    combineFrom: "Key Statistics OR Present State",
+    l4Sources: ["key_statistics", "present_state"],
+  },
+  {
+    id: "ideaAnalysis1",
+    layer: "ideaFormation",
+    translationKey: "ideaAnalysis1",
+    helpTextKey: "ideaAnalysis1Help",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "What that fact means—why should we care?",
+    combineFrom: "Student's own reasoning",
+    l4Sources: [],
+  },
+  {
+    id: "ideaKeyFact2",
+    layer: "ideaFormation",
+    translationKey: "ideaKeyFact2",
+    helpTextKey: "ideaKeyFact2Help",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "A second fact that adds history or shows failed attempts",
+    combineFrom: "Timeline OR Failures OR Existing Efforts",
+    l4Sources: ["timeline", "failures", "un_actions"],
+  },
+  {
+    id: "ideaAnalysis2",
+    layer: "ideaFormation",
+    translationKey: "ideaAnalysis2",
+    helpTextKey: "ideaAnalysis2Help",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "What that fact means—why should we care?",
+    combineFrom: "Student's own reasoning",
+    l4Sources: [],
+  },
+  {
+    id: "ideaBgSummary",
+    layer: "ideaFormation",
+    translationKey: "ideaBgSummary",
+    helpTextKey: "ideaBgSummaryHelp",
+    inputType: "textarea",
+    paragraph: "background",
+    ideaGoal: "How these facts together prove action is needed",
+    combineFrom: "Synthesis: Fact 1 + Fact 2 → therefore...",
+    l4Sources: [],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Position Ideas (5 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "ideaPosIntro",
+    layer: "ideaFormation",
+    translationKey: "ideaPosIntro",
+    helpTextKey: "ideaPosIntroHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    ideaGoal: "Signal that your country is now stating its view",
+    combineFrom: "Transition phrase",
+    l4Sources: [],
+  },
+  {
+    id: "ideaPositionStatement",
+    layer: "ideaFormation",
+    translationKey: "ideaPositionStatement",
+    helpTextKey: "ideaPositionStatementHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    ideaGoal: "What your country thinks should be done about this issue",
+    combineFrom: "Country's Past Positions + Country's Interests",
+    l4Sources: ["past_positions", "country_interests"],
+  },
+  {
+    id: "ideaPosEvidence",
+    layer: "ideaFormation",
+    translationKey: "ideaPosEvidence",
+    helpTextKey: "ideaPosEvidenceHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    ideaGoal: "A fact that backs up your country's stance",
+    combineFrom: "UN Actions OR Success Stories OR Country's Involvement",
+    l4Sources: ["un_actions", "success_stories", "country_involvement"],
+  },
+  {
+    id: "ideaPosAnalysis",
+    layer: "ideaFormation",
+    translationKey: "ideaPosAnalysis",
+    helpTextKey: "ideaPosAnalysisHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    ideaGoal: "Why this evidence supports your position",
+    combineFrom: "Student's own reasoning",
+    l4Sources: [],
+  },
+  {
+    id: "ideaReasoning",
+    layer: "ideaFormation",
+    translationKey: "ideaReasoning",
+    helpTextKey: "ideaReasoningHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    ideaGoal: "How this connects to your country's values or interests",
+    combineFrom: "Country's Interests + Country's Allies",
+    l4Sources: ["country_interests", "allies"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Solutions Ideas (5 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "ideaSolIntro",
+    layer: "ideaFormation",
+    translationKey: "ideaSolIntro",
+    helpTextKey: "ideaSolIntroHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    ideaGoal: "Shift from 'what we believe' to 'what we should do'",
+    combineFrom: "Transition phrase",
+    l4Sources: [],
+  },
+  {
+    id: "ideaSolutionProposal",
+    layer: "ideaFormation",
+    translationKey: "ideaSolutionProposal",
+    helpTextKey: "ideaSolutionProposalHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    ideaGoal: "A specific action the international community should take",
+    combineFrom: "Success Stories + Country's Interests + Existing Efforts",
+    l4Sources: ["success_stories", "country_interests", "un_actions", "regional_efforts"],
+  },
+  {
+    id: "ideaSolEvidence",
+    layer: "ideaFormation",
+    translationKey: "ideaSolEvidence",
+    helpTextKey: "ideaSolEvidenceHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    ideaGoal: "Proof that similar solutions have worked before",
+    combineFrom: "Success Stories OR Regional Efforts",
+    l4Sources: ["success_stories", "regional_efforts"],
+  },
+  {
+    id: "ideaConnectionToSolution",
+    layer: "ideaFormation",
+    translationKey: "ideaConnectionToSolution",
+    helpTextKey: "ideaConnectionToSolutionHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    ideaGoal: "Why the evidence shows your solution is realistic",
+    combineFrom: "Student's own reasoning",
+    l4Sources: [],
+  },
+  {
+    id: "ideaAlternateSolution",
+    layer: "ideaFormation",
+    translationKey: "ideaAlternateSolution",
+    helpTextKey: "ideaAlternateSolutionHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    ideaGoal: "A second approach or fallback option",
+    combineFrom: "UN Actions OR Regional Efforts",
+    l4Sources: ["un_actions", "regional_efforts"],
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Conclusion Ideas (3 questions)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "ideaSummaryEvidence",
+    layer: "ideaFormation",
+    translationKey: "ideaSummaryEvidence",
+    helpTextKey: "ideaSummaryEvidenceHelp",
+    inputType: "textarea",
+    paragraph: "conclusion",
+    ideaGoal: "The 2-3 facts that most strongly support your case",
+    combineFrom: "Selected from earlier paragraphs",
+    l4Sources: [],
+  },
+  {
+    id: "ideaSummaryPosition",
+    layer: "ideaFormation",
+    translationKey: "ideaSummaryPosition",
+    helpTextKey: "ideaSummaryPositionHelp",
+    inputType: "textarea",
+    paragraph: "conclusion",
+    ideaGoal: "Your country's stance in simple terms",
+    combineFrom: "Restated from Position Paragraph",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "comprehension",
-      questionId: "topicDefinition",
+      layer: "ideaFormation",
+      questionId: "ideaPositionStatement",
+      transform: "direct",
     },
   },
   {
-    id: "thesisStatement",
-    layer: "initialContent",
-    translationKey: "thesisStatement",
-    helpTextKey: "thesisStatementHelp",
+    id: "ideaSummarySolution",
+    layer: "ideaFormation",
+    translationKey: "ideaSummarySolution",
+    helpTextKey: "ideaSummarySolutionHelp",
     inputType: "textarea",
-    section: "introduction",
-  },
-
-  // BACKGROUND BUILDING BLOCKS
-  {
-    id: "backgroundContext",
-    layer: "initialContent",
-    translationKey: "backgroundContext",
-    helpTextKey: "backgroundContextHelp",
-    inputType: "textarea",
-    section: "background",
-  },
-  {
-    id: "keyEventsDescription",
-    layer: "initialContent",
-    translationKey: "keyEventsDescription",
-    helpTextKey: "keyEventsDescriptionHelp",
-    inputType: "textarea",
-    section: "background",
+    paragraph: "conclusion",
+    ideaGoal: "What should happen next",
+    combineFrom: "Restated from Solutions Paragraph",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "comprehension",
-      questionId: "historicalEvents",
-      transform: "bullets-to-text",
+      layer: "ideaFormation",
+      questionId: "ideaSolutionProposal",
+      transform: "direct",
+    },
+  },
+];
+
+// =============================================================================
+// LAYER 2: PARAGRAPH COMPONENTS (24 polished sentences)
+// =============================================================================
+
+const PARAGRAPH_COMPONENT_QUESTIONS: QuestionDefinition[] = [
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Introduction Paragraph (5 sections)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "introSentence",
+    layer: "paragraphComponents",
+    translationKey: "introSentence",
+    helpTextKey: "introSentenceHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    l4Sources: ["topic_definition", "key_statistics"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaIntroSentence",
+      transform: "direct",
     },
   },
   {
-    id: "currentSituation",
-    layer: "initialContent",
-    translationKey: "currentSituation",
-    helpTextKey: "currentSituationHelp",
+    id: "broadContext",
+    layer: "paragraphComponents",
+    translationKey: "broadContext",
+    helpTextKey: "broadContextHelp",
     inputType: "textarea",
-    section: "background",
+    paragraph: "intro",
+    l4Sources: ["affected_populations", "timeline", "present_state"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaBroadContext",
+      transform: "direct",
+    },
+  },
+  {
+    id: "alternatePerspective",
+    layer: "paragraphComponents",
+    translationKey: "alternatePerspective",
+    helpTextKey: "alternatePerspectiveHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    l4Sources: ["major_debates", "competing_interests"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaAlternatePerspective",
+      transform: "direct",
+    },
+  },
+  {
+    id: "callToAction",
+    layer: "paragraphComponents",
+    translationKey: "callToAction",
+    helpTextKey: "callToActionHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    l4Sources: ["recent_developments", "barriers"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaCallToAction",
+      transform: "direct",
+    },
+  },
+  {
+    id: "thesis",
+    layer: "paragraphComponents",
+    translationKey: "thesis",
+    helpTextKey: "thesisHelp",
+    inputType: "textarea",
+    paragraph: "intro",
+    l4Sources: ["past_positions", "country_interests"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaThesis",
+      transform: "direct",
+    },
   },
 
-  // POSITION BUILDING BLOCKS
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Background Paragraph (6 sections)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "bgIntroSentence",
+    layer: "paragraphComponents",
+    translationKey: "bgIntroSentence",
+    helpTextKey: "bgIntroSentenceHelp",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: ["topic_definition", "scope"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaBgIntro",
+      transform: "direct",
+    },
+  },
+  {
+    id: "keyFact1",
+    layer: "paragraphComponents",
+    translationKey: "keyFact1",
+    helpTextKey: "keyFact1Help",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: ["key_statistics", "present_state"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaKeyFact1",
+      transform: "direct",
+    },
+  },
+  {
+    id: "analysis1",
+    layer: "paragraphComponents",
+    translationKey: "analysis1",
+    helpTextKey: "analysis1Help",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaAnalysis1",
+      transform: "direct",
+    },
+  },
+  {
+    id: "keyFact2",
+    layer: "paragraphComponents",
+    translationKey: "keyFact2",
+    helpTextKey: "keyFact2Help",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: ["timeline", "failures", "un_actions"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaKeyFact2",
+      transform: "direct",
+    },
+  },
+  {
+    id: "analysis2",
+    layer: "paragraphComponents",
+    translationKey: "analysis2",
+    helpTextKey: "analysis2Help",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaAnalysis2",
+      transform: "direct",
+    },
+  },
+  {
+    id: "bgSummary",
+    layer: "paragraphComponents",
+    translationKey: "bgSummary",
+    helpTextKey: "bgSummaryHelp",
+    inputType: "textarea",
+    paragraph: "background",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaBgSummary",
+      transform: "direct",
+    },
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Position Paragraph (5 sections)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    id: "posIntroSentence",
+    layer: "paragraphComponents",
+    translationKey: "posIntroSentence",
+    helpTextKey: "posIntroSentenceHelp",
+    inputType: "textarea",
+    paragraph: "position",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaPosIntro",
+      transform: "direct",
+    },
+  },
   {
     id: "positionStatement",
-    layer: "initialContent",
+    layer: "paragraphComponents",
     translationKey: "positionStatement",
     helpTextKey: "positionStatementHelp",
     inputType: "textarea",
-    section: "position",
+    paragraph: "position",
+    l4Sources: ["past_positions", "country_interests"],
     autoPopulateFrom: {
-      layer: "comprehension",
-      questionId: "countryBasicPosition",
-    },
-  },
-  {
-    id: "positionReason1",
-    layer: "initialContent",
-    translationKey: "positionReason1",
-    helpTextKey: "positionReasonHelp",
-    inputType: "textarea",
-    section: "position",
-  },
-  {
-    id: "positionReason2",
-    layer: "initialContent",
-    translationKey: "positionReason2",
-    helpTextKey: "positionReasonHelp",
-    inputType: "textarea",
-    section: "position",
-  },
-  {
-    id: "pastActions",
-    layer: "initialContent",
-    translationKey: "pastActions",
-    helpTextKey: "pastActionsHelp",
-    inputType: "textarea",
-    section: "position",
-    autoPopulateFrom: {
-      layer: "comprehension",
-      questionId: "countryActions",
-      transform: "bullets-to-text",
-    },
-  },
-
-  // SOLUTIONS BUILDING BLOCKS
-  {
-    id: "solution1",
-    layer: "initialContent",
-    translationKey: "solution1",
-    helpTextKey: "solutionHelp",
-    inputType: "textarea",
-    section: "solutions",
-  },
-  {
-    id: "solution2",
-    layer: "initialContent",
-    translationKey: "solution2",
-    helpTextKey: "solutionHelp",
-    inputType: "textarea",
-    section: "solutions",
-  },
-  {
-    id: "solution3",
-    layer: "initialContent",
-    translationKey: "solution3",
-    helpTextKey: "solutionHelp",
-    inputType: "textarea",
-    section: "solutions",
-  },
-
-  // ============================================
-  // LAYER 3: STRUCTURED PARAGRAPHS
-  // Use TEEA format: Topic, Evidence, Explanation, Action/Transition
-  // ============================================
-
-  // INTRODUCTION PARAGRAPH STRUCTURE
-  {
-    id: "introTopicSentence",
-    layer: "research",
-    translationKey: "introTopicSentence",
-    helpTextKey: "introTopicSentenceHelp",
-    inputType: "textarea",
-    section: "introduction",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "hookSentence",
-    },
-  },
-  {
-    id: "introContext",
-    layer: "research",
-    translationKey: "introContext",
-    helpTextKey: "introContextHelp",
-    inputType: "textarea",
-    section: "introduction",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "topicImportance",
-    },
-  },
-  {
-    id: "introThesis",
-    layer: "research",
-    translationKey: "introThesis",
-    helpTextKey: "introThesisHelp",
-    inputType: "textarea",
-    section: "introduction",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "thesisStatement",
-    },
-  },
-  {
-    id: "introPreview",
-    layer: "research",
-    translationKey: "introPreview",
-    helpTextKey: "introPreviewHelp",
-    inputType: "textarea",
-    section: "introduction",
-  },
-
-  // BACKGROUND PARAGRAPH STRUCTURE
-  {
-    id: "bgTopicSentence",
-    layer: "research",
-    translationKey: "bgTopicSentence",
-    helpTextKey: "bgTopicSentenceHelp",
-    inputType: "textarea",
-    section: "background",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "backgroundContext",
-    },
-  },
-  {
-    id: "bgEvidence",
-    layer: "research",
-    translationKey: "bgEvidence",
-    helpTextKey: "bgEvidenceHelp",
-    inputType: "textarea",
-    section: "background",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "keyEventsDescription",
-    },
-  },
-  {
-    id: "bgAnalysis",
-    layer: "research",
-    translationKey: "bgAnalysis",
-    helpTextKey: "bgAnalysisHelp",
-    inputType: "textarea",
-    section: "background",
-    autoPopulateFrom: {
-      layer: "comprehension",
-      questionId: "keyFacts",
-      transform: "bullets-to-text",
-    },
-  },
-  {
-    id: "bgTransition",
-    layer: "research",
-    translationKey: "bgTransition",
-    helpTextKey: "bgTransitionHelp",
-    inputType: "textarea",
-    section: "background",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "currentSituation",
-    },
-  },
-
-  // POSITION PARAGRAPH STRUCTURE
-  {
-    id: "posTopicSentence",
-    layer: "research",
-    translationKey: "posTopicSentence",
-    helpTextKey: "posTopicSentenceHelp",
-    inputType: "textarea",
-    section: "position",
-    autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "positionStatement",
+      layer: "ideaFormation",
+      questionId: "ideaPositionStatement",
+      transform: "direct",
     },
   },
   {
     id: "posEvidence",
-    layer: "research",
+    layer: "paragraphComponents",
     translationKey: "posEvidence",
     helpTextKey: "posEvidenceHelp",
     inputType: "textarea",
-    section: "position",
+    paragraph: "position",
+    l4Sources: ["un_actions", "success_stories", "country_involvement"],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "positionReason1,positionReason2",
-      transform: "combine-sentences",
+      layer: "ideaFormation",
+      questionId: "ideaPosEvidence",
+      transform: "direct",
     },
   },
   {
     id: "posAnalysis",
-    layer: "research",
+    layer: "paragraphComponents",
     translationKey: "posAnalysis",
     helpTextKey: "posAnalysisHelp",
     inputType: "textarea",
-    section: "position",
+    paragraph: "position",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "pastActions",
+      layer: "ideaFormation",
+      questionId: "ideaPosAnalysis",
+      transform: "direct",
     },
   },
   {
-    id: "posCounterargument",
-    layer: "research",
-    translationKey: "posCounterargument",
-    helpTextKey: "posCounterargumentHelp",
+    id: "reasoning",
+    layer: "paragraphComponents",
+    translationKey: "reasoning",
+    helpTextKey: "reasoningHelp",
     inputType: "textarea",
-    section: "position",
-  },
-  {
-    id: "posRebuttal",
-    layer: "research",
-    translationKey: "posRebuttal",
-    helpTextKey: "posRebuttalHelp",
-    inputType: "textarea",
-    section: "position",
+    paragraph: "position",
+    l4Sources: ["country_interests", "allies"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaReasoning",
+      transform: "direct",
+    },
   },
 
-  // SOLUTIONS PARAGRAPH STRUCTURE
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Solutions Paragraph (5 sections)
+  // ─────────────────────────────────────────────────────────────────────────────
   {
-    id: "solTopicSentence",
-    layer: "research",
-    translationKey: "solTopicSentence",
-    helpTextKey: "solTopicSentenceHelp",
+    id: "solIntroSentence",
+    layer: "paragraphComponents",
+    translationKey: "solIntroSentence",
+    helpTextKey: "solIntroSentenceHelp",
     inputType: "textarea",
-    section: "solutions",
-  },
-  {
-    id: "solSolution1Full",
-    layer: "research",
-    translationKey: "solSolution1Full",
-    helpTextKey: "solSolutionFullHelp",
-    inputType: "textarea",
-    section: "solutions",
+    paragraph: "solutions",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "solution1",
+      layer: "ideaFormation",
+      questionId: "ideaSolIntro",
+      transform: "direct",
     },
   },
   {
-    id: "solSolution2Full",
-    layer: "research",
-    translationKey: "solSolution2Full",
-    helpTextKey: "solSolutionFullHelp",
+    id: "solutionProposal",
+    layer: "paragraphComponents",
+    translationKey: "solutionProposal",
+    helpTextKey: "solutionProposalHelp",
     inputType: "textarea",
-    section: "solutions",
+    paragraph: "solutions",
+    l4Sources: ["success_stories", "country_interests", "un_actions", "regional_efforts"],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "solution2",
+      layer: "ideaFormation",
+      questionId: "ideaSolutionProposal",
+      transform: "direct",
     },
   },
   {
-    id: "solSolution3Full",
-    layer: "research",
-    translationKey: "solSolution3Full",
-    helpTextKey: "solSolutionFullHelp",
+    id: "solEvidence",
+    layer: "paragraphComponents",
+    translationKey: "solEvidence",
+    helpTextKey: "solEvidenceHelp",
     inputType: "textarea",
-    section: "solutions",
+    paragraph: "solutions",
+    l4Sources: ["success_stories", "regional_efforts"],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "solution3",
+      layer: "ideaFormation",
+      questionId: "ideaSolEvidence",
+      transform: "direct",
     },
   },
   {
-    id: "solImplementation",
-    layer: "research",
-    translationKey: "solImplementation",
-    helpTextKey: "solImplementationHelp",
+    id: "connectionToSolution",
+    layer: "paragraphComponents",
+    translationKey: "connectionToSolution",
+    helpTextKey: "connectionToSolutionHelp",
     inputType: "textarea",
-    section: "solutions",
+    paragraph: "solutions",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaConnectionToSolution",
+      transform: "direct",
+    },
+  },
+  {
+    id: "alternateSolution",
+    layer: "paragraphComponents",
+    translationKey: "alternateSolution",
+    helpTextKey: "alternateSolutionHelp",
+    inputType: "textarea",
+    paragraph: "solutions",
+    l4Sources: ["un_actions", "regional_efforts"],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaAlternateSolution",
+      transform: "direct",
+    },
   },
 
-  // CONCLUSION PARAGRAPH STRUCTURE
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Conclusion Paragraph (3 sections)
+  // ─────────────────────────────────────────────────────────────────────────────
   {
-    id: "conRestatement",
-    layer: "research",
-    translationKey: "conRestatement",
-    helpTextKey: "conRestatementHelp",
+    id: "summaryEvidence",
+    layer: "paragraphComponents",
+    translationKey: "summaryEvidence",
+    helpTextKey: "summaryEvidenceHelp",
     inputType: "textarea",
-    section: "conclusion",
+    paragraph: "conclusion",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "thesisStatement",
+      layer: "ideaFormation",
+      questionId: "ideaSummaryEvidence",
+      transform: "direct",
     },
   },
   {
-    id: "conSummary",
-    layer: "research",
-    translationKey: "conSummary",
-    helpTextKey: "conSummaryHelp",
+    id: "summaryPosition",
+    layer: "paragraphComponents",
+    translationKey: "summaryPosition",
+    helpTextKey: "summaryPositionHelp",
     inputType: "textarea",
-    section: "conclusion",
+    paragraph: "conclusion",
+    l4Sources: [],
     autoPopulateFrom: {
-      layer: "initialContent",
-      questionId: "solution1,solution2,solution3",
-      transform: "combine-solutions",
+      layer: "ideaFormation",
+      questionId: "ideaSummaryPosition",
+      transform: "direct",
     },
   },
   {
-    id: "conCallToAction",
-    layer: "research",
-    translationKey: "conCallToAction",
-    helpTextKey: "conCallToActionHelp",
+    id: "summarySolution",
+    layer: "paragraphComponents",
+    translationKey: "summarySolution",
+    helpTextKey: "summarySolutionHelp",
     inputType: "textarea",
-    section: "conclusion",
+    paragraph: "conclusion",
+    l4Sources: [],
+    autoPopulateFrom: {
+      layer: "ideaFormation",
+      questionId: "ideaSummarySolution",
+      transform: "direct",
+    },
   },
 ];
 
+// =============================================================================
+// ALL QUESTIONS COMBINED
+// =============================================================================
+
+export const ALL_QUESTIONS: QuestionDefinition[] = [
+  ...COMPREHENSION_QUESTIONS,
+  ...IDEA_FORMATION_QUESTIONS,
+  ...PARAGRAPH_COMPONENT_QUESTIONS,
+];
+
+// Legacy export for compatibility during transition
+export const QUESTIONS = ALL_QUESTIONS;
+
+// =============================================================================
+// TYPED QUESTION EXPORTS (for components that need specific types)
+// =============================================================================
+
+export type ComprehensionQuestion = QuestionDefinition;
+export type IdeaFormationQuestion = QuestionDefinition;
+export type ParagraphComponentQuestion = QuestionDefinition;
+
+// =============================================================================
+// PARAGRAPH CONSTANTS
+// =============================================================================
+
+export const PARAGRAPH_ORDER: ParagraphType[] = [
+  "intro",
+  "background",
+  "position",
+  "solutions",
+  "conclusion",
+];
+
+export const PARAGRAPH_LABELS: Record<ParagraphType, string> = {
+  intro: "Introduction",
+  background: "Background",
+  position: "Position",
+  solutions: "Solutions",
+  conclusion: "Conclusion",
+};
+
+// =============================================================================
+// GROUPED QUESTIONS BY PARAGRAPH
+// =============================================================================
+
+export const IDEA_FORMATION_BY_PARAGRAPH: Record<ParagraphType, QuestionDefinition[]> = {
+  intro: IDEA_FORMATION_QUESTIONS.filter((q) => q.paragraph === "intro"),
+  background: IDEA_FORMATION_QUESTIONS.filter((q) => q.paragraph === "background"),
+  position: IDEA_FORMATION_QUESTIONS.filter((q) => q.paragraph === "position"),
+  solutions: IDEA_FORMATION_QUESTIONS.filter((q) => q.paragraph === "solutions"),
+  conclusion: IDEA_FORMATION_QUESTIONS.filter((q) => q.paragraph === "conclusion"),
+};
+
+export const PARAGRAPH_COMPONENTS_BY_PARAGRAPH: Record<ParagraphType, QuestionDefinition[]> = {
+  intro: PARAGRAPH_COMPONENT_QUESTIONS.filter((q) => q.paragraph === "intro"),
+  background: PARAGRAPH_COMPONENT_QUESTIONS.filter((q) => q.paragraph === "background"),
+  position: PARAGRAPH_COMPONENT_QUESTIONS.filter((q) => q.paragraph === "position"),
+  solutions: PARAGRAPH_COMPONENT_QUESTIONS.filter((q) => q.paragraph === "solutions"),
+  conclusion: PARAGRAPH_COMPONENT_QUESTIONS.filter((q) => q.paragraph === "conclusion"),
+};
+
+// =============================================================================
+// HELPER FUNCTIONS
+// =============================================================================
+
 /**
- * Get questions for a specific layer
+ * Get all questions for a specific layer
  */
 export function getQuestionsForLayer(layer: LayerType): QuestionDefinition[] {
-  return QUESTIONS.filter((q) => q.layer === layer);
+  return ALL_QUESTIONS.filter((q) => q.layer === layer);
 }
 
 /**
- * Get a question by ID
+ * Get questions for a specific paragraph within a layer
+ */
+export function getQuestionsForParagraph(
+  layer: LayerType,
+  paragraph: ParagraphType
+): QuestionDefinition[] {
+  return ALL_QUESTIONS.filter((q) => q.layer === layer && q.paragraph === paragraph);
+}
+
+/**
+ * Get questions by category group (for comprehension layer)
+ */
+export function getQuestionsByCategoryGroup(categoryGroup: string): QuestionDefinition[] {
+  return COMPREHENSION_QUESTIONS.filter((q) => q.categoryGroup === categoryGroup);
+}
+
+/**
+ * Get a single question by ID
  */
 export function getQuestionById(id: string): QuestionDefinition | undefined {
-  return QUESTIONS.find((q) => q.id === id);
+  return ALL_QUESTIONS.find((q) => q.id === id);
 }
 
 /**
- * Transform bullet list to paragraph text
- * Each bullet becomes a complete sentence in a flowing paragraph
+ * Get the L4 sources for a question (bookmark categories that are relevant)
+ */
+export function getL4SourcesForQuestion(questionId: string): BookmarkCategory[] {
+  const question = getQuestionById(questionId);
+  return question?.l4Sources || [];
+}
+
+// =============================================================================
+// CATEGORY GROUPS FOR COMPREHENSION LAYER
+// =============================================================================
+
+export const COMPREHENSION_CATEGORY_GROUPS = [
+  {
+    id: "countrySpecific",
+    translationKey: "categoryCountrySpecific",
+    questions: ["country", "committee", "topic", "countryInvolvement", "pastPositions", "countryInterests", "allies", "constraints"],
+  },
+  {
+    id: "topicFundamentals",
+    translationKey: "categoryTopicFundamentals",
+    questions: ["topicDefinition", "keyTerms", "scope"],
+  },
+  {
+    id: "historicalContext",
+    translationKey: "categoryHistoricalContext",
+    questions: ["origin", "timeline", "evolution"],
+  },
+  {
+    id: "currentSituation",
+    translationKey: "categoryCurrentSituation",
+    questions: ["presentState", "keyStatistics", "recentDevelopments"],
+  },
+  {
+    id: "stakeholders",
+    translationKey: "categoryStakeholders",
+    questions: ["affectedPopulations", "keyActors", "powerDynamics"],
+  },
+  {
+    id: "existingEfforts",
+    translationKey: "categoryExistingEfforts",
+    questions: ["unActions", "regionalEfforts", "successStories", "failures"],
+  },
+  {
+    id: "pointsOfContention",
+    translationKey: "categoryPointsOfContention",
+    questions: ["majorDebates", "competingInterests", "barriers"],
+  },
+];
+
+// =============================================================================
+// TRANSFORM FUNCTIONS
+// =============================================================================
+
+/**
+ * Convert bullet points to flowing text
  */
 export function bulletsToText(bullets: string): string {
-  const points = bullets
+  if (!bullets) return "";
+
+  const lines = bullets
     .split("\n")
-    .filter((line) => line.trim())
+    .map((line) => line.replace(/^[•\-\*]\s*/, "").trim())
+    .filter((line) => line.length > 0);
+
+  if (lines.length === 0) return "";
+
+  // Join with periods and ensure proper spacing
+  return lines
     .map((line) => {
-      const text = line.replace(/^[-•*]\s*/, "").trim();
-      // Ensure each point ends with proper punctuation
-      if (!text.endsWith(".") && !text.endsWith("!") && !text.endsWith("?")) {
-        return text + ".";
+      // Add period if doesn't end with punctuation
+      if (!/[.!?]$/.test(line)) {
+        return line + ".";
       }
-      return text;
-    });
-
-  return points.join(" ");
+      return line;
+    })
+    .join(" ");
 }
 
 /**
- * Get individual bullet points as an array
- * Useful for creating separate sentences from each bullet
- */
-export function bulletsToArray(bullets: string): string[] {
-  return bullets
-    .split("\n")
-    .filter((line) => line.trim())
-    .map((line) => line.replace(/^[-•*]\s*/, "").trim())
-    .filter((text) => text.length > 0);
-}
-
-/**
- * Transform bullet list to numbered sentences
- * E.g., "First, ... Second, ... Third, ..."
- */
-export function bulletsToNumberedSentences(bullets: string, intro?: string): string {
-  const points = bulletsToArray(bullets);
-  if (points.length === 0) return "";
-
-  const ordinals = ["First", "Second", "Third", "Fourth", "Fifth"];
-  const sentences = points.map((point, i) => {
-    const ordinal = ordinals[i] || `${i + 1}.`;
-    // Lowercase the first letter of the point
-    const lowercased = point.charAt(0).toLowerCase() + point.slice(1);
-    // Ensure ends with period
-    const withPeriod = lowercased.endsWith(".") || lowercased.endsWith("!") || lowercased.endsWith("?")
-      ? lowercased
-      : lowercased + ".";
-    return `${ordinal}, ${withPeriod}`;
-  });
-
-  return intro ? `${intro} ${sentences.join(" ")}` : sentences.join(" ");
-}
-
-/**
- * Transform text to bullet list
+ * Convert text to bullet points
  */
 export function textToBullets(text: string): string {
-  return text
+  if (!text) return "";
+
+  // Split by sentences or existing bullets
+  const sentences = text
     .split(/[.!?]+/)
-    .filter((sentence) => sentence.trim())
-    .map((sentence) => `• ${sentence.trim()}`)
-    .join("\n");
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+
+  return sentences.map((s) => `• ${s}`).join("\n");
 }
 
 /**
- * Combine multiple text fields into a paragraph
+ * Combine multiple text fields into one
  */
 export function combineSentences(texts: string[]): string {
-  return texts
-    .filter((t) => t && t.trim())
-    .map((t) => t.trim())
-    .map((t) => (t.endsWith(".") || t.endsWith("!") || t.endsWith("?") ? t : t + "."))
+  const nonEmpty = texts.filter((t) => t && t.trim());
+  if (nonEmpty.length === 0) return "";
+
+  return nonEmpty
+    .map((t) => {
+      const trimmed = t.trim();
+      if (!/[.!?]$/.test(trimmed)) {
+        return trimmed + ".";
+      }
+      return trimmed;
+    })
     .join(" ");
 }
 
 /**
- * Combine solutions into a structured paragraph
+ * Combine solutions into a structured list
  */
-export function combineSolutions(solutions: string[], country: string): string {
-  const validSolutions = solutions.filter((s) => s && s.trim());
-  if (validSolutions.length === 0) return "";
+export function combineSolutions(solutions: string[], country?: string): string {
+  const nonEmpty = solutions.filter((s) => s && s.trim());
+  if (nonEmpty.length === 0) return "";
 
-  const intro = `${country} proposes the following solutions to address this issue.`;
-  const formatted = validSolutions
-    .map((s, i) => `${i === 0 ? "First" : i === 1 ? "Second" : "Third"}, ${s.trim().charAt(0).toLowerCase() + s.trim().slice(1)}`)
-    .map((s) => (s.endsWith(".") ? s : s + "."))
-    .join(" ");
+  const ordinals = ["First", "Second", "Third", "Fourth", "Fifth"];
+  const countryPrefix = country ? `${country} proposes the following solutions: ` : "";
 
-  return `${intro} ${formatted}`;
+  const formatted = nonEmpty
+    .map((s, i) => {
+      const ordinal = ordinals[i] || `${i + 1}.`;
+      const trimmed = s.trim();
+      // Remove trailing punctuation for consistency
+      const cleanText = trimmed.replace(/[.!?]+$/, "");
+      return `${ordinal}, ${cleanText}`;
+    })
+    .join(". ");
+
+  return countryPrefix + formatted + ".";
 }
 
 /**
- * Apply auto-population transform
+ * Apply a transform to a value
  */
 export function applyTransform(
   value: string,
-  transform?: "bullets-to-text" | "text-to-bullets" | "combine-sentences" | "combine-solutions",
+  transform: string | undefined,
   additionalValues?: string[],
   country?: string
 ): string {
-  if (!transform) return value;
-  if (transform === "bullets-to-text") return bulletsToText(value);
-  if (transform === "text-to-bullets") return textToBullets(value);
-  if (transform === "combine-sentences" && additionalValues) {
-    return combineSentences([value, ...additionalValues]);
+  if (!transform || transform === "direct") {
+    return value;
   }
-  if (transform === "combine-solutions" && additionalValues) {
-    return combineSolutions([value, ...additionalValues], country || "Our delegation");
+
+  switch (transform) {
+    case "bullets-to-text":
+      return bulletsToText(value);
+    case "text-to-bullets":
+      return textToBullets(value);
+    case "combine-sentences":
+      return combineSentences([value, ...(additionalValues || [])]);
+    case "combine-solutions":
+      return combineSolutions([value, ...(additionalValues || [])], country);
+    default:
+      return value;
   }
-  return value;
 }
 
-/**
- * Generic layer data accessor type
- * This allows the recursive function to work with different data structures
- */
-type LayerDataAccessor = {
-  getDirectValue: (questionId: string) => string;
-  country: string;
-};
+// =============================================================================
+// AUTO-POPULATE HELPERS
+// =============================================================================
+
+export type DraftAccessor = (layer: LayerType, questionId: string) => string;
 
 /**
- * Recursively compute the effective value for a question by following
- * the auto-populate chain all the way back to the source.
- *
- * For example: historicalEvents (L1) -> keyEventsDescription (L2) -> bgEvidence (L3)
- * If bgEvidence and keyEventsDescription are both empty, this will trace back
- * to historicalEvents and apply all transforms along the way.
- *
- * @param questionId - The question ID to get the value for
- * @param accessor - Object providing access to draft data
- * @param visited - Set of already visited question IDs (to prevent infinite loops)
- * @returns The effective value (user input or recursively computed auto-populated value)
+ * Recursively get the effective value for a question, following auto-populate chains
  */
 export function getEffectiveValueRecursive(
   questionId: string,
-  accessor: LayerDataAccessor,
+  accessor: DraftAccessor,
   visited: Set<string> = new Set()
 ): string {
   // Prevent infinite loops
-  if (visited.has(questionId)) return "";
+  if (visited.has(questionId)) {
+    console.warn(`[Questions] Circular auto-populate detected for ${questionId}`);
+    return "";
+  }
   visited.add(questionId);
 
   const question = getQuestionById(questionId);
   if (!question) return "";
 
-  // Check if user has entered a value directly
-  const userValue = accessor.getDirectValue(questionId);
-  if (userValue.trim()) return userValue;
-
-  // No user value - follow the auto-populate chain
-  if (!question.autoPopulateFrom) return "";
-
-  const { questionId: sourceId, transform } = question.autoPopulateFrom;
-
-  // Handle comma-separated questionIds for combining multiple fields
-  if (sourceId.includes(",")) {
-    const sourceIds = sourceId.split(",").map((id) => id.trim());
-    // Recursively get effective values for each source
-    const sourceValues = sourceIds.map((id) =>
-      getEffectiveValueRecursive(id, accessor, new Set(visited))
-    );
-
-    if (!sourceValues.some((v) => v.trim())) return "";
-
-    if (transform === "combine-sentences") {
-      return combineSentences(sourceValues);
-    }
-    if (transform === "combine-solutions") {
-      return combineSolutions(sourceValues, accessor.country);
-    }
-    return sourceValues.filter(Boolean).join(" ");
+  // First check if user has entered a value
+  const userValue = accessor(question.layer, questionId);
+  if (userValue && userValue.trim()) {
+    return userValue;
   }
 
-  // Recursively get the effective value from the source question
-  const sourceValue = getEffectiveValueRecursive(sourceId, accessor, new Set(visited));
-  if (!sourceValue) return "";
+  // If no user value, check for auto-populate
+  if (question.autoPopulateFrom) {
+    const { questionId: sourceId, transform } = question.autoPopulateFrom;
 
-  // Apply transform
-  return applyTransform(sourceValue, transform);
+    // Handle multiple source IDs (comma-separated)
+    if (sourceId.includes(",")) {
+      const sourceIds = sourceId.split(",").map((id) => id.trim());
+      const values = sourceIds.map((id) => getEffectiveValueRecursive(id, accessor, new Set(visited)));
+      return applyTransform(values[0], transform, values.slice(1));
+    }
+
+    // Single source
+    const sourceValue = getEffectiveValueRecursive(sourceId, accessor, new Set(visited));
+    return applyTransform(sourceValue, transform);
+  }
+
+  return "";
+}
+
+/**
+ * Create a draft accessor function
+ */
+export function createDraftAccessor(draft: BGWriterDraft): DraftAccessor {
+  return (layer: LayerType, questionId: string) => {
+    if (layer === "finalPaper") {
+      return draft.layers.finalPaper;
+    }
+    return draft.layers[layer]?.[questionId] || "";
+  };
+}
+
+/**
+ * Get the effective value for a question from a draft
+ */
+export function getEffectiveValue(draft: BGWriterDraft, questionId: string): string {
+  const accessor = createDraftAccessor(draft);
+  return getEffectiveValueRecursive(questionId, accessor);
+}
+
+// =============================================================================
+// LAYER COMPLETION HELPERS
+// =============================================================================
+
+/**
+ * Calculate completion percentage for a layer
+ */
+export function getLayerCompletion(layer: LayerType, draft: BGWriterDraft): number {
+  if (layer === "finalPaper") {
+    // Final paper is complete if it has content
+    return draft.layers.finalPaper?.trim() ? 100 : 0;
+  }
+
+  const questions = getQuestionsForLayer(layer);
+  if (questions.length === 0) return 0;
+
+  const answered = questions.filter((q) => {
+    const value = draft.layers[layer]?.[q.id];
+    return value && value.trim().length > 0;
+  }).length;
+
+  return Math.round((answered / questions.length) * 100);
+}
+
+/**
+ * Get count of questions that can be auto-filled for a layer
+ */
+export function getAutofillableCount(layer: LayerType, draft: BGWriterDraft): number {
+  const questions = getQuestionsForLayer(layer);
+
+  return questions.filter((q) => {
+    // Skip if already has value
+    const layerData = draft.layers[layer];
+    const currentValue = typeof layerData === "string" ? layerData : layerData?.[q.id];
+    if (currentValue && currentValue.trim()) return false;
+
+    // Check if has auto-populate source
+    if (!q.autoPopulateFrom) return false;
+
+    // Check if source has value
+    const accessor = createDraftAccessor(draft);
+    const sourceValue = getEffectiveValueRecursive(q.autoPopulateFrom.questionId, accessor);
+    return sourceValue && sourceValue.trim().length > 0;
+  }).length;
 }

@@ -1,6 +1,12 @@
 /**
  * Autofill System for Position Paper Writer
  *
+ * Version 2 - Updated for new layer structure:
+ * - Layer 4: comprehension (source layer)
+ * - Layer 3: ideaFormation (bridge layer)
+ * - Layer 2: paragraphComponents (polished sections)
+ * - Layer 1: finalPaper (assembled paper)
+ *
  * Handles:
  * - Change detection via source data hashing
  * - Autofill execution for populating fields from previous layers
@@ -11,7 +17,6 @@
 import type { BGWriterDraft, LayerType, TransformType, BookmarkSection } from "./types";
 import {
   getQuestionsForLayer,
-  getQuestionById,
   getEffectiveValueRecursive,
   applyTransform,
   combineSentences,
@@ -114,12 +119,12 @@ function selectRelevantSections(
   return relevant;
 }
 
-/** Layer order for determining which layers are "previous" */
+/** Layer order for v2 structure */
 const LAYER_ORDER: LayerType[] = [
-  "comprehension",
-  "initialContent",
-  "research",
-  "finalDraft",
+  "comprehension",       // Layer 4 (source)
+  "ideaFormation",       // Layer 3 (bridge)
+  "paragraphComponents", // Layer 2 (polished sections)
+  "finalPaper",          // Layer 1 (assembled)
 ];
 
 /**
@@ -127,43 +132,33 @@ const LAYER_ORDER: LayerType[] = [
  * This helps the AI use specific information the student has already written.
  *
  * @param draft - The current draft state
- * @param queryContext - Optional context string for relevance filtering (e.g., question text, section name)
+ * @param queryContext - Optional context string for relevance filtering
  * @returns PriorContext object with available information
  */
 function gatherPriorContext(draft: BGWriterDraft, queryContext?: string): PriorContext {
   const priorContext: PriorContext = {};
 
-  // From comprehension layer
+  // From comprehension layer (Layer 4)
   const comp = draft.layers.comprehension;
-  if (comp.comp_why_important?.trim()) {
-    priorContext.whyImportant = comp.comp_why_important;
+
+  // Key comprehension answers
+  if (comp.topicDefinition?.trim()) {
+    priorContext.whyImportant = comp.topicDefinition;
   }
-  if (comp.comp_key_events?.trim()) {
-    priorContext.keyEvents = comp.comp_key_events;
+  if (comp.timeline?.trim()) {
+    priorContext.keyEvents = comp.timeline;
+  }
+  if (comp.countryInvolvement?.trim()) {
+    priorContext.countryPosition = comp.countryInvolvement;
+  }
+  if (comp.pastPositions?.trim()) {
+    priorContext.pastActions = comp.pastPositions;
   }
 
-  // From initial content layer
-  const init = draft.layers.initialContent;
-  if (init.init_country_position?.trim()) {
-    priorContext.countryPosition = init.init_country_position;
-  }
-  if (init.init_past_actions?.trim()) {
-    priorContext.pastActions = init.init_past_actions;
-  }
-  if (init.init_proposed_solutions?.trim()) {
-    priorContext.proposedSolutions = init.init_proposed_solutions;
-  }
-
-  // Also check research layer for more detailed answers
-  const research = draft.layers.research;
-  if (!priorContext.countryPosition && research.res_country_position?.trim()) {
-    priorContext.countryPosition = research.res_country_position;
-  }
-  if (!priorContext.pastActions && research.res_past_actions?.trim()) {
-    priorContext.pastActions = research.res_past_actions;
-  }
-  if (!priorContext.proposedSolutions && research.res_proposed_solutions?.trim()) {
-    priorContext.proposedSolutions = research.res_proposed_solutions;
+  // From idea formation layer (Layer 3)
+  const ideas = draft.layers.ideaFormation;
+  if (!priorContext.proposedSolutions && ideas.ideaSolutionProposal?.trim()) {
+    priorContext.proposedSolutions = ideas.ideaSolutionProposal;
   }
 
   // Include bookmarked topics and content from background guides
@@ -254,7 +249,7 @@ export function computeSourceHash(
   // Collect all data from layers BEFORE the target layer
   for (let i = 0; i < targetIndex; i++) {
     const layer = LAYER_ORDER[i];
-    if (layer === "finalDraft") continue;
+    if (layer === "finalPaper") continue;
 
     const layerData = draft.layers[layer];
     // Sort keys for consistent hashing
@@ -326,8 +321,8 @@ export function performAutofill(
     return result;
   }
 
-  // Final draft layer is handled differently (template generation)
-  if (targetLayer === "finalDraft") {
+  // Final paper layer is handled differently (template generation)
+  if (targetLayer === "finalPaper") {
     return result;
   }
 
@@ -335,16 +330,13 @@ export function performAutofill(
   const questions = getQuestionsForLayer(targetLayer);
   const autoPopulateQuestions = questions.filter((q) => q.autoPopulateFrom);
 
-  // Create accessor for recursive value computation
-  const accessor = {
-    getDirectValue: (qId: string): string => {
-      const q = getQuestionById(qId);
-      if (!q) return "";
-      if (q.layer === "finalDraft") return draft.layers.finalDraft;
-      return draft.layers[q.layer][qId] || "";
-    },
-    country: draft.country || "Our delegation",
+  // Create accessor function for recursive value computation
+  const accessor = (layer: LayerType, qId: string): string => {
+    if (layer === "finalPaper") return draft.layers.finalPaper;
+    return draft.layers[layer][qId] || "";
   };
+
+  const country = draft.country || "Our delegation";
 
   for (const question of autoPopulateQuestions) {
     // Skip if user has already entered a value
@@ -372,7 +364,7 @@ export function performAutofill(
         if (transform === "combine-sentences") {
           newValue = combineSentences(sourceValues);
         } else if (transform === "combine-solutions") {
-          newValue = combineSolutions(sourceValues, accessor.country);
+          newValue = combineSolutions(sourceValues, country);
         } else {
           newValue = sourceValues.filter(Boolean).join(" ");
         }
@@ -434,8 +426,8 @@ export async function performAutofillWithAI(
     return result;
   }
 
-  // Final draft layer is handled differently (template generation)
-  if (targetLayer === "finalDraft") {
+  // Final paper layer is handled differently (template generation)
+  if (targetLayer === "finalPaper") {
     return result;
   }
 
@@ -452,16 +444,13 @@ export async function performAutofillWithAI(
   const autoPopulateQuestions = questions.filter((q) => q.autoPopulateFrom);
   console.log("[Autofill] Found", autoPopulateQuestions.length, "questions with autoPopulateFrom");
 
-  // Create accessor for recursive value computation
-  const accessor = {
-    getDirectValue: (qId: string): string => {
-      const q = getQuestionById(qId);
-      if (!q) return "";
-      if (q.layer === "finalDraft") return draft.layers.finalDraft;
-      return draft.layers[q.layer][qId] || "";
-    },
-    country: draft.country || "Our delegation",
+  // Create accessor function for recursive value computation
+  const accessor = (layer: LayerType, qId: string): string => {
+    if (layer === "finalPaper") return draft.layers.finalPaper;
+    return draft.layers[layer][qId] || "";
   };
+
+  const country = draft.country || "Our delegation";
 
   // Process questions - collect all work first, then execute
   const updateTasks: Array<{
@@ -469,7 +458,7 @@ export async function performAutofillWithAI(
     transform: string | undefined;
     isMultiSource: boolean;
     localValue: string;
-    section: string | undefined;
+    paragraph: string | undefined;
     translationKey: string;
   }> = [];
 
@@ -500,7 +489,7 @@ export async function performAutofillWithAI(
         if (transform === "combine-sentences") {
           localValue = combineSentences(sourceValues);
         } else if (transform === "combine-solutions") {
-          localValue = combineSolutions(sourceValues, accessor.country);
+          localValue = combineSolutions(sourceValues, country);
         } else {
           localValue = sourceValues.filter(Boolean).join(" ");
         }
@@ -519,7 +508,7 @@ export async function performAutofillWithAI(
           transform,
           isMultiSource,
           localValue,
-          section: question.section,
+          paragraph: question.paragraph,
           translationKey: question.translationKey,
         });
       }
@@ -544,9 +533,8 @@ export async function performAutofillWithAI(
       if (aiTransform) {
         try {
           // Build question-specific context for relevance filtering
-          // Include section name and question key to help select relevant bookmark sections
           const questionContext = [
-            task.section,
+            task.paragraph,
             task.translationKey,
             task.questionId,
           ].filter(Boolean).join(" ");
@@ -559,7 +547,7 @@ export async function performAutofillWithAI(
             context: paperContext!,
             transformType: aiTransform,
             priorContext,
-            targetLayer: targetLayer as "initialContent" | "research",
+            targetLayer: targetLayer as "ideaFormation" | "paragraphComponents",
           });
 
           if (polishResult.success && polishResult.polishedText.trim()) {
@@ -602,7 +590,7 @@ export function getAutofillableFieldCount(
   targetLayer: LayerType,
   draft: BGWriterDraft
 ): number {
-  if (targetLayer === "comprehension" || targetLayer === "finalDraft") {
+  if (targetLayer === "comprehension" || targetLayer === "finalPaper") {
     return 0;
   }
 
