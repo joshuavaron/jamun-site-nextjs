@@ -253,9 +253,12 @@ export async function performAutofillWithAI(
     paperContext.committee?.trim() &&
     paperContext.topic?.trim();
 
+  console.log("[Autofill] Starting autofill for layer:", targetLayer, { useAI, canUseAI, paperContext });
+
   // Get questions for target layer that have autoPopulateFrom
   const questions = getQuestionsForLayer(targetLayer);
   const autoPopulateQuestions = questions.filter((q) => q.autoPopulateFrom);
+  console.log("[Autofill] Found", autoPopulateQuestions.length, "questions with autoPopulateFrom");
 
   // Create accessor for recursive value computation
   const accessor = {
@@ -331,6 +334,8 @@ export async function performAutofillWithAI(
     }
   }
 
+  console.log("[Autofill] Collected", updateTasks.length, "tasks to process:", updateTasks.map(t => t.questionId));
+
   // Process all tasks - apply AI polishing where applicable
   for (const task of updateTasks) {
     let finalValue = task.localValue;
@@ -338,6 +343,7 @@ export async function performAutofillWithAI(
     // Try AI polishing if enabled
     if (canUseAI) {
       const aiTransform = mapToAITransform(task.transform, task.isMultiSource);
+      console.log("[Autofill] Processing task", task.questionId, "with AI transform:", aiTransform);
 
       if (aiTransform) {
         try {
@@ -350,13 +356,16 @@ export async function performAutofillWithAI(
           if (polishResult.success && polishResult.polishedText.trim()) {
             finalValue = polishResult.polishedText;
             result.aiPolishedCount++;
+            console.log("[Autofill] AI polished successfully for", task.questionId);
           } else if (polishResult.error) {
             // Log but don't fail - use local value
+            console.warn("[Autofill] AI polish warning for", task.questionId, ":", polishResult.error);
             result.errors.push(`AI polish warning for ${task.questionId}: ${polishResult.error}`);
           }
         } catch (error) {
           // AI failed - use local value
           const errorMsg = error instanceof Error ? error.message : "Unknown error";
+          console.error("[Autofill] AI polish failed for", task.questionId, ":", errorMsg);
           result.errors.push(`AI polish failed for ${task.questionId}: ${errorMsg}`);
         }
       }
@@ -368,6 +377,7 @@ export async function performAutofillWithAI(
     result.updatedFields.push(task.questionId);
   }
 
+  console.log("[Autofill] Complete:", result);
   return result;
 }
 

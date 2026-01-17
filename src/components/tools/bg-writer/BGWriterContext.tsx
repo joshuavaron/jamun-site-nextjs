@@ -88,6 +88,7 @@ interface BGWriterContextValue {
   autofillState: AutofillState;
   canAutofill: () => { allowed: boolean; reason?: string };
   triggerAutofill: () => Promise<AutofillResult | null>;
+  aiFilledFields: Set<string>;
 }
 
 const BGWriterContext = createContext<BGWriterContextValue | null>(null);
@@ -119,6 +120,9 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     cooldownRemaining: 0,
   });
   const lastAutofillClickRef = useRef<number>(0);
+
+  // Track which fields were filled by AI (for yellow highlight)
+  const [aiFilledFields, setAiFilledFields] = useState<Set<string>>(new Set());
 
   const refreshDraftsList = useCallback(() => {
     setAllDrafts(getAllDraftSummaries());
@@ -471,6 +475,17 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
         },
       });
 
+      // Track which fields were filled (for yellow highlight)
+      if (result.updatedFields.length > 0) {
+        setAiFilledFields((prev) => {
+          const next = new Set(prev);
+          for (const fieldId of result.updatedFields) {
+            next.add(fieldId);
+          }
+          return next;
+        });
+      }
+
       // Update state on completion
       const newHash = computeSourceHash(currentLayer, draft);
       setAutofillState({
@@ -515,6 +530,7 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     autofillState,
     canAutofill,
     triggerAutofill,
+    aiFilledFields,
   };
 
   return (

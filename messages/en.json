@@ -1861,7 +1861,8 @@
       "successWithAI": "AI improved {aiCount} of {count} fields",
       "noChanges": "No new data",
       "error": "Autofill failed",
-      "hint": "AI-powered fill from previous steps"
+      "hint": "AI-powered fill from previous steps",
+      "aiFilled": "AI Filled"
     },
     "bookmarks": {
       "title": "Reference Material",

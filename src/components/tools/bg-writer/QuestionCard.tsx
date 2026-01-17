@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeInUp } from "@/lib/animations";
-import { AutoPopulatedBadge } from "./AutoPopulatedBadge";
-import type { QuestionInputType, LayerType } from "@/lib/bg-writer/types";
-import { LAYER_INFO } from "@/lib/bg-writer/types";
+import type { QuestionInputType } from "@/lib/bg-writer/types";
 
 interface QuestionCardProps {
   questionId: string;
@@ -15,8 +14,7 @@ interface QuestionCardProps {
   helpTextKey?: string;
   inputType: QuestionInputType;
   value: string;
-  autoPopulatedValue?: string | null;
-  autoPopulatedFromLayer?: LayerType;
+  isAIFilled?: boolean;
   onChange: (value: string) => void;
   required?: boolean;
 }
@@ -27,18 +25,12 @@ export function QuestionCard({
   helpTextKey,
   inputType,
   value,
-  autoPopulatedValue,
-  autoPopulatedFromLayer,
+  isAIFilled,
   onChange,
   required,
 }: QuestionCardProps) {
   const t = useTranslations("BGWriter");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [isUsingAutoPopulated, setIsUsingAutoPopulated] = useState(false);
-
-  // Determine if we should show auto-populated content
-  const showAutoPopulated =
-    autoPopulatedValue && !value && autoPopulatedFromLayer;
 
   // Auto-resize textarea
   useEffect(() => {
@@ -46,24 +38,15 @@ export function QuestionCard({
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [value, autoPopulatedValue, isUsingAutoPopulated]);
-
-  const handleFocus = () => {
-    if (showAutoPopulated && !value) {
-      // When user focuses on auto-populated field, start editing with that value
-      setIsUsingAutoPopulated(true);
-      onChange(autoPopulatedValue || "");
-    }
-  };
-
-  const displayValue = showAutoPopulated && !isUsingAutoPopulated ? autoPopulatedValue : value;
+  }, [value]);
 
   const renderInput = () => {
     const baseClasses = cn(
       "w-full rounded-lg border px-4 py-3 text-gray-900 transition-colors",
       "focus:border-jamun-blue focus:outline-none focus:ring-2 focus:ring-jamun-blue/20",
-      showAutoPopulated && !isUsingAutoPopulated
-        ? "border-amber-200 bg-amber-50/50 italic text-gray-600"
+      // Yellow highlight for AI-filled fields
+      isAIFilled && value
+        ? "border-amber-300 bg-amber-50/50"
         : "border-gray-200 bg-white"
     );
 
@@ -71,13 +54,9 @@ export function QuestionCard({
       return (
         <input
           type="text"
-          value={displayValue || ""}
-          onChange={(e) => {
-            setIsUsingAutoPopulated(false);
-            onChange(e.target.value);
-          }}
-          onFocus={handleFocus}
-          placeholder={showAutoPopulated ? undefined : "..."}
+          value={value || ""}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="..."
           className={baseClasses}
           required={required}
         />
@@ -87,7 +66,6 @@ export function QuestionCard({
     if (inputType === "bullets") {
       // Auto-format bullets on change
       const handleBulletChange = (rawValue: string) => {
-        setIsUsingAutoPopulated(false);
         // Process each line
         const lines = rawValue.split("\n");
         const formattedLines = lines.map((line) => {
@@ -127,15 +105,10 @@ export function QuestionCard({
         <div className="space-y-2">
           <textarea
             ref={textareaRef}
-            value={displayValue || ""}
+            value={value || ""}
             onChange={(e) => handleBulletChange(e.target.value)}
             onKeyDown={handleKeyDown}
-            onFocus={handleFocus}
-            placeholder={
-              showAutoPopulated
-                ? undefined
-                : "• First point\n• Second point\n• Third point"
-            }
+            placeholder="• First point\n• Second point\n• Third point"
             className={cn(baseClasses, "min-h-[120px] resize-none")}
             rows={4}
           />
@@ -150,13 +123,9 @@ export function QuestionCard({
     return (
       <textarea
         ref={textareaRef}
-        value={displayValue || ""}
-        onChange={(e) => {
-          setIsUsingAutoPopulated(false);
-          onChange(e.target.value);
-        }}
-        onFocus={handleFocus}
-        placeholder={showAutoPopulated ? undefined : "Write your answer here..."}
+        value={value || ""}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Write your answer here..."
         className={cn(baseClasses, "min-h-[100px] resize-none")}
         rows={3}
       />
@@ -166,7 +135,12 @@ export function QuestionCard({
   return (
     <motion.div
       variants={fadeInUp}
-      className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+      className={cn(
+        "rounded-xl border p-6 shadow-sm",
+        isAIFilled && value
+          ? "border-amber-200 bg-amber-50/30"
+          : "border-gray-200 bg-white"
+      )}
     >
       <div className="mb-4 space-y-1">
         <div className="flex items-start justify-between gap-4">
@@ -177,10 +151,11 @@ export function QuestionCard({
             {t(`questions.${translationKey}`)}
             {required && <span className="ml-1 text-red-500">*</span>}
           </label>
-          {showAutoPopulated && autoPopulatedFromLayer && (
-            <AutoPopulatedBadge
-              fromLayer={t(`layers.${LAYER_INFO[autoPopulatedFromLayer].translationKey}`)}
-            />
+          {isAIFilled && value && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
+              <Sparkles className="h-3 w-3" />
+              {t("autofill.aiFilled")}
+            </span>
           )}
         </div>
         {helpTextKey && (

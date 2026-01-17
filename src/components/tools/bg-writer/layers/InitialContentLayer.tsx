@@ -13,7 +13,7 @@ const SECTIONS: SectionType[] = ["introduction", "background", "position", "solu
 
 export function InitialContentLayer() {
   const t = useTranslations("BGWriter");
-  const { getAnswer, updateAnswer, getAutoPopulatedValue } = useBGWriter();
+  const { getAnswer, updateAnswer, aiFilledFields } = useBGWriter();
 
   const questions = getQuestionsForLayer("initialContent");
 
@@ -67,8 +67,7 @@ export function InitialContentLayer() {
                   helpTextKey={question.helpTextKey}
                   inputType={question.inputType}
                   value={getAnswer("initialContent", question.id)}
-                  autoPopulatedValue={getAutoPopulatedValue(question.id)}
-                  autoPopulatedFromLayer={question.autoPopulateFrom?.layer}
+                  isAIFilled={aiFilledFields.has(question.id)}
                   onChange={(value) => updateAnswer("initialContent", question.id, value)}
                   required={question.required}
                 />
