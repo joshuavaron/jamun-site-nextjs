@@ -3,6 +3,7 @@ export { BGWriterProvider, useBGWriter } from "./BGWriterContext";
 export { LayerTabs } from "./LayerTabs";
 export { QuestionCard } from "./QuestionCard";
 export { AutoPopulatedBadge } from "./AutoPopulatedBadge";
+export { AutofillButton } from "./AutofillButton";
 export { ProgressBar } from "./ProgressBar";
 export { DraftsSidebar } from "./DraftsSidebar";
 export { BookmarksSidebar } from "./BookmarksSidebar";

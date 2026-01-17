@@ -4,6 +4,7 @@ import { BookOpen, PenLine, Search, FileText, Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useBGWriter } from "./BGWriterContext";
+import { AutofillButton } from "./AutofillButton";
 import type { LayerType } from "@/lib/bg-writer/types";
 import { LAYER_ORDER, LAYER_INFO } from "@/lib/bg-writer/types";
 import { getQuestionsForLayer } from "@/lib/bg-writer/questions";
@@ -134,10 +135,13 @@ export function LayerTabs() {
           })}
         </div>
 
-        {/* Layer description */}
-        <p className="mt-2 text-center text-sm text-gray-500">
-          {t(`layerDescriptions.${LAYER_INFO[currentLayer].translationKey}`)}
-        </p>
+        {/* Layer description and autofill button */}
+        <div className="mt-3 flex flex-col items-center justify-between gap-3 sm:flex-row">
+          <p className="text-sm text-gray-500">
+            {t(`layerDescriptions.${LAYER_INFO[currentLayer].translationKey}`)}
+          </p>
+          <AutofillButton />
+        </div>
       </div>
     </div>
   );

@@ -1853,6 +1853,16 @@
       "preview": "Preview",
       "edit": "Edit"
     },
+    "autofill": {
+      "button": "AI Autofill",
+      "filling": "AI Processing...",
+      "cooldown": "Wait {seconds}s",
+      "success": "Filled {count} fields",
+      "successWithAI": "AI improved {aiCount} of {count} fields",
+      "noChanges": "No new data",
+      "error": "Autofill failed",
+      "hint": "AI-powered fill from previous steps"
+    },
     "bookmarks": {
       "title": "Reference Material",
       "importFrom": "Import from Background Guide",

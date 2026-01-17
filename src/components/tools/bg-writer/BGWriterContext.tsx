@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useRef,
   type ReactNode,
 } from "react";
 import type {
@@ -13,7 +14,17 @@ import type {
   LayerType,
   BookmarkSource,
   DraftSummary,
+  AutofillState,
 } from "@/lib/bg-writer/types";
+import {
+  AUTOFILL_COOLDOWN_SECONDS,
+  AUTOFILL_DEBOUNCE_MS,
+} from "@/lib/bg-writer/types";
+import {
+  computeSourceHash,
+  performAutofillWithAI,
+  type AutofillResult,
+} from "@/lib/bg-writer/autofill";
 import {
   createEmptyDraft,
   loadDraft,
@@ -72,6 +83,11 @@ interface BGWriterContextValue {
   // Export/Import
   exportToJSON: () => string;
   importFromJSON: (json: string) => boolean;
+
+  // Autofill
+  autofillState: AutofillState;
+  canAutofill: () => { allowed: boolean; reason?: string };
+  triggerAutofill: () => Promise<AutofillResult | null>;
 }
 
 const BGWriterContext = createContext<BGWriterContextValue | null>(null);
@@ -94,6 +110,15 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [allDrafts, setAllDrafts] = useState<DraftSummary[]>([]);
+
+  // Autofill state
+  const [autofillState, setAutofillState] = useState<AutofillState>({
+    lastAutofillTimestamp: null,
+    lastAutofillSourceHash: null,
+    isAutofilling: false,
+    cooldownRemaining: 0,
+  });
+  const lastAutofillClickRef = useRef<number>(0);
 
   const refreshDraftsList = useCallback(() => {
     setAllDrafts(getAllDraftSummaries());
@@ -124,6 +149,28 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
       return () => clearTimeout(timer);
     }
   }, [isDirty, draft, refreshDraftsList]);
+
+  // Autofill cooldown timer
+  useEffect(() => {
+    if (autofillState.cooldownRemaining <= 0) return;
+
+    const timer = setInterval(() => {
+      setAutofillState((prev) => ({
+        ...prev,
+        cooldownRemaining: Math.max(0, prev.cooldownRemaining - 1),
+      }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [autofillState.cooldownRemaining]);
+
+  // Reset autofill hash when layer changes (so autofill works fresh on each layer)
+  useEffect(() => {
+    setAutofillState((prev) => ({
+      ...prev,
+      lastAutofillSourceHash: null,
+    }));
+  }, [currentLayer]);
 
   const saveDraft = useCallback(() => {
     if (draft) {
@@ -356,6 +403,91 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     [refreshDraftsList]
   );
 
+  // Check if autofill is allowed
+  const canAutofill = useCallback((): { allowed: boolean; reason?: string } => {
+    // Can't autofill without a draft
+    if (!draft) {
+      return { allowed: false, reason: "noDraft" };
+    }
+
+    // Can't autofill comprehension layer (it's the source)
+    if (currentLayer === "comprehension") {
+      return { allowed: false, reason: "comprehensionLayer" };
+    }
+
+    // Can't autofill final draft layer (uses template generation)
+    if (currentLayer === "finalDraft") {
+      return { allowed: false, reason: "finalDraftLayer" };
+    }
+
+    // Check if currently autofilling
+    if (autofillState.isAutofilling) {
+      return { allowed: false, reason: "autofillInProgress" };
+    }
+
+    // Check cooldown
+    if (autofillState.cooldownRemaining > 0) {
+      return { allowed: false, reason: "cooldown" };
+    }
+
+    // Check debounce
+    const now = Date.now();
+    if (now - lastAutofillClickRef.current < AUTOFILL_DEBOUNCE_MS) {
+      return { allowed: false, reason: "debounce" };
+    }
+
+    // Check if source data changed since last autofill
+    const currentHash = computeSourceHash(currentLayer, draft);
+    if (currentHash === autofillState.lastAutofillSourceHash) {
+      return { allowed: false, reason: "noChanges" };
+    }
+
+    return { allowed: true };
+  }, [draft, currentLayer, autofillState]);
+
+  // Trigger autofill operation with AI polishing
+  const triggerAutofill = useCallback(async (): Promise<AutofillResult | null> => {
+    const canResult = canAutofill();
+    if (!canResult.allowed) {
+      return null;
+    }
+
+    if (!draft) return null;
+
+    // Record click time for debounce
+    lastAutofillClickRef.current = Date.now();
+
+    // Start autofill
+    setAutofillState((prev) => ({ ...prev, isAutofilling: true }));
+
+    try {
+      // Perform the autofill with AI polishing
+      const result = await performAutofillWithAI(currentLayer, draft, updateAnswer, {
+        useAI: true,
+        paperContext: {
+          country: draft.country || "",
+          committee: draft.committee || "",
+          topic: draft.topic || "",
+        },
+      });
+
+      // Update state on completion
+      const newHash = computeSourceHash(currentLayer, draft);
+      setAutofillState({
+        lastAutofillTimestamp: Date.now(),
+        lastAutofillSourceHash: newHash,
+        isAutofilling: false,
+        cooldownRemaining: AUTOFILL_COOLDOWN_SECONDS,
+      });
+
+      return result;
+    } catch (error) {
+      // Reset autofilling state on error
+      setAutofillState((prev) => ({ ...prev, isAutofilling: false }));
+      throw error;
+    }
+  }, [canAutofill, draft, currentLayer, updateAnswer]);
+
   const value: BGWriterContextValue = {
     draft,
     isDirty,
@@ -380,6 +512,9 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     refreshDraftsList,
     exportToJSON,
     importFromJSON,
+    autofillState,
+    canAutofill,
+    triggerAutofill,
   };
 
   return (
