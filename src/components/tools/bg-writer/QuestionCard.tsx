@@ -64,21 +64,23 @@ export function QuestionCard({
     }
 
     if (inputType === "bullets") {
-      // Auto-format bullets on change
+      // Auto-format bullets on change - only format on new lines, preserve spaces
       const handleBulletChange = (rawValue: string) => {
-        // Process each line
+        // Process each line but preserve content after bullet
         const lines = rawValue.split("\n");
         const formattedLines = lines.map((line) => {
-          const trimmed = line.trim();
-          // Skip empty lines
-          if (!trimmed) return "";
-          // Already has bullet/dash
-          if (trimmed.startsWith("•") || trimmed.startsWith("-") || trimmed.startsWith("*")) {
-            // Normalize to bullet point
-            return "• " + trimmed.replace(/^[-•*]\s*/, "");
+          // Keep empty lines as-is
+          if (!line.trim()) return "";
+          // Check if line already has a bullet/dash at the start
+          if (/^[\s]*[•\-*]/.test(line)) {
+            // Normalize to bullet point but keep the rest of the content
+            return line.replace(/^[\s]*[-•*][\s]*/, "• ");
           }
-          // Add bullet if this is a new line with content
-          return "• " + trimmed;
+          // Add bullet only if line has content and doesn't start with bullet
+          if (line.trim()) {
+            return "• " + line.trimStart();
+          }
+          return line;
         });
         onChange(formattedLines.join("\n"));
       };

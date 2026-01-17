@@ -29,58 +29,77 @@ function checkRateLimit(ip) {
   return true;
 }
 
-function buildPrompt(text, context, transformType) {
+function buildPrompt(text, context, transformType, priorContext) {
   const { country, committee, topic } = context;
 
+  // Build context section from prior answers if provided
+  let contextSection = "";
+  if (priorContext && Object.keys(priorContext).length > 0) {
+    const contextParts = [];
+    if (priorContext.whyImportant) {
+      contextParts.push(`Why this topic matters: ${priorContext.whyImportant}`);
+    }
+    if (priorContext.keyEvents) {
+      contextParts.push(`Key events/facts: ${priorContext.keyEvents}`);
+    }
+    if (priorContext.countryPosition) {
+      contextParts.push(`${country}'s position: ${priorContext.countryPosition}`);
+    }
+    if (priorContext.pastActions) {
+      contextParts.push(`Past actions by ${country}: ${priorContext.pastActions}`);
+    }
+    if (priorContext.proposedSolutions) {
+      contextParts.push(`Proposed solutions: ${priorContext.proposedSolutions}`);
+    }
+    if (contextParts.length > 0) {
+      contextSection = `\nBackground information the student has provided:\n${contextParts.join("\n")}\n`;
+    }
+  }
+
   const prompts = {
-    "bullets-to-paragraph": `You are helping a middle school student write a Model UN position paper.
-
-Convert these bullet points into a well-written paragraph. Keep the content accurate but make it flow naturally.
+    "bullets-to-paragraph": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy or overly formal.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
-
-Bullet points:
+${contextSection}
+Turn these bullet points into a short, readable paragraph:
 ${text}
 
-Write a clear, formal paragraph suitable for a Model UN position paper. Use simple but professional language appropriate for middle school students. Output only the paragraph, no explanations.`,
+Keep it simple and natural - like how a student would actually talk about this topic. Use the background information provided to make it specific and accurate. Output only the paragraph.`,
 
-    "expand-sentence": `You are helping a middle school student write a Model UN position paper.
-
-Expand this sentence into a more detailed, formal statement while keeping it accessible for middle school students.
+    "expand-sentence": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
+${contextSection}
+Expand this into 2-3 sentences with more detail:
+"${text}"
 
-Original sentence: "${text}"
+Keep it simple and natural. Use the background information to add specific details. Output only the expanded text.`,
 
-Write an expanded version (2-3 sentences) that adds detail and context. Use formal but clear language. Output only the expanded text, no explanations.`,
-
-    formalize: `You are helping a middle school student write a Model UN position paper.
-
-Rewrite this text in formal diplomatic language while keeping it understandable for middle school students.
+    formalize: `You are helping a middle school student write a Model UN position paper. The writing should sound confident but still like a student wrote it - not like a government document.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
+${contextSection}
+Polish this text to sound a bit more professional while keeping it readable:
+"${text}"
 
-Original text: "${text}"
+Don't make it sound robotic or overly formal. Keep the student's voice. Use the background information to make it more specific. Output only the polished text.`,
 
-Rewrite in a professional tone suitable for a UN delegate. Keep it clear and accessible. Output only the rewritten text, no explanations.`,
+    "combine-solutions": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would.
 
-    "combine-solutions": `You are helping a middle school student write a Model UN position paper.
-
-These are proposed solutions from ${country}. Combine them into a cohesive paragraph that flows well.
-
+Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
-
-Solutions:
+${contextSection}
+Combine these solutions into one smooth paragraph:
 ${text}
 
-Write a paragraph that presents these solutions professionally, using transitions like "First," "Additionally," and "Finally." Keep language accessible for middle school students. Output only the paragraph, no explanations.`,
+Use simple transitions like "First," "Also," and "Finally." Keep it clear and direct - not overly formal. Use the background information to make the solutions more specific. Output only the paragraph.`,
   };
 
   return prompts[transformType];
@@ -112,7 +131,7 @@ export async function onRequestPost(context) {
 
     // Parse request
     const body = await context.request.json();
-    const { text, context: paperContext, transformType } = body;
+    const { text, context: paperContext, transformType, priorContext } = body;
 
     // Validate input
     if (!text?.trim()) {
@@ -143,7 +162,7 @@ export async function onRequestPost(context) {
     }
 
     // Build prompt and call AI
-    const prompt = buildPrompt(text, paperContext, transformType);
+    const prompt = buildPrompt(text, paperContext, transformType, priorContext || {});
 
     const result = await context.env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
       prompt,
