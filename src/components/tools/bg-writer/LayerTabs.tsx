@@ -1,6 +1,22 @@
 "use client";
 
-import { BookOpen, PenLine, Search, FileText, Check } from "lucide-react";
+/**
+ * LayerTabs - Navigation between the 4 layers
+ *
+ * Per PP-Writer.md: New layer order:
+ * - Layer 4: Comprehension (Background Guide understanding)
+ * - Layer 3: Idea Formation (Bridge layer)
+ * - Layer 2: Paragraph Components (24 polished sections)
+ * - Layer 1: Final Paper (Assembled position paper)
+ */
+
+import {
+  BookOpen,
+  Lightbulb,
+  PenLine,
+  FileText,
+  Check,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useBGWriter } from "./BGWriterContext";
@@ -9,38 +25,48 @@ import type { LayerType } from "@/lib/bg-writer/types";
 import { LAYER_ORDER, LAYER_INFO } from "@/lib/bg-writer/types";
 import { getQuestionsForLayer } from "@/lib/bg-writer/questions";
 
+// Icons for each layer
 const LAYER_ICONS: Record<LayerType, React.ComponentType<{ className?: string }>> = {
   comprehension: BookOpen,
-  initialContent: PenLine,
-  research: Search,
-  finalDraft: FileText,
+  ideaFormation: Lightbulb,
+  paragraphComponents: PenLine,
+  finalPaper: FileText,
 };
 
+// Colors for each layer
 const LAYER_COLORS: Record<LayerType, { bg: string; bgLight: string; text: string; border: string }> = {
   comprehension: {
-    bg: "bg-jamun-blue",
-    bgLight: "bg-jamun-blue/10",
-    text: "text-jamun-blue",
-    border: "border-jamun-blue",
+    bg: "bg-blue-600",
+    bgLight: "bg-blue-600/10",
+    text: "text-blue-600",
+    border: "border-blue-600",
   },
-  initialContent: {
-    bg: "bg-purple-600",
-    bgLight: "bg-purple-600/10",
-    text: "text-purple-600",
-    border: "border-purple-600",
+  ideaFormation: {
+    bg: "bg-indigo-600",
+    bgLight: "bg-indigo-600/10",
+    text: "text-indigo-600",
+    border: "border-indigo-600",
   },
-  research: {
+  paragraphComponents: {
     bg: "bg-amber-500",
     bgLight: "bg-amber-500/10",
     text: "text-amber-500",
     border: "border-amber-500",
   },
-  finalDraft: {
+  finalPaper: {
     bg: "bg-green-600",
     bgLight: "bg-green-600/10",
     text: "text-green-600",
     border: "border-green-600",
   },
+};
+
+// Layer number labels (Layer 4 → 3 → 2 → 1)
+const LAYER_NUMBERS: Record<LayerType, number> = {
+  comprehension: 4,
+  ideaFormation: 3,
+  paragraphComponents: 2,
+  finalPaper: 1,
 };
 
 function getLayerCompletion(
@@ -49,8 +75,8 @@ function getLayerCompletion(
 ): number {
   if (!draft) return 0;
 
-  if (layer === "finalDraft") {
-    return draft.layers.finalDraft?.trim() ? 100 : 0;
+  if (layer === "finalPaper") {
+    return draft.layers.finalPaper?.trim() ? 100 : 0;
   }
 
   const questions = getQuestionsForLayer(layer);
@@ -76,11 +102,11 @@ export function LayerTabs() {
           onChange={(e) => setCurrentLayer(e.target.value as LayerType)}
           className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm font-medium focus:border-jamun-blue focus:outline-none focus:ring-2 focus:ring-jamun-blue/20"
         >
-          {LAYER_ORDER.map((layer, index) => {
+          {LAYER_ORDER.map((layer) => {
             const completion = getLayerCompletion(layer, draft);
             return (
               <option key={layer} value={layer}>
-                {index + 1}. {t(`layers.${LAYER_INFO[layer].translationKey}`)}{" "}
+                {t(`layers.${LAYER_INFO[layer].translationKey}`)}{" "}
                 {completion === 100 ? "✓" : `(${completion}%)`}
               </option>
             );
@@ -91,12 +117,13 @@ export function LayerTabs() {
       {/* Desktop: Tabs */}
       <div className="hidden sm:block">
         <div className="flex items-center gap-2 rounded-xl bg-gray-100 p-1.5">
-          {LAYER_ORDER.map((layer, index) => {
+          {LAYER_ORDER.map((layer) => {
             const Icon = LAYER_ICONS[layer];
             const colors = LAYER_COLORS[layer];
             const isActive = currentLayer === layer;
             const completion = getLayerCompletion(layer, draft);
             const isComplete = completion === 100;
+            const layerNum = LAYER_NUMBERS[layer];
 
             return (
               <button
@@ -118,7 +145,7 @@ export function LayerTabs() {
                   {isComplete ? (
                     <Check className="h-3.5 w-3.5" />
                   ) : (
-                    index + 1
+                    layerNum
                   )}
                 </span>
                 <span className="hidden lg:inline">
@@ -146,3 +173,5 @@ export function LayerTabs() {
     </div>
   );
 }
+
+export default LayerTabs;

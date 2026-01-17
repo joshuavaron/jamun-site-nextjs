@@ -1,17 +1,21 @@
 /**
- * Background Guide Writer Storage Utilities
+ * Position Paper Writer Storage Utilities
  *
  * LocalStorage persistence for drafts.
- * Pattern follows subpoint-storage.ts conventions.
+ * Version 2 - Complete rewrite with clean break from v1 drafts.
  */
 
-import type { BGWriterDraft, DraftSummary } from "./types";
-import { QUESTIONS } from "./questions";
+import type { BGWriterDraft, DraftSummary, ClassifiedBookmark } from "./types";
+import { STORAGE_VERSION } from "./types";
+import { ALL_QUESTIONS } from "./questions";
 
 const STORAGE_KEYS = {
   CURRENT_DRAFT_ID: "bg-writer:current-draft",
-  DRAFTS_INDEX: "bg-writer:drafts",
-  DRAFT_PREFIX: "bg-writer:draft:",
+  DRAFTS_INDEX: "bg-writer:drafts-v2",
+  DRAFT_PREFIX: "bg-writer:draft-v2:",
+  // Old v1 keys (for cleanup)
+  OLD_DRAFTS_INDEX: "bg-writer:drafts",
+  OLD_DRAFT_PREFIX: "bg-writer:draft:",
 } as const;
 
 function getDraftKey(id: string): string {
@@ -26,12 +30,13 @@ export function generateDraftId(): string {
 }
 
 /**
- * Create an empty draft
+ * Create an empty draft with v2 structure
  */
 export function createEmptyDraft(): BGWriterDraft {
   const now = new Date().toISOString();
   return {
     id: generateDraftId(),
+    version: 2,
     createdAt: now,
     updatedAt: now,
     country: "",
@@ -39,13 +44,88 @@ export function createEmptyDraft(): BGWriterDraft {
     topic: "",
     layers: {
       comprehension: {},
-      initialContent: {},
-      research: {},
-      finalDraft: "",
+      ideaFormation: {},
+      paragraphComponents: {},
+      finalPaper: "",
     },
     importedBookmarks: [],
+    classifiedBookmarks: [],
   };
 }
+
+// =============================================================================
+// V1 DETECTION AND CLEANUP (Clean break)
+// =============================================================================
+
+/**
+ * Check if there are old v1 drafts in storage
+ */
+export function hasOldDrafts(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const oldIndex = localStorage.getItem(STORAGE_KEYS.OLD_DRAFTS_INDEX);
+    if (oldIndex) {
+      const ids = JSON.parse(oldIndex);
+      return Array.isArray(ids) && ids.length > 0;
+    }
+  } catch {
+    // Ignore errors
+  }
+  return false;
+}
+
+/**
+ * Clear all v1 drafts from storage
+ * Returns count of deleted drafts
+ */
+export function clearOldDrafts(): number {
+  if (typeof window === "undefined") return 0;
+  let count = 0;
+  try {
+    // Get old draft IDs
+    const oldIndex = localStorage.getItem(STORAGE_KEYS.OLD_DRAFTS_INDEX);
+    if (oldIndex) {
+      const ids = JSON.parse(oldIndex);
+      if (Array.isArray(ids)) {
+        // Delete each old draft
+        for (const id of ids) {
+          localStorage.removeItem(`${STORAGE_KEYS.OLD_DRAFT_PREFIX}${id}`);
+          count++;
+        }
+      }
+      // Delete old index
+      localStorage.removeItem(STORAGE_KEYS.OLD_DRAFTS_INDEX);
+    }
+    // Clear old current draft reference
+    const oldCurrent = localStorage.getItem("bg-writer:current-draft");
+    if (oldCurrent && !oldCurrent.startsWith("draft-v2-")) {
+      localStorage.removeItem("bg-writer:current-draft");
+    }
+  } catch {
+    // Ignore errors
+  }
+  return count;
+}
+
+/**
+ * Initialize storage - check for old drafts and handle clean break
+ * Should be called on app startup
+ */
+export function initializeStorage(): { hadOldDrafts: boolean; clearedCount: number } {
+  const hadOldDrafts = hasOldDrafts();
+  let clearedCount = 0;
+
+  if (hadOldDrafts) {
+    clearedCount = clearOldDrafts();
+    console.log(`[Storage] Cleared ${clearedCount} old v1 drafts for clean v2 migration`);
+  }
+
+  return { hadOldDrafts, clearedCount };
+}
+
+// =============================================================================
+// DRAFT INDEX MANAGEMENT
+// =============================================================================
 
 /**
  * Get all draft IDs from index
@@ -75,6 +155,10 @@ function saveDraftIds(ids: string[]): void {
   }
 }
 
+// =============================================================================
+// DRAFT CRUD OPERATIONS
+// =============================================================================
+
 /**
  * Load a draft by ID
  */
@@ -83,7 +167,13 @@ export function loadDraft(id: string): BGWriterDraft | null {
   try {
     const stored = localStorage.getItem(getDraftKey(id));
     if (stored) {
-      return JSON.parse(stored);
+      const draft = JSON.parse(stored) as BGWriterDraft;
+      // Ensure v2 structure
+      if (!draft.version || draft.version !== 2) {
+        console.warn(`[Storage] Found draft with incompatible version, ignoring`);
+        return null;
+      }
+      return draft;
     }
   } catch {
     // Ignore localStorage errors
@@ -97,6 +187,9 @@ export function loadDraft(id: string): BGWriterDraft | null {
 export function saveDraft(draft: BGWriterDraft): void {
   if (typeof window === "undefined") return;
   try {
+    // Ensure version is set
+    draft.version = 2;
+
     // Update timestamp
     draft.updatedAt = new Date().toISOString();
 
@@ -133,6 +226,10 @@ export function deleteDraft(id: string): void {
   }
 }
 
+// =============================================================================
+// CURRENT DRAFT TRACKING
+// =============================================================================
+
 /**
  * Get current draft ID
  */
@@ -161,6 +258,10 @@ export function setCurrentDraftId(id: string | null): void {
   }
 }
 
+// =============================================================================
+// COMPLETION CALCULATION
+// =============================================================================
+
 /**
  * Calculate completion percentage for a draft
  */
@@ -169,7 +270,7 @@ export function calculateCompletion(draft: BGWriterDraft): number {
   let total = 0;
 
   // Count comprehension questions
-  const comprehensionQuestions = QUESTIONS.filter(
+  const comprehensionQuestions = ALL_QUESTIONS.filter(
     (q) => q.layer === "comprehension"
   );
   total += comprehensionQuestions.length;
@@ -177,30 +278,36 @@ export function calculateCompletion(draft: BGWriterDraft): number {
     (q) => draft.layers.comprehension[q.id]?.trim()
   ).length;
 
-  // Count initialContent questions
-  const initialContentQuestions = QUESTIONS.filter(
-    (q) => q.layer === "initialContent"
+  // Count ideaFormation questions
+  const ideaFormationQuestions = ALL_QUESTIONS.filter(
+    (q) => q.layer === "ideaFormation"
   );
-  total += initialContentQuestions.length;
-  answered += initialContentQuestions.filter(
-    (q) => draft.layers.initialContent[q.id]?.trim()
+  total += ideaFormationQuestions.length;
+  answered += ideaFormationQuestions.filter(
+    (q) => draft.layers.ideaFormation[q.id]?.trim()
   ).length;
 
-  // Count research questions
-  const researchQuestions = QUESTIONS.filter((q) => q.layer === "research");
-  total += researchQuestions.length;
-  answered += researchQuestions.filter(
-    (q) => draft.layers.research[q.id]?.trim()
+  // Count paragraphComponents questions
+  const paragraphComponentsQuestions = ALL_QUESTIONS.filter(
+    (q) => q.layer === "paragraphComponents"
+  );
+  total += paragraphComponentsQuestions.length;
+  answered += paragraphComponentsQuestions.filter(
+    (q) => draft.layers.paragraphComponents[q.id]?.trim()
   ).length;
 
-  // Count final draft
+  // Count final paper
   total += 1;
-  if (draft.layers.finalDraft?.trim()) {
+  if (draft.layers.finalPaper?.trim()) {
     answered += 1;
   }
 
   return total > 0 ? Math.round((answered / total) * 100) : 0;
 }
+
+// =============================================================================
+// DRAFT SUMMARIES
+// =============================================================================
 
 /**
  * Get all drafts as summaries
@@ -226,12 +333,17 @@ export function getAllDraftSummaries(): DraftSummary[] {
   return summaries;
 }
 
+// =============================================================================
+// EXPORT / IMPORT
+// =============================================================================
+
 /**
  * Export draft to JSON string
  */
 export function exportDraftToJSON(draft: BGWriterDraft): string {
   const exportData = {
-    version: "1.0",
+    version: STORAGE_VERSION,
+    format: "position-paper-writer",
     exportedAt: new Date().toISOString(),
     data: draft,
   };
@@ -240,27 +352,86 @@ export function exportDraftToJSON(draft: BGWriterDraft): string {
 
 /**
  * Import draft from JSON string
+ * Only accepts v2 format
  */
 export function importDraftFromJSON(json: string): BGWriterDraft | null {
   try {
     const parsed = JSON.parse(json);
-    if (parsed.version && parsed.data) {
-      // Versioned export format
+
+    // Check for v2 versioned export format
+    if (parsed.version === 2 && parsed.format === "position-paper-writer" && parsed.data) {
       const draft = parsed.data as BGWriterDraft;
       // Generate new ID to avoid conflicts
       draft.id = generateDraftId();
       draft.createdAt = new Date().toISOString();
       draft.updatedAt = new Date().toISOString();
+      draft.version = 2;
+
+      // Ensure all v2 fields exist
+      if (!draft.layers.ideaFormation) draft.layers.ideaFormation = {};
+      if (!draft.layers.paragraphComponents) draft.layers.paragraphComponents = {};
+      if (!draft.classifiedBookmarks) draft.classifiedBookmarks = [];
+
       return draft;
     }
-    // Try direct draft format
-    if (parsed.id && parsed.layers) {
+
+    // Reject old v1 imports
+    if (parsed.version === "1.0" || parsed.version === 1) {
+      console.warn("[Storage] Cannot import v1 draft format - incompatible structure");
+      return null;
+    }
+
+    // Try direct v2 draft format (no wrapper)
+    if (parsed.id && parsed.layers && parsed.version === 2) {
       const draft = parsed as BGWriterDraft;
       draft.id = generateDraftId();
       return draft;
     }
-  } catch {
-    // Invalid JSON
+
+    console.warn("[Storage] Unknown import format");
+  } catch (e) {
+    console.error("[Storage] Invalid JSON during import:", e);
   }
   return null;
+}
+
+// =============================================================================
+// BOOKMARK HELPERS
+// =============================================================================
+
+/**
+ * Get all classified bookmarks from a draft
+ */
+export function getClassifiedBookmarks(draft: BGWriterDraft): ClassifiedBookmark[] {
+  return draft.classifiedBookmarks || [];
+}
+
+/**
+ * Add classified bookmarks to a draft
+ */
+export function addClassifiedBookmarks(
+  draft: BGWriterDraft,
+  bookmarks: ClassifiedBookmark[]
+): BGWriterDraft {
+  return {
+    ...draft,
+    classifiedBookmarks: [...(draft.classifiedBookmarks || []), ...bookmarks],
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+/**
+ * Remove a classified bookmark from a draft
+ */
+export function removeClassifiedBookmark(
+  draft: BGWriterDraft,
+  bookmarkId: string
+): BGWriterDraft {
+  return {
+    ...draft,
+    classifiedBookmarks: (draft.classifiedBookmarks || []).filter(
+      (b) => b.id !== bookmarkId
+    ),
+    updatedAt: new Date().toISOString(),
+  };
 }

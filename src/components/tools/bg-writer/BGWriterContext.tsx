@@ -1,5 +1,17 @@
 "use client";
 
+/**
+ * BGWriterContext - Position Paper Writer State Management
+ *
+ * Version 2 - Complete rewrite for PP-Writer.md specification
+ *
+ * New features:
+ * - Classified bookmarks with auto-categorization
+ * - 4-layer structure (comprehension → ideaFormation → paragraphComponents → finalPaper)
+ * - AI mode triggers (filter, summarize, check idea, draft conclusion)
+ * - Clean break from v1 drafts
+ */
+
 import {
   createContext,
   useContext,
@@ -15,6 +27,8 @@ import type {
   BookmarkSource,
   DraftSummary,
   AutofillState,
+  ClassifiedBookmark,
+  BookmarkCategory,
 } from "@/lib/bg-writer/types";
 import {
   AUTOFILL_COOLDOWN_SECONDS,
@@ -35,6 +49,10 @@ import {
   getAllDraftSummaries,
   exportDraftToJSON,
   importDraftFromJSON,
+  initializeStorage,
+  addClassifiedBookmarks,
+  removeClassifiedBookmark,
+  getClassifiedBookmarks,
 } from "@/lib/bg-writer/storage";
 import {
   getQuestionById,
@@ -43,6 +61,24 @@ import {
   combineSentences,
   combineSolutions,
 } from "@/lib/bg-writer/questions";
+import {
+  classifyBookmark,
+  classifyBookmarks,
+  filterBookmarksByCategories,
+} from "@/lib/bg-writer/bookmark-classifier";
+import {
+  summarizeBookmarks as aiSummarizeBookmarks,
+  checkIdeaAgainstBookmarks as aiCheckIdea,
+  draftConclusion as aiDraftConclusion,
+  type SummarizeBookmarksResult,
+  type CheckIdeaResult,
+  type DraftConclusionResult,
+  type PaperContext,
+} from "@/lib/bg-writer/ai-polish";
+
+// =============================================================================
+// CONTEXT TYPES
+// =============================================================================
 
 interface BGWriterContextValue {
   // Current draft state
@@ -50,7 +86,7 @@ interface BGWriterContextValue {
   isDirty: boolean;
   isSaving: boolean;
 
-  // Layer navigation
+  // Layer navigation (v2: 4 layers)
   currentLayer: LayerType;
   setCurrentLayer: (layer: LayerType) => void;
 
@@ -62,7 +98,7 @@ interface BGWriterContextValue {
 
   // Data operations
   updateAnswer: (layer: LayerType, questionId: string, value: string) => void;
-  updateFinalDraft: (content: string) => void;
+  updateFinalPaper: (content: string) => void;
   getAnswer: (layer: LayerType, questionId: string) => string;
   getAutoPopulatedValue: (questionId: string) => string | null;
 
@@ -71,10 +107,17 @@ interface BGWriterContextValue {
   updateCommittee: (value: string) => void;
   updateTopic: (value: string) => void;
 
-  // Bookmark integration
+  // Bookmark integration (v1 - raw bookmarks)
   importedBookmarks: BookmarkSource[];
   addBookmarkSource: (source: BookmarkSource) => void;
   removeBookmarkSource: (pathname: string) => void;
+
+  // Classified bookmarks (v2 - with categories)
+  classifiedBookmarks: ClassifiedBookmark[];
+  addClassifiedBookmark: (bookmark: Omit<ClassifiedBookmark, "id" | "classifiedAt" | "classifiedBy">) => Promise<ClassifiedBookmark>;
+  removeClassifiedBookmarkById: (id: string) => void;
+  getBookmarksByCategory: (categories: BookmarkCategory[]) => ClassifiedBookmark[];
+  importAndClassifyBookmarks: (bookmarks: Array<{ content: string; sourceTitle?: string; sourcePathname?: string }>) => Promise<ClassifiedBookmark[]>;
 
   // Drafts list
   allDrafts: DraftSummary[];
@@ -84,11 +127,29 @@ interface BGWriterContextValue {
   exportToJSON: () => string;
   importFromJSON: (json: string) => boolean;
 
-  // Autofill
+  // Autofill (v1 compatibility)
   autofillState: AutofillState;
   canAutofill: () => { allowed: boolean; reason?: string };
   triggerAutofill: () => Promise<AutofillResult | null>;
   aiFilledFields: Set<string>;
+
+  // AI Modes (v2)
+  // Mode 2: Summarize bookmarks
+  summarizeSelectedBookmarks: (bookmarkIds: string[]) => Promise<SummarizeBookmarksResult>;
+  // Mode 3: Check idea against research
+  checkIdeaAgainstResearch: (idea: string) => Promise<CheckIdeaResult>;
+  // Mode 4: Draft conclusion
+  generateConclusionDraft: () => Promise<DraftConclusionResult>;
+
+  // AI loading states
+  aiLoading: {
+    summarizing: boolean;
+    checkingIdea: boolean;
+    draftingConclusion: boolean;
+  };
+
+  // Migration info
+  migrationInfo: { hadOldDrafts: boolean; clearedCount: number } | null;
 }
 
 const BGWriterContext = createContext<BGWriterContextValue | null>(null);
@@ -101,6 +162,10 @@ export function useBGWriter() {
   return context;
 }
 
+// =============================================================================
+// PROVIDER
+// =============================================================================
+
 interface BGWriterProviderProps {
   children: ReactNode;
 }
@@ -111,8 +176,9 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
   const [isDirty, setIsDirty] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [allDrafts, setAllDrafts] = useState<DraftSummary[]>([]);
+  const [migrationInfo, setMigrationInfo] = useState<{ hadOldDrafts: boolean; clearedCount: number } | null>(null);
 
-  // Autofill state
+  // Autofill state (v1 compatibility)
   const [autofillState, setAutofillState] = useState<AutofillState>({
     lastAutofillTimestamp: null,
     lastAutofillSourceHash: null,
@@ -121,15 +187,27 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
   });
   const lastAutofillClickRef = useRef<number>(0);
 
-  // Track which fields were filled by AI (for yellow highlight)
+  // Track which fields were filled by AI (for highlight)
   const [aiFilledFields, setAiFilledFields] = useState<Set<string>>(new Set());
+
+  // AI loading states (v2)
+  const [aiLoading, setAiLoading] = useState({
+    summarizing: false,
+    checkingIdea: false,
+    draftingConclusion: false,
+  });
 
   const refreshDraftsList = useCallback(() => {
     setAllDrafts(getAllDraftSummaries());
   }, []);
 
-  // Load initial draft on mount
+  // Initialize storage and handle v1 → v2 migration
   useEffect(() => {
+    // Initialize storage (clears old v1 drafts if any)
+    const migrationResult = initializeStorage();
+    setMigrationInfo(migrationResult);
+
+    // Load current draft if exists
     const currentId = getCurrentDraftId();
     if (currentId) {
       const loaded = loadDraft(currentId);
@@ -168,13 +246,17 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     return () => clearInterval(timer);
   }, [autofillState.cooldownRemaining]);
 
-  // Reset autofill hash when layer changes (so autofill works fresh on each layer)
+  // Reset autofill hash when layer changes
   useEffect(() => {
     setAutofillState((prev) => ({
       ...prev,
       lastAutofillSourceHash: null,
     }));
   }, [currentLayer]);
+
+  // =============================================================================
+  // DRAFT OPERATIONS
+  // =============================================================================
 
   const saveDraft = useCallback(() => {
     if (draft) {
@@ -216,13 +298,17 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     [draft, refreshDraftsList]
   );
 
+  // =============================================================================
+  // DATA OPERATIONS
+  // =============================================================================
+
   const updateAnswer = useCallback(
     (layer: LayerType, questionId: string, value: string) => {
       setDraft((prev) => {
         if (!prev) return prev;
 
-        if (layer === "finalDraft") {
-          return { ...prev, layers: { ...prev.layers, finalDraft: value } };
+        if (layer === "finalPaper") {
+          return { ...prev, layers: { ...prev.layers, finalPaper: value } };
         }
 
         return {
@@ -238,10 +324,10 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     []
   );
 
-  const updateFinalDraft = useCallback((content: string) => {
+  const updateFinalPaper = useCallback((content: string) => {
     setDraft((prev) => {
       if (!prev) return prev;
-      return { ...prev, layers: { ...prev.layers, finalDraft: content } };
+      return { ...prev, layers: { ...prev.layers, finalPaper: content } };
     });
     setIsDirty(true);
   }, []);
@@ -249,7 +335,7 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
   const getAnswer = useCallback(
     (layer: LayerType, questionId: string): string => {
       if (!draft) return "";
-      if (layer === "finalDraft") return draft.layers.finalDraft;
+      if (layer === "finalPaper") return draft.layers.finalPaper;
       return draft.layers[layer][questionId] || "";
     },
     [draft]
@@ -262,21 +348,13 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
       const question = getQuestionById(questionId);
       if (!question?.autoPopulateFrom) return null;
 
-      // Create an accessor that provides access to the draft data
-      const accessor = {
-        getDirectValue: (qId: string) => {
-          const q = getQuestionById(qId);
-          if (!q) return "";
-          const layer = q.layer;
-          if (layer === "finalDraft") return draft.layers.finalDraft;
-          return draft.layers[layer][qId] || "";
-        },
-        country: draft.country || "Our delegation",
+      const accessor = (layer: LayerType, qId: string): string => {
+        if (layer === "finalPaper") return draft.layers.finalPaper;
+        return draft.layers[layer]?.[qId] || "";
       };
 
-      // Use the recursive function to follow the full auto-populate chain
-      // But start from the SOURCE question, not the current one
-      // (because we want to show what THIS field would be populated with)
+      const country = draft.country || "Our delegation";
+
       const { questionId: sourceId, transform } = question.autoPopulateFrom;
 
       if (sourceId.includes(",")) {
@@ -291,7 +369,7 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
           return combineSentences(sourceValues);
         }
         if (transform === "combine-solutions") {
-          return combineSolutions(sourceValues, accessor.country);
+          return combineSolutions(sourceValues, country);
         }
         return sourceValues.filter(Boolean).join(" ");
       }
@@ -299,70 +377,67 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
       const sourceValue = getEffectiveValueRecursive(sourceId, accessor);
       if (!sourceValue) return null;
 
-      // Apply the transform for this specific question
       return applyTransform(sourceValue, transform);
     },
     [draft]
   );
 
-  const updateCountry = useCallback(
-    (value: string) => {
-      setDraft((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          country: value,
-          layers: {
-            ...prev.layers,
-            comprehension: { ...prev.layers.comprehension, country: value },
-          },
-        };
-      });
-      setIsDirty(true);
-    },
-    []
-  );
+  // =============================================================================
+  // CORE INFO UPDATES
+  // =============================================================================
 
-  const updateCommittee = useCallback(
-    (value: string) => {
-      setDraft((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          committee: value,
-          layers: {
-            ...prev.layers,
-            comprehension: { ...prev.layers.comprehension, committee: value },
-          },
-        };
-      });
-      setIsDirty(true);
-    },
-    []
-  );
+  const updateCountry = useCallback((value: string) => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        country: value,
+        layers: {
+          ...prev.layers,
+          comprehension: { ...prev.layers.comprehension, country: value },
+        },
+      };
+    });
+    setIsDirty(true);
+  }, []);
 
-  const updateTopic = useCallback(
-    (value: string) => {
-      setDraft((prev) => {
-        if (!prev) return prev;
-        return {
-          ...prev,
-          topic: value,
-          layers: {
-            ...prev.layers,
-            comprehension: { ...prev.layers.comprehension, topic: value },
-          },
-        };
-      });
-      setIsDirty(true);
-    },
-    []
-  );
+  const updateCommittee = useCallback((value: string) => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        committee: value,
+        layers: {
+          ...prev.layers,
+          comprehension: { ...prev.layers.comprehension, committee: value },
+        },
+      };
+    });
+    setIsDirty(true);
+  }, []);
+
+  const updateTopic = useCallback((value: string) => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        topic: value,
+        layers: {
+          ...prev.layers,
+          comprehension: { ...prev.layers.comprehension, topic: value },
+        },
+      };
+    });
+    setIsDirty(true);
+  }, []);
+
+  // =============================================================================
+  // BOOKMARK OPERATIONS (v1 - raw bookmarks)
+  // =============================================================================
 
   const addBookmarkSource = useCallback((source: BookmarkSource) => {
     setDraft((prev) => {
       if (!prev) return prev;
-      // Don't add duplicates
       if (prev.importedBookmarks.some((b) => b.pathname === source.pathname)) {
         return prev;
       }
@@ -387,6 +462,103 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     setIsDirty(true);
   }, []);
 
+  // =============================================================================
+  // CLASSIFIED BOOKMARKS (v2 - with categories)
+  // =============================================================================
+
+  const addClassifiedBookmarkFn = useCallback(
+    async (
+      bookmark: Omit<ClassifiedBookmark, "id" | "classifiedAt" | "classifiedBy">
+    ): Promise<ClassifiedBookmark> => {
+      // If no category provided, classify it
+      let category = bookmark.category;
+      let classifiedBy: "regex" | "ai" | "manual" = "manual";
+
+      if (!category || category === "other") {
+        const result = await classifyBookmark(bookmark.content);
+        category = result.category;
+        classifiedBy = result.classifiedBy;
+      }
+
+      const newBookmark: ClassifiedBookmark = {
+        id: `bookmark-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+        headingText: bookmark.headingText || "",
+        content: bookmark.content,
+        category,
+        classifiedAt: new Date().toISOString(),
+        classifiedBy,
+        sourceTitle: bookmark.sourceTitle,
+        sourcePathname: bookmark.sourcePathname,
+      };
+
+      setDraft((prev) => {
+        if (!prev) return prev;
+        return addClassifiedBookmarks(prev, [newBookmark]);
+      });
+      setIsDirty(true);
+
+      return newBookmark;
+    },
+    []
+  );
+
+  const removeClassifiedBookmarkById = useCallback((id: string) => {
+    setDraft((prev) => {
+      if (!prev) return prev;
+      return removeClassifiedBookmark(prev, id);
+    });
+    setIsDirty(true);
+  }, []);
+
+  const getBookmarksByCategory = useCallback(
+    (categories: BookmarkCategory[]): ClassifiedBookmark[] => {
+      if (!draft) return [];
+      return filterBookmarksByCategories(
+        getClassifiedBookmarks(draft),
+        categories
+      );
+    },
+    [draft]
+  );
+
+  const importAndClassifyBookmarks = useCallback(
+    async (
+      bookmarks: Array<{ content: string; headingText?: string; sourceTitle?: string; sourcePathname?: string }>
+    ): Promise<ClassifiedBookmark[]> => {
+      if (!draft) return [];
+
+      // Convert to BookmarkSection format
+      const sections = bookmarks.map((b, i) => ({
+        id: `bookmark-${Date.now()}-${i}-${Math.random().toString(36).slice(2, 9)}`,
+        headingText: b.headingText || "",
+        content: b.content,
+      }));
+
+      // Classify all bookmarks
+      const classifiedResults = await classifyBookmarks(sections);
+
+      // Add source metadata to classified bookmarks
+      const newBookmarks: ClassifiedBookmark[] = classifiedResults.map((result, i) => ({
+        ...result,
+        sourceTitle: bookmarks[i].sourceTitle,
+        sourcePathname: bookmarks[i].sourcePathname,
+      }));
+
+      setDraft((prev) => {
+        if (!prev) return prev;
+        return addClassifiedBookmarks(prev, newBookmarks);
+      });
+      setIsDirty(true);
+
+      return newBookmarks;
+    },
+    [draft]
+  );
+
+  // =============================================================================
+  // EXPORT/IMPORT
+  // =============================================================================
+
   const exportToJSON = useCallback((): string => {
     if (!draft) return "{}";
     return exportDraftToJSON(draft);
@@ -407,9 +579,11 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     [refreshDraftsList]
   );
 
-  // Check if autofill is allowed
+  // =============================================================================
+  // AUTOFILL (v1 compatibility)
+  // =============================================================================
+
   const canAutofill = useCallback((): { allowed: boolean; reason?: string } => {
-    // Can't autofill without a draft
     if (!draft) {
       return { allowed: false, reason: "noDraft" };
     }
@@ -419,28 +593,24 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
       return { allowed: false, reason: "comprehensionLayer" };
     }
 
-    // Can't autofill final draft layer (uses template generation)
-    if (currentLayer === "finalDraft") {
-      return { allowed: false, reason: "finalDraftLayer" };
+    // Can't autofill final paper layer (uses template generation)
+    if (currentLayer === "finalPaper") {
+      return { allowed: false, reason: "finalPaperLayer" };
     }
 
-    // Check if currently autofilling
     if (autofillState.isAutofilling) {
       return { allowed: false, reason: "autofillInProgress" };
     }
 
-    // Check cooldown
     if (autofillState.cooldownRemaining > 0) {
       return { allowed: false, reason: "cooldown" };
     }
 
-    // Check debounce
     const now = Date.now();
     if (now - lastAutofillClickRef.current < AUTOFILL_DEBOUNCE_MS) {
       return { allowed: false, reason: "debounce" };
     }
 
-    // Check if source data changed since last autofill
     const currentHash = computeSourceHash(currentLayer, draft);
     if (currentHash === autofillState.lastAutofillSourceHash) {
       return { allowed: false, reason: "noChanges" };
@@ -449,7 +619,6 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
     return { allowed: true };
   }, [draft, currentLayer, autofillState]);
 
-  // Trigger autofill operation with AI polishing
   const triggerAutofill = useCallback(async (): Promise<AutofillResult | null> => {
     const canResult = canAutofill();
     if (!canResult.allowed) {
@@ -458,14 +627,10 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
 
     if (!draft) return null;
 
-    // Record click time for debounce
     lastAutofillClickRef.current = Date.now();
-
-    // Start autofill
     setAutofillState((prev) => ({ ...prev, isAutofilling: true }));
 
     try {
-      // Perform the autofill with AI polishing
       const result = await performAutofillWithAI(currentLayer, draft, updateAnswer, {
         useAI: true,
         paperContext: {
@@ -475,7 +640,6 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
         },
       });
 
-      // Track which fields were filled (for yellow highlight)
       if (result.updatedFields.length > 0) {
         setAiFilledFields((prev) => {
           const next = new Set(prev);
@@ -486,7 +650,6 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
         });
       }
 
-      // Update state on completion
       const newHash = computeSourceHash(currentLayer, draft);
       setAutofillState({
         lastAutofillTimestamp: Date.now(),
@@ -497,40 +660,200 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
 
       return result;
     } catch (error) {
-      // Reset autofilling state on error
       setAutofillState((prev) => ({ ...prev, isAutofilling: false }));
       throw error;
     }
   }, [canAutofill, draft, currentLayer, updateAnswer]);
 
+  // =============================================================================
+  // AI MODES (v2)
+  // =============================================================================
+
+  const getPaperContext = useCallback((): PaperContext => ({
+    country: draft?.country || "",
+    committee: draft?.committee || "",
+    topic: draft?.topic || "",
+  }), [draft]);
+
+  // Mode 2: Summarize selected bookmarks
+  const summarizeSelectedBookmarks = useCallback(
+    async (bookmarkIds: string[]): Promise<SummarizeBookmarksResult> => {
+      if (!draft) {
+        return { success: false, summary: "", error: "No draft loaded" };
+      }
+
+      const selectedBookmarks = getClassifiedBookmarks(draft).filter((b) =>
+        bookmarkIds.includes(b.id)
+      );
+
+      if (selectedBookmarks.length < 2) {
+        return {
+          success: false,
+          summary: "",
+          error: "Need at least 2 bookmarks to summarize",
+        };
+      }
+
+      setAiLoading((prev) => ({ ...prev, summarizing: true }));
+
+      try {
+        const result = await aiSummarizeBookmarks(
+          selectedBookmarks,
+          getPaperContext()
+        );
+        return result;
+      } finally {
+        setAiLoading((prev) => ({ ...prev, summarizing: false }));
+      }
+    },
+    [draft, getPaperContext]
+  );
+
+  // Mode 3: Check idea against research
+  const checkIdeaAgainstResearch = useCallback(
+    async (idea: string): Promise<CheckIdeaResult> => {
+      if (!draft) {
+        return {
+          success: false,
+          matchingBookmarks: [],
+          suggestions: "",
+          error: "No draft loaded",
+        };
+      }
+
+      const allBookmarks = getClassifiedBookmarks(draft);
+
+      if (allBookmarks.length === 0) {
+        return {
+          success: false,
+          matchingBookmarks: [],
+          suggestions: "Try bookmarking some research from the background guide first!",
+          error: "No bookmarks to check against",
+        };
+      }
+
+      setAiLoading((prev) => ({ ...prev, checkingIdea: true }));
+
+      try {
+        const result = await aiCheckIdea(idea, allBookmarks);
+        return result;
+      } finally {
+        setAiLoading((prev) => ({ ...prev, checkingIdea: false }));
+      }
+    },
+    [draft]
+  );
+
+  // Mode 4: Generate conclusion draft
+  const generateConclusionDraft = useCallback(async (): Promise<DraftConclusionResult> => {
+    if (!draft) {
+      return { success: false, draft: "", error: "No draft loaded" };
+    }
+
+    // Gather content from Layer 2 sections
+    const backgroundFacts = [
+      draft.layers.paragraphComponents.keyFact1,
+      draft.layers.paragraphComponents.keyFact2,
+      draft.layers.paragraphComponents.analysis1,
+      draft.layers.paragraphComponents.analysis2,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const positionStatement = [
+      draft.layers.paragraphComponents.positionStatement,
+      draft.layers.paragraphComponents.posEvidence,
+      draft.layers.paragraphComponents.reasoning,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    const solutionProposal = [
+      draft.layers.paragraphComponents.solutionProposal,
+      draft.layers.paragraphComponents.solEvidence,
+      draft.layers.paragraphComponents.alternateSolution,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    setAiLoading((prev) => ({ ...prev, draftingConclusion: true }));
+
+    try {
+      const result = await aiDraftConclusion(
+        { backgroundFacts, positionStatement, solutionProposal },
+        getPaperContext()
+      );
+      return result;
+    } finally {
+      setAiLoading((prev) => ({ ...prev, draftingConclusion: false }));
+    }
+  }, [draft, getPaperContext]);
+
+  // =============================================================================
+  // CONTEXT VALUE
+  // =============================================================================
+
   const value: BGWriterContextValue = {
+    // Draft state
     draft,
     isDirty,
     isSaving,
+
+    // Layer navigation
     currentLayer,
     setCurrentLayer,
+
+    // Draft operations
     createNewDraft,
     loadDraftById,
     deleteDraftById,
     saveDraft,
+
+    // Data operations
     updateAnswer,
-    updateFinalDraft,
+    updateFinalPaper,
     getAnswer,
     getAutoPopulatedValue,
+
+    // Core info
     updateCountry,
     updateCommittee,
     updateTopic,
+
+    // Bookmarks (v1)
     importedBookmarks: draft?.importedBookmarks || [],
     addBookmarkSource,
     removeBookmarkSource,
+
+    // Classified bookmarks (v2)
+    classifiedBookmarks: draft ? getClassifiedBookmarks(draft) : [],
+    addClassifiedBookmark: addClassifiedBookmarkFn,
+    removeClassifiedBookmarkById,
+    getBookmarksByCategory,
+    importAndClassifyBookmarks,
+
+    // Drafts list
     allDrafts,
     refreshDraftsList,
+
+    // Export/Import
     exportToJSON,
     importFromJSON,
+
+    // Autofill (v1)
     autofillState,
     canAutofill,
     triggerAutofill,
     aiFilledFields,
+
+    // AI Modes (v2)
+    summarizeSelectedBookmarks,
+    checkIdeaAgainstResearch,
+    generateConclusionDraft,
+    aiLoading,
+
+    // Migration info
+    migrationInfo,
   };
 
   return (

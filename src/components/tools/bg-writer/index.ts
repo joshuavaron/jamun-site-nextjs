@@ -8,9 +8,11 @@ export { ProgressBar } from "./ProgressBar";
 export { DraftsSidebar } from "./DraftsSidebar";
 export { BookmarksSidebar } from "./BookmarksSidebar";
 export { ExportImportPanel } from "./ExportImportPanel";
+export { BookmarkFilterPanel } from "./BookmarkFilterPanel";
+export { AIAssistButton, CheckIdeaPanel } from "./AIAssistButton";
 
 // Layer components
 export { ComprehensionLayer } from "./layers/ComprehensionLayer";
-export { InitialContentLayer } from "./layers/InitialContentLayer";
-export { ResearchLayer } from "./layers/ResearchLayer";
+export { IdeaFormationLayer } from "./layers/IdeaFormationLayer";
+export { ParagraphComponentsLayer } from "./layers/ParagraphComponentsLayer";
 export { FinalDraftLayer } from "./layers/FinalDraftLayer";

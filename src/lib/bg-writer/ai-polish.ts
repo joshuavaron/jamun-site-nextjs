@@ -1,9 +1,21 @@
 /**
- * AI Polish Client Helper
+ * AI Client Helpers for Position Paper Writer
  *
- * Client-side helper for calling the Cloudflare Workers AI
- * polish-text API endpoint.
+ * Client-side helpers for calling the Cloudflare Workers AI endpoints.
+ * Supports 4 AI modes per PP-Writer.md:
+ * - Mode 1: Filter bookmarks by category (local, no AI)
+ * - Mode 2: Summarize selected bookmarks
+ * - Mode 3: Check idea against research
+ * - Mode 4: Draft conclusion from sections
+ *
+ * Plus the original polish-text functionality.
  */
+
+import type { ClassifiedBookmark, BookmarkCategory } from "./types";
+
+// =============================================================================
+// TYPES
+// =============================================================================
 
 export type AITransformType =
   | "bullets-to-paragraph"
@@ -40,7 +52,7 @@ export interface PolishOptions {
   /** Prior answers from previous sections for better context */
   priorContext?: PriorContext;
   /** Target layer determines expected output length */
-  targetLayer?: "initialContent" | "research";
+  targetLayer?: "ideaFormation" | "paragraphComponents";
 }
 
 export interface PolishResult {
@@ -48,6 +60,384 @@ export interface PolishResult {
   polishedText: string;
   error?: string;
 }
+
+// Mode 2: Summarize bookmarks
+export interface SummarizeBookmarksResult {
+  success: boolean;
+  summary: string;
+  error?: string;
+}
+
+// Mode 3: Check idea
+export interface CheckIdeaResult {
+  success: boolean;
+  matchingBookmarks: Array<{
+    bookmark: ClassifiedBookmark;
+    explanation: string;
+  }>;
+  suggestions: string;
+  error?: string;
+}
+
+// Mode 4: Draft conclusion
+export interface DraftConclusionResult {
+  success: boolean;
+  draft: string;
+  error?: string;
+}
+
+// Classify bookmark
+export interface ClassifyBookmarkResult {
+  success: boolean;
+  category: BookmarkCategory;
+  confidence: number;
+  error?: string;
+}
+
+// =============================================================================
+// MODE 1: CLASSIFY BOOKMARK (with AI fallback)
+// =============================================================================
+
+/**
+ * Classify a bookmark using the AI endpoint.
+ * This is used as a fallback when local regex classification fails.
+ *
+ * @param text - The bookmark text to classify
+ * @returns Classification result with category and confidence
+ */
+export async function classifyBookmarkAI(
+  text: string
+): Promise<ClassifyBookmarkResult> {
+  if (!text.trim()) {
+    return {
+      success: true,
+      category: "other",
+      confidence: 0,
+    };
+  }
+
+  try {
+    const response = await fetch("/api/classify-bookmark", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return {
+          success: false,
+          category: "other",
+          confidence: 0,
+          error: "Rate limit exceeded. Please wait a moment.",
+        };
+      }
+      const errorData = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        category: "other",
+        confidence: 0,
+        error: (errorData as { error?: string }).error || "Classification failed",
+      };
+    }
+
+    const data = (await response.json()) as {
+      category: BookmarkCategory;
+      confidence: number;
+      error?: string;
+    };
+
+    return {
+      success: true,
+      category: data.category || "other",
+      confidence: data.confidence || 0,
+    };
+  } catch (error) {
+    console.error("[AI Classify] Network error:", error);
+    return {
+      success: false,
+      category: "other",
+      confidence: 0,
+      error: "Network error",
+    };
+  }
+}
+
+// =============================================================================
+// MODE 2: SUMMARIZE BOOKMARKS
+// =============================================================================
+
+/**
+ * Summarize 2+ selected bookmarks into 1-2 casual sentences.
+ * Per PP-Writer.md: "Help them see the connection, don't write their paper for them"
+ *
+ * @param bookmarks - Array of bookmarks to summarize (need at least 2)
+ * @param context - Optional paper context for better relevance
+ * @returns Summary result
+ */
+export async function summarizeBookmarks(
+  bookmarks: ClassifiedBookmark[],
+  context?: PaperContext
+): Promise<SummarizeBookmarksResult> {
+  if (!bookmarks || bookmarks.length < 2) {
+    return {
+      success: false,
+      summary: "",
+      error: "Need at least 2 bookmarks to summarize",
+    };
+  }
+
+  try {
+    const response = await fetch("/api/summarize-bookmarks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        bookmarks: bookmarks.map((b) => ({
+          content: b.content,
+          text: b.content, // API accepts either
+          category: b.category,
+        })),
+        context,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return {
+          success: false,
+          summary: "",
+          error: "Rate limit exceeded. Please wait a moment.",
+        };
+      }
+      const errorData = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        summary: "",
+        error: (errorData as { error?: string }).error || "Summarization failed",
+      };
+    }
+
+    const data = (await response.json()) as { summary: string; error?: string };
+
+    if (data.summary?.trim()) {
+      return {
+        success: true,
+        summary: data.summary,
+      };
+    }
+
+    return {
+      success: false,
+      summary: "",
+      error: data.error || "Empty response from AI",
+    };
+  } catch (error) {
+    console.error("[AI Summarize] Network error:", error);
+    return {
+      success: false,
+      summary: "",
+      error: "Network error",
+    };
+  }
+}
+
+// =============================================================================
+// MODE 3: CHECK IDEA AGAINST RESEARCH
+// =============================================================================
+
+/**
+ * Check if a student's idea is supported by their bookmarked research.
+ * Per PP-Writer.md: Returns matching bookmarks + suggestions
+ *
+ * @param idea - The student's idea to check
+ * @param bookmarks - All their classified bookmarks
+ * @returns Matching bookmarks with explanations and suggestions
+ */
+export async function checkIdeaAgainstBookmarks(
+  idea: string,
+  bookmarks: ClassifiedBookmark[]
+): Promise<CheckIdeaResult> {
+  if (!idea?.trim()) {
+    return {
+      success: false,
+      matchingBookmarks: [],
+      suggestions: "",
+      error: "No idea provided",
+    };
+  }
+
+  if (!bookmarks || bookmarks.length === 0) {
+    return {
+      success: false,
+      matchingBookmarks: [],
+      suggestions: "Try bookmarking some research from the background guide first!",
+      error: "No bookmarks to check against",
+    };
+  }
+
+  try {
+    const response = await fetch("/api/check-idea", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        idea,
+        bookmarks: bookmarks.map((b) => ({
+          id: b.id,
+          content: b.content,
+          text: b.content,
+          category: b.category,
+        })),
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return {
+          success: false,
+          matchingBookmarks: [],
+          suggestions: "",
+          error: "Rate limit exceeded. Please wait a moment.",
+        };
+      }
+      const errorData = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        matchingBookmarks: [],
+        suggestions: "",
+        error: (errorData as { error?: string }).error || "Idea checking failed",
+      };
+    }
+
+    const data = (await response.json()) as {
+      matchingBookmarks: Array<{
+        bookmark: { id?: string; content?: string; category?: BookmarkCategory };
+        explanation: string;
+      }>;
+      suggestions: string;
+      error?: string;
+    };
+
+    // Map the response back to our ClassifiedBookmark type
+    const matchingWithFullBookmarks = (data.matchingBookmarks || [])
+      .map((match) => {
+        // Find the original bookmark by matching content
+        const originalBookmark = bookmarks.find(
+          (b) =>
+            b.id === match.bookmark?.id ||
+            b.content === match.bookmark?.content
+        );
+        if (originalBookmark) {
+          return {
+            bookmark: originalBookmark,
+            explanation: match.explanation,
+          };
+        }
+        return null;
+      })
+      .filter(Boolean) as CheckIdeaResult["matchingBookmarks"];
+
+    return {
+      success: true,
+      matchingBookmarks: matchingWithFullBookmarks,
+      suggestions: data.suggestions || "",
+    };
+  } catch (error) {
+    console.error("[AI Check Idea] Network error:", error);
+    return {
+      success: false,
+      matchingBookmarks: [],
+      suggestions: "",
+      error: "Network error",
+    };
+  }
+}
+
+// =============================================================================
+// MODE 4: DRAFT CONCLUSION
+// =============================================================================
+
+/**
+ * Draft a 2-3 sentence conclusion from completed sections.
+ * Per PP-Writer.md: "Use their words where possible. Keep their voice."
+ *
+ * @param sections - The completed paper sections
+ * @param context - Optional paper context
+ * @returns Draft conclusion
+ */
+export async function draftConclusion(
+  sections: {
+    backgroundFacts?: string;
+    positionStatement?: string;
+    solutionProposal?: string;
+  },
+  context?: PaperContext
+): Promise<DraftConclusionResult> {
+  const hasContent =
+    sections.backgroundFacts?.trim() ||
+    sections.positionStatement?.trim() ||
+    sections.solutionProposal?.trim();
+
+  if (!hasContent) {
+    return {
+      success: false,
+      draft: "",
+      error: "Need at least one completed section to draft conclusion",
+    };
+  }
+
+  try {
+    const response = await fetch("/api/draft-conclusion", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sections,
+        context,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return {
+          success: false,
+          draft: "",
+          error: "Rate limit exceeded. Please wait a moment.",
+        };
+      }
+      const errorData = await response.json().catch(() => ({}));
+      return {
+        success: false,
+        draft: "",
+        error: (errorData as { error?: string }).error || "Conclusion drafting failed",
+      };
+    }
+
+    const data = (await response.json()) as { draft: string; error?: string };
+
+    if (data.draft?.trim()) {
+      return {
+        success: true,
+        draft: data.draft,
+      };
+    }
+
+    return {
+      success: false,
+      draft: "",
+      error: data.error || "Empty response from AI",
+    };
+  } catch (error) {
+    console.error("[AI Draft Conclusion] Network error:", error);
+    return {
+      success: false,
+      draft: "",
+      error: "Network error",
+    };
+  }
+}
+
+// =============================================================================
+// ORIGINAL POLISH TEXT FUNCTIONALITY
+// =============================================================================
 
 /**
  * Call the AI polish endpoint to improve text.
@@ -74,9 +464,12 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
   }
 
   try {
-    console.log("[AI Polish] Calling /api/polish-text with:", { transformType, textLength: text.length, context });
+    console.log("[AI Polish] Calling /api/polish-text with:", {
+      transformType,
+      textLength: text.length,
+      context,
+    });
 
-    // Note: No trailing slash - Cloudflare Pages Functions don't use trailingSlash
     const response = await fetch("/api/polish-text", {
       method: "POST",
       headers: {
@@ -114,8 +507,14 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
       };
     }
 
-    const data = (await response.json()) as { polishedText: string; error?: string };
-    console.log("[AI Polish] Success response:", { polishedTextLength: data.polishedText?.length, error: data.error });
+    const data = (await response.json()) as {
+      polishedText: string;
+      error?: string;
+    };
+    console.log("[AI Polish] Success response:", {
+      polishedTextLength: data.polishedText?.length,
+      error: data.error,
+    });
 
     // If we got polished text, use it; otherwise fall back to original
     if (data.polishedText?.trim()) {
@@ -140,6 +539,10 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
     };
   }
 }
+
+// =============================================================================
+// HELPERS
+// =============================================================================
 
 /**
  * Map from question transform types to AI transform types.

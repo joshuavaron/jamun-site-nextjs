@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { readdir, readFile } from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { join, basename, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
