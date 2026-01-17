@@ -1,27 +1,35 @@
 "use client";
 
+/**
+ * ImportExportModal Component
+ *
+ * Modal for sharing/importing user selections via encoded strings.
+ * Encodes bookmarked headings and selected subpoints into compact codes.
+ *
+ * Encoding: Binary bitmap → BigInt → Base-36 string
+ * - Stable element ordering ensures codes work across devices
+ * - Compact representation for sharing
+ *
+ * Uses shared storage from: @/components/mdx/subpoint-storage
+ */
+
 import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import { X, Copy, Check, Upload, Download, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SELECTION_CHANGE_EVENT } from "@/components/mdx/subpoint-helpers";
+import {
+  loadSelections,
+  saveSelections,
+  loadBookmarks,
+  saveBookmarks,
+} from "@/components/mdx/subpoint-storage";
 
 interface ImportExportModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// Storage key functions (must match MDXComponents)
-function getSelectionsStorageKey(pathname: string): string {
-  return `subpoint-selections:${pathname}`;
-}
-
-function getBookmarksStorageKey(pathname: string): string {
-  return `heading-bookmarks:${pathname}`;
-}
-
-// Custom event for selection changes (must match MDXComponents/ResourceNavSidebar)
-const SELECTION_CHANGE_EVENT = "selection-change";
 
 /**
  * Encoding algorithm:
@@ -155,26 +163,8 @@ export default function ImportExportModal({ isOpen, onClose }: ImportExportModal
 
   // Generate export code when modal opens or tab changes to export
   const generateExportCode = useCallback(() => {
-    const bookmarksKey = getBookmarksStorageKey(pathname);
-    const selectionsKey = getSelectionsStorageKey(pathname);
-
-    let bookmarks = new Set<string>();
-    let selections = new Set<string>();
-
-    try {
-      const storedBookmarks = localStorage.getItem(bookmarksKey);
-      if (storedBookmarks) {
-        bookmarks = new Set(JSON.parse(storedBookmarks));
-      }
-
-      const storedSelections = localStorage.getItem(selectionsKey);
-      if (storedSelections) {
-        selections = new Set(JSON.parse(storedSelections));
-      }
-    } catch {
-      // Ignore errors
-    }
-
+    const bookmarks = loadBookmarks(pathname);
+    const selections = loadSelections(pathname);
     const code = encodeState(bookmarks, selections);
     setExportCode(code);
   }, [pathname]);
@@ -228,22 +218,10 @@ export default function ImportExportModal({ isOpen, onClose }: ImportExportModal
       return;
     }
 
-    // Save to localStorage
+    // Save using shared storage functions
     try {
-      const bookmarksKey = getBookmarksStorageKey(pathname);
-      const selectionsKey = getSelectionsStorageKey(pathname);
-
-      if (decoded.headings.size > 0) {
-        localStorage.setItem(bookmarksKey, JSON.stringify([...decoded.headings]));
-      } else {
-        localStorage.removeItem(bookmarksKey);
-      }
-
-      if (decoded.subpoints.size > 0) {
-        localStorage.setItem(selectionsKey, JSON.stringify([...decoded.subpoints]));
-      } else {
-        localStorage.removeItem(selectionsKey);
-      }
+      saveBookmarks(pathname, decoded.headings);
+      saveSelections(pathname, decoded.subpoints);
 
       // Dispatch event to update UI
       setTimeout(() => {

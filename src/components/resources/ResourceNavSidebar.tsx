@@ -1,13 +1,27 @@
 "use client";
 
+/**
+ * ResourceNavSidebar Component
+ *
+ * Sidebar navigation for resource pages showing document outline.
+ * Displays all headings with bookmark indicators and scroll tracking.
+ *
+ * Features:
+ * - Table of contents with h1/h2/h3 hierarchy
+ * - Filter between all headings and bookmarked only
+ * - Active heading tracking on scroll
+ * - Share/import selections modal
+ *
+ * Uses shared storage from: @/components/mdx/subpoint-storage
+ */
+
 import { useEffect, useState, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Bookmark, List, Sparkles, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ImportExportModal from "./ImportExportModal";
-
-// Custom event for selection changes (must match MDXComponents)
-const SELECTION_CHANGE_EVENT = "selection-change";
+import { SELECTION_CHANGE_EVENT } from "@/components/mdx/subpoint-helpers";
+import { loadBookmarks } from "@/components/mdx/subpoint-storage";
 
 interface HeadingItem {
   id: string;
@@ -18,24 +32,6 @@ interface HeadingItem {
 
 interface ResourceNavSidebarProps {
   className?: string;
-}
-
-// localStorage helper functions (matching MDXComponents)
-function getBookmarksStorageKey(pathname: string): string {
-  return `heading-bookmarks:${pathname}`;
-}
-
-function loadBookmarks(pathname: string): Set<string> {
-  if (typeof window === "undefined") return new Set();
-  try {
-    const stored = localStorage.getItem(getBookmarksStorageKey(pathname));
-    if (stored) {
-      return new Set(JSON.parse(stored));
-    }
-  } catch {
-    // Ignore localStorage errors
-  }
-  return new Set();
 }
 
 
