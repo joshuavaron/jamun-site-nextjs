@@ -136,7 +136,7 @@ function BGWriterContent() {
           {/* Main layout */}
           <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
             {/* Left Sidebar */}
-            <div className="space-y-4 lg:sticky lg:top-24 lg:self-start">
+            <div className="space-y-4 lg:sticky lg:top-24 lg:z-10 lg:self-start">
               <DraftsSidebar />
               <BookmarksSidebar />
             </div>

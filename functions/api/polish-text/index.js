@@ -29,8 +29,15 @@ function checkRateLimit(ip) {
   return true;
 }
 
-function buildPrompt(text, context, transformType, priorContext) {
+function buildPrompt(text, context, transformType, priorContext, targetLayer) {
   const { country, committee, topic } = context;
+
+  // Determine length guidance based on target layer
+  // Layer 2 (initialContent): 1-2 sentences per field
+  // Layer 3 (research): 2-3 sentences per field
+  const lengthGuidance = targetLayer === "initialContent"
+    ? "Keep it SHORT - only 1-2 sentences total."
+    : "Write 2-3 sentences total.";
 
   // Build context section from prior answers if provided
   let contextSection = "";
@@ -51,8 +58,14 @@ function buildPrompt(text, context, transformType, priorContext) {
     if (priorContext.proposedSolutions) {
       contextParts.push(`Proposed solutions: ${priorContext.proposedSolutions}`);
     }
+    if (priorContext.backgroundGuideTopics && priorContext.backgroundGuideTopics.length > 0) {
+      contextParts.push(`Key topics from background guide: ${priorContext.backgroundGuideTopics.join(", ")}`);
+    }
+    if (priorContext.backgroundGuideContent) {
+      contextParts.push(`\nReference material from background guide:\n${priorContext.backgroundGuideContent}`);
+    }
     if (contextParts.length > 0) {
-      contextSection = `\nBackground information the student has provided:\n${contextParts.join("\n")}\n`;
+      contextSection = `\nBackground information the student has provided:\n${contextParts.join("\n")}\n\nIMPORTANT: Only use facts, statistics, and information from this background. Do NOT make up or invent any statistics or facts.\n`;
     }
   }
 
@@ -66,7 +79,7 @@ ${contextSection}
 Turn these bullet points into a short, readable paragraph:
 ${text}
 
-IMPORTANT: Output ONLY the paragraph text. No quotes, no preamble like "Here's a paragraph", no explanations. Just the content itself.`,
+${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
 
     "expand-sentence": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy.
 
@@ -74,10 +87,10 @@ Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
-Expand this into 2-3 sentences with more detail:
+Expand this with a bit more detail:
 ${text}
 
-IMPORTANT: Output ONLY the expanded text. No quotes, no preamble, no explanations. Just the content itself.`,
+${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
 
     formalize: `You are helping a middle school student write a Model UN position paper. The writing should sound confident but still like a student wrote it - not like a government document.
 
@@ -88,7 +101,7 @@ ${contextSection}
 Polish this text to sound a bit more professional while keeping it readable:
 ${text}
 
-IMPORTANT: Output ONLY the polished text. No quotes, no preamble, no explanations. Just the content itself.`,
+${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
 
     "combine-solutions": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would.
 
@@ -99,7 +112,7 @@ ${contextSection}
 Combine these solutions into one smooth paragraph:
 ${text}
 
-IMPORTANT: Output ONLY the paragraph text. No quotes, no preamble like "Here's the combined paragraph", no explanations. Just the content itself.`,
+${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
   };
 
   return prompts[transformType];
@@ -131,7 +144,7 @@ export async function onRequestPost(context) {
 
     // Parse request
     const body = await context.request.json();
-    const { text, context: paperContext, transformType, priorContext } = body;
+    const { text, context: paperContext, transformType, priorContext, targetLayer } = body;
 
     // Validate input
     if (!text?.trim()) {
@@ -162,7 +175,7 @@ export async function onRequestPost(context) {
     }
 
     // Build prompt and call AI
-    const prompt = buildPrompt(text, paperContext, transformType, priorContext || {});
+    const prompt = buildPrompt(text, paperContext, transformType, priorContext || {}, targetLayer);
 
     const result = await context.env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
       prompt,

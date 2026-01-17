@@ -27,6 +27,10 @@ export interface PriorContext {
   countryPosition?: string;
   pastActions?: string;
   proposedSolutions?: string;
+  /** Bookmarked sections from background guides - key topics to reference */
+  backgroundGuideTopics?: string[];
+  /** Actual content from bookmarked background guide sections */
+  backgroundGuideContent?: string;
 }
 
 export interface PolishOptions {
@@ -35,6 +39,8 @@ export interface PolishOptions {
   transformType: AITransformType;
   /** Prior answers from previous sections for better context */
   priorContext?: PriorContext;
+  /** Target layer determines expected output length */
+  targetLayer?: "initialContent" | "research";
 }
 
 export interface PolishResult {
@@ -51,7 +57,7 @@ export interface PolishResult {
  * @returns The polished text or original on failure
  */
 export async function polishText(options: PolishOptions): Promise<PolishResult> {
-  const { text, context, transformType, priorContext } = options;
+  const { text, context, transformType, priorContext, targetLayer } = options;
 
   // Don't call API for empty text
   if (!text.trim()) {
@@ -81,6 +87,7 @@ export async function polishText(options: PolishOptions): Promise<PolishResult> 
         context,
         transformType,
         priorContext,
+        targetLayer,
       }),
     });
 

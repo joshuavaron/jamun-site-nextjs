@@ -28,7 +28,15 @@ import {
   getChildHeadingIds,
   getParentHeadingIds,
 } from "./subpoint-helpers";
-import { loadSelections, saveSelections, loadBookmarks, saveBookmarks } from "./subpoint-storage";
+import {
+  loadSelections,
+  saveSelections,
+  loadBookmarks,
+  saveBookmarks,
+  loadBookmarkContent,
+  saveBookmarkContent,
+  extractContentUnderHeading,
+} from "./subpoint-storage";
 
 // Bookmark icon SVG component
 function BookmarkIcon({ isBookmarked }: { isBookmarked: boolean }) {
@@ -84,51 +92,78 @@ export function BookmarkableHeading({ level, children, className }: Bookmarkable
   const handleBookmarkClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     const bookmarks = loadBookmarks(pathname);
+    const bookmarkContent = loadBookmarkContent(pathname);
 
     if (isBookmarked) {
       // Unbookmarking: also deselect all subpoints under this heading
       bookmarks.delete(headingId);
+      bookmarkContent.delete(headingId);
 
       // Also unbookmark all child headings
       const childHeadingIds = getChildHeadingIds(headingId);
-      childHeadingIds.forEach(childId => {
+      childHeadingIds.forEach((childId) => {
         bookmarks.delete(childId);
+        bookmarkContent.delete(childId);
       });
 
       const subpointsUnderHeading = getSubpointsUnderHeading(headingId);
       const savedSelections = loadSelections(pathname);
       const deselectedIds: string[] = [];
 
-      subpointsUnderHeading.forEach(sp => {
+      subpointsUnderHeading.forEach((sp) => {
         const spId = sp.dataset.subpointId;
         if (spId && savedSelections.has(spId)) {
           savedSelections.delete(spId);
           deselectedIds.push(spId);
-          sp.dataset.selected = 'false';
-          sp.dataset.childSelectedCount = '0';
-          sp.dataset.childSelected = 'false';
+          sp.dataset.selected = "false";
+          sp.dataset.childSelectedCount = "0";
+          sp.dataset.childSelected = "false";
         }
       });
 
       if (deselectedIds.length > 0) {
         saveSelections(pathname, savedSelections);
         setTimeout(() => {
-          window.dispatchEvent(new CustomEvent<DeselectEventDetail>(DESELECT_EVENT, {
-            detail: { parentId: headingId, childIds: deselectedIds }
-          }));
+          window.dispatchEvent(
+            new CustomEvent<DeselectEventDetail>(DESELECT_EVENT, {
+              detail: { parentId: headingId, childIds: deselectedIds },
+            })
+          );
         }, 0);
       }
     } else {
       // Bookmarking: also bookmark all parent headings
       bookmarks.add(headingId);
 
+      // Save the content under this heading
+      const content = extractContentUnderHeading(headingId);
+      bookmarkContent.set(headingId, {
+        id: headingId,
+        headingText: textContent,
+        content,
+      });
+
       const parentHeadingIds = getParentHeadingIds(headingId);
-      parentHeadingIds.forEach(parentId => {
+      parentHeadingIds.forEach((parentId) => {
         bookmarks.add(parentId);
+        // Also save parent heading content if not already saved
+        if (!bookmarkContent.has(parentId)) {
+          const parentHeading = document.getElementById(parentId);
+          if (parentHeading) {
+            const parentText = parentHeading.textContent?.trim() || parentId;
+            const parentContent = extractContentUnderHeading(parentId);
+            bookmarkContent.set(parentId, {
+              id: parentId,
+              headingText: parentText,
+              content: parentContent,
+            });
+          }
+        }
       });
     }
 
     saveBookmarks(pathname, bookmarks);
+    saveBookmarkContent(pathname, bookmarkContent);
     setIsBookmarked(!isBookmarked);
     setTimeout(() => {
       window.dispatchEvent(new CustomEvent(SELECTION_CHANGE_EVENT));

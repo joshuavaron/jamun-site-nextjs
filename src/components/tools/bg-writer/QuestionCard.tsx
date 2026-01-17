@@ -110,7 +110,7 @@ export function QuestionCard({
             value={value || ""}
             onChange={(e) => handleBulletChange(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="• First point\n• Second point\n• Third point"
+            placeholder={"• First point\n• Second point\n• Third point"}
             className={cn(baseClasses, "min-h-[120px] resize-none")}
             rows={4}
           />

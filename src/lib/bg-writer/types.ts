@@ -33,11 +33,19 @@ export interface BGWriterDraft {
   importedBookmarks: BookmarkSource[];
 }
 
+export interface BookmarkSection {
+  id: string;
+  headingText: string;
+  content: string;
+}
+
 export interface BookmarkSource {
   pathname: string;
   title: string;
   headingIds: string[];
   headingTexts: string[];
+  /** Actual content from each bookmarked section */
+  sections: BookmarkSection[];
   importedAt: string;
 }
 
