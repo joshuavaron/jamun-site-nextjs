@@ -33,11 +33,11 @@ function buildPrompt(text, context, transformType, priorContext, targetLayer) {
   const { country, committee, topic } = context;
 
   // Determine length guidance based on target layer
-  // Layer 2 (initialContent): 1-2 sentences per field
-  // Layer 3 (research): 2-3 sentences per field
-  const lengthGuidance = targetLayer === "initialContent"
-    ? "Keep it SHORT - only 1-2 sentences total."
-    : "Write 2-3 sentences total.";
+  // Layer 2 (paragraphComponents): 1 sentence per field - these are individual sentence components
+  // Layer 3 (ideaFormation): 1-2 sentences per field - casual ideas
+  const lengthGuidance = targetLayer === "paragraphComponents"
+    ? "IMPORTANT: Output exactly ONE polished sentence. No more than one sentence."
+    : "Keep it to 1-2 casual sentences maximum.";
 
   // Build context section from prior answers if provided
   let contextSection = "";
@@ -69,50 +69,54 @@ function buildPrompt(text, context, transformType, priorContext, targetLayer) {
     }
   }
 
+  // For Layer 2 (paragraphComponents), we need to focus scattered ideas into clear, readable sentences
+  // Still conversational and student-like, just more focused and complete
+  const isPolishingForFinalPaper = targetLayer === "paragraphComponents";
+
   const prompts = {
-    "bullets-to-paragraph": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy or overly formal.
+    "bullets-to-paragraph": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear, direct, and engaging.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
-Turn these bullet points into a short, readable paragraph:
+Turn these bullet points into ${isPolishingForFinalPaper ? "one clear, focused sentence" : "a short, readable paragraph"}:
 ${text}
 
-${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
+${lengthGuidance} Keep it conversational but focused. Output ONLY the text. No quotes, no preamble.`,
 
-    "expand-sentence": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear and direct, not stuffy.
+    "expand-sentence": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear, direct, and engaging.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
-Expand this with a bit more detail:
+${isPolishingForFinalPaper ? "Rewrite this scattered idea as one clear, focused sentence" : "Expand this with a bit more detail"}:
 ${text}
 
-${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
+${lengthGuidance} Keep it conversational but focused. Output ONLY the text. No quotes, no preamble.`,
 
-    formalize: `You are helping a middle school student write a Model UN position paper. The writing should sound confident but still like a student wrote it - not like a government document.
+    formalize: `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear, direct, and engaging.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
-Polish this text to sound a bit more professional while keeping it readable:
+${isPolishingForFinalPaper ? "Take this casual idea and turn it into one clear, complete sentence" : "Polish this text to sound a bit more put-together while keeping it readable"}:
 ${text}
 
-${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
+${lengthGuidance} Keep it conversational but focused. Output ONLY the text. No quotes, no preamble.`,
 
-    "combine-solutions": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would.
+    "combine-solutions": `You are helping a middle school student write a Model UN position paper. Write like a smart 7th grader would - clear, direct, and engaging.
 
 Country: ${country}
 Committee: ${committee}
 Topic: ${topic}
 ${contextSection}
-Combine these solutions into one smooth paragraph:
+${isPolishingForFinalPaper ? "Combine these into one clear sentence about the proposed solution" : "Combine these solutions into one smooth paragraph"}:
 ${text}
 
-${lengthGuidance} Output ONLY the text. No quotes, no preamble, no explanations.`,
+${lengthGuidance} Keep it conversational but focused. Output ONLY the text. No quotes, no preamble.`,
   };
 
   return prompts[transformType];
