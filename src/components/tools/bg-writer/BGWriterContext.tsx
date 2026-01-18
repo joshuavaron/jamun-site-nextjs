@@ -686,11 +686,11 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
         bookmarkIds.includes(b.id)
       );
 
-      if (selectedBookmarks.length < 2) {
+      if (selectedBookmarks.length < 1) {
         return {
           success: false,
           summary: "",
-          error: "Need at least 2 bookmarks to summarize",
+          error: "Need at least 1 bookmark to summarize",
         };
       }
 

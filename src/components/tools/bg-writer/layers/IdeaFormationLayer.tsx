@@ -21,6 +21,7 @@ import { useBGWriter } from "../BGWriterContext";
 import { BookmarkFilterPanel } from "../BookmarkFilterPanel";
 import {
   getQuestionsForLayer,
+  getQuestionById,
   PARAGRAPH_ORDER,
   PARAGRAPH_LABELS,
   type IdeaFormationQuestion,
@@ -146,6 +147,14 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
     [getAnswer]
   );
 
+  // Get L3 (ideaFormation) answer by question ID
+  const getL3Answer = useCallback(
+    (questionId: string): string => {
+      return getAnswer("ideaFormation", questionId);
+    },
+    [getAnswer]
+  );
+
   if (!draft) {
     return (
       <div className="flex items-center justify-center py-12 text-gray-500">
@@ -251,6 +260,7 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
                         }
                         isCombining={aiLoading.summarizing}
                         getL4Answer={getL4Answer}
+                        getL3Answer={getL3Answer}
                       />
                     ))}
                   </div>
@@ -276,6 +286,8 @@ interface IdeaFormationCardProps {
   isCombining: boolean;
   /** Function to get L4 answer by question ID */
   getL4Answer: (questionId: string) => string;
+  /** Function to get L3 answer by question ID */
+  getL3Answer: (questionId: string) => string;
 }
 
 function IdeaFormationCard({
@@ -286,9 +298,11 @@ function IdeaFormationCard({
   onCombineBookmarks,
   isCombining,
   getL4Answer,
+  getL3Answer,
 }: IdeaFormationCardProps) {
   const t = useTranslations("BGWriter");
   const [showL4Answers, setShowL4Answers] = useState(false);
+  const [showL3Answers, setShowL3Answers] = useState(false);
 
   // Get L4 answers for relevant categories
   const l4Answers = useMemo(() => {
@@ -312,6 +326,29 @@ function IdeaFormationCard({
   }, [question.l4Sources, getL4Answer]);
 
   const hasL4Content = l4Answers.length > 0;
+
+  // Get L3 answers for questions that reference previous L3 ideas
+  const l3Answers = useMemo(() => {
+    if (!question.l3Sources || question.l3Sources.length === 0) return [];
+
+    return question.l3Sources
+      .map((sourceId) => {
+        const sourceQuestion = getQuestionById(sourceId);
+        if (!sourceQuestion) return null;
+
+        const answer = getL3Answer(sourceId);
+        if (!answer?.trim()) return null;
+
+        return {
+          questionId: sourceId,
+          label: sourceQuestion.ideaGoal || sourceId,
+          answer: answer.trim(),
+        };
+      })
+      .filter(Boolean) as Array<{ questionId: string; label: string; answer: string }>;
+  }, [question.l3Sources, getL3Answer]);
+
+  const hasL3Content = l3Answers.length > 0;
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -398,6 +435,76 @@ function IdeaFormationCard({
                   ) : (
                     <p className="py-2 text-center text-xs text-gray-500">
                       {t("fillInComprehensionFirst")}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
+      {/* Previous Ideas (L3 answers) - Show earlier L3 ideas that this question builds on */}
+      {question.l3Sources && question.l3Sources.length > 0 && (
+        <div className="mb-4">
+          <button
+            onClick={() => setShowL3Answers(!showL3Answers)}
+            className={cn(
+              "flex w-full items-center justify-between rounded-lg border p-2 text-left text-xs transition-colors",
+              hasL3Content
+                ? "border-purple-200 bg-purple-50 text-purple-800 hover:bg-purple-100"
+                : "border-gray-200 bg-gray-50 text-gray-500"
+            )}
+          >
+            <div className="flex items-center gap-2">
+              <svg
+                className={cn("h-4 w-4", hasL3Content ? "text-purple-600" : "text-gray-400")}
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+              <span className="font-medium">
+                {t("previousIdeas")} {hasL3Content ? `(${l3Answers.length})` : `(${t("noneYet")})`}
+              </span>
+            </div>
+            <motion.span animate={{ rotate: showL3Answers ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </motion.span>
+          </button>
+
+          <AnimatePresence>
+            {showL3Answers && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-2 space-y-2 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                  {hasL3Content ? (
+                    l3Answers.map((item) => (
+                      <div key={item.questionId} className="rounded border border-gray-200 bg-white p-2">
+                        <div className="mb-1 flex items-center gap-1">
+                          <span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700">
+                            {item.label}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-700 whitespace-pre-wrap">{item.answer}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="py-2 text-center text-xs text-gray-500">
+                      {t("fillInPreviousIdeasFirst")}
                     </p>
                   )}
                 </div>
