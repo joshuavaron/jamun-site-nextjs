@@ -11,17 +11,16 @@
  * - Conclusion (3): summaryEvidence, summaryPosition, summarySolution
  *
  * Features:
- * - Collapsible paragraph sections with exciting inline AI
+ * - Collapsible paragraph sections with autofill support
  * - Shows formed idea from Layer 3 (if available)
- * - "Does my research support this?" button (Mode 3)
- * - Sparkle animation when AI finds supporting evidence
+ * - "Does my research support this?" button
  * - Progress checkmarks as sections complete
  */
 
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Lightbulb, FileText, Check, Sparkles } from "lucide-react";
+import { Lightbulb, FileText, Check, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { staggerContainer, fadeInUp, defaultViewport } from "@/lib/animations";
 import { useBGWriter } from "../BGWriterContext";
@@ -341,7 +340,7 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
                                 disabled={aiLoading.checkingIdea}
                                 size="sm"
                               >
-                                <Sparkles className="mr-1 h-3 w-3" />
+                                <Search className="mr-1 h-3 w-3" />
                                 {t("doesResearchSupport")}
                               </AIAssistButton>
 

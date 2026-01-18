@@ -1,17 +1,16 @@
 "use client";
 
 /**
- * AIAssistButton - Unified AI assistance button for all modes
+ * AIAssistButton - Unified assistance button for all modes
  *
- * Per PP-Writer.md, supports 4 AI modes:
- * - Mode 2: Summarize selected bookmarks
- * - Mode 3: Check idea against research
- * - Mode 4: Draft conclusion
+ * Supports 3 modes:
+ * - Summarize selected bookmarks
+ * - Check idea against research
+ * - Draft conclusion
  *
  * Features:
  * - Mode-specific icons and labels
  * - Loading/success/error states
- * - Sparkle animation on success
  * - Expandable result display
  */
 
@@ -79,7 +78,6 @@ export function AIAssistButton({
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [showSparkle, setShowSparkle] = useState(false);
 
   const config = MODE_CONFIG[mode];
 
@@ -96,10 +94,6 @@ export function AIAssistButton({
       if (response.success && response.result) {
         setResult(response.result);
         onResult?.(response.result);
-
-        // Show sparkle animation
-        setShowSparkle(true);
-        setTimeout(() => setShowSparkle(false), 1500);
       } else if (response.error) {
         setError(response.error);
       }
@@ -176,26 +170,6 @@ export function AIAssistButton({
           </svg>
         )}
         <span>{children || getLabel()}</span>
-
-        {/* Sparkle animation overlay */}
-        <AnimatePresence>
-          {showSparkle && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.5 }}
-              className="pointer-events-none absolute inset-0 flex items-center justify-center"
-            >
-              <svg
-                className="h-6 w-6 text-yellow-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L9.09 8.26 2 9.27l5.18 5.09L5.82 22 12 18.56 18.18 22l-1.36-7.64L22 9.27l-7.09-1.01L12 2z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.button>
 
       {/* Disabled message */}

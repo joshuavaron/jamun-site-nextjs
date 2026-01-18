@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Sparkles } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { QuestionInputType } from "@/lib/bg-writer/types";
 
@@ -152,8 +152,8 @@ export function QuestionCard({
           </label>
           {isAIFilled && value && (
             <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">
-              <Sparkles className="h-3 w-3" />
-              {t("autofill.aiFilled")}
+              <RefreshCw className="h-3 w-3" />
+              {t("autofill.autoFilled")}
             </span>
           )}
         </div>

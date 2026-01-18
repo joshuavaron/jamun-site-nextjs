@@ -2063,15 +2063,15 @@
       "edit": "Edit"
     },
     "autofill": {
-      "button": "AI Autofill",
-      "filling": "AI Processing...",
+      "button": "Autofill",
+      "filling": "Processing...",
       "cooldown": "Wait {seconds}s",
       "success": "Filled {count} fields",
-      "successWithAI": "AI improved {aiCount} of {count} fields",
+      "successWithAI": "Improved {aiCount} of {count} fields",
       "noChanges": "No new data",
       "error": "Autofill failed",
-      "hint": "AI-powered fill from previous steps",
-      "aiFilled": "AI Filled"
+      "hint": "Fill from previous steps",
+      "autoFilled": "Auto-filled"
     },
     "bookmarks": {
       "title": "Reference Material",
@@ -2137,7 +2137,7 @@
       "checking": "Checking...",
       "helpMeSummarize": "Help me summarize",
       "drafting": "Drafting...",
-      "aiSummary": "AI Summary",
+      "summary": "Summary",
       "ideaSupport": "Research Support",
       "noMatchingResearch": "No matching research found",
       "suggestion": "Suggestion",

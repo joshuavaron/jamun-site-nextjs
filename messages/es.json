@@ -2069,15 +2069,15 @@
       "edit": "Editar"
     },
     "autofill": {
-      "button": "IA Autocompletar",
-      "filling": "Procesando IA...",
+      "button": "Autocompletar",
+      "filling": "Procesando...",
       "cooldown": "Espera {seconds}s",
       "success": "Se completaron {count} campos",
-      "successWithAI": "IA mejoró {aiCount} de {count} campos",
+      "successWithAI": "Se mejoraron {aiCount} de {count} campos",
       "noChanges": "Sin datos nuevos",
       "error": "Error al autocompletar",
-      "hint": "Completar con IA desde pasos anteriores",
-      "aiFilled": "Completado por IA"
+      "hint": "Completar desde pasos anteriores",
+      "autoFilled": "Autocompletado"
     },
     "bookmarks": {
       "title": "Material de Referencia",
@@ -2143,7 +2143,7 @@
       "checking": "Verificando...",
       "helpMeSummarize": "Ayúdame a resumir",
       "drafting": "Redactando...",
-      "aiSummary": "Resumen de IA",
+      "summary": "Resumen",
       "ideaSupport": "Apoyo de Investigación",
       "noMatchingResearch": "No se encontró investigación coincidente",
       "suggestion": "Sugerencia",

@@ -24,7 +24,7 @@ import {
   Download,
   Eye,
   Edit3,
-  Sparkles,
+  HelpCircle,
   FileText,
 } from "lucide-react";
 import { fadeInUp, defaultViewport } from "@/lib/animations";
@@ -358,11 +358,11 @@ export function FinalDraftLayer() {
         <ProgressRing progress={progress} />
       </div>
 
-      {/* Conclusion helper (Mode 4) */}
+      {/* Conclusion helper */}
       <div className="rounded-xl border border-pink-200 bg-pink-50 p-4">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-start gap-3">
-            <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-pink-600" />
+            <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-pink-600" />
             <div>
               <h4 className="text-sm font-semibold text-gray-800">
                 {t("needHelpWithConclusion")}
