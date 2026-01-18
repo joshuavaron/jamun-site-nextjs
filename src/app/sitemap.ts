@@ -4,6 +4,7 @@ import path from "path";
 import { getAllSlugsAllLocales } from "@/lib/blog";
 import { getAllCommitteeSlugsAllLocales } from "@/lib/committees";
 import { getAllResourceSlugsAllLocales } from "@/lib/program-resources";
+import { getAllBackgroundGuideSlugsAllLocales } from "@/lib/background-guides";
 import { routing } from "@/i18n/routing";
 
 export const dynamic = "force-static";
@@ -34,6 +35,8 @@ const STATIC_PAGES = [
   { path: "/leaderboards", priority: 0.6, changeFrequency: "weekly" as const },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
+  { path: "/will", priority: 0.5, changeFrequency: "monthly" as const },
+  { path: "/modelun/resources/position-paper-writer", priority: 0.7, changeFrequency: "monthly" as const },
 ];
 
 function getLocalizedUrl(pagePath: string, locale: string): string {
@@ -77,6 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const modelunResourceSlugs = getAllResourceSlugsAllLocales("modelun");
   const mocktrialResourceSlugs = getAllResourceSlugsAllLocales("mocktrial");
   const mathletesResourceSlugs = getAllResourceSlugsAllLocales("mathletes");
+  const backgroundGuideSlugs = getAllBackgroundGuideSlugsAllLocales();
 
   // Generate entries for all static pages across all locales
   const staticPageEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
@@ -128,6 +132,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // Background guide pages with actual file modification dates
+  const backgroundGuidePages: MetadataRoute.Sitemap = backgroundGuideSlugs.map(({ slug, locale }) => ({
+    url: getLocalizedUrl(`/modelun/background-guides/${slug}`, locale),
+    lastModified: getContentModifiedDate("background-guides", slug, locale),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticPageEntries,
     ...committeePages,
@@ -135,5 +147,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...mocktrialResourcePages,
     ...mathletesResourcePages,
     ...blogPostPages,
+    ...backgroundGuidePages,
   ];
 }
