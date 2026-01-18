@@ -455,8 +455,14 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
       if (!prev) return prev;
       return {
         ...prev,
+        // Remove the bookmark source
         importedBookmarks: prev.importedBookmarks.filter(
           (b) => b.pathname !== pathname
+        ),
+        // Also remove classified bookmarks that came from this source
+        // This prevents stale research references in "Does my research support this"
+        classifiedBookmarks: (prev.classifiedBookmarks || []).filter(
+          (b) => b.sourcePathname !== pathname
         ),
       };
     });

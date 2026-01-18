@@ -21,7 +21,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Lightbulb } from "lucide-react";
+import { Lightbulb, Check, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { staggerContainer, fadeInUp, defaultViewport } from "@/lib/animations";
 import { useBGWriter } from "../BGWriterContext";
@@ -33,48 +33,55 @@ import {
 } from "@/lib/bg-writer/questions";
 
 // Category colors for visual distinction
-const CATEGORY_COLORS: Record<string, { border: string; bg: string; header: string; text: string }> = {
+const CATEGORY_COLORS: Record<string, { border: string; bg: string; header: string; text: string; accent: string }> = {
   topicFundamentals: {
     border: "border-blue-200",
     bg: "bg-blue-50",
     header: "bg-blue-100",
     text: "text-blue-800",
+    accent: "bg-blue-500",
   },
   historicalContext: {
     border: "border-purple-200",
     bg: "bg-purple-50",
     header: "bg-purple-100",
     text: "text-purple-800",
+    accent: "bg-purple-500",
   },
   currentSituation: {
     border: "border-green-200",
     bg: "bg-green-50",
     header: "bg-green-100",
     text: "text-green-800",
+    accent: "bg-green-500",
   },
   stakeholders: {
     border: "border-orange-200",
     bg: "bg-orange-50",
     header: "bg-orange-100",
     text: "text-orange-800",
+    accent: "bg-orange-500",
   },
   existingEfforts: {
     border: "border-teal-200",
     bg: "bg-teal-50",
     header: "bg-teal-100",
     text: "text-teal-800",
+    accent: "bg-teal-500",
   },
   pointsOfContention: {
     border: "border-red-200",
     bg: "bg-red-50",
     header: "bg-red-100",
     text: "text-red-800",
+    accent: "bg-red-500",
   },
   countrySpecific: {
     border: "border-amber-200",
     bg: "bg-amber-50",
     header: "bg-amber-100",
     text: "text-amber-800",
+    accent: "bg-amber-500",
   },
 };
 
@@ -225,6 +232,7 @@ export function ComprehensionLayer({ className }: ComprehensionLayerProps) {
         const isExpanded = expandedCategories.has(category.id);
         const { completed, total } = getCategoryCompletion(category.id);
         const colors = CATEGORY_COLORS[category.id] || CATEGORY_COLORS.topicFundamentals;
+        const isComplete = completed === total;
 
         return (
           <motion.div
@@ -245,13 +253,28 @@ export function ComprehensionLayer({ className }: ComprehensionLayerProps) {
               )}
             >
               <div className="flex items-center gap-3">
+                {/* Completion indicator */}
+                <div
+                  className={cn(
+                    "flex h-6 w-6 items-center justify-center rounded-full transition-colors",
+                    isComplete
+                      ? "bg-green-500 text-white"
+                      : colors.accent + " text-white opacity-50"
+                  )}
+                >
+                  {isComplete ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <BookOpen className="h-3 w-3" />
+                  )}
+                </div>
                 <span className={cn("text-lg font-semibold", isExpanded ? colors.text : "text-gray-700")}>
                   {t(`categoryGroups.${category.id}`)}
                 </span>
                 <span
                   className={cn(
                     "rounded-full px-2 py-0.5 text-xs font-medium",
-                    completed === total
+                    isComplete
                       ? "bg-green-100 text-green-700"
                       : "bg-gray-100 text-gray-600"
                   )}
