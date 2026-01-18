@@ -428,6 +428,7 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "How these facts together prove action is needed",
     combineFrom: "Synthesis: Fact 1 + Fact 2 → therefore...",
     l4Sources: [],
+    l3Sources: ["ideaKeyFact1", "ideaAnalysis1", "ideaKeyFact2", "ideaAnalysis2"],
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -561,6 +562,7 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "The 2-3 facts that most strongly support your case",
     combineFrom: "Selected from earlier paragraphs",
     l4Sources: [],
+    l3Sources: ["ideaKeyFact1", "ideaKeyFact2", "ideaPosEvidence", "ideaSolEvidence"],
   },
   {
     id: "ideaSummaryPosition",
@@ -572,6 +574,7 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "Your country's stance in simple terms",
     combineFrom: "Restated from Position Paragraph",
     l4Sources: [],
+    l3Sources: ["ideaPositionStatement"],
     autoPopulateFrom: {
       layer: "ideaFormation",
       questionId: "ideaPositionStatement",
@@ -588,6 +591,7 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "What should happen next",
     combineFrom: "Restated from Solutions Paragraph",
     l4Sources: [],
+    l3Sources: ["ideaSolutionProposal"],
     autoPopulateFrom: {
       layer: "ideaFormation",
       questionId: "ideaSolutionProposal",

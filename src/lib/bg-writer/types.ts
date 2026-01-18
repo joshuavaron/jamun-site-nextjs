@@ -297,6 +297,8 @@ export interface QuestionDefinition {
   ideaGoal?: string;
   /** For Layer 3: describes which L4 fields to combine */
   combineFrom?: string;
+  /** For Layer 3: which earlier L3 question IDs to show as "Previous Ideas" */
+  l3Sources?: string[];
 }
 
 // =============================================================================

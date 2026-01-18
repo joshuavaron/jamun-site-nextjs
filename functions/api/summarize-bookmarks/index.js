@@ -1,7 +1,7 @@
 /**
  * Cloudflare Pages Function for Bookmark Summarization (Mode 2)
  *
- * Summarizes 2+ selected bookmarks into 1-2 casual sentences.
+ * Summarizes 1+ selected bookmarks into 1-2 casual sentences.
  * Per PP-Writer.md: "Help them see the connection, don't write their paper for them"
  */
 
@@ -38,13 +38,19 @@ function buildPrompt(bookmarks, context) {
     .map((b, i) => `${i + 1}. "${b.content?.slice(0, 500) || b.text?.slice(0, 500)}" (${b.category || "research"})`)
     .join("\n");
 
+  // Slightly different prompt for single vs multiple bookmarks
+  const isSingle = bookmarks.length === 1;
+  const instruction = isSingle
+    ? "Summarize this bookmark in 1-2 casual sentences that help the student understand the key point."
+    : "Summarize what these bookmarks are saying together in 1-2 casual sentences. Help them see the connection.";
+
   return `You're helping a middle school student write a Model UN position paper.
 ${contextLine}
-They selected these bookmarks from their research:
+They selected ${isSingle ? "this bookmark" : "these bookmarks"} from their research:
 ${bookmarkList}
 
-Summarize what these bookmarks are saying together in 1-2 casual sentences.
-Use simple language. Don't write their paper for them—just help them see the connection.
+${instruction}
+Use simple language. Don't write their paper for them.
 
 Start with "It sounds like..." or "So basically..."
 
@@ -74,9 +80,9 @@ export async function onRequestPost(context) {
     const body = await context.request.json();
     const { bookmarks, context: paperContext } = body;
 
-    if (!bookmarks || !Array.isArray(bookmarks) || bookmarks.length < 2) {
+    if (!bookmarks || !Array.isArray(bookmarks) || bookmarks.length < 1) {
       return Response.json(
-        { error: "Need at least 2 bookmarks to summarize", summary: "" },
+        { error: "Need at least 1 bookmark to summarize", summary: "" },
         { status: 400, headers: corsHeaders }
       );
     }

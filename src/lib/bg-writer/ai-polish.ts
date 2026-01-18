@@ -168,10 +168,10 @@ export async function classifyBookmarkAI(
 // =============================================================================
 
 /**
- * Summarize 2+ selected bookmarks into 1-2 casual sentences.
+ * Summarize 1+ selected bookmarks into 1-2 casual sentences.
  * Per PP-Writer.md: "Help them see the connection, don't write their paper for them"
  *
- * @param bookmarks - Array of bookmarks to summarize (need at least 2)
+ * @param bookmarks - Array of bookmarks to summarize (need at least 1)
  * @param context - Optional paper context for better relevance
  * @returns Summary result
  */
@@ -179,11 +179,11 @@ export async function summarizeBookmarks(
   bookmarks: ClassifiedBookmark[],
   context?: PaperContext
 ): Promise<SummarizeBookmarksResult> {
-  if (!bookmarks || bookmarks.length < 2) {
+  if (!bookmarks || bookmarks.length < 1) {
     return {
       success: false,
       summary: "",
-      error: "Need at least 2 bookmarks to summarize",
+      error: "Need at least 1 bookmark to summarize",
     };
   }
 

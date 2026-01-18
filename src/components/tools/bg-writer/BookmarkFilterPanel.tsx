@@ -133,7 +133,7 @@ export function BookmarkFilterPanel({
   }, [filteredBookmarks, selectedIds, onCombineRequest]);
 
   const selectedCount = selectedIds.size;
-  const canCombine = selectedCount >= 2;
+  const canCombine = selectedCount >= 1;
 
   // If no bookmarks at all
   if (classifiedBookmarks.length === 0) {
