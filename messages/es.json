@@ -257,6 +257,7 @@
     "formatPDF": "PDF",
     "formatVideo": "Video",
     "formatWorksheet": "Hoja de Trabajo",
+    "readMore": "Leer",
     "notFoundTitle": "Recurso No Encontrado | Modelo ONU JAMUN"
   },
   "ResourcePage": {
@@ -330,6 +331,7 @@
     "formatPDF": "PDF",
     "formatVideo": "Video",
     "formatWorksheet": "Hoja de Trabajo",
+    "readMore": "Leer",
     "notFoundTitle": "Recurso No Encontrado | JAMUN Juicio Simulado"
   },
   "MockTrialResourcePage": {
@@ -403,6 +405,7 @@
     "formatPDF": "PDF",
     "formatVideo": "Video",
     "formatWorksheet": "Hoja de Trabajo",
+    "readMore": "Leer",
     "notFoundTitle": "Recurso No Encontrado | JAMUN Mathletes"
   },
   "MathletesResourcePage": {
@@ -2254,5 +2257,34 @@
       "constraints": "¿Qué limitaciones enfrenta tu país?",
       "constraintsHelp": "Identifica limitaciones sobre lo que tu país puede apoyar"
     }
+  },
+  "WillPageMetadata": {
+    "title": "Will Ballis | JAMUN",
+    "description": "Will Ballis es Director de Mathletes en JAMUN. Graduado en Matemáticas de Duke University y educador dedicado, Will lidera nuestro programa de matemáticas con experiencia y compromiso.",
+    "ogTitle": "Will Ballis | JAMUN",
+    "ogDescription": "Will Ballis - Director de Mathletes en JAMUN."
+  },
+  "WillPage": {
+    "backToAbout": "Volver al Equipo",
+    "heroName": "Will Ballis",
+    "heroTitle": "Director de Mathletes",
+    "heroDescription": "Líder apasionado. Educador dedicado. Will aporta profunda experiencia en razonamiento matemático y un compromiso con el desarrollo de la próxima generación de pensadores matemáticos.",
+    "heroImageAlt": "Will Ballis",
+    "heroBadgeRole": "Director de Mathletes",
+    "storyEyebrow": "Trayectoria",
+    "storyTitle": "Una Base en la Excelencia",
+    "storyParagraph1": "Will estudió Matemáticas en Duke University, donde desarrolló tanto un enfoque riguroso de resolución de problemas como una profunda apreciación por la elegancia del razonamiento matemático. Sus estudios abarcaron teoría de números, álgebra, geometría y combinatoria.",
+    "storyParagraph2": "Más allá de su formación académica, Will se ha dedicado a la educación. Entiende que la habilidad matemática no es fija—se desarrolla a través de la práctica, la mentoría y los desafíos correctos en el momento adecuado. Su enfoque combina altas expectativas con apoyo genuino.",
+    "storyParagraph3": "En JAMUN, Will supervisa nuestro programa Mathletes, diseñando currículos y entrenamientos que ayudan a los estudiantes a desarrollar bases matemáticas sólidas. Bajo su liderazgo, el programa ha crecido para servir a estudiantes de múltiples niveles de habilidad, construyendo confianza y capacidad en cada participante.",
+    "traitsEyebrow": "Enfoque",
+    "traitsTitle": "Lo Que Define Su Trabajo",
+    "trait1Title": "Visión a Largo Plazo",
+    "trait1Description": "Will adopta un enfoque reflexivo para construir programas que perduren. Se centra en el crecimiento sostenible, asegurando que lo que construimos hoy continúe sirviendo a los estudiantes en los años venideros.",
+    "trait2Title": "Comunicación Clara",
+    "trait2Description": "Los conceptos complejos requieren explicaciones claras. Will ha desarrollado la capacidad de desglosar problemas difíciles en pasos comprensibles sin sacrificar la precisión matemática.",
+    "trait3Title": "Gestión Responsable",
+    "trait3Description": "Will trata los recursos organizacionales con cuidado. Toma decisiones con miras a la eficiencia y el impacto, asegurando que cada dólar y cada hora de tiempo voluntario cuente.",
+    "quote": "Las matemáticas te enseñan a pensar. Las habilidades de resolución de problemas, el razonamiento lógico, la capacidad de trabajar en algo difícil—todo esto se transfiere a todo lo demás que los estudiantes harán.",
+    "quoteRole": "Will Ballis"
   }
 }

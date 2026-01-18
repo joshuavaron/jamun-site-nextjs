@@ -257,6 +257,7 @@
     "formatPDF": "PDF",
     "formatVideo": "视频",
     "formatWorksheet": "工作表",
+    "readMore": "阅读",
     "notFoundTitle": "未找到资源 | JAMUN模拟联合国"
   },
   "ResourcePage": {
@@ -330,6 +331,7 @@
     "formatPDF": "PDF",
     "formatVideo": "视频",
     "formatWorksheet": "工作表",
+    "readMore": "阅读",
     "notFoundTitle": "未找到资源 | JAMUN模拟法庭"
   },
   "MockTrialResourcePage": {
@@ -403,6 +405,7 @@
     "formatPDF": "PDF",
     "formatVideo": "视频",
     "formatWorksheet": "工作表",
+    "readMore": "阅读",
     "notFoundTitle": "未找到资源 | JAMUN数学竞赛"
   },
   "MathletesResourcePage": {
@@ -2255,5 +2258,34 @@
       "constraints": "您的国家面临什么限制？",
       "constraintsHelp": "确定您国家可以支持的限制"
     }
+  },
+  "WillPageMetadata": {
+    "title": "Will Ballis | JAMUN",
+    "description": "Will Ballis担任JAMUN数学竞赛项目主管。作为杜克大学数学专业毕业生和专注的教育者，Will以专业知识和承诺领导我们的数学项目。",
+    "ogTitle": "Will Ballis | JAMUN",
+    "ogDescription": "Will Ballis - JAMUN数学竞赛项目主管。"
+  },
+  "WillPage": {
+    "backToAbout": "返回团队",
+    "heroName": "Will Ballis",
+    "heroTitle": "数学竞赛项目主管",
+    "heroDescription": "充满热情的领导者。专注的教育者。Will带来深厚的数学推理专业知识，致力于培养下一代数学思维者。",
+    "heroImageAlt": "Will Ballis",
+    "heroBadgeRole": "数学竞赛主管",
+    "storyEyebrow": "背景",
+    "storyTitle": "卓越的基础",
+    "storyParagraph1": "Will曾就读于杜克大学数学系，在那里他培养了严谨的解题方法和对数学推理优雅性的深刻欣赏。他的学习涵盖数论、代数、几何和组合数学。",
+    "storyParagraph2": "除了学术工作之外，Will致力于教育事业。他理解数学能力不是固定的——它通过练习、指导和在正确时机遇到正确挑战来发展。他的方法将高期望与真诚支持相结合。",
+    "storyParagraph3": "在JAMUN，Will负责我们的数学竞赛项目，设计课程和培训，帮助学生建立扎实的数学基础。在他的领导下，该项目已发展到服务多个技能水平的学生，为每位参与者建立信心和能力。",
+    "traitsEyebrow": "方法",
+    "traitsTitle": "定义他工作的特质",
+    "trait1Title": "长远思维",
+    "trait1Description": "Will以战略视角进行规划，确保今天的决策能够建立持久的项目基础设施。他的远见有助于指导JAMUN数学竞赛项目的长期发展。",
+    "trait2Title": "清晰的沟通",
+    "trait2Description": "复杂的概念需要清晰的解释。Will培养了将困难问题分解为可理解步骤的能力，同时不牺牲数学精确性。",
+    "trait3Title": "审慎管理",
+    "trait3Description": "Will以细心和责任感管理项目资源。他对财务纪律的承诺确保项目能够可持续发展并服务于学生。",
+    "quote": "数学教你如何思考。解决问题的技能、逻辑推理、克服困难的能力——这些都会转移到学生将来做的所有事情上。",
+    "quoteRole": "Will Ballis"
   }
 }

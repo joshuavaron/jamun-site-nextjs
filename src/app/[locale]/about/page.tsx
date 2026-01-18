@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,6 +69,7 @@ export default function AboutPage() {
       bgColor: "bg-emerald-100",
       textColor: "text-emerald-600",
       ringColor: "ring-emerald-300",
+      href: "/will",
     },
   ];
 
@@ -387,59 +389,76 @@ export default function AboutPage() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {teamMembers.map((member) => (
-            <motion.div
-              key={member.name}
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-              className="group text-center"
-            >
-              {/* Circular headshot */}
-              <div className="relative mx-auto mb-5 w-40 h-40">
-                {/* Decorative ring */}
-                <div
-                  className={cn(
-                    "absolute inset-0 rounded-full ring-4 transition-all duration-300 group-hover:ring-8",
-                    member.ringColor
-                  )}
-                />
-                {/* Image container */}
-                <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg">
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center">
-                      <span className="text-4xl font-bold text-white">JV</span>
-                    </div>
-                  )}
+          {teamMembers.map((member) => {
+            const content = (
+              <>
+                {/* Circular headshot */}
+                <div className="relative mx-auto mb-5 w-40 h-40">
+                  {/* Decorative ring */}
+                  <div
+                    className={cn(
+                      "absolute inset-0 rounded-full ring-4 transition-all duration-300 group-hover:ring-8",
+                      member.ringColor
+                    )}
+                  />
+                  {/* Image container */}
+                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg">
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-rose-400 to-rose-600 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-white">JV</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                  {member.name}
-                </h3>
-                <span
-                  className={cn(
-                    "inline-block px-3 py-1 mb-3 text-xs font-semibold rounded-full",
-                    member.bgColor,
-                    member.textColor
-                  )}
-                >
-                  {member.role}
-                </span>
-                <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
-                  {member.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                {/* Content */}
+                <div>
+                  <h3 className={cn(
+                    "text-xl font-semibold text-gray-900 mb-1",
+                    member.href && "group-hover:text-emerald-600 transition-colors"
+                  )}>
+                    {member.name}
+                  </h3>
+                  <span
+                    className={cn(
+                      "inline-block px-3 py-1 mb-3 text-xs font-semibold rounded-full",
+                      member.bgColor,
+                      member.textColor
+                    )}
+                  >
+                    {member.role}
+                  </span>
+                  <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
+                    {member.description}
+                  </p>
+                </div>
+              </>
+            );
+
+            return (
+              <motion.div
+                key={member.name}
+                variants={itemVariants}
+                whileHover={{ y: -4 }}
+                className="group text-center"
+              >
+                {member.href ? (
+                  <Link href={member.href} className="block cursor-pointer">
+                    {content}
+                  </Link>
+                ) : (
+                  <div>{content}</div>
+                )}
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* Additional context */}

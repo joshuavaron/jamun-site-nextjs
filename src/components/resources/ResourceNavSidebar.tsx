@@ -17,7 +17,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
-import { Bookmark, List, Sparkles, Share2 } from "lucide-react";
+import { Bookmark, List, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ImportExportModal from "./ImportExportModal";
 import { SELECTION_CHANGE_EVENT } from "@/components/mdx/subpoint-helpers";
@@ -257,7 +257,7 @@ export default function ResourceNavSidebar({ className }: ResourceNavSidebarProp
           <div className="px-4 py-16 text-center">
             <div className="relative inline-block mb-4">
               <div className="absolute inset-0 bg-amber-200/30 blur-xl rounded-full" />
-              <Sparkles className="w-10 h-10 text-amber-400 relative" />
+              <Bookmark className="w-10 h-10 text-amber-400 relative" />
             </div>
             <p className="text-sm font-medium text-gray-500 mb-1">No saved items yet</p>
             <p className="text-xs text-gray-400 max-w-[180px] mx-auto leading-relaxed">
