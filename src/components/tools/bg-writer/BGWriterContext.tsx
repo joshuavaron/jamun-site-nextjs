@@ -74,6 +74,7 @@ import {
   type CheckIdeaResult,
   type DraftConclusionResult,
   type PaperContext,
+  type ComprehensionAnswers,
 } from "@/lib/bg-writer/ai-polish";
 
 // =============================================================================
@@ -732,10 +733,27 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
         };
       }
 
+      // Gather L4 comprehension answers for additional context
+      const comprehensionAnswers: ComprehensionAnswers = {};
+      const l4 = draft.layers.comprehension;
+
+      if (l4.keyStatistics?.trim()) {
+        comprehensionAnswers.keyStatistics = l4.keyStatistics;
+      }
+      if (l4.presentState?.trim()) {
+        comprehensionAnswers.presentState = l4.presentState;
+      }
+      if (l4.pastPositions?.trim()) {
+        comprehensionAnswers.pastPositions = l4.pastPositions;
+      }
+      if (l4.countryInterests?.trim()) {
+        comprehensionAnswers.countryInterests = l4.countryInterests;
+      }
+
       setAiLoading((prev) => ({ ...prev, checkingIdea: true }));
 
       try {
-        const result = await aiCheckIdea(idea, allBookmarks);
+        const result = await aiCheckIdea(idea, allBookmarks, comprehensionAnswers);
         return result;
       } finally {
         setAiLoading((prev) => ({ ...prev, checkingIdea: false }));

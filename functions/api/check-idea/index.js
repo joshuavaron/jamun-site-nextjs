@@ -27,31 +27,54 @@ function checkRateLimit(ip) {
   return true;
 }
 
-function buildPrompt(idea, bookmarks) {
+function buildPrompt(idea, bookmarks, comprehensionAnswers) {
   // Limit bookmarks to avoid token limits
-  const limitedBookmarks = bookmarks.slice(0, 10);
+  const limitedBookmarks = bookmarks.slice(0, 8);
 
   const bookmarkList = limitedBookmarks
-    .map((b, i) => `[${i + 1}] "${(b.content || b.text || "").slice(0, 300)}" (${b.category || "research"})`)
+    .map((b, i) => `[${i + 1}] "${(b.content || b.text || "").slice(0, 250)}" (${b.category || "research"})`)
     .join("\n");
 
-  return `A student is writing a position paper and drafted this idea:
-"${idea.slice(0, 500)}"
+  // Build comprehension context if provided
+  let comprehensionContext = "";
+  if (comprehensionAnswers && Object.keys(comprehensionAnswers).length > 0) {
+    const relevantAnswers = [];
+    if (comprehensionAnswers.keyStatistics) {
+      relevantAnswers.push(`Key statistics: ${comprehensionAnswers.keyStatistics.slice(0, 200)}`);
+    }
+    if (comprehensionAnswers.presentState) {
+      relevantAnswers.push(`Current situation: ${comprehensionAnswers.presentState.slice(0, 200)}`);
+    }
+    if (comprehensionAnswers.pastPositions) {
+      relevantAnswers.push(`Country's past positions: ${comprehensionAnswers.pastPositions.slice(0, 200)}`);
+    }
+    if (comprehensionAnswers.countryInterests) {
+      relevantAnswers.push(`Country's interests: ${comprehensionAnswers.countryInterests.slice(0, 200)}`);
+    }
+    if (relevantAnswers.length > 0) {
+      comprehensionContext = `\nStudent's research notes:\n${relevantAnswers.join("\n")}\n`;
+    }
+  }
 
-Here are the bookmarks from their research:
+  return `A middle school student wrote this for their Model UN position paper:
+"${idea.slice(0, 400)}"
+${comprehensionContext}
+Their bookmarked research:
 ${bookmarkList}
 
-Which bookmarks (if any) support or relate to their idea?
-List the bookmark numbers with a brief explanation. If none relate, say so kindly.
+Your job: Check if their writing is SUPPORTED by their research.
 
-Format your response like this:
-Your idea connects to these bookmarks:
-- [1] — brief explanation
-- [3] — brief explanation
+BE SELECTIVE. Only mention bookmarks that ACTUALLY support what they wrote. Most ideas will only match 0-2 bookmarks.
 
-If helpful, add a short suggestion at the end.
+Respond in this format:
 
-Keep it short and encouraging. Write like you're talking to a middle schooler.`;
+SUPPORTED BY:
+[Only list bookmarks that directly support their claim. If none do, write "None of your bookmarks directly support this."]
+
+GAPS TO CONSIDER:
+[If their idea makes a claim not backed by their research, note it here. If everything checks out, write "Looks good!"]
+
+Keep it brief and helpful. Talk like a friendly teacher.`;
 }
 
 function parseResponse(response, bookmarks) {
@@ -62,8 +85,15 @@ function parseResponse(response, bookmarks) {
 
   if (!response) return result;
 
+  // Split response into sections
+  const supportedMatch = response.match(/SUPPORTED BY[:\s]*\n?([\s\S]*?)(?=GAPS TO CONSIDER|$)/i);
+  const gapsMatch = response.match(/GAPS TO CONSIDER[:\s]*\n?([\s\S]*?)$/i);
+
+  // Parse the "SUPPORTED BY" section for bookmark references
+  const supportedSection = supportedMatch ? supportedMatch[1] : response;
+
   // Try to extract bookmark numbers
-  const matches = response.matchAll(/\[(\d+)\]/g);
+  const matches = supportedSection.matchAll(/\[(\d+)\]/g);
   const seenIndices = new Set();
 
   for (const match of matches) {
@@ -72,7 +102,7 @@ function parseResponse(response, bookmarks) {
       seenIndices.add(index);
 
       // Try to extract the explanation after this bracket
-      const afterBracket = response.slice(response.indexOf(match[0]) + match[0].length);
+      const afterBracket = supportedSection.slice(supportedSection.indexOf(match[0]) + match[0].length);
       const explanation = afterBracket
         .split(/\n|\[/)[0]
         .replace(/^[\s—\-:]+/, "")
@@ -86,18 +116,21 @@ function parseResponse(response, bookmarks) {
     }
   }
 
-  // Extract suggestions (anything after "suggestion" or similar)
-  const suggestionMatch = response.match(/(?:suggestion|you might|tip)[:\s]+(.+?)(?:\n\n|$)/is);
-  if (suggestionMatch) {
-    result.suggestions = suggestionMatch[1].trim().slice(0, 300);
+  // Extract gaps/suggestions from the "GAPS TO CONSIDER" section
+  if (gapsMatch) {
+    let gaps = gapsMatch[1].trim();
+    // Clean up common artifacts
+    gaps = gaps.replace(/^[:\s-]+/, "").trim();
+    if (gaps && gaps.toLowerCase() !== "looks good!" && gaps.toLowerCase() !== "none") {
+      result.suggestions = gaps.slice(0, 400);
+    }
   }
 
-  // If no suggestions found but there's extra text, use it
-  if (!result.suggestions && result.matchingBookmarks.length > 0) {
-    const lines = response.split("\n").filter(l => l.trim());
-    const lastLine = lines[lines.length - 1];
-    if (lastLine && !lastLine.includes("[") && lastLine.length > 20) {
-      result.suggestions = lastLine.trim().slice(0, 300);
+  // Fallback: look for suggestions in other formats
+  if (!result.suggestions) {
+    const suggestionMatch = response.match(/(?:suggestion|you might|tip|consider)[:\s]+(.+?)(?:\n\n|$)/is);
+    if (suggestionMatch) {
+      result.suggestions = suggestionMatch[1].trim().slice(0, 300);
     }
   }
 
@@ -125,7 +158,7 @@ export async function onRequestPost(context) {
     }
 
     const body = await context.request.json();
-    const { idea, bookmarks } = body;
+    const { idea, bookmarks, comprehensionAnswers } = body;
 
     if (!idea?.trim()) {
       return Response.json(
@@ -145,7 +178,7 @@ export async function onRequestPost(context) {
       );
     }
 
-    const prompt = buildPrompt(idea, bookmarks);
+    const prompt = buildPrompt(idea, bookmarks, comprehensionAnswers);
 
     const result = await context.env.AI.run("@cf/meta/llama-3.2-3b-instruct", {
       prompt,

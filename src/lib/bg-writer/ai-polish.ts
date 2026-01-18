@@ -246,16 +246,28 @@ export async function summarizeBookmarks(
 // =============================================================================
 
 /**
+ * Comprehension answers from Layer 4 that provide research context
+ */
+export interface ComprehensionAnswers {
+  keyStatistics?: string;
+  presentState?: string;
+  pastPositions?: string;
+  countryInterests?: string;
+}
+
+/**
  * Check if a student's idea is supported by their bookmarked research.
  * Per PP-Writer.md: Returns matching bookmarks + suggestions
  *
  * @param idea - The student's idea to check
  * @param bookmarks - All their classified bookmarks
+ * @param comprehensionAnswers - Optional L4 comprehension answers for additional context
  * @returns Matching bookmarks with explanations and suggestions
  */
 export async function checkIdeaAgainstBookmarks(
   idea: string,
-  bookmarks: ClassifiedBookmark[]
+  bookmarks: ClassifiedBookmark[],
+  comprehensionAnswers?: ComprehensionAnswers
 ): Promise<CheckIdeaResult> {
   if (!idea?.trim()) {
     return {
@@ -287,6 +299,7 @@ export async function checkIdeaAgainstBookmarks(
           text: b.content,
           category: b.category,
         })),
+        comprehensionAnswers,
       }),
     });
 
