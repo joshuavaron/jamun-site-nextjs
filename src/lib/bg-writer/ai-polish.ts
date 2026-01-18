@@ -567,8 +567,9 @@ export function mapToAITransform(
     return "formalize";
   }
 
-  // Direct copies can be formalized
-  if (!localTransform) {
+  // Direct copies should still be polished by AI to turn casual ideas into focused sentences
+  // This is the key transform for Layer 3 -> Layer 2
+  if (!localTransform || localTransform === "direct") {
     return "formalize";
   }
 
