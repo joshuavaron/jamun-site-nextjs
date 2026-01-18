@@ -15,7 +15,7 @@ export function ProgressBar() {
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-sm">
         <span className="font-medium text-gray-700">
           {t("progress.percentage", { percent: percentage })}
         </span>
