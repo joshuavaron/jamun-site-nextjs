@@ -2070,15 +2070,15 @@
       "edit": "编辑"
     },
     "autofill": {
-      "button": "AI自动填充",
-      "filling": "AI处理中...",
+      "button": "自动填充",
+      "filling": "处理中...",
       "cooldown": "等待{seconds}秒",
       "success": "已填充{count}个字段",
-      "successWithAI": "AI优化了{count}个字段中的{aiCount}个",
+      "successWithAI": "优化了{count}个字段中的{aiCount}个",
       "noChanges": "没有新数据",
       "error": "自动填充失败",
-      "hint": "使用AI从之前步骤填充",
-      "aiFilled": "AI填充"
+      "hint": "从之前步骤填充",
+      "autoFilled": "已自动填充"
     },
     "bookmarks": {
       "title": "参考资料",
@@ -2144,7 +2144,7 @@
       "checking": "正在检查...",
       "helpMeSummarize": "帮我总结",
       "drafting": "正在起草...",
-      "aiSummary": "AI摘要",
+      "summary": "摘要",
       "ideaSupport": "研究支持",
       "noMatchingResearch": "未找到匹配的研究",
       "suggestion": "建议",

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  Sparkles,
+  RefreshCw,
   Loader2,
   Clock,
   CheckCircle2,
@@ -161,7 +161,7 @@ export function AutofillButton() {
     // Default: ready state
     return (
       <>
-        <Sparkles className="h-4 w-4" />
+        <RefreshCw className="h-4 w-4" />
         <span>{t("button")}</span>
       </>
     );
