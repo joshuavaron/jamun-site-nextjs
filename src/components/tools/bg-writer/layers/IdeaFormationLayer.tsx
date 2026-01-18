@@ -15,6 +15,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { Check, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fadeInUp, staggerContainer, defaultViewport } from "@/lib/animations";
 import { useBGWriter } from "../BGWriterContext";
@@ -59,12 +60,12 @@ const PARAGRAPH_COLORS: Record<ParagraphType, string> = {
   conclusion: "border-pink-200 bg-pink-50",
 };
 
-const PARAGRAPH_HEADER_COLORS: Record<ParagraphType, string> = {
-  intro: "bg-blue-100 text-blue-800",
-  background: "bg-purple-100 text-purple-800",
-  position: "bg-green-100 text-green-800",
-  solutions: "bg-orange-100 text-orange-800",
-  conclusion: "bg-pink-100 text-pink-800",
+const PARAGRAPH_HEADER_COLORS: Record<ParagraphType, { header: string; accent: string }> = {
+  intro: { header: "bg-blue-100 text-blue-800", accent: "bg-blue-500" },
+  background: { header: "bg-purple-100 text-purple-800", accent: "bg-purple-500" },
+  position: { header: "bg-green-100 text-green-800", accent: "bg-green-500" },
+  solutions: { header: "bg-orange-100 text-orange-800", accent: "bg-orange-500" },
+  conclusion: { header: "bg-pink-100 text-pink-800", accent: "bg-pink-500" },
 };
 
 interface IdeaFormationLayerProps {
@@ -199,6 +200,8 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
         const questions = questionsByParagraph[paragraph];
         const isExpanded = expandedSections.has(paragraph);
         const { completed, total } = getCompletionCount(paragraph);
+        const colors = PARAGRAPH_HEADER_COLORS[paragraph];
+        const isComplete = completed === total;
 
         return (
           <motion.div
@@ -214,15 +217,37 @@ export function IdeaFormationLayer({ className }: IdeaFormationLayerProps) {
               onClick={() => toggleSection(paragraph)}
               className={cn(
                 "flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:opacity-80",
-                PARAGRAPH_HEADER_COLORS[paragraph]
+                colors.header
               )}
             >
               <div className="flex items-center gap-3">
+                {/* Completion indicator */}
+                <div
+                  className={cn(
+                    "flex h-6 w-6 items-center justify-center rounded-full transition-colors",
+                    isComplete
+                      ? "bg-green-500 text-white"
+                      : colors.accent + " text-white opacity-50"
+                  )}
+                >
+                  {isComplete ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <Lightbulb className="h-3 w-3" />
+                  )}
+                </div>
                 <span className="text-lg font-semibold">
                   {PARAGRAPH_LABELS[paragraph]}
                 </span>
-                <span className="rounded-full bg-white/50 px-2 py-0.5 text-xs font-medium">
-                  {completed}/{total} {t("completed")}
+                <span
+                  className={cn(
+                    "rounded-full px-2 py-0.5 text-xs font-medium",
+                    isComplete
+                      ? "bg-green-100 text-green-700"
+                      : "bg-white/50"
+                  )}
+                >
+                  {completed}/{total}
                 </span>
               </div>
               <motion.span

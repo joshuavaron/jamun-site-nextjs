@@ -195,12 +195,28 @@ export async function onRequestPost(context) {
       polishedText = polishedText.slice(1, -1).trim();
     }
 
-    // Remove common preambles the model might add
+    // Remove common preambles and meta-text the model might add
     const preambles = [
-      /^Here['']?s (?:a |the )?(?:paragraph|text|polished text|expanded text|combined paragraph)[:\s]*/i,
-      /^(?:The )?(?:paragraph|text|polished text|expanded text) (?:is|reads)[:\s]*/i,
+      // "Here's a/the [type]:" patterns
+      /^Here['']?s (?:a |the )?(?:paragraph|text|polished text|expanded text|combined paragraph|sample paragraph|sample|rewritten|revised|version)[:\s]*/i,
+      // "The [type] is/reads:" patterns
+      /^(?:The )?(?:paragraph|text|polished text|expanded text|rewritten text|revised text) (?:is|reads|would be)[:\s]*/i,
+      // Conversational starters
       /^Sure[,!]?\s*/i,
+      /^Sure thing[,!]?\s*/i,
       /^Here you go[:\s]*/i,
+      /^Okay[,!]?\s*/i,
+      /^Of course[,!]?\s*/i,
+      /^Certainly[,!]?\s*/i,
+      /^Absolutely[,!]?\s*/i,
+      // Meta-commentary patterns
+      /^(?:I've |I have )?(?:polished|rewritten|revised|expanded|combined|created|written)[:\s]*/i,
+      /^(?:This|The following) (?:is|would be)[:\s]*/i,
+      /^(?:Based on|Using) (?:the |your )?(?:information|text|input)[,:\s]*/i,
+      // "Here is" patterns
+      /^Here (?:is|are) (?:a |the |your )?(?:polished|rewritten|revised|expanded)?[:\s]*/i,
+      // Labeling patterns
+      /^(?:Polished|Rewritten|Revised|Expanded|Combined) (?:text|paragraph|version)[:\s]*/i,
     ];
     for (const pattern of preambles) {
       polishedText = polishedText.replace(pattern, "");

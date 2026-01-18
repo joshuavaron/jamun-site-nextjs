@@ -264,12 +264,16 @@ export function setCurrentDraftId(id: string | null): void {
 
 /**
  * Calculate completion percentage for a draft
+ *
+ * Note: finalPaper (Layer 1) is NOT counted because it's auto-generated
+ * from Layer 2 (paragraphComponents). The user's work is considered
+ * complete when Layers 4, 3, and 2 are filled.
  */
 export function calculateCompletion(draft: BGWriterDraft): number {
   let answered = 0;
   let total = 0;
 
-  // Count comprehension questions
+  // Count comprehension questions (Layer 4)
   const comprehensionQuestions = ALL_QUESTIONS.filter(
     (q) => q.layer === "comprehension"
   );
@@ -278,7 +282,7 @@ export function calculateCompletion(draft: BGWriterDraft): number {
     (q) => draft.layers.comprehension[q.id]?.trim()
   ).length;
 
-  // Count ideaFormation questions
+  // Count ideaFormation questions (Layer 3)
   const ideaFormationQuestions = ALL_QUESTIONS.filter(
     (q) => q.layer === "ideaFormation"
   );
@@ -287,7 +291,7 @@ export function calculateCompletion(draft: BGWriterDraft): number {
     (q) => draft.layers.ideaFormation[q.id]?.trim()
   ).length;
 
-  // Count paragraphComponents questions
+  // Count paragraphComponents questions (Layer 2)
   const paragraphComponentsQuestions = ALL_QUESTIONS.filter(
     (q) => q.layer === "paragraphComponents"
   );
@@ -296,11 +300,8 @@ export function calculateCompletion(draft: BGWriterDraft): number {
     (q) => draft.layers.paragraphComponents[q.id]?.trim()
   ).length;
 
-  // Count final paper
-  total += 1;
-  if (draft.layers.finalPaper?.trim()) {
-    answered += 1;
-  }
+  // Note: Layer 1 (finalPaper) is NOT counted because it's auto-generated
+  // from Layer 2 content via the template generator
 
   return total > 0 ? Math.round((answered / total) * 100) : 0;
 }
