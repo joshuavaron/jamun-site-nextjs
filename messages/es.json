@@ -1739,6 +1739,12 @@
     "writeInYourOwnWords": "Escribe con tus propias palabras - ¡no necesitas ser formal todavía!",
     "useSummaryAsStart": "Usar resumen de IA como punto de partida",
     "doesResearchSupport": "¿Mi investigación apoya esto?",
+    "recheckResearch": "Volver a verificar",
+    "supportLevel": {
+      "wellSupported": "Bien Respaldado",
+      "partiallySupported": "Necesita Más Investigación",
+      "notSupported": "Sin Respaldo"
+    },
     "needHelpWithConclusion": "¿Necesitas ayuda escribiendo tu conclusión?",
     "conclusionHelperDescription": "La IA puede ayudarte a redactar una conclusión basada en tus secciones completadas",
     "fillMoreSectionsFirst": "Completa más secciones primero",
@@ -2092,7 +2098,8 @@
       "importSelected": "Importar Seleccionados",
       "headingsImported": "{count} secciones importadas",
       "classifying": "Clasificando marcadores...",
-      "classified": "Marcadores clasificados"
+      "classified": "Marcadores clasificados",
+      "selectedSummary": "{count} secciones de {guides, plural, one {# guía} other {# guías}}"
     },
     "categories": {
       "topic_definition": "Definición del Tema",

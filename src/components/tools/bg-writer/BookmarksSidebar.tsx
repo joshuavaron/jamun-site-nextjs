@@ -347,32 +347,57 @@ export function BookmarksSidebar() {
                   {t("bookmarks.noGuidesFound")}
                 </p>
               ) : (
-                <div className="mb-4 max-h-64 space-y-2 overflow-y-auto">
-                  {availableGuides.map((guide) => (
-                    <button
-                      key={guide.pathname}
-                      onClick={() => toggleGuide(guide.pathname)}
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-lg border p-3 text-left transition-colors",
-                        selectedGuides.has(guide.pathname)
-                          ? "border-jamun-blue bg-jamun-blue/5"
-                          : "border-gray-200 hover:border-gray-300"
-                      )}
-                    >
-                      <div>
-                        <p className="font-medium text-gray-900">
-                          {guide.title}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {guide.bookmarkCount} bookmarked sections
-                        </p>
-                      </div>
-                      {selectedGuides.has(guide.pathname) && (
-                        <Check className="h-5 w-5 text-jamun-blue" />
-                      )}
-                    </button>
-                  ))}
-                </div>
+                <>
+                  <div className="mb-4 max-h-64 space-y-2 overflow-y-auto">
+                    {availableGuides.map((guide) => (
+                      <button
+                        key={guide.pathname}
+                        onClick={() => toggleGuide(guide.pathname)}
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-lg border p-3 text-left transition-colors",
+                          selectedGuides.has(guide.pathname)
+                            ? "border-jamun-blue bg-jamun-blue/5"
+                            : "border-gray-200 hover:border-gray-300"
+                        )}
+                      >
+                        <div>
+                          <p className="font-medium text-gray-900">
+                            {guide.title}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {guide.bookmarkCount} {guide.bookmarkCount === 1 ? "section" : "sections"} from this guide
+                          </p>
+                        </div>
+                        {selectedGuides.has(guide.pathname) && (
+                          <Check className="h-5 w-5 text-jamun-blue" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Selection summary */}
+                  {selectedGuides.size > 0 && (
+                    <div className="mb-4 rounded-lg bg-jamun-blue/10 p-3">
+                      <p className="text-sm font-medium text-jamun-blue">
+                        {t("bookmarks.selectedSummary", {
+                          count: Array.from(selectedGuides).reduce((sum, pathname) => {
+                            const guide = availableGuides.find(g => g.pathname === pathname);
+                            return sum + (guide?.bookmarkCount || 0);
+                          }, 0),
+                          guides: selectedGuides.size
+                        })}
+                      </p>
+                      <ul className="mt-1 text-xs text-gray-600">
+                        {Array.from(selectedGuides).map(pathname => {
+                          const guide = availableGuides.find(g => g.pathname === pathname);
+                          return guide && (
+                            <li key={pathname}>• {guide.bookmarkCount} from {guide.title}</li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
+                </>
               )}
 
               <div className="flex justify-end gap-2">

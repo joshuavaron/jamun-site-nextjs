@@ -724,6 +724,7 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
           success: false,
           matchingBookmarks: [],
           suggestions: "",
+          supportLevel: "not-supported",
           error: "No draft loaded",
         };
       }
@@ -735,6 +736,7 @@ export function BGWriterProvider({ children }: BGWriterProviderProps) {
           success: false,
           matchingBookmarks: [],
           suggestions: "Try bookmarking some research from the background guide first!",
+          supportLevel: "not-supported",
           error: "No bookmarks to check against",
         };
       }

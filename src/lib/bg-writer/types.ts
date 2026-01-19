@@ -272,7 +272,8 @@ export type TransformType =
   | "text-to-bullets"
   | "combine-sentences"
   | "combine-solutions"
-  | "direct"; // Direct copy, no transform
+  | "combine-ideas"    // For L3: combine L4 answers into rough idea (casual language)
+  | "direct";          // Direct copy, no transform
 
 export interface QuestionDefinition {
   id: string;

@@ -142,8 +142,8 @@ export function AIAssistButton({
             : `bg-gradient-to-r ${config.gradient} text-white shadow-sm hover:shadow-md`
         )}
       >
-        {/* Loading spinner */}
-        {isLoading ? (
+        {/* Loading spinner - always show when loading */}
+        {isLoading && (
           <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
@@ -159,7 +159,9 @@ export function AIAssistButton({
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             />
           </svg>
-        ) : (
+        )}
+        {/* Default icon - only show when no children and not loading */}
+        {!isLoading && !children && (
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
@@ -169,7 +171,8 @@ export function AIAssistButton({
             />
           </svg>
         )}
-        <span>{children || getLabel()}</span>
+        {/* Label or custom children */}
+        {children || <span>{getLabel()}</span>}
       </motion.button>
 
       {/* Disabled message */}

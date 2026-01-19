@@ -314,6 +314,11 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "A hook that grabs attention and names the topic",
     combineFrom: "Topic Definition + a striking statistic or question",
     l4Sources: ["topic_definition", "key_statistics"],
+    autoPopulateFrom: {
+      layer: "comprehension",
+      questionId: "topicDefinition,keyStatistics",
+      transform: "combine-ideas",
+    },
   },
   {
     id: "ideaBroadContext",
@@ -325,6 +330,11 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "Why this matters: who's affected, how long it's been a problem, how widespread",
     combineFrom: "Affected Populations + Timeline + Current Situation",
     l4Sources: ["affected_populations", "timeline", "present_state"],
+    autoPopulateFrom: {
+      layer: "comprehension",
+      questionId: "affectedPopulations,timeline,presentState",
+      transform: "combine-ideas",
+    },
   },
   {
     id: "ideaAlternatePerspective",
@@ -336,6 +346,11 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "What opponents believe and why it's understandable",
     combineFrom: "Points of Contention + Competing Interests",
     l4Sources: ["major_debates", "competing_interests"],
+    autoPopulateFrom: {
+      layer: "comprehension",
+      questionId: "majorDebates,competingInterests",
+      transform: "combine-ideas",
+    },
   },
   {
     id: "ideaCallToAction",
@@ -347,6 +362,11 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "Why we must act now, not later",
     combineFrom: "Recent Developments + Barriers to Progress",
     l4Sources: ["recent_developments", "barriers"],
+    autoPopulateFrom: {
+      layer: "comprehension",
+      questionId: "recentDevelopments,barriers",
+      transform: "combine-ideas",
+    },
   },
   {
     id: "ideaThesis",
@@ -358,6 +378,11 @@ const IDEA_FORMATION_QUESTIONS: QuestionDefinition[] = [
     ideaGoal: "Your country's main argument in one idea",
     combineFrom: "Country's Position + Country's Interests + hint at solution",
     l4Sources: ["past_positions", "country_interests", "success_stories"],
+    autoPopulateFrom: {
+      layer: "comprehension",
+      questionId: "pastPositions,countryInterests,successStories",
+      transform: "combine-ideas",
+    },
   },
 
   // ─────────────────────────────────────────────────────────────────────────────
@@ -1194,6 +1219,21 @@ export function combineSolutions(solutions: string[], country?: string): string 
 }
 
 /**
+ * Combine L4 research into a rough idea (for Layer 3)
+ * This is intentionally casual/unpolished - just combining facts into a rough thought.
+ * The AI will NOT polish this - it stays as a casual draft that students refine.
+ */
+export function combineIdeas(texts: string[]): string {
+  const nonEmpty = texts.filter((t) => t && t.trim());
+  if (nonEmpty.length === 0) return "";
+  if (nonEmpty.length === 1) return nonEmpty[0].trim();
+
+  // Join with " — " to show these are combined points, not a polished sentence
+  // This keeps Layer 3 casual and unpolished
+  return nonEmpty.map((t) => t.trim()).join(" — ");
+}
+
+/**
  * Apply a transform to a value
  */
 export function applyTransform(
@@ -1215,6 +1255,8 @@ export function applyTransform(
       return combineSentences([value, ...(additionalValues || [])]);
     case "combine-solutions":
       return combineSolutions([value, ...(additionalValues || [])], country);
+    case "combine-ideas":
+      return combineIdeas([value, ...(additionalValues || [])]);
     default:
       return value;
   }

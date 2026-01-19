@@ -21,6 +21,7 @@ import {
   applyTransform,
   combineSentences,
   combineSolutions,
+  combineIdeas,
 } from "./questions";
 import {
   polishText,
@@ -490,6 +491,9 @@ export async function performAutofillWithAI(
           localValue = combineSentences(sourceValues);
         } else if (transform === "combine-solutions") {
           localValue = combineSolutions(sourceValues, country);
+        } else if (transform === "combine-ideas") {
+          // For Layer 3: combine L4 research into rough ideas (stays unpolished)
+          localValue = combineIdeas(sourceValues);
         } else {
           localValue = sourceValues.filter(Boolean).join(" ");
         }

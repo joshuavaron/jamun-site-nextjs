@@ -1740,6 +1740,12 @@
     "writeInYourOwnWords": "用你自己的话写 - 现在还不需要正式！",
     "useSummaryAsStart": "使用AI摘要作为起点",
     "doesResearchSupport": "我的研究支持这个吗？",
+    "recheckResearch": "重新检查",
+    "supportLevel": {
+      "wellSupported": "充分支持",
+      "partiallySupported": "需要更多研究",
+      "notSupported": "无支持"
+    },
     "needHelpWithConclusion": "需要帮助写结论吗？",
     "conclusionHelperDescription": "AI可以根据你完成的部分帮助起草结论",
     "fillMoreSectionsFirst": "请先完成更多部分",
@@ -2093,7 +2099,8 @@
       "importSelected": "导入所选",
       "headingsImported": "已导入 {count} 个章节",
       "classifying": "正在分类书签...",
-      "classified": "书签已分类"
+      "classified": "书签已分类",
+      "selectedSummary": "来自 {guides} 个指南的 {count} 个章节"
     },
     "categories": {
       "topic_definition": "议题定义",

@@ -1739,6 +1739,12 @@
     "writeInYourOwnWords": "Write in your own words - no need to be formal yet!",
     "useSummaryAsStart": "Use AI summary as starting point",
     "doesResearchSupport": "Does my research support this?",
+    "recheckResearch": "Re-check research",
+    "supportLevel": {
+      "wellSupported": "Well Supported",
+      "partiallySupported": "Needs More Research",
+      "notSupported": "Not Supported"
+    },
     "needHelpWithConclusion": "Need help writing your conclusion?",
     "conclusionHelperDescription": "AI can help draft a conclusion based on your completed sections",
     "fillMoreSectionsFirst": "Complete more sections first",
@@ -2086,7 +2092,8 @@
       "importSelected": "Import Selected",
       "headingsImported": "{count} sections imported",
       "classifying": "Classifying bookmarks...",
-      "classified": "Bookmarks classified"
+      "classified": "Bookmarks classified",
+      "selectedSummary": "{count} sections from {guides, plural, one {# guide} other {# guides}}"
     },
     "categories": {
       "topic_definition": "Topic Definition",
