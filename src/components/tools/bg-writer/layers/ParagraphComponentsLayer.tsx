@@ -33,6 +33,7 @@ import {
   type ParagraphComponentQuestion,
 } from "@/lib/bg-writer/questions";
 import type { ParagraphType } from "@/lib/bg-writer/types";
+import type { SupportLevel } from "@/lib/bg-writer/ai-polish";
 
 // Paragraph colors for visual distinction
 const PARAGRAPH_COLORS: Record<ParagraphType, { border: string; bg: string; header: string; text: string; accent: string }> = {
@@ -95,7 +96,11 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
 
   // Track check idea results per question
   const [checkResults, setCheckResults] = useState<
-    Record<string, { matchingBookmarks: Array<{ bookmark: { id: string; content: string; category: string }; explanation: string }>; suggestions: string }>
+    Record<string, {
+      matchingBookmarks: Array<{ bookmark: { id: string; content: string; category: string }; explanation: string }>;
+      suggestions: string;
+      supportLevel: SupportLevel;
+    }>
   >({});
 
   const toggleParagraph = useCallback((paragraph: ParagraphType) => {
@@ -148,6 +153,7 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
           [questionId]: {
             matchingBookmarks: result.matchingBookmarks,
             suggestions: result.suggestions,
+            supportLevel: result.supportLevel,
           },
         }));
       }
@@ -159,6 +165,33 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
     },
     [checkIdeaAgainstResearch]
   );
+
+  // Get support level color classes
+  const getSupportLevelColors = useCallback((level: SupportLevel) => {
+    switch (level) {
+      case "well-supported":
+        return {
+          border: "border-green-300",
+          bg: "bg-green-50",
+          text: "text-green-700",
+          badge: "bg-green-100 text-green-700",
+        };
+      case "partially-supported":
+        return {
+          border: "border-amber-300",
+          bg: "bg-amber-50",
+          text: "text-amber-700",
+          badge: "bg-amber-100 text-amber-700",
+        };
+      case "not-supported":
+        return {
+          border: "border-red-300",
+          bg: "bg-red-50",
+          text: "text-red-700",
+          badge: "bg-red-100 text-red-700",
+        };
+    }
+  }, []);
 
   if (!draft) {
     return (
@@ -303,8 +336,64 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
                         ? getAnswer("ideaFormation", question.autoPopulateFrom.questionId)
                         : null;
 
+                      // Get colors based on check result support level
+                      const supportColors = checkResult
+                        ? getSupportLevelColors(checkResult.supportLevel)
+                        : null;
+
                       return (
-                        <div key={question.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                        <div
+                          key={question.id}
+                          className={cn(
+                            "rounded-lg border-2 p-4 shadow-sm transition-colors",
+                            supportColors
+                              ? `${supportColors.border} ${supportColors.bg}`
+                              : "border-gray-200 bg-white"
+                          )}
+                        >
+                          {/* Support level badge */}
+                          {checkResult && (
+                            <div className="mb-2 flex items-center justify-between">
+                              <span
+                                className={cn(
+                                  "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
+                                  supportColors?.badge
+                                )}
+                              >
+                                {checkResult.supportLevel === "well-supported" && (
+                                  <>
+                                    <Check className="h-3 w-3" />
+                                    {t("supportLevel.wellSupported")}
+                                  </>
+                                )}
+                                {checkResult.supportLevel === "partially-supported" && (
+                                  <>
+                                    <Lightbulb className="h-3 w-3" />
+                                    {t("supportLevel.partiallySupported")}
+                                  </>
+                                )}
+                                {checkResult.supportLevel === "not-supported" && (
+                                  <>
+                                    <Search className="h-3 w-3" />
+                                    {t("supportLevel.notSupported")}
+                                  </>
+                                )}
+                              </span>
+                              <button
+                                onClick={() => {
+                                  setCheckResults((prev) => {
+                                    const next = { ...prev };
+                                    delete next[question.id];
+                                    return next;
+                                  });
+                                }}
+                                className="text-gray-400 hover:text-gray-600"
+                              >
+                                <span className="text-xs">Clear</span>
+                              </button>
+                            </div>
+                          )}
+
                           {/* Show Layer 3 idea if available */}
                           {l3Idea && (
                             <div className="mb-3 rounded bg-indigo-50 p-2">
@@ -332,7 +421,7 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
                           />
 
                           {/* Check my idea button */}
-                          {value?.trim() && (
+                          {value?.trim() && !checkResult && (
                             <div className="mt-3">
                               <AIAssistButton
                                 mode="checkIdea"
@@ -343,23 +432,31 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
                                 <Search className="mr-1 h-3 w-3" />
                                 {t("doesResearchSupport")}
                               </AIAssistButton>
+                            </div>
+                          )}
 
-                              {/* Check result */}
-                              <AnimatePresence>
-                                {checkResult && (
-                                  <CheckIdeaPanel
-                                    matchingBookmarks={checkResult.matchingBookmarks}
-                                    suggestions={checkResult.suggestions}
-                                    onClose={() => {
-                                      setCheckResults((prev) => {
-                                        const next = { ...prev };
-                                        delete next[question.id];
-                                        return next;
-                                      });
-                                    }}
-                                  />
-                                )}
-                              </AnimatePresence>
+                          {/* Check result details */}
+                          <AnimatePresence>
+                            {checkResult && (checkResult.matchingBookmarks.length > 0 || checkResult.suggestions) && (
+                              <CheckIdeaPanel
+                                matchingBookmarks={checkResult.matchingBookmarks}
+                                suggestions={checkResult.suggestions}
+                              />
+                            )}
+                          </AnimatePresence>
+
+                          {/* Re-check button when result exists */}
+                          {value?.trim() && checkResult && (
+                            <div className="mt-3">
+                              <AIAssistButton
+                                mode="checkIdea"
+                                onTrigger={() => handleCheckIdea(question.id, value)}
+                                disabled={aiLoading.checkingIdea}
+                                size="sm"
+                              >
+                                <Search className="mr-1 h-3 w-3" />
+                                {t("recheckResearch")}
+                              </AIAssistButton>
                             </div>
                           )}
                         </div>

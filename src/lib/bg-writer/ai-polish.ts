@@ -68,6 +68,9 @@ export interface SummarizeBookmarksResult {
   error?: string;
 }
 
+// Support level for research check
+export type SupportLevel = "well-supported" | "partially-supported" | "not-supported";
+
 // Mode 3: Check idea
 export interface CheckIdeaResult {
   success: boolean;
@@ -76,6 +79,7 @@ export interface CheckIdeaResult {
     explanation: string;
   }>;
   suggestions: string;
+  supportLevel: SupportLevel;
   error?: string;
 }
 
@@ -274,6 +278,7 @@ export async function checkIdeaAgainstBookmarks(
       success: false,
       matchingBookmarks: [],
       suggestions: "",
+      supportLevel: "not-supported",
       error: "No idea provided",
     };
   }
@@ -283,6 +288,7 @@ export async function checkIdeaAgainstBookmarks(
       success: false,
       matchingBookmarks: [],
       suggestions: "Try bookmarking some research from the background guide first!",
+      supportLevel: "not-supported",
       error: "No bookmarks to check against",
     };
   }
@@ -309,6 +315,7 @@ export async function checkIdeaAgainstBookmarks(
           success: false,
           matchingBookmarks: [],
           suggestions: "",
+          supportLevel: "not-supported",
           error: "Rate limit exceeded. Please wait a moment.",
         };
       }
@@ -317,6 +324,7 @@ export async function checkIdeaAgainstBookmarks(
         success: false,
         matchingBookmarks: [],
         suggestions: "",
+        supportLevel: "not-supported",
         error: (errorData as { error?: string }).error || "Idea checking failed",
       };
     }
@@ -327,6 +335,7 @@ export async function checkIdeaAgainstBookmarks(
         explanation: string;
       }>;
       suggestions: string;
+      supportLevel?: SupportLevel;
       error?: string;
     };
 
@@ -353,6 +362,7 @@ export async function checkIdeaAgainstBookmarks(
       success: true,
       matchingBookmarks: matchingWithFullBookmarks,
       suggestions: data.suggestions || "",
+      supportLevel: data.supportLevel || "not-supported",
     };
   } catch (error) {
     console.error("[AI Check Idea] Network error:", error);
@@ -360,6 +370,7 @@ export async function checkIdeaAgainstBookmarks(
       success: false,
       matchingBookmarks: [],
       suggestions: "",
+      supportLevel: "not-supported",
       error: "Network error",
     };
   }
@@ -565,6 +576,12 @@ export function mapToAITransform(
   localTransform: string | undefined,
   isMultiSource: boolean
 ): AITransformType | null {
+  // Layer 3 "combine-ideas" should NOT use AI - keep it casual/unpolished
+  // This is intentional: L3 is for rough ideas that students refine themselves
+  if (localTransform === "combine-ideas") {
+    return null;
+  }
+
   // Bullet transforms should use AI to create better paragraphs
   if (localTransform === "bullets-to-text") {
     return "bullets-to-paragraph";
