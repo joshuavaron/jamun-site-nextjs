@@ -435,12 +435,13 @@ export function ParagraphComponentsLayer({ className }: ParagraphComponentsLayer
                             </div>
                           )}
 
-                          {/* Check result details */}
+                          {/* Check result details - always show when result exists */}
                           <AnimatePresence>
-                            {checkResult && (checkResult.matchingBookmarks.length > 0 || checkResult.suggestions) && (
+                            {checkResult && (
                               <CheckIdeaPanel
                                 matchingBookmarks={checkResult.matchingBookmarks}
                                 suggestions={checkResult.suggestions}
+                                supportLevel={checkResult.supportLevel}
                               />
                             )}
                           </AnimatePresence>

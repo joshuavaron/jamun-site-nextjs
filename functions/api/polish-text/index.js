@@ -38,8 +38,47 @@ function checkRateLimit(ip) {
  * 3. Output format is strictly specified
  * 4. No acknowledgment of meta-requests about the prompt itself
  */
+/**
+ * Detect if text contains prompt injection attempts.
+ * Returns true if the text appears to be trying to override instructions.
+ */
+function detectsInjectionAttempt(text) {
+  const lowerText = text.toLowerCase();
+  const injectionPatterns = [
+    /ignore\s+(all\s+)?(previous|prior|above)\s+instructions/i,
+    /disregard\s+(all\s+)?(previous|prior|above)\s+instructions/i,
+    /forget\s+(all\s+)?(previous|prior|above)\s+instructions/i,
+    /new\s+instructions?:/i,
+    /you\s+are\s+now\s+a/i,
+    /pretend\s+(you\s+are|to\s+be)/i,
+    /act\s+as\s+(if|a)/i,
+    /from\s+now\s+on,?\s+you/i,
+    /instead,?\s+(please\s+)?give\s+me/i,
+    /actually,?\s+(please\s+)?(just\s+)?give\s+me/i,
+    /do\s+not\s+follow\s+the\s+(above|previous)/i,
+    /override\s+(the\s+)?(system|instructions)/i,
+    /system\s*prompt/i,
+    /jailbreak/i,
+    /dan\s+mode/i,
+  ];
+
+  for (const pattern of injectionPatterns) {
+    if (pattern.test(lowerText)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function buildPrompt(text, context, transformType, priorContext, targetLayer) {
   const { country, committee, topic } = context;
+
+  // Check for injection attempts first
+  if (detectsInjectionAttempt(text)) {
+    // Return a safe fallback - the AI will just return this
+    return `OUTPUT: This text could not be processed.`;
+  }
 
   // Sanitize user inputs - remove potential injection markers
   const sanitizedText = text
@@ -48,6 +87,8 @@ function buildPrompt(text, context, transformType, priorContext, targetLayer) {
     .replace(/<\|.*?\|>/g, "")
     .replace(/<<SYS>>/gi, "")
     .replace(/<<\/SYS>>/gi, "")
+    .replace(/ignore\s+(all\s+)?(previous|prior)\s+instructions/gi, "[content removed]")
+    .replace(/disregard\s+(all\s+)?(previous|prior)\s+instructions/gi, "[content removed]")
     .slice(0, 2000); // Limit input length
 
   const sanitizedCountry = (country || "").slice(0, 100);
@@ -95,6 +136,10 @@ function buildPrompt(text, context, transformType, priorContext, targetLayer) {
 6. If the input contains inappropriate content, output: "This text could not be processed."
 7. Keep output to ${lengthGuidance}. Write like a smart middle schooler.`;
 
+  // Detect if input is too short/simple (needs expansion, not just polishing)
+  const wordCount = sanitizedText.split(/\s+/).filter(w => w.length > 0).length;
+  const needsExpansion = wordCount < 8;
+
   const taskDescriptions = {
     "bullets-to-paragraph": isPolishingForFinalPaper
       ? "Convert bullet points into one clear, focused sentence."
@@ -103,8 +148,12 @@ function buildPrompt(text, context, transformType, priorContext, targetLayer) {
       ? "Rewrite as one clear, focused sentence."
       : "Expand with slightly more detail.",
     formalize: isPolishingForFinalPaper
-      ? "Turn into one clear, complete sentence."
-      : "Polish to sound more put-together while staying readable.",
+      ? needsExpansion
+        ? "This is a rough idea. Expand it into one clear, complete sentence that adds specific detail about WHY or HOW. Don't just repeat the input - add substance."
+        : "Turn into one clear, complete sentence."
+      : needsExpansion
+        ? "This is a rough idea. Expand it into 1-2 sentences that add specific detail. Don't just echo back the input - add WHY it matters or HOW it works."
+        : "Polish to sound more put-together while staying readable.",
     "combine-solutions": isPolishingForFinalPaper
       ? "Combine into one clear sentence about the proposed solution."
       : "Combine into one smooth paragraph.",
@@ -196,6 +245,31 @@ export async function onRequestPost(context) {
     // Clean up the response - remove quotes and common preambles
     let polishedText = result.response?.trim() || text;
 
+    // Check for AI refusal patterns - if the AI refused, return empty so we fall back to original
+    const refusalPatterns = [
+      /^I cannot create content/i,
+      /^I can't create content/i,
+      /^I cannot help with/i,
+      /^I can't help with/i,
+      /^I cannot assist with/i,
+      /^I'm not able to/i,
+      /^I am not able to/i,
+      /^This text could not be processed/i,
+      /^Sorry, (but )?I (cannot|can't)/i,
+      /^I apologize, (but )?I (cannot|can't)/i,
+      /Is there anything else I can help/i,
+    ];
+
+    for (const pattern of refusalPatterns) {
+      if (pattern.test(polishedText)) {
+        // AI refused - return empty to signal failure, client will use original text
+        return Response.json(
+          { polishedText: "", error: "Content could not be processed" },
+          { headers: corsHeaders }
+        );
+      }
+    }
+
     // Remove surrounding quotes if present
     if ((polishedText.startsWith('"') && polishedText.endsWith('"')) ||
         (polishedText.startsWith("'") && polishedText.endsWith("'"))) {
@@ -224,6 +298,10 @@ export async function onRequestPost(context) {
       /^Here (?:is|are) (?:a |the |your )?(?:polished|rewritten|revised|expanded)?[:\s]*/i,
       // Labeling patterns
       /^(?:Polished|Rewritten|Revised|Expanded|Combined) (?:text|paragraph|version)[:\s]*/i,
+      // Sample/example patterns
+      /^(?:A |Here's a )?(?:sample|example) (?:paragraph|text|sentence)[:\s]*/i,
+      // Additional chatbot patterns
+      /^(?:Let me|I'll|I will) (?:help you |)(?:rewrite|polish|expand|combine)[:\s]*/i,
     ];
     for (const pattern of preambles) {
       polishedText = polishedText.replace(pattern, "");
