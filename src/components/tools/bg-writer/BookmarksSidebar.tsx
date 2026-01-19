@@ -237,16 +237,22 @@ export function BookmarksSidebar() {
                         key={source.pathname}
                         className="rounded-lg border border-gray-100 bg-gray-50 p-3"
                       >
-                        <div className="mb-2 flex items-start justify-between">
-                          <div className="flex items-center gap-2">
-                            <ExternalLink className="h-3.5 w-3.5 text-gray-400" />
-                            <span className="text-sm font-medium text-gray-700">
-                              {source.title}
+                        {/* Guide title header */}
+                        <div className="mb-2 flex items-start justify-between gap-2">
+                          <a
+                            href={source.pathname}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex min-w-0 flex-1 items-start gap-2"
+                          >
+                            <ExternalLink className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-gray-400 group-hover:text-jamun-blue" />
+                            <span className="text-sm font-medium text-gray-700 group-hover:text-jamun-blue">
+                              {source.title || extractTitle(source.pathname)}
                             </span>
-                          </div>
+                          </a>
                           <button
                             onClick={() => removeBookmarkSource(source.pathname)}
-                            className="rounded p-0.5 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+                            className="flex-shrink-0 rounded p-0.5 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
                           >
                             <X className="h-3.5 w-3.5" />
                           </button>

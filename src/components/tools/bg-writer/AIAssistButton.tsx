@@ -225,43 +225,89 @@ export function AIAssistButton({
 /**
  * CheckIdeaPanel - Expanded panel showing matching bookmarks
  * Used for Mode 3 results
+ *
+ * Colors based on support level:
+ * - well-supported: green
+ * - partially-supported: amber/yellow
+ * - not-supported: amber/yellow (still constructive, not red)
  */
+type SupportLevel = "well-supported" | "partially-supported" | "not-supported";
+
 interface CheckIdeaPanelProps {
   matchingBookmarks: Array<{
     bookmark: { id: string; content: string; category: string };
     explanation: string;
   }>;
   suggestions: string;
+  supportLevel?: SupportLevel;
   onClose?: () => void;
 }
 
 export function CheckIdeaPanel({
   matchingBookmarks,
   suggestions,
+  supportLevel = "not-supported",
   onClose,
 }: CheckIdeaPanelProps) {
   const t = useTranslations("BGWriter");
+
+  // Style config based on support level
+  const styleConfig = {
+    "well-supported": {
+      border: "border-green-200",
+      bg: "bg-gradient-to-r from-green-50 to-teal-50",
+      header: "text-green-800",
+      divider: "border-green-200",
+      matchBg: "bg-white/60",
+      matchExplanation: "text-green-700",
+      icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+    },
+    "partially-supported": {
+      border: "border-amber-200",
+      bg: "bg-gradient-to-r from-amber-50 to-yellow-50",
+      header: "text-amber-800",
+      divider: "border-amber-200",
+      matchBg: "bg-white/60",
+      matchExplanation: "text-amber-700",
+      icon: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z",
+    },
+    "not-supported": {
+      border: "border-amber-200",
+      bg: "bg-gradient-to-r from-amber-50 to-orange-50",
+      header: "text-amber-800",
+      divider: "border-amber-200",
+      matchBg: "bg-white/60",
+      matchExplanation: "text-amber-700",
+      icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    },
+  };
+
+  const style = styleConfig[supportLevel];
 
   return (
     <motion.div
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
-      className="mt-3 overflow-hidden rounded-lg border border-green-200 bg-gradient-to-r from-green-50 to-teal-50"
+      className={cn("mt-3 overflow-hidden rounded-lg border", style.border, style.bg)}
     >
       <div className="p-4">
         {/* Header */}
         <div className="mb-3 flex items-center justify-between">
-          <h4 className="flex items-center gap-2 text-sm font-medium text-green-800">
+          <h4 className={cn("flex items-center gap-2 text-sm font-medium", style.header)}>
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                d={style.icon}
               />
             </svg>
-            {t("ideaSupport")}
+            {supportLevel === "well-supported"
+              ? t("ideaSupport")
+              : supportLevel === "partially-supported"
+                ? t("ideaPartialSupport")
+                : t("ideaNeedsSupport")}
           </h4>
           {onClose && (
             <button
@@ -286,12 +332,12 @@ export function CheckIdeaPanel({
             {matchingBookmarks.map((match, index) => (
               <div
                 key={match.bookmark.id || index}
-                className="rounded-lg bg-white/60 p-3"
+                className={cn("rounded-lg p-3", style.matchBg)}
               >
                 <p className="line-clamp-2 text-sm text-gray-700">
                   &ldquo;{match.bookmark.content}&rdquo;
                 </p>
-                <p className="mt-1 text-xs text-green-700">
+                <p className={cn("mt-1 text-xs", style.matchExplanation)}>
                   → {match.explanation}
                 </p>
               </div>
@@ -303,12 +349,19 @@ export function CheckIdeaPanel({
           </p>
         )}
 
-        {/* Suggestions */}
+        {/* Suggestions - now renders as list items if it contains bullets */}
         {suggestions && (
-          <div className="mt-3 border-t border-green-200 pt-3">
-            <p className="text-sm text-gray-700">
-              <span className="font-medium">{t("suggestion")}:</span> {suggestions}
-            </p>
+          <div className={cn("mt-3 border-t pt-3", style.divider)}>
+            {suggestions.includes("•") ? (
+              <div className="text-sm text-gray-700">
+                <span className="font-medium">{t("suggestion")}:</span>
+                <div className="mt-2 space-y-1 whitespace-pre-line">{suggestions}</div>
+              </div>
+            ) : (
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">{t("suggestion")}:</span> {suggestions}
+              </p>
+            )}
           </div>
         )}
       </div>

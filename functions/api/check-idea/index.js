@@ -231,9 +231,16 @@ export async function onRequestPost(context) {
 
     const parsed = parseResponse(result.response, bookmarks);
 
-    // If no matches found, provide encouraging fallback
-    if (parsed.matchingBookmarks.length === 0) {
-      parsed.suggestions = "I didn't find bookmarks that directly match this. That's okay—you might remember something you didn't bookmark, or this could be your own original thinking!";
+    // If no matches found, provide constructive guidance
+    if (parsed.matchingBookmarks.length === 0 && !parsed.suggestions) {
+      parsed.suggestions = `Your writing doesn't directly connect to any of your bookmarked research yet. Here's what you can do:
+
+• Go back to the background guide and bookmark sections that relate to this idea
+• Look for statistics, facts, or expert opinions that support your point
+• Consider if you need to adjust your idea to match what the research actually says
+• Make sure your claim uses specific evidence, not just general statements
+
+Remember: Strong position papers tie every claim back to research!`;
     }
 
     return Response.json(parsed, { headers: corsHeaders });
