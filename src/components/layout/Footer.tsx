@@ -87,6 +87,14 @@ export function Footer() {
                     {tNav("contact")}
                   </a>
                 </li>
+                <li>
+                  <Link
+                    href="/referral"
+                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t("referral")}
+                  </Link>
+                </li>
               </ul>
             </div>
 
