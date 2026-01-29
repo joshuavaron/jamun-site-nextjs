@@ -588,13 +588,158 @@ a[data-footnote-backref] {
     page-break-inside: avoid;
   }
 
-  /* Page margins with extra space at bottom for footer */
+  /* Default page margins */
   @page {
-    margin: 0.75in 0.75in 1in 0.75in;
+    margin: 0.5in;
+  }
+
+  /* Referral page: zero page-margin suppresses browser chrome (URL, date, page numbers).
+     Visual margins are handled by padding + box-decoration-break: clone on .referral-page. */
+  @page referral {
+    margin: 0;
   }
 
   /* Hide the in-document footer completely - we'll use @page footer instead */
   [data-print-only="true"] {
     display: none !important;
+  }
+
+  /* ===== Referral page print styles ===== */
+
+  /* Show print-only elements (header/footer) */
+  .referral-print-only {
+    display: block !important;
+  }
+
+  /* Hide tab navigation on print */
+  [data-referral-tabs] {
+    display: none !important;
+  }
+
+  /* Referral page: document-like print layout */
+  .referral-page {
+    page: referral; /* binds to @page referral { margin: 0 } above */
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    padding: 0.5in 0.6in !important;
+    -webkit-box-decoration-break: clone; /* repeat padding on every page */
+    box-decoration-break: clone;
+  }
+
+  /* Remove LayoutWrapper's header-offset padding in print */
+  main:has(> .referral-page) {
+    padding-top: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Force all animated sections visible (user may not have scrolled) */
+  .referral-page .referral-section,
+  .referral-page .referral-quickref {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Hide icon box (SVGs don't render in print) */
+  .referral-page .referral-icon-box {
+    display: none !important;
+  }
+
+  .referral-page .referral-section {
+    margin-bottom: 0.6rem !important;
+  }
+
+  .referral-page .referral-heading {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .referral-page .referral-heading h3 {
+    font-size: 9pt !important;
+  }
+
+  /* Flatten quick-reference bar for print — no card indent */
+  .referral-page .referral-quickref {
+    padding: 0.3rem 0 !important;
+    margin-bottom: 0.6rem !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-left: none !important;
+    border: none !important;
+    background: none !important;
+  }
+
+  /* Remove shadow/radius on other rounded elements for print */
+  .referral-page .rounded-xl {
+    box-shadow: none !important;
+  }
+
+  /* Standards table */
+  .referral-page table {
+    font-size: 8.5pt !important;
+    border-collapse: collapse;
+  }
+
+  .referral-page th,
+  .referral-page td {
+    padding: 0.2rem 0.4rem !important;
+  }
+
+  .referral-page code {
+    font-size: 7pt !important;
+    padding: 1px 3px !important;
+    border: 1px solid #d1d5db !important;
+    background: #f3f4f6 !important;
+    color: #374151 !important;
+  }
+
+  /* Body text in print */
+  .referral-page p {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  .referral-page li {
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+  }
+
+  .referral-page ul {
+    margin-top: 0 !important;
+  }
+
+  /* Badges compact */
+  .referral-page .rounded-xl .text-sm {
+    font-size: 8pt !important;
+  }
+
+  /* Remove decorative backgrounds for print */
+  .referral-page .bg-warm-white {
+    background: white !important;
+  }
+
+  /* Reset sticky positioning */
+  .referral-page .sticky {
+    position: static !important;
+  }
+
+  /* Contact bar: plain for print */
+  .referral-page .bg-gray-900 {
+    background: white !important;
+    color: black !important;
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    padding: 0.5rem !important;
+  }
+
+  .referral-page .bg-gray-900 h3 {
+    color: black !important;
+    font-size: 10pt !important;
+  }
+
+  .referral-page .bg-gray-900 p {
+    color: #374151 !important;
+  }
+
+  .referral-page .bg-gray-900 a {
+    color: #397bce !important;
   }
 }

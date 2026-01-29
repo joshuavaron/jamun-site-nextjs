@@ -91,6 +91,7 @@ export const siteConfig = {
     ],
     resources: [
       { label: "Blog", href: "/blog" },
+      { label: "School Referral", href: "/referral" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
     ],
