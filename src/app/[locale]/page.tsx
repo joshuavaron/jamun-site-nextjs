@@ -1,18 +1,55 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import {
-  HeroSection,
-  StatsSection,
-  WhoWeServeSection,
-  ProgramsSection,
-  WhyChooseSection,
-  SkillsSection,
-  GallerySection,
-  TestimonialSection,
-  FAQSection,
-  CTASection,
-} from "@/components/sections";
+import { HeroSection } from "@/components/sections";
 import { siteConfig } from "@/config/site";
+
+// Lazy-load below-fold sections to split JS bundles
+const StatsSection = dynamic(() =>
+  import("@/components/sections/StatsSection").then((m) => ({
+    default: m.StatsSection,
+  }))
+);
+const WhoWeServeSection = dynamic(() =>
+  import("@/components/sections/WhoWeServeSection").then((m) => ({
+    default: m.WhoWeServeSection,
+  }))
+);
+const ProgramsSection = dynamic(() =>
+  import("@/components/sections/ProgramsSection").then((m) => ({
+    default: m.ProgramsSection,
+  }))
+);
+const WhyChooseSection = dynamic(() =>
+  import("@/components/sections/WhyChooseSection").then((m) => ({
+    default: m.WhyChooseSection,
+  }))
+);
+const SkillsSection = dynamic(() =>
+  import("@/components/sections/SkillsSection").then((m) => ({
+    default: m.SkillsSection,
+  }))
+);
+const GallerySection = dynamic(() =>
+  import("@/components/sections/GallerySection").then((m) => ({
+    default: m.GallerySection,
+  }))
+);
+const TestimonialSection = dynamic(() =>
+  import("@/components/sections/TestimonialSection").then((m) => ({
+    default: m.TestimonialSection,
+  }))
+);
+const FAQSection = dynamic(() =>
+  import("@/components/sections/FAQSection").then((m) => ({
+    default: m.FAQSection,
+  }))
+);
+const CTASection = dynamic(() =>
+  import("@/components/sections/CTASection").then((m) => ({
+    default: m.CTASection,
+  }))
+);
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
