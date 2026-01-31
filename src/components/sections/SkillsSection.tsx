@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { Section, SectionHeader } from "@/components/ui";
+import { Section, SectionHeader, Card } from "@/components/ui";
 import {
   Mic,
   Brain,
@@ -79,7 +79,7 @@ export function SkillsSection() {
   const t = useTranslations("SkillsSection");
 
   return (
-    <Section background="gray" className="py-16 md:py-20 lg:py-24">
+    <Section background="cream" pattern="dots" className="py-16 md:py-20 lg:py-24">
       <SectionHeader
         eyebrow={t("eyebrow")}
         title={t("title")}
@@ -99,22 +99,26 @@ export function SkillsSection() {
             variants={fadeInUp}
             whileHover={{ y: -4, scale: 1.02 }}
             transition={{ duration: 0.2 }}
-            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300"
           >
-            <div
-              className={cn(
-                "w-12 h-12 rounded-xl flex items-center justify-center mb-4",
-                skill.bgColor
-              )}
+            <Card
+              variant="flat"
+              className="h-full p-6 hover:shadow-[var(--shadow-card)] transition-all duration-300"
             >
-              <skill.icon className={cn("w-6 h-6", skill.iconColor)} />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {t(skill.titleKey)}
-            </h3>
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {t(skill.descriptionKey)}
-            </p>
+              <div
+                className={cn(
+                  "w-14 h-14 rounded-xl flex items-center justify-center mb-4",
+                  skill.bgColor
+                )}
+              >
+                <skill.icon className={cn("w-6 h-6", skill.iconColor)} />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                {t(skill.titleKey)}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {t(skill.descriptionKey)}
+              </p>
+            </Card>
           </motion.div>
         ))}
       </motion.div>
@@ -125,15 +129,17 @@ export function SkillsSection() {
         whileInView="visible"
         viewport={defaultViewport}
         variants={fadeInUp}
-        className="mt-12 bg-gradient-to-r from-jamun-blue/5 via-purple-50 to-jamun-blue/5 rounded-2xl p-8 border border-jamun-blue/10"
+        className="mt-12"
       >
-        <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
-          {t("seoTitle")}
-        </h3>
-        <div className="max-w-4xl mx-auto text-gray-600 space-y-4 text-center">
-          <p>{t("seoParagraph1")}</p>
-          <p>{t("seoParagraph2")}</p>
-        </div>
+        <Card variant="default" className="p-8">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
+            {t("seoTitle")}
+          </h3>
+          <div className="max-w-4xl mx-auto text-gray-600 space-y-4 text-center">
+            <p>{t("seoParagraph1")}</p>
+            <p>{t("seoParagraph2")}</p>
+          </div>
+        </Card>
       </motion.div>
     </Section>
   );

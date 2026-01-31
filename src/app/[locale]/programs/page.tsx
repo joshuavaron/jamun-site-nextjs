@@ -1,10 +1,9 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRef, useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
-import { Section, Button, TypewriterText } from "@/components/ui";
+import { Section, Button, TypewriterText, AnimatedNumber } from "@/components/ui";
 import {
   Globe,
   Scale,
@@ -27,55 +26,11 @@ import {
   Calendar,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { useTranslations } from "next-intl";
 
 // Different durations for each stat to create staggered finish effect
 const statDurations = [1400, 1800, 2200, 2600];
-
-function AnimatedNumber({ value, duration = 2000 }: { value: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState("0");
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    // Extract the numeric part
-    const numericMatch = value.match(/[\d,]+/);
-    if (!numericMatch) {
-      setDisplayValue(value);
-      return;
-    }
-
-    const targetNumber = parseInt(numericMatch[0].replace(/,/g, ""), 10);
-    const prefix = value.slice(0, value.indexOf(numericMatch[0]));
-    const suffix = value.slice(
-      value.indexOf(numericMatch[0]) + numericMatch[0].length
-    );
-
-    const steps = Math.max(30, Math.floor(duration / 33)); // ~30fps
-    const stepDuration = duration / steps;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / steps;
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const current = Math.floor(targetNumber * easeOutQuart);
-
-      setDisplayValue(`${prefix}${current.toLocaleString()}${suffix}`);
-
-      if (currentStep >= steps) {
-        clearInterval(timer);
-        setDisplayValue(value);
-      }
-    }, stepDuration);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
-
-  return <span ref={ref}>{displayValue}</span>;
-}
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -90,18 +45,6 @@ const cardVariants = {
   }),
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function ProgramsPage() {
   const t = useTranslations("ProgramsPage");
@@ -307,10 +250,7 @@ export default function ProgramsPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-emerald-400/10 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
+      <section className="relative overflow-hidden bg-cream min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -376,7 +316,7 @@ export default function ProgramsPage() {
                 <Link href="/modelun" className="col-span-2 group">
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl hover:border-jamun-blue/30 transition-all duration-300"
+                    className="bg-white rounded-2xl p-6 shadow-[var(--shadow-card)] border border-gray-100 hover:shadow-[var(--shadow-card-hover)] hover:border-jamun-blue/30 transition-all duration-300"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-14 h-14 rounded-xl bg-jamun-blue/10 flex items-center justify-center">
@@ -395,7 +335,7 @@ export default function ProgramsPage() {
                 <Link href="/mocktrial" className="group">
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 hover:shadow-xl hover:border-purple-300 transition-all duration-300 h-full"
+                    className="bg-white rounded-2xl p-5 shadow-[var(--shadow-card)] border border-gray-100 hover:shadow-[var(--shadow-card-hover)] hover:border-purple-300 transition-all duration-300 h-full"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center">
@@ -412,7 +352,7 @@ export default function ProgramsPage() {
                 <Link href="/mathletes" className="group">
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100 hover:shadow-xl hover:border-emerald-300 transition-all duration-300 h-full"
+                    className="bg-white rounded-2xl p-5 shadow-[var(--shadow-card)] border border-gray-100 hover:shadow-[var(--shadow-card-hover)] hover:border-emerald-300 transition-all duration-300 h-full"
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center">
@@ -426,20 +366,15 @@ export default function ProgramsPage() {
                 </Link>
               </div>
 
-              {/* Decorative blobs */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-emerald-400/20 rounded-full blur-2xl -z-10" />
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-br from-jamun-blue/20 to-purple-400/20 rounded-full blur-3xl -z-10" />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Quick Stats Bar */}
-      <section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
+      <section className="bg-gray-900 py-16 md:py-20 relative overflow-hidden">
         {/* Subtle gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-jamun-blue/10 via-transparent to-purple-900/10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -452,7 +387,7 @@ export default function ProgramsPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               {t("statsTitle")}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
               {t("statsSubtitle")}
             </p>
           </motion.div>
@@ -480,7 +415,7 @@ export default function ProgramsPage() {
                     <div className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-jamun-blue-light to-purple-400 bg-clip-text text-transparent mb-3">
                       <AnimatedNumber value={stat.value} duration={statDurations[index]} />
                     </div>
-                    <div className="text-sm md:text-base text-gray-400 font-medium">
+                    <div className="text-sm md:text-base text-gray-500 font-medium">
                       {stat.label}
                     </div>
                   </div>
@@ -497,7 +432,7 @@ export default function ProgramsPage() {
           key={program.id}
           className={cn(
             "py-16 md:py-20 lg:py-24 overflow-hidden",
-            programIndex % 2 === 0 ? "bg-white" : "bg-gray-50"
+            programIndex % 2 === 0 ? "bg-white" : "bg-cream"
           )}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -571,19 +506,6 @@ export default function ProgramsPage() {
                     </div>
                   </motion.div>
 
-                  {/* Decorative blobs */}
-                  <div
-                    className={cn(
-                      "absolute -top-6 -right-6 w-32 h-32 rounded-full blur-2xl -z-10",
-                      program.accentColorLight
-                    )}
-                  />
-                  <div
-                    className={cn(
-                      "absolute -bottom-6 -left-6 w-40 h-40 rounded-full blur-3xl -z-10 opacity-50",
-                      program.accentColorLight
-                    )}
-                  />
                 </div>
               </motion.div>
 
@@ -644,7 +566,7 @@ export default function ProgramsPage() {
 
             {/* Skills Grid */}
             <motion.div
-              variants={containerVariants}
+              variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
@@ -653,9 +575,9 @@ export default function ProgramsPage() {
               {program.features.map((feature) => (
                 <motion.div
                   key={feature.title}
-                  variants={itemVariants}
+                  variants={fadeInUp}
                   whileHover={{ y: -4 }}
-                  className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300"
+                  className="bg-white rounded-xl p-5 shadow-[var(--shadow-card)] border border-gray-100 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300"
                 >
                   <div
                     className={cn(
@@ -681,7 +603,7 @@ export default function ProgramsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100"
+                className="bg-white rounded-2xl p-6 md:p-8 shadow-[var(--shadow-card)] border border-gray-100"
               >
                 <h4 className="text-xl font-semibold text-gray-900 mb-4">
                   {t("whatYouLearn")}
@@ -731,10 +653,8 @@ export default function ProgramsPage() {
       ))}
 
       {/* Why Choose JAMUN Programs */}
-      <section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
+      <section className="bg-gray-900 py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jamun-blue/10 via-transparent to-purple-900/10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -747,13 +667,13 @@ export default function ProgramsPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               {t("whyChooseTitle")}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
               {t("whyChooseSubtitle")}
             </p>
           </motion.div>
 
           <motion.div
-            variants={containerVariants}
+            variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -762,7 +682,7 @@ export default function ProgramsPage() {
             {whyChooseItems.map((item) => (
               <motion.div
                 key={item.title}
-                variants={itemVariants}
+                variants={fadeInUp}
                 whileHover={{ scale: 1.02 }}
                 className="relative bg-[#1e293b]/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-jamun-blue/50 transition-all duration-300"
               >
@@ -772,7 +692,7 @@ export default function ProgramsPage() {
                 <h3 className="text-lg font-semibold text-white mb-2">
                   {item.title}
                 </h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
+                <p className="text-gray-500 text-sm">{item.description}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -780,7 +700,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Final CTA Section */}
-      <Section background="white" className="py-16 md:py-20">
+      <Section background="cream" className="py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

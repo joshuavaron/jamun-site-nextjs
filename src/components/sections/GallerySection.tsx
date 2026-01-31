@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { defaultViewport } from "@/lib/animations";
+import { CornerAccent, TestimonialCard } from "@/components/ui";
 
 const sections = [
   {
@@ -28,9 +29,10 @@ const sections = [
     testimonialAuthorKey: "parentsTestimonialAuthor" as const,
     accentColor: "purple",
     labelColor: "text-purple-600",
-    borderColor: "border-purple-600",
+    borderColor: "border-l-purple-600",
     numberColor: "text-purple-600",
-    statGradient: "from-purple-600 to-jamun-blue",
+    cornerColor: "#9333ea",
+    cornerPosition: "top-right" as const,
   },
   {
     id: "educators",
@@ -51,9 +53,10 @@ const sections = [
     testimonialAuthorKey: "educatorsTestimonialAuthor" as const,
     accentColor: "emerald",
     labelColor: "text-emerald-600",
-    borderColor: "border-emerald-600",
+    borderColor: "border-l-emerald-600",
     numberColor: "text-emerald-600",
-    statGradient: "from-emerald-500 to-teal-600",
+    cornerColor: "#059669",
+    cornerPosition: "top-left" as const,
   },
 ];
 
@@ -85,7 +88,7 @@ export function GallerySection() {
               {/* Dark overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-              {/* Stat overlay with gradient background */}
+              {/* Stat overlay with text shadow */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -93,10 +96,10 @@ export function GallerySection() {
                 transition={{ delay: 0.3 }}
                 className="absolute bottom-8 left-8 text-white"
               >
-                <div className={cn(
-                  "text-5xl md:text-6xl font-bold mb-2 bg-gradient-to-r bg-clip-text text-transparent",
-                  section.statGradient
-                )}>
+                <div
+                  className="text-5xl md:text-6xl font-bold mb-2 text-white"
+                  style={{ textShadow: "0 2px 12px rgba(0,0,0,0.3)" }}
+                >
                   {t(section.statValueKey)}
                 </div>
                 <div className="text-sm md:text-base text-white/90 max-w-[200px]">
@@ -105,17 +108,10 @@ export function GallerySection() {
               </motion.div>
 
               {/* Decorative corner accent */}
-              <div className={cn(
-                "absolute top-0 w-24 h-24 opacity-30",
-                section.imagePosition === "right" ? "right-0" : "left-0"
-              )}>
-                <div className={cn(
-                  "absolute w-full h-full bg-gradient-to-br",
-                  section.imagePosition === "right"
-                    ? "from-transparent to-purple-500/50 rounded-bl-full"
-                    : "from-transparent to-emerald-500/50 rounded-br-full"
-                )} />
-              </div>
+              <CornerAccent
+                position={section.cornerPosition}
+                color={section.cornerColor}
+              />
             </motion.div>
 
             {/* Content Column */}
@@ -125,7 +121,7 @@ export function GallerySection() {
               viewport={defaultViewport}
               transition={{ duration: 0.6, delay: 0.2 }}
               className={cn(
-                "bg-gray-50 p-8 lg:p-12 xl:p-16 flex flex-col justify-center relative",
+                "bg-cream p-8 lg:p-12 xl:p-16 flex flex-col justify-center relative",
                 section.imagePosition === "right" ? "lg:order-2" : "lg:order-1"
               )}
             >
@@ -177,23 +173,11 @@ export function GallerySection() {
               </div>
 
               {/* Testimonial */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className={cn(
-                  "border-l-4 pl-6 py-2 bg-white rounded-r-lg shadow-sm",
-                  section.borderColor
-                )}
-              >
-                <p className="text-gray-700 italic mb-3">
-                  &ldquo;{t(section.testimonialQuoteKey)}&rdquo;
-                </p>
-                <p className="text-sm font-semibold text-gray-900">
-                  — {t(section.testimonialAuthorKey)}
-                </p>
-              </motion.div>
+              <TestimonialCard
+                quote={t(section.testimonialQuoteKey)}
+                author={t(section.testimonialAuthorKey)}
+                accentColor={section.borderColor}
+              />
             </motion.div>
           </div>
         </div>

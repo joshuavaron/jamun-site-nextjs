@@ -3,12 +3,8 @@
 import { motion } from "framer-motion";
 import { Section, TypewriterText } from "@/components/ui";
 import { Shield, Mail } from "lucide-react";
+import { cardItem } from "@/lib/animations";
 import { useTranslations } from "next-intl";
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export default function PrivacyPolicyPage() {
   const t = useTranslations("PrivacyPage");
@@ -18,9 +14,6 @@ export default function PrivacyPolicyPage() {
     <main>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span
@@ -54,12 +47,12 @@ export default function PrivacyPolicyPage() {
       </section>
 
       {/* Content Section */}
-      <Section background="white" className="py-12 md:py-16">
+      <Section background="cream" className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto">
           <div className="prose prose-lg prose-gray max-w-none">
             {/* Introduction */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -75,7 +68,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Information We Collect */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -119,7 +112,7 @@ export default function PrivacyPolicyPage() {
 
             {/* How We Use Your Information */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -143,7 +136,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Information Sharing */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -164,7 +157,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Children's Privacy */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -180,7 +173,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Photography and Video */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -210,7 +203,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Data Security */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -226,7 +219,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Your Rights */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -248,7 +241,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Cookies */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -264,7 +257,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Changes to This Policy */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -280,7 +273,7 @@ export default function PrivacyPolicyPage() {
 
             {/* Contact Us */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}

@@ -3,12 +3,8 @@
 import { motion } from "framer-motion";
 import { Section, TypewriterText } from "@/components/ui";
 import { FileText, Mail } from "lucide-react";
+import { cardItem } from "@/lib/animations";
 import { useTranslations } from "next-intl";
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export default function TermsOfServicePage() {
   const t = useTranslations("TermsPage");
@@ -18,9 +14,6 @@ export default function TermsOfServicePage() {
     <main>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.span
@@ -54,12 +47,12 @@ export default function TermsOfServicePage() {
       </section>
 
       {/* Content Section */}
-      <Section background="white" className="py-12 md:py-16">
+      <Section background="cream" className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto">
           <div className="prose prose-lg prose-gray max-w-none">
             {/* Agreement to Terms */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -75,7 +68,7 @@ export default function TermsOfServicePage() {
 
             {/* About JAMUN */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -91,7 +84,7 @@ export default function TermsOfServicePage() {
 
             {/* Program Participation */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -135,7 +128,7 @@ export default function TermsOfServicePage() {
 
             {/* Website Use */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -169,7 +162,7 @@ export default function TermsOfServicePage() {
 
             {/* Intellectual Property */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -188,7 +181,7 @@ export default function TermsOfServicePage() {
 
             {/* Donations */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -204,7 +197,7 @@ export default function TermsOfServicePage() {
 
             {/* Disclaimer of Warranties */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -220,7 +213,7 @@ export default function TermsOfServicePage() {
 
             {/* Limitation of Liability */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -236,7 +229,7 @@ export default function TermsOfServicePage() {
 
             {/* Indemnification */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -252,7 +245,7 @@ export default function TermsOfServicePage() {
 
             {/* Changes to Terms */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -268,7 +261,7 @@ export default function TermsOfServicePage() {
 
             {/* Governing Law */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
@@ -284,7 +277,7 @@ export default function TermsOfServicePage() {
 
             {/* Contact Us */}
             <motion.div
-              variants={sectionVariants}
+              variants={cardItem}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}

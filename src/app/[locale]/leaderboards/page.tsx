@@ -28,6 +28,8 @@ import { useTranslations } from "next-intl";
 
 // =============================================================================
 // ANIMATED COUNTER COMPONENT
+// NOTE: This AnimatedNumber differs from shared @/components/ui/AnimatedNumber
+// (accepts numeric value instead of string, uses requestAnimationFrame)
 // =============================================================================
 
 function AnimatedNumber({ value, duration = 1400 }: { value: number; duration?: number }) {
@@ -85,7 +87,7 @@ function RankBadge({ rank, isTied }: { rank: number; isTied: boolean }) {
 function MovementIndicator({ movement, sameLabel }: { movement: number; sameLabel: string }) {
   if (movement === 0) {
     return (
-      <span className="flex items-center text-gray-400 text-sm font-medium">
+      <span className="flex items-center text-gray-500 text-sm font-medium">
         <Minus className="w-4 h-4 mr-1" />
         <span className="hidden sm:inline">{sameLabel}</span>
       </span>
@@ -162,6 +164,7 @@ function StandingsTable({
   entries: LeaderboardEntry[];
   labels: { rank: string; school: string; score: string; movement: string; same: string };
 }) {
+  // NOTE: These variants differ from shared cardContainer/cardItem (uses x-axis, faster stagger/duration)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -176,7 +179,7 @@ function StandingsTable({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-[var(--shadow-elevated)] border border-gray-100 overflow-hidden">
       {/* Table Header */}
       <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 md:px-6 py-4 border-b border-gray-200">
         <div className="grid grid-cols-12 gap-2 md:gap-4 text-sm font-semibold text-gray-600 uppercase tracking-wider">
@@ -296,7 +299,7 @@ function TopMoversSection({
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 relative overflow-hidden group"
+              className="bg-white rounded-2xl p-6 shadow-[var(--shadow-card)] border border-gray-100 relative overflow-hidden group"
             >
               {/* Background gradient on hover */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 to-teal-50/0 group-hover:from-emerald-50 group-hover:to-teal-50 transition-all duration-300" />
@@ -315,7 +318,7 @@ function TopMoversSection({
                   </div>
                   <div className="text-right">
                     <div className="text-sm text-gray-500">{labels.nowRank(entry.rank)}</div>
-                    <div className="text-xs text-gray-400">{labels.wasRank(entry.previousRank)}</div>
+                    <div className="text-xs text-gray-500">{labels.wasRank(entry.previousRank)}</div>
                   </div>
                 </div>
 
@@ -387,11 +390,7 @@ export default function LeaderboardPage() {
   return (
     <main>
       {/* Hero Section - Full viewport height */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/20 to-purple-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-jamun-blue/5 to-purple-500/5 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden bg-gray-900 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
@@ -455,7 +454,7 @@ export default function LeaderboardPage() {
       </section>
 
       {/* Standings Section */}
-      <Section background="white" className="py-16 md:py-20">
+      <Section background="white" className="py-16 md:py-20 bg-cream">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -537,8 +536,6 @@ export default function LeaderboardPage() {
       {/* CTA Section */}
       <section className="bg-gradient-to-br from-jamun-blue via-blue-600 to-purple-600 py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.div

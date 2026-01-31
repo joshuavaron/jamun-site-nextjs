@@ -4,11 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-content-data.mjs",
-    "build": "next build && node scripts/copy-english-to-root.mjs",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "deploy": "npm run build && npx wrangler pages deploy out --project-name=jamun-site"
+    "lint": "eslint"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -36,7 +34,6 @@
     "eslint": "^9",
     "eslint-config-next": "^15.3.8",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "wrangler": "^4.54.0"
+    "typescript": "^5"
   }
 }

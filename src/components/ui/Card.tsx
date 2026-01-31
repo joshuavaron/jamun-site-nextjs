@@ -3,19 +3,38 @@
 import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
+type CardVariant = "default" | "elevated" | "outlined" | "flat" | "interactive";
+
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  hover?: boolean;
+  variant?: CardVariant;
+  accent?: string; // Tailwind border-top color class, e.g. "border-t-jamun-blue"
+  hover?: boolean; // Legacy support - maps to "interactive" variant behavior
 }
 
+const variantStyles: Record<CardVariant, string> = {
+  default:
+    "bg-white shadow-[var(--shadow-card)] border border-gray-100 rounded-xl",
+  elevated:
+    "bg-white shadow-[var(--shadow-elevated)] rounded-2xl",
+  outlined:
+    "bg-transparent border-2 border-gray-200 rounded-xl",
+  flat:
+    "bg-cream rounded-xl",
+  interactive:
+    "bg-white shadow-[var(--shadow-card)] border border-gray-100 rounded-xl transition-all duration-300 hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-0.5 cursor-pointer",
+};
+
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ className, hover = false, children, ...props }, ref) => {
+  ({ className, variant = "default", accent, hover = false, children, ...props }, ref) => {
+    const effectiveVariant = hover && variant === "default" ? "interactive" : variant;
+
     return (
       <div
         ref={ref}
         className={cn(
-          "bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden",
-          hover &&
-            "transition-all duration-300 hover:shadow-lg hover:-translate-y-1",
+          "overflow-hidden",
+          variantStyles[effectiveVariant],
+          accent && `border-t-4 ${accent}`,
           className
         )}
         {...props}
@@ -76,3 +95,4 @@ const CardImage = forwardRef<
 CardImage.displayName = "CardImage";
 
 export { Card, CardHeader, CardContent, CardFooter, CardImage };
+export type { CardVariant, CardProps };

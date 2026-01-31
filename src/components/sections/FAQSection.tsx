@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ChevronDown, MessageCircle } from "lucide-react";
-import { Section, SectionHeader } from "@/components/ui";
+import { Section, SectionHeader, WavyLine } from "@/components/ui";
 import { cn } from "@/lib/utils";
 import { fadeInUp, defaultViewport } from "@/lib/animations";
 
@@ -72,7 +72,7 @@ function FAQItem({
             className="overflow-hidden"
           >
             <div className="pb-5 pl-0">
-              <div className="bg-gradient-to-r from-jamun-blue/5 to-purple-50 rounded-lg p-4 border-l-4 border-jamun-blue">
+              <div className="bg-cream rounded-lg p-4">
                 <p className="text-gray-600 leading-relaxed">{answer}</p>
               </div>
             </div>
@@ -88,7 +88,7 @@ export function FAQSection() {
   const t = useTranslations("FAQSection");
 
   return (
-    <Section background="gray">
+    <Section background="white">
       <SectionHeader
         eyebrow={t("eyebrow")}
         title={t("title")}
@@ -103,8 +103,8 @@ export function FAQSection() {
           variants={fadeInUp}
           className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
         >
-          {/* Header decoration */}
-          <div className="h-1 bg-gradient-to-r from-jamun-blue via-purple-500 to-jamun-orange" />
+          {/* Header decoration - WavyLine replaces gradient */}
+          <WavyLine color="#397bce" className="h-2" />
 
           <div className="px-6 md:px-8 py-2">
             {faqKeys.map((faq, index) => (

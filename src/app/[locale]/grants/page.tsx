@@ -23,20 +23,8 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { useTranslations } from "next-intl";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function GrantsPage() {
   const t = useTranslations("GrantsPage");
@@ -135,11 +123,7 @@ export default function GrantsPage() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-emerald-400/20 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-emerald-200/20 to-purple-200/20 rounded-full blur-3xl -z-10" />
+      <section className="relative overflow-hidden bg-cream min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -287,9 +271,6 @@ export default function GrantsPage() {
                   </div>
                 </motion.div>
 
-                {/* Decorative blobs */}
-                <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-emerald-400/30 to-jamun-blue/20 rounded-full blur-2xl -z-10" />
-                <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-gradient-to-br from-purple-400/30 to-pink-400/20 rounded-full blur-3xl -z-10" />
               </div>
             </motion.div>
           </div>
@@ -305,7 +286,7 @@ export default function GrantsPage() {
         />
 
         <motion.div
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -314,10 +295,10 @@ export default function GrantsPage() {
           {grantBenefits.map((benefit) => (
             <motion.div
               key={benefit.title}
-              variants={itemVariants}
+              variants={fadeInUp}
               whileHover={{ y: -4 }}
               className={cn(
-                "relative bg-white rounded-2xl p-8 border-2 shadow-sm hover:shadow-xl transition-all duration-300",
+                "relative bg-white rounded-2xl p-8 border-2 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300",
                 benefit.borderColor
               )}
             >
@@ -342,11 +323,6 @@ export default function GrantsPage() {
 
       {/* Featured Testimonial Section */}
       <section className="bg-gradient-to-br from-emerald-600 via-jamun-blue to-purple-700 py-16 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl" />
-        </div>
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -377,7 +353,7 @@ export default function GrantsPage() {
       {/* How It Works Section */}
       <Section
         id="how-it-works"
-        background="gray"
+        background="cream"
         className="py-16 md:py-20 scroll-mt-20"
       >
         <SectionHeader
@@ -406,7 +382,7 @@ export default function GrantsPage() {
                 )}
               >
                 {/* Step number */}
-                <div className="absolute left-8 md:left-1/2 w-16 h-16 bg-white rounded-full border-4 border-jamun-blue shadow-lg flex items-center justify-center transform -translate-x-1/2 z-10">
+                <div className="absolute left-8 md:left-1/2 w-16 h-16 bg-white rounded-full border-4 border-jamun-blue shadow-[var(--shadow-card)] flex items-center justify-center transform -translate-x-1/2 z-10">
                   <span className="text-2xl font-bold text-jamun-blue">
                     {step.step}
                   </span>
@@ -415,7 +391,7 @@ export default function GrantsPage() {
                 {/* Content card */}
                 <div
                   className={cn(
-                    "ml-20 md:ml-0 md:w-1/2 bg-white rounded-2xl p-6 shadow-lg border border-gray-100",
+                    "ml-20 md:ml-0 md:w-1/2 bg-white rounded-2xl p-6 shadow-[var(--shadow-card)] border border-gray-100",
                     index % 2 === 0 ? "md:mr-auto md:pr-8" : "md:ml-auto md:pl-8"
                   )}
                 >
@@ -501,15 +477,12 @@ export default function GrantsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
             </div>
 
-            {/* Decorative blobs */}
-            <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-emerald-400/30 to-jamun-blue/20 rounded-full blur-2xl -z-10" />
-            <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-gradient-to-br from-purple-400/30 to-pink-400/20 rounded-full blur-3xl -z-10" />
           </motion.div>
         </div>
       </Section>
 
       {/* More Testimonials Section */}
-      <Section background="gray" className="py-16 md:py-20">
+      <Section background="cream" className="py-16 md:py-20">
         <SectionHeader
           eyebrow={t("testimonialsEyebrow")}
           title={t("testimonialsTitle")}
@@ -517,7 +490,7 @@ export default function GrantsPage() {
         />
 
         <motion.div
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -526,9 +499,9 @@ export default function GrantsPage() {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
+              variants={fadeInUp}
               whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="bg-white rounded-2xl p-6 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 border border-gray-100"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => (
@@ -564,14 +537,6 @@ export default function GrantsPage() {
 
       {/* Apply CTA Section */}
       <section className="bg-gradient-to-br from-emerald-600 via-jamun-blue to-purple-700 py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
-          <div
-            className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          />
-        </div>
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -616,7 +581,7 @@ export default function GrantsPage() {
       </section>
 
       {/* Have Questions Section */}
-      <Section background="white" className="py-16 md:py-20">
+      <Section background="cream" className="py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

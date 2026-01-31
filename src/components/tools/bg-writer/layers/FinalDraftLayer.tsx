@@ -318,7 +318,9 @@ export function FinalDraftLayer() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSectionClick = (_paragraph: ParagraphType) => {
     setCurrentLayer("paragraphComponents");
-    // TODO: Scroll to the paragraph section
+    // TODO: Scroll to the specific paragraph section after layer switch.
+    // Requires cross-layer state (e.g., a scrollTarget in the store) so
+    // ParagraphComponentsLayer can pick it up on mount and scrollIntoView.
   };
 
   const handleGenerateConclusion = async () => {

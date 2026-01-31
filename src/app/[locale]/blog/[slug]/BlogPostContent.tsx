@@ -71,10 +71,6 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
     <main>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 pt-8 pb-16 md:pt-12 md:pb-20">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <motion.div
@@ -261,7 +257,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-6 md:p-8 shadow-[var(--shadow-card)] border border-gray-100">
             <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
               {post.author.avatar ? (
                 <Image

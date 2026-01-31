@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Globe, Scale, Calculator } from "lucide-react";
-import { Section, SectionHeader } from "@/components/ui";
+import { Section, SectionHeader, Badge } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { staggerContainer, fadeInUpLarge, defaultViewport } from "@/lib/animations";
+import { staggerContainer, fadeInUpLarge, defaultViewport, tapScale } from "@/lib/animations";
 import { programColors } from "@/lib/colors";
+
+type BadgeVariant = "primary" | "purple" | "emerald";
 
 const programs = [
   {
@@ -21,6 +23,7 @@ const programs = [
     image: "/images/conferences/DSC00848.webp",
     icon: Globe,
     colors: programColors.modelUN,
+    badgeVariant: "primary" as BadgeVariant,
   },
   {
     id: "mock-trial",
@@ -32,6 +35,7 @@ const programs = [
     image: "/images/conferences/DSC02128.webp",
     icon: Scale,
     colors: programColors.mockTrial,
+    badgeVariant: "purple" as BadgeVariant,
   },
   {
     id: "mathletes",
@@ -43,6 +47,7 @@ const programs = [
     image: "/images/conferences/homebackground2.webp",
     icon: Calculator,
     colors: programColors.mathletes,
+    badgeVariant: "emerald" as BadgeVariant,
   },
 ];
 
@@ -64,7 +69,11 @@ export function ProgramsSection() {
         className="grid md:grid-cols-3 gap-6 lg:gap-8"
       >
         {programs.map((program) => (
-          <motion.div key={program.id} variants={fadeInUpLarge}>
+          <motion.div
+            key={program.id}
+            variants={fadeInUpLarge}
+            whileTap={tapScale}
+          >
             <Link href={program.href} className="group block h-full">
               <div className={cn(
                 "relative h-[480px] md:h-[520px] rounded-2xl overflow-hidden",
@@ -80,8 +89,8 @@ export function ProgramsSection() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
-                {/* Dark Gradient Overlay - enhanced for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20 group-hover:from-black/90 transition-all duration-300" />
+                {/* Dark Gradient Overlay - softened for warmer tone */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-black/60 to-black/20 group-hover:from-gray-900/85 transition-all duration-300" />
 
                 {/* Icon Badge - top left */}
                 <div className={cn(
@@ -114,19 +123,17 @@ export function ProgramsSection() {
                     {t(program.descriptionKey)}
                   </p>
 
-                  {/* Feature badges - colored per program */}
+                  {/* Feature badges - using Badge component */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.featuresKeys.map((featureKey) => (
-                      <span
+                      <Badge
                         key={featureKey}
-                        className={cn(
-                          "px-3 py-1 text-white text-xs font-medium rounded-full",
-                          "transition-transform duration-200 hover:scale-105",
-                          program.colors.badge
-                        )}
+                        variant={program.badgeVariant}
+                        size="sm"
+                        className="backdrop-blur-sm bg-white/15 text-white border border-white/20"
                       >
                         {t(featureKey)}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
 

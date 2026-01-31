@@ -13,21 +13,9 @@ import {
   Quote,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { staggerContainer, fadeInUp } from "@/lib/animations";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function AboutPage() {
   const t = useTranslations("AboutPage");
@@ -141,9 +129,6 @@ export default function AboutPage() {
     <main>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -219,16 +204,13 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </motion.div>
 
-              {/* Decorative blobs */}
-              <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-jamun-orange/30 to-pink-400/20 rounded-full blur-2xl -z-10" />
-              <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-gradient-to-br from-jamun-blue/30 to-purple-400/20 rounded-full blur-3xl -z-10" />
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Mission Section */}
-      <Section background="white" className="py-16 md:py-20">
+      <Section background="cream" className="py-16 md:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -342,7 +324,7 @@ export default function AboutPage() {
         />
 
         <motion.div
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -351,9 +333,9 @@ export default function AboutPage() {
           {values.map((value) => (
             <motion.div
               key={value.title}
-              variants={itemVariants}
+              variants={fadeInUp}
               whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300"
+              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300"
             >
               <div
                 className={cn(
@@ -383,7 +365,7 @@ export default function AboutPage() {
         />
 
         <motion.div
-          variants={containerVariants}
+          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -445,7 +427,7 @@ export default function AboutPage() {
             return (
               <motion.div
                 key={member.name}
-                variants={itemVariants}
+                variants={fadeInUp}
                 whileHover={{ y: -4 }}
                 className="group text-center"
               >
@@ -478,10 +460,8 @@ export default function AboutPage() {
       </Section>
 
       {/* Impact Stats - Similar to homepage StatsSection */}
-      <section className="bg-[#0f172a] py-16 md:py-20 relative overflow-hidden">
+      <section className="bg-gray-900 py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-jamun-blue/10 via-transparent to-purple-900/10" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-jamun-blue/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
@@ -494,7 +474,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               {t("impactTitle")}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
               {t("impactSubtitle")}
             </p>
           </motion.div>
@@ -516,7 +496,7 @@ export default function AboutPage() {
                     <div className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-jamun-blue-light to-purple-400 bg-clip-text text-transparent mb-3">
                       {stat.value}
                     </div>
-                    <div className="text-sm md:text-base text-gray-400 font-medium">
+                    <div className="text-sm md:text-base text-gray-500 font-medium">
                       {stat.label}
                     </div>
                   </div>
@@ -528,7 +508,7 @@ export default function AboutPage() {
       </section>
 
       {/* Final CTA Section */}
-      <Section background="white" className="py-16 md:py-20">
+      <Section background="cream" className="py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

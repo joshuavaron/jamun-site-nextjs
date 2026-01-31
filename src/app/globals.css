@@ -99,6 +99,36 @@
   /* Layout */
   --background: #ffffff;
   --foreground: #111827;
+
+  /* === WARM PALETTE === */
+  --cream: #fef9f3;
+  --soft-peach: #fff5ee;
+  --light-sage: #f0f5f0;
+  --light-lavender: #f5f0ff;
+  --light-sky: #f0f5ff;
+
+  /* === SHADOW SCALE === */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 10px 25px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+  --shadow-elevated: 0 20px 40px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.06);
+  --shadow-glow-blue: 0 4px 20px rgba(57,123,206,0.15);
+  --shadow-glow-purple: 0 4px 20px rgba(147,51,234,0.15);
+  --shadow-glow-emerald: 0 4px 20px rgba(16,185,129,0.15);
+
+  /* === RADIUS SCALE === */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* === SPACING SCALE === */
+  --section-py: 5rem;
+  --section-py-lg: 6rem;
+  --section-gap: 4rem;
+  --card-padding: 1.5rem;
+  --card-padding-lg: 2rem;
 }
 
 @theme inline {
@@ -123,6 +153,22 @@
   /* Font families */
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+
+  /* Warm palette colors */
+  --color-cream: var(--cream);
+  --color-soft-peach: var(--soft-peach);
+  --color-light-sage: var(--light-sage);
+  --color-light-lavender: var(--light-lavender);
+  --color-light-sky: var(--light-sky);
+
+  /* Shadow scale */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+  --shadow-elevated: var(--shadow-elevated);
+  --shadow-glow-blue: var(--shadow-glow-blue);
+  --shadow-glow-purple: var(--shadow-glow-purple);
+  --shadow-glow-emerald: var(--shadow-glow-emerald);
 }
 
 body {

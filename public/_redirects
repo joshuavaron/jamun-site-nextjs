@@ -1,2 +1,0 @@
-# Redirect /en/* to root (canonical URLs without /en/)
-/en/* /:splat 301

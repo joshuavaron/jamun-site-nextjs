@@ -3,9 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
 
-// Pre-generated blog data for edge runtime (Cloudflare Workers)
-import blogData from "@/data/blog.json";
-
 const contentDirectory = path.join(process.cwd(), "content/blog");
 const defaultLocale = "en";
 
@@ -40,16 +37,49 @@ function localeExists(locale: string): boolean {
 }
 
 export function getAllPosts(locale: string = defaultLocale, readTimeFormat: string = "{minutes} min read"): BlogPostMeta[] {
-  // Use pre-generated JSON data (works in edge runtime)
-  // Falls back to English if locale not available in JSON
-  const localeKey = (locale in blogData ? locale : "en") as keyof typeof blogData;
-  const posts = blogData[localeKey] || blogData.en || [];
+  // Fall back to English if the requested locale directory doesn't exist
+  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(effectiveLocale);
 
-  // Transform the pre-generated data to include formatted read time
-  return posts.map((post) => ({
-    ...post,
-    readTime: readTimeFormat.replace("{minutes}", String(post.readTimeMinutes)),
-  })) as BlogPostMeta[];
+  if (!fs.existsSync(localeDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(localeDir).filter((file) => file.endsWith(".mdx"));
+
+  const posts: BlogPostMeta[] = files.map((file) => {
+    const slug = file.replace(/\.mdx$/, "");
+    const fullPath = path.join(localeDir, file);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data, content } = matter(fileContents);
+    const stats = readingTime(content);
+
+    return {
+      slug,
+      title: data.title || "Untitled",
+      excerpt: data.excerpt || "",
+      coverImage: data.coverImage || "/images/conferences/hero-main.webp",
+      category: data.category || "News",
+      author: {
+        name: data.author?.name || "JAMUN Team",
+        avatar: data.author?.avatar,
+      },
+      publishedAt: data.publishedAt || new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+      readTime: readTimeFormat.replace("{minutes}", String(Math.ceil(stats.minutes))),
+      featured: data.featured || false,
+      canonicalSlug: data.canonicalSlug,
+      locale: effectiveLocale,
+    };
+  });
+
+  // Sort by publishedAt descending
+  posts.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+  return posts;
 }
 
 export function getPostBySlug(slug: string, locale: string = defaultLocale, readTimeFormat: string = "{minutes} min read"): BlogPost | null {

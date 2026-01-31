@@ -145,11 +145,6 @@ export default function CommitteePageContent({
     <main>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-100/30 to-blue-100/30 rounded-full blur-3xl -z-10" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <motion.div
@@ -292,9 +287,6 @@ export default function CommitteePageContent({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-br from-jamun-blue/30 to-purple-400/20 rounded-full blur-2xl -z-10" />
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-br from-purple-400/30 to-jamun-blue/20 rounded-full blur-3xl -z-10" />
             </motion.div>
           </div>
         </div>
@@ -531,11 +523,11 @@ export default function CommitteePageContent({
                 transition={{ duration: 0.4, delay: index * 0.02 }}
                 whileHover={{ y: -4 }}
                 className={cn(
-                  "bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 text-center",
+                  "bg-white rounded-xl p-4 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 text-center",
                   country.available === false && "opacity-60"
                 )}
               >
-                <div className="w-16 h-12 mx-auto mb-3 rounded-md overflow-hidden shadow-sm border border-gray-100 relative">
+                <div className="w-16 h-12 mx-auto mb-3 rounded-md overflow-hidden shadow-[var(--shadow-card)] border border-gray-100 relative">
                   <Image
                     src={getFlagUrl(country.code)}
                     alt={`${country.name} flag`}

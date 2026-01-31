@@ -18,11 +18,6 @@ import {
   defaultViewport,
 } from "@/lib/animations";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
 export default function WillPage() {
   const t = useTranslations("WillPage");
   const heroRef = useRef<HTMLDivElement>(null);
@@ -40,9 +35,6 @@ export default function WillPage() {
         ref={heroRef}
         className="relative min-h-[85vh] flex items-center overflow-hidden pt-20 pb-16"
       >
-        {/* Decorative background elements */}
-        <div className="absolute top-20 right-0 w-96 h-96 bg-gradient-to-br from-emerald-200/40 to-teal-100/30 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/40 to-orange-100/30 rounded-full blur-3xl -z-10" />
 
         {/* Floating shapes */}
         <motion.div
@@ -166,7 +158,7 @@ export default function WillPage() {
       </section>
 
       {/* Story Section */}
-      <Section background="white" className="py-20 md:py-28">
+      <Section background="cream" className="py-20 md:py-28">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -223,9 +215,9 @@ export default function WillPage() {
               ].map((trait) => (
                 <motion.div
                   key={trait.title}
-                  variants={itemVariants}
+                  variants={fadeInUp}
                   whileHover={{ y: -6 }}
-                  className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100"
+                  className="bg-white rounded-2xl p-8 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 border border-gray-100"
                 >
                   <div className={cn(
                     "w-12 h-12 rounded-xl mb-5 flex items-center justify-center",
@@ -264,7 +256,7 @@ export default function WillPage() {
         >
           <motion.div
             whileHover={{ scale: 1.01 }}
-            className="relative bg-gradient-to-br from-emerald-50 via-white to-amber-50 rounded-3xl p-10 md:p-14 shadow-sm border border-emerald-100"
+            className="relative bg-gradient-to-br from-emerald-50 via-white to-amber-50 rounded-3xl p-10 md:p-14 shadow-[var(--shadow-card)] border border-emerald-100"
           >
             {/* Quote icon */}
             <Quote className="w-14 h-14 text-emerald-200 mx-auto mb-6" />

@@ -2,15 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-// Pre-generated background guide data for edge runtime (Cloudflare Workers)
-let backgroundGuideData: Record<string, BackgroundGuideMeta[]>;
-try {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  backgroundGuideData = require("@/data/background-guides.json");
-} catch {
-  backgroundGuideData = { en: [], es: [], zh: [] };
-}
-
 const contentDirectory = path.join(process.cwd(), "content/background-guides");
 const defaultLocale = "en";
 
@@ -39,17 +30,31 @@ function localeExists(locale: string): boolean {
 }
 
 export function getAllBackgroundGuides(locale: string = defaultLocale): BackgroundGuideMeta[] {
-  // Use pre-generated JSON data (works in edge runtime)
-  // Falls back to English if locale not available in JSON
-  const localeKey = (locale in backgroundGuideData ? locale : "en") as keyof typeof backgroundGuideData;
-  const guides = backgroundGuideData[localeKey] as BackgroundGuideMeta[];
+  // Fall back to English if the requested locale directory doesn't exist
+  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(effectiveLocale);
 
-  if (!guides || guides.length === 0) {
-    // Fallback to English if locale not found
-    return (backgroundGuideData.en as BackgroundGuideMeta[]) || [];
+  if (!fs.existsSync(localeDir)) {
+    return [];
   }
 
-  return guides;
+  const files = fs.readdirSync(localeDir).filter((file) => file.endsWith(".mdx"));
+
+  return files.map((file) => {
+    const slug = file.replace(/\.mdx$/, "");
+    const fullPath = path.join(localeDir, file);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+
+    return {
+      slug,
+      title: data.title || "Untitled Background Guide",
+      author: data.author || "JAMUN Staff",
+      publishedAt: data.publishedAt || "",
+      canonicalSlug: data.canonicalSlug,
+      locale: effectiveLocale,
+    };
+  });
 }
 
 export function getBackgroundGuideBySlug(slug: string, locale: string = defaultLocale): BackgroundGuide | null {

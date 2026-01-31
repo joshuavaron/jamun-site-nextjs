@@ -151,16 +151,6 @@ export const programConfigs: Record<ProgramType, ProgramConfig> = {
 
 const defaultLocale = "en";
 
-// Dynamically import resource data
-function getResourceData(program: ProgramType): Record<string, ResourceMeta[]> {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require(`@/data/${programConfigs[program].dataFile}`);
-  } catch {
-    return { en: [], es: [], zh: [] };
-  }
-}
-
 function getContentDirectory(program: ProgramType): string {
   return path.join(process.cwd(), programConfigs[program].contentDirectory);
 }
@@ -175,11 +165,40 @@ function localeExists(program: ProgramType, locale: string): boolean {
 }
 
 export function getAllResources(program: ProgramType, locale: string = defaultLocale): ResourceMeta[] {
-  // Use pre-generated JSON data (works in edge runtime)
-  const resourcesData = getResourceData(program);
-  const localeKey = (locale in resourcesData ? locale : "en") as keyof typeof resourcesData;
-  const resources = resourcesData[localeKey] || resourcesData.en || [];
-  return resources as ResourceMeta[];
+  // Fall back to English if the requested locale directory doesn't exist
+  const effectiveLocale = localeExists(program, locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(program, effectiveLocale);
+
+  if (!fs.existsSync(localeDir)) {
+    return [];
+  }
+
+  const files = fs.readdirSync(localeDir).filter((file) => file.endsWith(".mdx"));
+
+  return files.map((file) => {
+    const slug = file.replace(/\.mdx$/, "");
+    const fullPath = path.join(localeDir, file);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+
+    return {
+      slug,
+      title: data.title || "Untitled Resource",
+      description: data.description || "",
+      category: data.category || "Skills",
+      format: data.format || "Article",
+      duration: data.duration,
+      pages: data.pages,
+      downloadUrl: data.downloadUrl,
+      image: data.image,
+      author: data.author,
+      featured: data.featured || false,
+      tags: data.tags || [],
+      publishedAt: data.publishedAt,
+      canonicalSlug: data.canonicalSlug,
+      locale: effectiveLocale,
+    };
+  });
 }
 
 export function getResourceBySlug(program: ProgramType, slug: string, locale: string = defaultLocale): Resource | null {

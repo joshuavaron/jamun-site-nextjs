@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -8,31 +7,25 @@ import { Section, Button, TypewriterText } from "@/components/ui";
 import {
   BookOpen,
   ArrowRight,
-  Search,
-  FileText,
-  Video,
-  File,
-  Star,
-  X,
-  Download,
-  Clock,
-  Trophy,
-  Zap,
-  PenTool,
   Scale,
   Calculator,
-  Rocket,
+  PenTool,
+  Zap,
+  Trophy,
   Compass,
   Lightbulb,
+  Rocket,
   CheckCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   ResourceMeta,
   ResourceCategory,
-  ResourceFormat,
   ProgramConfig,
 } from "@/lib/program-resources";
+import { useResourceFilters } from "./useResourceFilters";
+import ResourceFilters from "./ResourceFilters";
+import ResourceGrid from "./ResourceGrid";
 
 interface ResourcesPageContentProps {
   resources: ResourceMeta[];
@@ -79,24 +72,6 @@ const LEARNING_PATHS = {
   },
 };
 
-// Format icons and colors
-const FORMAT_CONFIG: Record<ResourceFormat, { icon: typeof FileText; bg: string; text: string }> = {
-  Article: { icon: BookOpen, bg: "bg-emerald-100", text: "text-emerald-700" },
-  PDF: { icon: FileText, bg: "bg-blue-100", text: "text-blue-700" },
-  Video: { icon: Video, bg: "bg-red-100", text: "text-red-700" },
-  Worksheet: { icon: File, bg: "bg-amber-100", text: "text-amber-700" },
-};
-
-// Category colors
-const CATEGORY_COLORS: Record<ResourceCategory, string> = {
-  Skills: "bg-teal-100 text-teal-700 border-teal-200",
-  Background: "bg-blue-100 text-blue-700 border-blue-200",
-  Rules: "bg-purple-100 text-purple-700 border-purple-200",
-  Reference: "bg-amber-100 text-amber-700 border-amber-200",
-  Examples: "bg-pink-100 text-pink-700 border-pink-200",
-  Strategy: "bg-orange-100 text-orange-700 border-orange-200",
-};
-
 // Get the program icon component
 function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
   switch (iconName) {
@@ -107,89 +82,6 @@ function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconNam
     default:
       return <BookOpen className={className} />;
   }
-}
-
-// Resource Card
-function ResourceCard({
-  resource,
-  basePath,
-  t,
-}: {
-  resource: ResourceMeta;
-  basePath: string;
-  t: ReturnType<typeof useTranslations>;
-}) {
-  const formatConfig = FORMAT_CONFIG[resource.format] || FORMAT_CONFIG.Article;
-  const FormatIcon = formatConfig.icon;
-  const categoryColor = CATEGORY_COLORS[resource.category] || CATEGORY_COLORS.Skills;
-
-  const getCategoryName = (category: ResourceCategory): string => {
-    const categoryMap: Record<ResourceCategory, string> = {
-      Skills: t("categorySkills"),
-      Background: t("categoryBackground"),
-      Rules: t("categoryRules"),
-      Reference: t("categoryReference"),
-      Examples: t("categoryExamples"),
-      Strategy: t("categoryStrategy"),
-    };
-    return categoryMap[category] || category;
-  };
-
-  return (
-    <Link
-      href={`${basePath}/${resource.slug}`}
-      className="group block bg-white rounded-xl border-2 border-gray-100 hover:border-jamun-blue/30 hover:shadow-md transition-all duration-200 h-full"
-    >
-      <div className="p-5 h-full flex flex-col">
-        <div className="flex items-start justify-between mb-3">
-          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", formatConfig.bg)}>
-            <FormatIcon className={cn("w-5 h-5", formatConfig.text)} />
-          </div>
-          {resource.featured && (
-            <div className="flex items-center gap-1 text-amber-600">
-              <Star className="w-4 h-4 fill-current" />
-              <span className="text-xs font-medium">{t("featured")}</span>
-            </div>
-          )}
-        </div>
-
-        <span className={cn("inline-flex self-start px-2 py-0.5 text-xs font-medium rounded border mb-2", categoryColor)}>
-          {getCategoryName(resource.category)}
-        </span>
-
-        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-jamun-blue transition-colors line-clamp-2">
-          {resource.title}
-        </h3>
-
-        <p className="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-2 mb-3">
-          {resource.description}
-        </p>
-
-        <div className="flex items-center gap-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
-          {resource.duration && (
-            <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              {resource.duration}
-            </span>
-          )}
-          {resource.pages && (
-            <span className="flex items-center gap-1">
-              <FileText className="w-3.5 h-3.5" />
-              {resource.pages} {t("pages")}
-            </span>
-          )}
-          {resource.downloadUrl && (
-            <span className="flex items-center gap-1 text-jamun-blue">
-              <Download className="w-3.5 h-3.5" />
-            </span>
-          )}
-          <span className="ml-auto flex items-center gap-1 text-jamun-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-            Read <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
 }
 
 // Learning Path Card - always expanded, no toggle
@@ -247,41 +139,18 @@ export default function ResourcesPageContent({
   programConfig,
 }: ResourcesPageContentProps) {
   const t = useTranslations(programConfig.translationNamespace);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<ResourceCategory | null>(null);
-
   const { basePath, iconName } = programConfig;
 
-  // Get category counts
-  const categoryOptions = useMemo(() => {
-    const counts: Record<ResourceCategory, number> = {
-      Skills: 0, Background: 0, Rules: 0, Reference: 0, Examples: 0, Strategy: 0,
-    };
-    resources.forEach(r => counts[r.category]++);
-    return Object.entries(counts)
-      .filter(([, count]) => count > 0)
-      .map(([name, count]) => ({ name: name as ResourceCategory, count }));
-  }, [resources]);
-
-  // Filter resources
-  const filteredResources = useMemo(() => {
-    return resources.filter((resource) => {
-      const matchesCategory = !selectedCategory || resource.category === selectedCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
-      return matchesCategory && matchesSearch;
-    });
-  }, [resources, selectedCategory, searchQuery]);
-
-  const hasActiveFilters = selectedCategory !== null || searchQuery.length > 0;
-
-  const clearFilters = () => {
-    setSelectedCategory(null);
-    setSearchQuery("");
-  };
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    categoryOptions,
+    filteredResources,
+    hasActiveFilters,
+    clearFilters,
+  } = useResourceFilters(resources);
 
   const getCategoryName = (category: ResourceCategory): string => {
     const categoryMap: Record<ResourceCategory, string> = {
@@ -302,7 +171,7 @@ export default function ResourcesPageContent({
         <Section background="white" className="py-24">
           <div className="text-center max-w-md mx-auto">
             <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-100 flex items-center justify-center">
-              <ProgramIcon iconName={iconName} className="w-10 h-10 text-gray-400" />
+              <ProgramIcon iconName={iconName} className="w-10 h-10 text-gray-500" />
             </div>
             <h1 className="text-2xl font-bold text-gray-900 mb-3">
               {t("comingSoonTitle")}
@@ -320,10 +189,6 @@ export default function ResourcesPageContent({
     <main>
       {/* Hero Section - matching site style */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-emerald-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-emerald-400/10 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
@@ -408,10 +273,6 @@ export default function ResourcesPageContent({
                   href={`${basePath}/position-paper-writer`}
                   className="block bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white hover:shadow-2xl transition-shadow group relative overflow-hidden"
                 >
-                  {/* Decorative elements */}
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
                   <div className="relative">
                     <div className="flex items-center gap-2 mb-4">
                       <span className="text-xs font-medium bg-white/20 px-2.5 py-1 rounded-full">NEW TOOL</span>
@@ -495,92 +356,30 @@ export default function ResourcesPageContent({
           </div>
 
           {/* Search and filters */}
-          <div className="bg-warm-gray rounded-xl p-4 md:p-6 mb-8">
-            <div className="relative mb-4">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder={t("searchPlaceholder")}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-jamun-blue/30 focus:border-jamun-blue transition-all"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setSelectedCategory(null)}
-                className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  selectedCategory === null
-                    ? "bg-jamun-blue text-white"
-                    : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300"
-                )}
-              >
-                All ({resources.length})
-              </button>
-              {categoryOptions.map((category) => (
-                <button
-                  type="button"
-                  key={category.name}
-                  onClick={() => setSelectedCategory(selectedCategory === category.name ? null : category.name)}
-                  className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                    selectedCategory === category.name
-                      ? "bg-jamun-blue text-white"
-                      : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300"
-                  )}
-                >
-                  {getCategoryName(category.name)} ({category.count})
-                </button>
-              ))}
-            </div>
-
-            {hasActiveFilters && (
-              <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
-                <p className="text-sm text-gray-600">
-                  Showing {filteredResources.length} of {resources.length} resources
-                </p>
-                <button
-                  type="button"
-                  onClick={clearFilters}
-                  className="text-sm text-jamun-blue font-medium hover:text-jamun-blue/80 flex items-center gap-1"
-                >
-                  <X className="w-4 h-4" />
-                  Clear filters
-                </button>
-              </div>
-            )}
-          </div>
+          <ResourceFilters
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            categoryOptions={categoryOptions}
+            filteredResources={filteredResources}
+            totalCount={resources.length}
+            hasActiveFilters={hasActiveFilters}
+            clearFilters={clearFilters}
+            getCategoryName={getCategoryName}
+            searchPlaceholder={t("searchPlaceholder")}
+            noResultsTitle={t("noResultsTitle")}
+            noResultsDescription={t("noResultsDescription")}
+            clearFiltersLabel={t("clearFilters")}
+          />
 
           {/* Resources grid */}
-          {filteredResources.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t("noResultsTitle")}
-              </h3>
-              <p className="text-gray-600 mb-4">
-                {t("noResultsDescription")}
-              </p>
-              <Button type="button" onClick={clearFilters} variant="outline">
-                {t("clearFilters")}
-              </Button>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filteredResources.map((resource) => (
-                <ResourceCard
-                  key={resource.slug}
-                  resource={resource}
-                  basePath={basePath}
-                  t={t}
-                />
-              ))}
-            </div>
+          {filteredResources.length > 0 && (
+            <ResourceGrid
+              resources={filteredResources}
+              basePath={basePath}
+              translationNamespace={programConfig.translationNamespace}
+            />
           )}
         </div>
       </Section>

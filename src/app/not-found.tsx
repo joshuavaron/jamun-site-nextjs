@@ -14,11 +14,6 @@ export default async function RootNotFound() {
     <html lang={locale}>
       <body className="antialiased">
         <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50">
-          {/* Decorative gradient blobs */}
-          <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-          <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-purple-200/20 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
-
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 md:py-20">
             {/* 404 display */}
             <div className="mb-8">
@@ -67,7 +62,7 @@ export default async function RootNotFound() {
             </div>
 
             {/* Helpful links */}
-            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-sm">
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-[var(--shadow-card)]">
               <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
                 {t("popularDestinations")}
               </h2>
@@ -86,7 +81,7 @@ export default async function RootNotFound() {
                     <span className="text-gray-700 group-hover:text-jamun-blue font-medium transition-colors">
                       {link.name}
                     </span>
-                    <ArrowLeft className="w-4 h-4 text-gray-400 group-hover:text-jamun-blue rotate-180 transition-all group-hover:translate-x-1" />
+                    <ArrowLeft className="w-4 h-4 text-gray-500 group-hover:text-jamun-blue rotate-180 transition-all group-hover:translate-x-1" />
                   </Link>
                 ))}
               </div>

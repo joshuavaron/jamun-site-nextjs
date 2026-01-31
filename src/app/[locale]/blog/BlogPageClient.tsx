@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { cardContainer, cardItem } from "@/lib/animations";
 import { useTranslations } from "next-intl";
 
 interface BlogPageClientProps {
@@ -20,18 +21,6 @@ interface BlogPageClientProps {
   categories: { name: string; count: number }[];
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export default function BlogPageClient({ posts, categories }: BlogPageClientProps) {
   const t = useTranslations("BlogPage");
@@ -56,11 +45,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-emerald-100/20 to-cyan-100/20 rounded-full blur-3xl -z-10" />
+      <section className="relative overflow-hidden bg-cream min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -105,7 +90,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="relative max-w-md"
               >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type="text"
                   placeholder={t("searchPlaceholder")}
@@ -153,10 +138,6 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
                 className="relative"
               >
                 <BlogCard post={featuredPost} featured />
-
-                {/* Decorative elements */}
-                <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-jamun-orange/30 to-pink-400/20 rounded-full blur-2xl -z-10" />
-                <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-gradient-to-br from-jamun-blue/30 to-purple-400/20 rounded-full blur-3xl -z-10" />
               </motion.div>
             )}
           </div>
@@ -214,7 +195,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
             className="text-center py-16"
           >
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center">
-              <Search className="w-8 h-8 text-gray-400" />
+              <Search className="w-8 h-8 text-gray-500" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {t("noArticlesTitle")}
@@ -235,7 +216,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
         ) : (
           <motion.div
             key={`${selectedCategory}-${searchQuery}`}
-            variants={containerVariants}
+            variants={cardContainer}
             initial="hidden"
             animate="visible"
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
@@ -244,7 +225,7 @@ export default function BlogPageClient({ posts, categories }: BlogPageClientProp
               ? remainingPosts
               : filteredPosts
             ).map((post) => (
-              <motion.div key={post.id} variants={itemVariants}>
+              <motion.div key={post.id} variants={cardItem}>
                 <BlogCard post={post} />
               </motion.div>
             ))}

@@ -607,11 +607,10 @@ export function mapToAITransform(
 }
 
 /**
- * Check if AI polishing is available (basic check).
- * In production, this would check if we're on Cloudflare.
+ * Check if AI polishing is available.
+ * Now that we use Next.js API routes (not Cloudflare Workers),
+ * AI is always available as long as the app is running.
  */
 export function isAIAvailable(): boolean {
-  // AI is available when running on Cloudflare Pages
-  // In development, the endpoint won't exist
-  return typeof window !== "undefined";
+  return true;
 }

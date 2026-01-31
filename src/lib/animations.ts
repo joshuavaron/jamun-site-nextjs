@@ -63,6 +63,26 @@ export const fadeIn: Variants = {
   },
 };
 
+// Card animation variants - replaces local containerVariants/itemVariants in page files
+export const cardContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+export const cardItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+};
+
 // Default viewport settings for whileInView animations
 export const defaultViewport = {
   once: true,
@@ -84,4 +104,47 @@ export const springTransition = {
 export const smoothTransition = {
   duration: 0.3,
   ease: "easeOut" as const,
+};
+
+// Card press feedback - use with whileTap
+export const tapScale = { scale: 0.97 };
+
+// Playful icon bounce for stat cards, feature icons
+export const iconBounce: Variants = {
+  hidden: { scale: 0, rotate: -10 },
+  visible: {
+    scale: 1,
+    rotate: 0,
+    transition: { type: "spring", stiffness: 200, damping: 12 },
+  },
+};
+
+// Slide-in from left for ImageContentBlock
+export const slideInLeft: Variants = {
+  hidden: { opacity: 0, x: -40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+// Slide-in from right
+export const slideInRight: Variants = {
+  hidden: { opacity: 0, x: 40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+// Number count-up trigger animation
+export const countUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4 },
+  },
 };

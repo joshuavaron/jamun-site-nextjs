@@ -2,9 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-// Pre-generated committee data for edge runtime (Cloudflare Workers)
-import committeeData from "@/data/committees.json";
-
 const contentDirectory = path.join(process.cwd(), "content/committees");
 const defaultLocale = "en";
 
@@ -70,17 +67,45 @@ function localeExists(locale: string): boolean {
 }
 
 export function getAllCommittees(locale: string = defaultLocale): CommitteeMeta[] {
-  // Use pre-generated JSON data (works in edge runtime)
-  // Falls back to English if locale not available in JSON
-  const localeKey = (locale in committeeData ? locale : "en") as keyof typeof committeeData;
-  const committees = committeeData[localeKey] as CommitteeMeta[];
+  // Fall back to English if the requested locale directory doesn't exist
+  const effectiveLocale = localeExists(locale) ? locale : defaultLocale;
+  const localeDir = getLocaleDirectory(effectiveLocale);
 
-  if (!committees || committees.length === 0) {
-    // Fallback to English if locale not found
-    return (committeeData.en as CommitteeMeta[]) || [];
+  if (!fs.existsSync(localeDir)) {
+    return [];
   }
 
-  return committees;
+  const files = fs.readdirSync(localeDir).filter((file) => file.endsWith(".mdx"));
+
+  return files.map((file) => {
+    const slug = file.replace(/\.mdx$/, "");
+    const fullPath = path.join(localeDir, file);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+
+    return {
+      slug,
+      name: data.name || "Untitled Committee",
+      abbreviation: data.abbreviation || slug.toUpperCase(),
+      category: data.category || "General Assembly",
+      topic: data.topic || "",
+      description: data.description || "",
+      level: data.level || "Beginner-Friendly",
+      delegationSize: data.delegationSize || "Single",
+      delegateCount: data.delegateCount || 0,
+      image: data.image || "/images/conferences/model-un.webp",
+      color: data.color || "bg-jamun-blue",
+      executives: data.executives || [],
+      documents: data.documents || [],
+      countries: data.countries || [],
+      featured: data.featured || false,
+      isAdHoc: data.isAdHoc || false,
+      redHerringTopics: data.redHerringTopics || [],
+      canonicalSlug: data.canonicalSlug,
+      backgroundGuide: data.backgroundGuide,
+      locale: effectiveLocale,
+    };
+  });
 }
 
 export function getCommitteeBySlug(slug: string, locale: string = defaultLocale): Committee | null {

@@ -8,27 +8,23 @@ import { serialize } from "next-mdx-remote/serialize";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import {
-  ArrowLeft,
   ArrowRight,
   BookOpen,
   FileText,
   Video,
   File,
-  Download,
-  Clock,
   Star,
   Tag,
-  Calendar,
-  User,
-  Printer,
   Scale,
   Calculator,
 } from "lucide-react";
 import { Section, Button } from "@/components/ui";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Resource, ResourceMeta, ResourceFormat, ResourceCategory, ProgramConfig } from "@/lib/program-resources";
+import { Resource, ResourceMeta, ResourceFormat, ProgramConfig } from "@/lib/program-resources";
 import { cn } from "@/lib/utils";
 import ResourceNavSidebar from "./ResourceNavSidebar";
+import ResourceHeader from "./ResourceHeader";
+import ResourceToolbar from "./ResourceToolbar";
 
 interface ResourcePageContentProps {
   resource: Resource;
@@ -36,7 +32,7 @@ interface ResourcePageContentProps {
   programConfig: ProgramConfig;
 }
 
-// Format icons - returns JSX element
+// Format icons - returns JSX element (needed for related resources cards)
 function renderFormatIcon(format: ResourceFormat, className?: string) {
   switch (format) {
     case "Video":
@@ -50,7 +46,7 @@ function renderFormatIcon(format: ResourceFormat, className?: string) {
   }
 }
 
-// Format colors
+// Format colors (needed for related resources cards)
 function getFormatColor(format: ResourceFormat) {
   switch (format) {
     case "Video":
@@ -63,16 +59,6 @@ function getFormatColor(format: ResourceFormat) {
       return { bg: "bg-gray-100", text: "text-gray-700", border: "border-gray-200" };
   }
 }
-
-// Category colors (topic-based categories per CONTENT-CREATION.md)
-const categoryColors: Record<ResourceCategory, { bg: string; text: string; border: string }> = {
-  Skills: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
-  Background: { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-200" },
-  Rules: { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" },
-  Reference: { bg: "bg-green-100", text: "text-green-700", border: "border-green-200" },
-  Examples: { bg: "bg-indigo-100", text: "text-indigo-700", border: "border-indigo-200" },
-  Strategy: { bg: "bg-red-100", text: "text-red-700", border: "border-red-200" },
-};
 
 // Get the program icon component
 function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
@@ -95,8 +81,6 @@ export default function ResourcePageContent({
   const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
 
   const { colors, basePath, iconName } = programConfig;
-  const formatColor = getFormatColor(resource.format);
-  const categoryColor = categoryColors[resource.category] || categoryColors.Skills;
 
   // Get translated category name
   const getCategoryName = (category: string): string => {
@@ -123,22 +107,12 @@ export default function ResourcePageContent({
     compileMDX();
   }, [resource.content]);
 
-  const handlePrintPDF = () => {
-    window.print();
-  };
-
   // Dynamic classes based on program colors
   const getGradientTextClasses = () => cn(
     "bg-gradient-to-r bg-clip-text text-transparent",
     programConfig.type === "mocktrial"
       ? "from-purple-600 via-violet-600 to-purple-600"
       : "from-emerald-600 via-jamun-blue to-emerald-600"
-  );
-
-  const getDownloadButtonClasses = () => cn(
-    "inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full text-white transition-colors",
-    colors.primaryBg,
-    `hover:${colors.primaryBg.replace("600", "700")}`
   );
 
   const getProseClasses = () => cn(
@@ -170,171 +144,32 @@ export default function ResourcePageContent({
 
   return (
     <main>
-      {/* Hero Section */}
-      <section className={cn(
-        "relative overflow-hidden bg-gradient-to-br py-16 md:py-20 lg:py-24",
+      {/* Hero Section - Header + Toolbar */}
+      <ResourceHeader
+        resource={resource}
+        programConfig={programConfig}
+        getCategoryName={getCategoryName}
+        allResourcesLabel={t("allResources")}
+        featuredLabel={t("featured")}
+        pagesLabel={t("pages")}
+      />
+
+      {/* Toolbar sits within the hero gradient area - render in a continuation section */}
+      <div className={cn(
+        "bg-gradient-to-br pb-8",
         colors.gradientFrom,
         colors.gradientVia,
         colors.gradientTo
       )}>
-        {/* Decorative elements */}
-        <div className={cn("absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob1)} />
-        <div className={cn("absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob2)} />
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back link */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-6"
-          >
-            <Link
-              href={basePath}
-              className={cn(
-                "inline-flex items-center gap-2 text-gray-600 transition-colors group",
-                `hover:${colors.primaryText}`
-              )}
-            >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              {t("allResources")}
-            </Link>
-          </motion.div>
-
-          {/* Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex flex-wrap items-center gap-2 mb-4"
-          >
-            {/* Format badge */}
-            <span
-              className={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                formatColor.bg,
-                formatColor.text,
-                formatColor.border
-              )}
-            >
-              {renderFormatIcon(resource.format, "w-4 h-4")}
-              {resource.format}
-            </span>
-
-            {/* Category badge */}
-            <span
-              className={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                categoryColor.bg,
-                categoryColor.text,
-                categoryColor.border
-              )}
-            >
-              <ProgramIcon iconName={iconName} className="w-4 h-4" />
-              {getCategoryName(resource.category)}
-            </span>
-
-            {/* Featured badge */}
-            {resource.featured && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-full bg-amber-100 text-amber-700 border border-amber-200">
-                <Star className="w-4 h-4" />
-                {t("featured")}
-              </span>
-            )}
-          </motion.div>
-
-          {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4"
-          >
-            {resource.title}
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed"
-          >
-            {resource.description}
-          </motion.p>
-
-          {/* Meta info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-6 text-sm text-gray-500"
-          >
-            {resource.author && (
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                <span>{resource.author}</span>
-              </div>
-            )}
-            {resource.publishedAt && (
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                <span>
-                  {new Date(resource.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
-            )}
-            {resource.duration && (
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>{resource.duration}</span>
-              </div>
-            )}
-            {resource.pages && (
-              <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4" />
-                <span>{resource.pages} {t("pages")}</span>
-              </div>
-            )}
-          </motion.div>
-
-          {/* Action buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            {/* Download button if available */}
-            {resource.downloadUrl && (
-              <a
-                href={resource.downloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                download
-                className={getDownloadButtonClasses()}
-              >
-                <Download className="w-5 h-5" />
-                {t("downloadResource")}
-              </a>
-            )}
-
-            {/* Print/Save as PDF button */}
-            <button
-              onClick={handlePrintPDF}
-              data-print-hidden="true"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-full border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors"
-            >
-              <Printer className="w-5 h-5" />
-              {t("saveAsPdf")}
-            </button>
-          </motion.div>
+          <ResourceToolbar
+            resource={resource}
+            programConfig={programConfig}
+            downloadLabel={t("downloadResource")}
+            saveAsPdfLabel={t("saveAsPdf")}
+          />
         </div>
-      </section>
+      </div>
 
       {/* Content Section with Sidebar */}
       <section className="bg-white">

@@ -2,121 +2,107 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { ArrowRight, Heart, Users, GraduationCap } from "lucide-react";
-import { Button } from "@/components/ui";
-import { fadeInUp, defaultViewport } from "@/lib/animations";
+import { ArrowRight, Heart } from "lucide-react";
+import { Button, Badge, Card, Section } from "@/components/ui";
+import { fadeInUp, defaultViewport, tapScale } from "@/lib/animations";
 
 export function CTASection() {
   const t = useTranslations("CTASection");
   return (
-    <section className="relative bg-gray-50 py-16 md:py-20 overflow-hidden">
-
+    <Section background="cream" pattern="dots">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={defaultViewport}
         variants={fadeInUp}
-        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
       >
-        {/* Friendly badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white rounded-full shadow-sm border border-gray-100"
-        >
-          <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-          <span className="text-sm font-medium text-gray-700">{t("badge")}</span>
-        </motion.div>
-
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">
-          {t("title")}{" "}
-          <span className="text-jamun-blue">{t("titleHighlight")}</span>
-        </h2>
-
-        <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-          {t("subtitle")}
-        </p>
-
-        {/* Feature highlights */}
-        <div className="flex flex-wrap justify-center gap-6 mb-10">
+        <Card variant="elevated" className="p-8 md:p-12 text-center">
+          {/* Friendly badge */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center gap-2 text-gray-600"
+            transition={{ delay: 0.1 }}
+            className="mb-6"
           >
-            <div className="w-8 h-8 rounded-full bg-jamun-blue/10 flex items-center justify-center">
-              <GraduationCap className="w-4 h-4 text-jamun-blue" />
-            </div>
-            <span className="text-sm font-medium">{t("feature1")}</span>
+            <Badge variant="accent" dot size="lg" icon={Heart}>
+              {t("badge")}
+            </Badge>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center gap-2 text-gray-600"
-          >
-            <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-              <Users className="w-4 h-4 text-purple-600" />
-            </div>
-            <span className="text-sm font-medium">{t("feature2")}</span>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-2 text-gray-600"
-          >
-            <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
-              <Heart className="w-4 h-4 text-emerald-600" />
-            </div>
-            <span className="text-sm font-medium">{t("feature3")}</span>
-          </motion.div>
-        </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              href="/register"
-              size="lg"
-              className="group"
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 mb-6">
+            {t("title")}{" "}
+            <span className="text-jamun-blue">{t("titleHighlight")}</span>
+          </h2>
+
+          <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+            {t("subtitle")}
+          </p>
+
+          {/* Feature highlights */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
             >
-              {t("primaryCTA")}
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              href="/programs"
-              variant="outline"
-              size="lg"
+              <Badge variant="primary" dot size="lg">
+                {t("feature1")}
+              </Badge>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
             >
-              {t("secondaryCTA")}
-            </Button>
-          </motion.div>
-        </div>
+              <Badge variant="purple" dot size="lg">
+                {t("feature2")}
+              </Badge>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <Badge variant="emerald" dot size="lg">
+                {t("feature3")}
+              </Badge>
+            </motion.div>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-8 text-sm text-gray-500"
-        >
-          {t("contactText")}{" "}
-          <a
-            href="mailto:contact@jamun.org"
-            className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={tapScale}>
+              <Button href="/register" size="lg" iconRight={ArrowRight}>
+                {t("primaryCTA")}
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={tapScale}>
+              <Button href="/programs" variant="outline" size="lg">
+                {t("secondaryCTA")}
+              </Button>
+            </motion.div>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 text-sm text-gray-500"
           >
-            contact@jamun.org
-          </a>
-        </motion.p>
+            {t("contactText")}{" "}
+            <a
+              href="mailto:contact@jamun.org"
+              className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
+            >
+              contact@jamun.org
+            </a>
+          </motion.p>
+        </Card>
       </motion.div>
-    </section>
+    </Section>
   );
 }

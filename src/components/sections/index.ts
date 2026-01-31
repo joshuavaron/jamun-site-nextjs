@@ -8,3 +8,7 @@ export { GallerySection } from "./GallerySection";
 export { TestimonialSection } from "./TestimonialSection";
 export { FAQSection } from "./FAQSection";
 export { CTASection } from "./CTASection";
+export { ProgramHeroSection } from "./ProgramHeroSection";
+export { ProgramStatsSection } from "./ProgramStatsSection";
+export { ProgramFeaturesSection } from "./ProgramFeaturesSection";
+export { ProgramResourcesSection } from "./ProgramResourcesSection";

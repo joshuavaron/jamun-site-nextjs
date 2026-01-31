@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { cardContainer, cardItem } from "@/lib/animations";
 import { CommitteeMeta } from "@/lib/committees";
 import { useTranslations } from "next-intl";
 
@@ -40,18 +41,6 @@ interface CommitteesPageContentProps {
   committees: CommitteeMeta[];
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 // Size categories for filtering
 type SizeCategory = "Small" | "Medium" | "Large";
@@ -241,11 +230,6 @@ export default function CommitteesPageContent({
     <main>
       {/* Hero Section with Filters */}
       <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-sky-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-sky-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-sky-100/20 to-indigo-100/20 rounded-full blur-3xl -z-10" />
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
@@ -289,7 +273,7 @@ export default function CommitteesPageContent({
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="relative max-w-md"
               >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   type="text"
                   placeholder={t("searchPlaceholder")}
@@ -378,7 +362,7 @@ export default function CommitteesPageContent({
                             "ml-1.5 text-xs",
                             selectedTypes.has(type.name)
                               ? "text-white/70"
-                              : "text-gray-400"
+                              : "text-gray-500"
                           )}
                         >
                           ({type.count})
@@ -470,7 +454,7 @@ export default function CommitteesPageContent({
             className="text-center py-16"
           >
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center">
-              <Search className="w-8 h-8 text-gray-400" />
+              <Search className="w-8 h-8 text-gray-500" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               {t("noResultsTitle")}
@@ -485,17 +469,17 @@ export default function CommitteesPageContent({
         ) : (
           <motion.div
             key={`${Array.from(selectedTypes).join("-")}-${Array.from(selectedDifficulties).join("-")}-${Array.from(selectedSizes).join("-")}-${searchQuery}`}
-            variants={containerVariants}
+            variants={cardContainer}
             initial="hidden"
             animate="visible"
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {filteredCommittees.map((committee) => (
-              <motion.div key={committee.slug} variants={itemVariants}>
+              <motion.div key={committee.slug} variants={cardItem}>
                 <Link href={`/modelun/committees/${committee.slug}`}>
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
+                    className="group bg-white rounded-2xl p-6 shadow-[var(--shadow-card)] border border-gray-100 hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 h-full flex flex-col"
                   >
                     {/* Header: Abbreviation + Level Badge */}
                     <div className="flex items-start justify-between mb-1">

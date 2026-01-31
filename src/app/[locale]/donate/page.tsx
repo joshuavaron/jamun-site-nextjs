@@ -40,14 +40,9 @@ export default function DonatePage() {
         strategy="lazyOnload"
       />
 
-      <main className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50">
+      <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-16 overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 -left-20 w-80 h-80 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-gradient-to-r from-amber-400/20 to-orange-400/20 rounded-full blur-3xl" />
-          </div>
+        <section className="relative pt-24 md:pt-32 lg:pt-40 pb-12 md:pb-16 overflow-hidden bg-soft-peach">
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center max-w-4xl mx-auto">
@@ -104,7 +99,7 @@ export default function DonatePage() {
         </section>
 
         {/* Main Content - Widget + Impact */}
-        <section className="py-12 md:py-16">
+        <section className="py-12 md:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {/* Left: Donation Widget */}
@@ -195,7 +190,7 @@ export default function DonatePage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.05 }}
-                        className="flex items-center gap-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-sm"
+                        className="flex items-center gap-4 bg-white/80 backdrop-blur-sm rounded-xl p-3 shadow-[var(--shadow-card)]"
                       >
                         <span className="flex-shrink-0 text-lg font-bold text-orange-600 w-16">
                           {item.amount}
@@ -212,13 +207,7 @@ export default function DonatePage() {
 
         {/* Urgency/Final CTA Section */}
         <section className="py-16 md:py-20 bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 relative overflow-hidden">
-          {/* Animated background */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
-          </div>
-
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -254,7 +243,7 @@ export default function DonatePage() {
         </section>
 
         {/* Testimonial/Story Section */}
-        <section className="py-16 md:py-20 bg-white">
+        <section className="py-16 md:py-20 bg-cream">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -276,7 +265,7 @@ export default function DonatePage() {
         {/* Minimal Footer */}
         <footer className="bg-gray-900 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <Image
                   src="/images/logos/jamun-white-side-logo.svg"
@@ -289,7 +278,7 @@ export default function DonatePage() {
               <p>
                 {t("footerNonprofit")}
               </p>
-              <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+              <Link href="/" className="text-gray-500 hover:text-white transition-colors">
                 {t("footerHome")}
               </Link>
             </div>
