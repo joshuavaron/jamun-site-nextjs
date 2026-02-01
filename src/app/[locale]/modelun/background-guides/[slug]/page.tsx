@@ -8,7 +8,7 @@ import {
 } from "@/lib/background-guides";
 import { getCommitteeBySlug, getAllCommittees } from "@/lib/committees";
 import BackgroundGuidePageContent from "./BackgroundGuidePageContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 interface BackgroundGuidePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -59,6 +59,7 @@ export async function generateMetadata({
       description: `Background guide for JAMUN Model UN conference - ${guide.title}`,
       type: "article",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}${basePath}/${slug}`,

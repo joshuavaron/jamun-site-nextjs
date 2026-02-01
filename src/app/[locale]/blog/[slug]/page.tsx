@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getPostBySlug, getAllSlugsAllLocales, getAlternateLanguages } from "@/lib/blog";
 import BlogPostContent from "./BlogPostContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import { generateArticleSchema, jsonLdScript } from "@/lib/structured-data";
 
 interface BlogPostPageProps {
@@ -58,14 +58,7 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author.name],
-      images: [
-        {
-          url: post.coverImage,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      images: [defaultOgImage],
       siteName: siteConfig.seo.openGraph.siteName,
       locale: locale === "es" ? "es_ES" : "en_US",
     },

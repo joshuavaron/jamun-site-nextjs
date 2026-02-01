@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
 import CommitteesPageContent from "./CommitteesPageContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/modelun/committees`,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/modelun/committees`,

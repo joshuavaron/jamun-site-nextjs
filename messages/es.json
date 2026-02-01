@@ -756,7 +756,7 @@
     "contactText": "¿Preguntas? Nos encantaría saber de ti en"
   },
   "AboutPage": {
-    "title": "Nosotros | JAMUN",
+    "title": "Nosotros",
     "description": "Conoce la misión de JAMUN de hacer las competencias académicas accesibles para estudiantes de secundaria. Organización sin fines de lucro 100% dirigida por jóvenes.",
     "heroTitle": "Sobre",
     "heroHighlight": "JAMUN",
@@ -838,7 +838,7 @@
     "ctaContactText": "¿Preguntas? Escríbenos a"
   },
   "ProgramsPage": {
-    "title": "Programas | JAMUN",
+    "title": "Programas",
     "description": "Explora los programas de competencias académicas de JAMUN: Modelo ONU, Juicio Simulado y Mathletes para estudiantes de secundaria grados 5-8.",
     "heroBadge": "Nuestros Programas",
     "heroTitle": "Tres Caminos hacia la ",
@@ -950,7 +950,7 @@
     "ctaContactText": "¿Preguntas? Escríbenos a"
   },
   "DonatePage": {
-    "title": "Donar | JAMUN",
+    "title": "Donar",
     "description": "Apoya la misión de JAMUN de hacer las competencias académicas accesibles. Tu donación ayuda a financiar becas, recursos y programas para estudiantes de secundaria.",
     "heroBadge": "Tu Apoyo Cambia Vidas",
     "heroTitle1": "Cada Estudiante Merece una ",
@@ -986,11 +986,11 @@
     "footerHome": "Inicio"
   },
   "RegisterPage": {
-    "title": "Inscripción | JAMUN",
+    "title": "Inscripción",
     "description": "Inscríbete en competencias académicas y conferencias de JAMUN. Únete a los programas de Modelo ONU, Juicio Simulado o Mathletes."
   },
   "GrantsPage": {
-    "title": "Becas | JAMUN",
+    "title": "Becas",
     "description": "Solicita becas de JAMUN para subsidiar costos de conferencia. Asistencia financiera disponible para estudiantes que necesitan apoyo.",
     "heroBadge": "Financiamiento para Cada Estudiante",
     "heroTitle1": "El Costo No Debería Determinar ",
@@ -1066,7 +1066,7 @@
     "questionsEmailNote": "Escríbenos directamente a"
   },
   "BlogPage": {
-    "title": "Blog | JAMUN",
+    "title": "Blog",
     "description": "Lee artículos, guías y actualizaciones de JAMUN sobre Modelo ONU, Juicio Simulado, Mathletes y competencias académicas.",
     "badge": "Blog de JAMUN",
     "heroTitlePart1": "Historias, Consejos e ",
@@ -1108,19 +1108,19 @@
     "explorePrograms": "Explorar Programas"
   },
   "ModelUNPage": {
-    "title": "Modelo ONU | JAMUN",
+    "title": "Modelo ONU",
     "description": "Conoce Modelo ONU en JAMUN. Debate temas globales, redacta resoluciones y desarrolla habilidades diplomáticas como delegado de la ONU."
   },
   "MockTrialPage": {
-    "title": "Juicio Simulado | JAMUN",
+    "title": "Juicio Simulado",
     "description": "Explora Juicio Simulado en JAMUN. Aprende razonamiento legal, procedimientos del tribunal y oratoria persuasiva a través de juicios simulados."
   },
   "MathletesPage": {
-    "title": "Mathletes | JAMUN",
+    "title": "Mathletes",
     "description": "Descubre Mathletes en JAMUN. Compite en desafíos matemáticos y prepárate para MATHCOUNTS, AMC 8 y otras competencias."
   },
   "NotFoundPage": {
-    "title": "Página No Encontrada | JAMUN",
+    "title": "Página No Encontrada",
     "heading": "¡Ups! Esta página se fue de",
     "headingHighlight": "aventura",
     "description": "La página que buscas parece haberse perdido. ¡No te preocupes, te ayudaremos a encontrar el camino!",
@@ -1529,7 +1529,7 @@
     "ctaContactText": "¿Preguntas? Contacta a nuestro equipo de Mathletes en"
   },
   "PrivacyPage": {
-    "title": "Política de Privacidad | JAMUN",
+    "title": "Política de Privacidad",
     "description": "Conoce cómo JAMUN protege tu privacidad y maneja tu información personal.",
     "heroBadge": "Tu Privacidad Importa",
     "heroTitle1": "Política de ",
@@ -1593,7 +1593,7 @@
     "contactText": "Si tienes preguntas sobre esta Política de Privacidad o nuestras prácticas de datos, por favor contáctanos:"
   },
   "TermsPage": {
-    "title": "Términos de Servicio | JAMUN",
+    "title": "Términos de Servicio",
     "description": "Lee los términos de servicio de JAMUN para usar nuestro sitio web y participar en nuestros programas.",
     "heroBadge": "Información Legal",
     "heroTitle1": "Términos de ",
@@ -2271,7 +2271,7 @@
     }
   },
   "WillPageMetadata": {
-    "title": "Will Ballis | JAMUN",
+    "title": "Will Ballis",
     "description": "Will Ballis es Director de Mathletes en JAMUN. Graduado en Matemáticas de Duke University y educador dedicado, Will lidera nuestro programa de matemáticas con experiencia y compromiso.",
     "ogTitle": "Will Ballis | JAMUN",
     "ogDescription": "Will Ballis - Director de Mathletes en JAMUN."
@@ -2404,7 +2404,7 @@
     "printFooter": "jamun.org · contact@jamun.org · 501(c)(3) nonprofit"
   },
   "SupportersPageMetadata": {
-    "title": "Our Supporters - Partners, Donors & Advisory Board | JAMUN",
+    "title": "Our Supporters - Partners, Donors & Advisory Board",
     "description": "Meet the community partners, generous donors, and advisory board members who make JAMUN's mission possible. Learn how you can support affordable academic competitions for middle school students.",
     "ogTitle": "Our Supporters - Partners, Donors & Advisory Board | JAMUN",
     "ogDescription": "Meet the organizations and individuals who support JAMUN's mission to make academic competitions accessible to all middle school students."

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,14 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/will`,
       type: "profile",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
-      images: [
-        {
-          url: `${siteConfig.url}/images/team/will.webp`,
-          width: 400,
-          height: 400,
-          alt: "Will Ballis - Director of Mathletes at JAMUN",
-        },
-      ],
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/will`,

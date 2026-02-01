@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
 import ModelUNPageContent from "./ModelUNPageContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import {
   generateProgramSchema,
   generateBreadcrumbSchema,
@@ -41,14 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/modelun`,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
-      images: [
-        {
-          url: "/images/conferences/DSC00848.webp",
-          width: 1200,
-          height: 630,
-          alt: "JAMUN Model UN Conference",
-        },
-      ],
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/modelun`,

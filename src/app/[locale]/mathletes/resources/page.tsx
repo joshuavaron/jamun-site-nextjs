@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllResources, getProgramConfig } from "@/lib/program-resources";
 import { ResourcesPageContent } from "@/components/resources";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -40,6 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/mathletes/resources`,
       type: "website",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/mathletes/resources`,

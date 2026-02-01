@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import {
   generateProgramSchema,
   generateBreadcrumbSchema,
@@ -44,14 +44,7 @@ export async function generateMetadata({
       url: `${siteConfig.url}/mathletes`,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
-      images: [
-        {
-          url: "/images/conferences/homebackground2.webp",
-          width: 1200,
-          height: 630,
-          alt: "JAMUN Mathletes Competition",
-        },
-      ],
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/mathletes`,

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HeroSection } from "@/components/sections";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 // Lazy-load below-fold sections to split JS bundles
 const StatsSection = dynamic(() =>
@@ -91,6 +91,7 @@ export async function generateMetadata({
       url: siteConfig.url,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: siteConfig.url,

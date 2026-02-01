@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import BGWriterPageContent from "./BGWriterPageContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 interface BGWriterPageProps {
   params: Promise<{ locale: string }>;
@@ -23,6 +23,7 @@ export async function generateMetadata({
       description: t("description"),
       type: "website",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}${basePath}`,

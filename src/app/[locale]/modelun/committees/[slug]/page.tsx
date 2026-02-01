@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getCommitteeBySlug, getAllCommitteeSlugsAllLocales, getAlternateLanguages } from "@/lib/committees";
 import CommitteePageContent from "./CommitteePageContent";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 interface CommitteePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -48,7 +48,7 @@ export async function generateMetadata({
       title: `${committee.abbreviation}: ${committee.topic}`,
       description: committee.description,
       type: "website",
-      images: [committee.image || "/images/conferences/DSC00848.webp"],
+      images: [defaultOgImage],
       locale: locale === "es" ? "es_ES" : "en_US",
     },
     alternates: {
