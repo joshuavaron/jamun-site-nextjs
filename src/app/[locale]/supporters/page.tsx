@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Section, SectionHeader, Button } from "@/components/ui";
-import { Heart, Handshake, ArrowRight, Building2 } from "lucide-react";
+import { Heart, Handshake, ArrowRight, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { staggerContainer, fadeInUp, defaultViewport } from "@/lib/animations";
 import { useTranslations } from "next-intl";
@@ -10,15 +11,12 @@ import { useTranslations } from "next-intl";
 export default function SupportersPage() {
   const t = useTranslations("SupportersPage");
 
-  const partners = [
-    { name: t("partner1Name") },
-  ];
-
   const boardMembers = [
     {
       name: t("boardMember1Name"),
       title: t("boardMember1Title"),
       bio: t("boardMember1Bio"),
+      linkedin: "https://www.linkedin.com/in/jenifer-page-68944a3/",
       initials: "JP",
       bgColor: "from-jamun-blue to-purple-600",
       ringColor: "ring-jamun-blue/30",
@@ -27,6 +25,7 @@ export default function SupportersPage() {
       name: t("boardMember2Name"),
       title: t("boardMember2Title"),
       bio: t("boardMember2Bio"),
+      linkedin: "https://www.linkedin.com/in/howard-task-7502a23/",
       initials: "HT",
       bgColor: "from-purple-500 to-rose-500",
       ringColor: "ring-purple-300",
@@ -76,32 +75,38 @@ export default function SupportersPage() {
         />
 
         <motion.div
-          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
+          variants={fadeInUp}
           className="flex justify-center"
         >
-          {partners.map((partner) => (
-            <motion.div
-              key={partner.name}
-              variants={fadeInUp}
-              whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl p-8 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 text-center max-w-xs"
-            >
-              <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-jamun-blue/10 to-purple-100 flex items-center justify-center">
-                <Building2 className="w-8 h-8 text-jamun-blue/60" />
-              </div>
-              <h3 className="text-base font-semibold text-gray-900 leading-tight">
-                {partner.name}
-              </h3>
-            </motion.div>
-          ))}
+          <a
+            href="https://www.communitiesinschools.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-white rounded-2xl p-8 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 text-center max-w-sm"
+          >
+            <div className="relative w-full h-16 mb-4">
+              <Image
+                src="/images/partners/communities-in-schools.png"
+                alt={t("partner1Name")}
+                fill
+                className="object-contain"
+              />
+            </div>
+            <h3 className="text-base font-semibold text-gray-900 leading-tight mb-2">
+              {t("partner1Name")}
+            </h3>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {t("partner1Description")}
+            </p>
+          </a>
         </motion.div>
       </Section>
 
       {/* Advisory Board Section */}
-      <Section background="gray">
+      <Section background="white">
         <SectionHeader
           eyebrow={t("boardEyebrow")}
           title={t("boardTitle")}
@@ -147,16 +152,25 @@ export default function SupportersPage() {
               <span className="inline-block px-3 py-1 mb-3 text-xs font-semibold rounded-full bg-jamun-blue/10 text-jamun-blue">
                 {member.title}
               </span>
-              <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
+              <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto mb-3">
                 {member.bio}
               </p>
+              <a
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-jamun-blue transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
             </motion.div>
           ))}
         </motion.div>
       </Section>
 
       {/* CTA Section */}
-      <Section background="white">
+      <Section background="gray">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
