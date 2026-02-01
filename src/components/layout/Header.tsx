@@ -15,6 +15,7 @@ import type { SearchResult } from "@/components/ui";
 const exploreItemKeys = [
   { key: "programs", href: "/programs" },
   { key: "about", href: "/about" },
+  { key: "supporters", href: "/supporters" },
   { key: "leaderboards", href: "/leaderboards" },
   { key: "blog", href: "/blog" },
 ] as const;

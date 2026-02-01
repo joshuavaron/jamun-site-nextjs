@@ -11,112 +11,25 @@ export default function SupportersPage() {
   const t = useTranslations("SupportersPage");
 
   const partners = [
-    { name: t("partner1Name"), initials: "WC" },
-    { name: t("partner2Name"), initials: "BA" },
-    { name: t("partner3Name"), initials: "PE" },
-    { name: t("partner4Name"), initials: "GS" },
-    { name: t("partner5Name"), initials: "SS" },
-    { name: t("partner6Name"), initials: "VS" },
-    { name: t("partner7Name"), initials: "CL" },
-    { name: t("partner8Name"), initials: "SA" },
-  ];
-
-  const donorTiers = [
-    {
-      title: t("donorsGoldTitle"),
-      color: "border-amber-400",
-      bg: "bg-amber-50",
-      textColor: "text-amber-700",
-      donors: [
-        t("donorsGold1"),
-        t("donorsGold2"),
-        t("donorsGold3"),
-        t("donorsGold4"),
-      ],
-    },
-    {
-      title: t("donorsSilverTitle"),
-      color: "border-gray-400",
-      bg: "bg-gray-50",
-      textColor: "text-gray-600",
-      donors: [
-        t("donorsSilver1"),
-        t("donorsSilver2"),
-        t("donorsSilver3"),
-        t("donorsSilver4"),
-        t("donorsSilver5"),
-      ],
-    },
-    {
-      title: t("donorsBronzeTitle"),
-      color: "border-orange-300",
-      bg: "bg-orange-50/50",
-      textColor: "text-orange-700",
-      donors: [
-        t("donorsBronze1"),
-        t("donorsBronze2"),
-        t("donorsBronze3"),
-        t("donorsBronze4"),
-        t("donorsBronze5"),
-        t("donorsBronze6"),
-      ],
-    },
+    { name: t("partner1Name") },
   ];
 
   const boardMembers = [
     {
       name: t("boardMember1Name"),
       title: t("boardMember1Title"),
-      affiliation: t("boardMember1Affiliation"),
       bio: t("boardMember1Bio"),
-      initials: "AS",
+      initials: "JP",
       bgColor: "from-jamun-blue to-purple-600",
       ringColor: "ring-jamun-blue/30",
     },
     {
       name: t("boardMember2Name"),
       title: t("boardMember2Title"),
-      affiliation: t("boardMember2Affiliation"),
       bio: t("boardMember2Bio"),
-      initials: "MW",
+      initials: "HT",
       bgColor: "from-purple-500 to-rose-500",
       ringColor: "ring-purple-300",
-    },
-    {
-      name: t("boardMember3Name"),
-      title: t("boardMember3Title"),
-      affiliation: t("boardMember3Affiliation"),
-      bio: t("boardMember3Bio"),
-      initials: "LC",
-      bgColor: "from-emerald-500 to-teal-600",
-      ringColor: "ring-emerald-300",
-    },
-    {
-      name: t("boardMember4Name"),
-      title: t("boardMember4Title"),
-      affiliation: t("boardMember4Affiliation"),
-      bio: t("boardMember4Bio"),
-      initials: "JO",
-      bgColor: "from-amber-500 to-orange-500",
-      ringColor: "ring-amber-300",
-    },
-    {
-      name: t("boardMember5Name"),
-      title: t("boardMember5Title"),
-      affiliation: t("boardMember5Affiliation"),
-      bio: t("boardMember5Bio"),
-      initials: "RG",
-      bgColor: "from-rose-500 to-pink-600",
-      ringColor: "ring-rose-300",
-    },
-    {
-      name: t("boardMember6Name"),
-      title: t("boardMember6Title"),
-      affiliation: t("boardMember6Affiliation"),
-      bio: t("boardMember6Bio"),
-      initials: "TP",
-      bgColor: "from-jamun-blue to-cyan-500",
-      ringColor: "ring-jamun-blue/30",
     },
   ];
 
@@ -167,64 +80,21 @@ export default function SupportersPage() {
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          className="flex justify-center"
         >
           {partners.map((partner) => (
             <motion.div
               key={partner.name}
               variants={fadeInUp}
               whileHover={{ y: -4 }}
-              className="bg-white rounded-2xl p-6 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 text-center"
+              className="bg-white rounded-2xl p-8 border border-gray-100 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] transition-all duration-300 text-center max-w-xs"
             >
               <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-gradient-to-br from-jamun-blue/10 to-purple-100 flex items-center justify-center">
                 <Building2 className="w-8 h-8 text-jamun-blue/60" />
               </div>
-              <h3 className="text-sm font-semibold text-gray-900 leading-tight">
+              <h3 className="text-base font-semibold text-gray-900 leading-tight">
                 {partner.name}
               </h3>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Section>
-
-      {/* Donors Section */}
-      <Section background="white">
-        <SectionHeader
-          eyebrow={t("donorsEyebrow")}
-          title={t("donorsTitle")}
-          subtitle={t("donorsSubtitle")}
-        />
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={defaultViewport}
-          className="space-y-8"
-        >
-          {donorTiers.map((tier) => (
-            <motion.div
-              key={tier.title}
-              variants={fadeInUp}
-              className={cn(
-                "rounded-2xl border-l-4 p-6 md:p-8",
-                tier.color,
-                tier.bg
-              )}
-            >
-              <h3 className={cn("text-xl font-semibold mb-4", tier.textColor)}>
-                {tier.title}
-              </h3>
-              <div className="flex flex-wrap gap-3">
-                {tier.donors.map((donor) => (
-                  <span
-                    key={donor}
-                    className="inline-flex items-center px-4 py-2 bg-white rounded-full text-sm font-medium text-gray-700 shadow-sm border border-gray-100"
-                  >
-                    {donor}
-                  </span>
-                ))}
-              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -243,7 +113,7 @@ export default function SupportersPage() {
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto"
         >
           {boardMembers.map((member) => (
             <motion.div
@@ -274,12 +144,9 @@ export default function SupportersPage() {
               <h3 className="text-xl font-semibold text-gray-900 mb-1">
                 {member.name}
               </h3>
-              <span className="inline-block px-3 py-1 mb-2 text-xs font-semibold rounded-full bg-jamun-blue/10 text-jamun-blue">
+              <span className="inline-block px-3 py-1 mb-3 text-xs font-semibold rounded-full bg-jamun-blue/10 text-jamun-blue">
                 {member.title}
               </span>
-              <p className="text-sm text-gray-500 font-medium mb-3">
-                {member.affiliation}
-              </p>
               <p className="text-sm text-gray-600 leading-relaxed max-w-xs mx-auto">
                 {member.bio}
               </p>
