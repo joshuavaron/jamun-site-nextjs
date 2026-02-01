@@ -50,15 +50,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
       url: siteConfig.url,
-      siteName: t("siteName"),
+      siteName: t("siteFullName"),
       title: t("defaultTitle"),
       description: t("defaultDescription"),
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "JAMUN - Affordable Academic Competitions for Middle School",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
+      site: "@JAMUNorg",
       title: t("defaultTitle"),
       description: t("defaultDescription"),
       creator: "@JAMUNorg",
+      images: [
+        {
+          url: "/twitter-image",
+          width: 1200,
+          height: 630,
+          alt: "JAMUN - Affordable Academic Competitions for Middle School",
+        },
+      ],
     },
     robots: {
       index: true,

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllPosts, getCategories } from "@/lib/blog";
 import BlogPageClient from "./BlogPageClient";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
 type Props = {
@@ -39,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/blog`,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/blog`,

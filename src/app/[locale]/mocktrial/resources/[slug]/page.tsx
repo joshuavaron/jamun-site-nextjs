@@ -9,7 +9,7 @@ import {
   getProgramConfig
 } from "@/lib/program-resources";
 import { ResourcePageContent } from "@/components/resources";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 interface ResourcePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -61,6 +61,7 @@ export async function generateMetadata({
       description: resource.description,
       type: "article",
       locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}${programConfig.basePath}/${slug}`,

@@ -108,3 +108,12 @@ export const siteConfig = {
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+
+// Default OpenGraph image for all pages — import in layouts to avoid
+// child openGraph objects overriding the parent's image config.
+export const defaultOgImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: "JAMUN - Affordable Academic Competitions for Middle School",
+};

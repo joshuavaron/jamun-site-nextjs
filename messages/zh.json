@@ -757,7 +757,7 @@
     "contactText": "有问题？我们很乐意听到您的来信"
   },
   "AboutPage": {
-    "title": "关于我们 | JAMUN",
+    "title": "关于我们",
     "description": "了解JAMUN让中学生参与学术竞赛的使命。100%青年主导的非营利组织。",
     "heroTitle": "关于",
     "heroHighlight": "JAMUN",
@@ -839,7 +839,7 @@
     "ctaContactText": "有问题？请联系"
   },
   "ProgramsPage": {
-    "title": "项目 | JAMUN",
+    "title": "项目",
     "description": "探索JAMUN为5-8年级中学生提供的学术竞赛项目：模拟联合国、模拟法庭和数学竞赛。",
     "heroBadge": "我们的项目",
     "heroTitle": "通往卓越的",
@@ -951,7 +951,7 @@
     "ctaContactText": "有问题？请联系"
   },
   "DonatePage": {
-    "title": "捐赠 | JAMUN",
+    "title": "捐赠",
     "description": "支持JAMUN让学术竞赛惠及所有人的使命。您的捐款帮助资助中学生的助学金、资源和项目。",
     "heroBadge": "您的支持改变人生",
     "heroTitle1": "每个学生都值得",
@@ -987,11 +987,11 @@
     "footerHome": "首页"
   },
   "RegisterPage": {
-    "title": "注册 | JAMUN",
+    "title": "注册",
     "description": "注册JAMUN学术竞赛和会议。加入模拟联合国、模拟法庭或数学竞赛项目。"
   },
   "GrantsPage": {
-    "title": "助学金 | JAMUN",
+    "title": "助学金",
     "description": "申请JAMUN助学金以补贴会议费用。为需要支持的学生提供财务援助。",
     "heroBadge": "为每个学生提供资助",
     "heroTitle1": "费用不应决定",
@@ -1067,7 +1067,7 @@
     "questionsEmailNote": "直接发送电子邮件至"
   },
   "BlogPage": {
-    "title": "博客 | JAMUN",
+    "title": "博客",
     "description": "阅读JAMUN关于模拟联合国、模拟法庭、数学竞赛和学术竞赛的文章、指南和更新。",
     "badge": "JAMUN博客",
     "heroTitlePart1": "故事、技巧与",
@@ -1109,19 +1109,19 @@
     "explorePrograms": "探索项目"
   },
   "ModelUNPage": {
-    "title": "模拟联合国 | JAMUN",
+    "title": "模拟联合国",
     "description": "了解JAMUN的模拟联合国。辩论全球议题，起草决议，培养联合国代表的外交技能。"
   },
   "MockTrialPage": {
-    "title": "模拟法庭 | JAMUN",
+    "title": "模拟法庭",
     "description": "探索JAMUN的模拟法庭。通过模拟审判学习法律推理、法庭程序和说服性演讲。"
   },
   "MathletesPage": {
-    "title": "数学竞赛 | JAMUN",
+    "title": "数学竞赛",
     "description": "发现JAMUN的数学竞赛。参加数学挑战并为MATHCOUNTS、AMC 8和其他比赛做准备。"
   },
   "NotFoundPage": {
-    "title": "页面未找到 | JAMUN",
+    "title": "页面未找到",
     "heading": "哎呀！这个页面去",
     "headingHighlight": "冒险了",
     "description": "您要找的页面似乎走丢了。别担心——让我们帮您回到正轨！",
@@ -1168,7 +1168,7 @@
     "tabMathletes": "数学竞赛"
   },
   "PrivacyPage": {
-    "title": "隐私政策 | JAMUN",
+    "title": "隐私政策",
     "description": "了解JAMUN如何保护您的隐私并处理您的个人信息。",
     "heroBadge": "您的隐私很重要",
     "heroTitle1": "隐私",
@@ -1232,7 +1232,7 @@
     "contactText": "如果您对本隐私政策或我们的数据实践有疑问，请联系我们："
   },
   "TermsPage": {
-    "title": "服务条款 | JAMUN",
+    "title": "服务条款",
     "description": "阅读JAMUN关于使用我们网站和参与项目的服务条款。",
     "heroBadge": "法律信息",
     "heroTitle1": "服务",
@@ -2272,7 +2272,7 @@
     }
   },
   "WillPageMetadata": {
-    "title": "Will Ballis | JAMUN",
+    "title": "Will Ballis",
     "description": "Will Ballis担任JAMUN数学竞赛项目主管。作为杜克大学数学专业毕业生和专注的教育者，Will以专业知识和承诺领导我们的数学项目。",
     "ogTitle": "Will Ballis | JAMUN",
     "ogDescription": "Will Ballis - JAMUN数学竞赛项目主管。"
@@ -2405,7 +2405,7 @@
     "printFooter": "jamun.org · contact@jamun.org · 501(c)(3) nonprofit"
   },
   "SupportersPageMetadata": {
-    "title": "Our Supporters - Partners, Donors & Advisory Board | JAMUN",
+    "title": "Our Supporters - Partners, Donors & Advisory Board",
     "description": "Meet the community partners, generous donors, and advisory board members who make JAMUN's mission possible. Learn how you can support affordable academic competitions for middle school students.",
     "ogTitle": "Our Supporters - Partners, Donors & Advisory Board | JAMUN",
     "ogDescription": "Meet the organizations and individuals who support JAMUN's mission to make academic competitions accessible to all middle school students."

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { siteConfig } from "@/config/site";
+import { siteConfig, defaultOgImage } from "@/config/site";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteConfig.url}/supporters`,
       type: "website",
       locale: locale === "es" ? "es_ES" : "en_US",
+      images: [defaultOgImage],
     },
     alternates: {
       canonical: `${siteConfig.url}/supporters`,
