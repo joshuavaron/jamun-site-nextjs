@@ -80,6 +80,14 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
+                  <Link
+                    href="/supporters"
+                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {t("supporters")}
+                  </Link>
+                </li>
+                <li>
                   <a
                     href="mailto:contact@jamun.org"
                     className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
