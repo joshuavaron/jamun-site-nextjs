@@ -67,6 +67,7 @@ export const siteConfig = {
     main: [
       { label: "Programs", href: "/programs" },
       { label: "About", href: "/about" },
+      { label: "Supporters", href: "/supporters" },
       { label: "Blog", href: "/blog" },
       { label: "Resources", href: "/modelun/resources" },
       { label: "Contact", href: "mailto:contact@jamun.org" },
@@ -87,6 +88,7 @@ export const siteConfig = {
     ],
     organization: [
       { label: "About Us", href: "/about" },
+      { label: "Supporters", href: "/supporters" },
       { label: "Contact", href: "mailto:contact@jamun.org" },
     ],
     resources: [
