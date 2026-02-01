@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Section, SectionHeader, Button, Badge } from "@/components/ui";
+import { Section, SectionHeader, Button } from "@/components/ui";
 import { Heart, Handshake, ArrowRight, Building2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { staggerContainer, fadeInUp, defaultViewport } from "@/lib/animations";
@@ -27,7 +27,6 @@ export default function SupportersPage() {
       color: "border-amber-400",
       bg: "bg-amber-50",
       textColor: "text-amber-700",
-      badgeVariant: "amber" as const,
       donors: [
         t("donorsGold1"),
         t("donorsGold2"),
@@ -40,7 +39,6 @@ export default function SupportersPage() {
       color: "border-gray-400",
       bg: "bg-gray-50",
       textColor: "text-gray-600",
-      badgeVariant: "default" as const,
       donors: [
         t("donorsSilver1"),
         t("donorsSilver2"),
@@ -54,7 +52,6 @@ export default function SupportersPage() {
       color: "border-orange-300",
       bg: "bg-orange-50/50",
       textColor: "text-orange-700",
-      badgeVariant: "accent" as const,
       donors: [
         t("donorsBronze1"),
         t("donorsBronze2"),
@@ -136,9 +133,10 @@ export default function SupportersPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="primary" size="lg" icon={Heart} className="mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20">
+              <Heart className="w-4 h-4" />
               {t("heroBadge")}
-            </Badge>
+            </span>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
               {t("heroHeadline")}
@@ -157,7 +155,7 @@ export default function SupportersPage() {
       </section>
 
       {/* Community Partners Section */}
-      <Section background="cream">
+      <Section background="gray">
         <SectionHeader
           eyebrow={t("partnersEyebrow")}
           title={t("partnersTitle")}
@@ -291,7 +289,7 @@ export default function SupportersPage() {
       </Section>
 
       {/* CTA Section */}
-      <Section background="cream">
+      <Section background="white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
