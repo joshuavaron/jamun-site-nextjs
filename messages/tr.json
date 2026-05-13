@@ -43,7 +43,7 @@
     "mockTrialSkill7": "Tanık Sorgulaması",
     "mockTrialSkill8": "Vaka Hazırlığı",
     "mathletesProgramName": "Matematik Yarışma Programı",
-    "mathletesProgramDescription": "5-8. sınıflardaki ortaokul öğrencileri için tasarlanmış takım bazlı rekabetçi matematik eğitimleriyle MATHCOUNTS, AMC 8 ve Math League yarışmalarına hazırlanın.",
+    "mathletesProgramDescription": "5-8. sınıflardaki ortaokul öğrencileri için tasarlanmış takım bazlı rekabetçi matematik eğitimleriyle JAMUN'un kendi matematik yarışmalarına katılın. MATHCOUNTS ve AMC 8 için mükemmel hazırlık.",
     "mathletesSkill1": "Sorun Çözme",
     "mathletesSkill2": "Sayı Teorisi",
     "mathletesSkill3": "Cebir",
@@ -1228,7 +1228,7 @@
     "programMockTrialName": "Sahte Deneme",
     "programMockTrialBody": "Mahkeme salonunu alın. Gerçek bir hukuki simülasyonda çapraz sorgu yapın, davalar oluşturun, inançla tartışın.",
     "programMathletesName": "Matematikçiler",
-    "programMathletesBody": "MATHCOUNTS, AMC 8 ve Math League'de yarışın. Akranlarınızla birlikte antrenman yapın, en zorlu sorunları çözün.",
+    "programMathletesBody": "JAMUN matematik yarışmalarında yarışın. Akranlarınızla birlikte antrenman yapın, en zorlu sorunları çözün ve MATHCOUNTS ile AMC 8 için beceriler geliştirin.",
     "learnMore": "Daha fazla bilgi edin",
     "whoWeServeTitle": "Öğrenciler, aileler ve okullar için tasarlandı.",
     "whoWeServeSubtitle": "JAMUN'un programları ve ücretsiz kaynakları, ilk kez katılan delegelerden yeni bir kulüp kuran okul yöneticilerine kadar akademik yolculuktaki herkes için tasarlanmıştır.",
@@ -1239,7 +1239,7 @@
     "audienceParentsBody": "Çocuğunuzu liseye, mıknatıs kabullerine ve üniversiteye hazırlayacak anlamlı ders dışı etkinlikler mi arıyorsunuz? Uygun fiyatlı akademik programlarımız, ihtiyacı olan ailelere %100'e varan hibelerle öğrencileri diğerlerinden ayıran liderlik, iletişim ve analitik düşünceyi geliştirir.",
     "audienceParentsCta": "Programları keşfedin",
     "audienceTeachersTitle": "Öğretmenler ve okullar.",
-    "audienceTeachersBody": "Ücretsiz müfredatımız, pozisyon kağıdı şablonlarımız, MATHCOUNTS pratik problemlerimiz ve sürekli mentorluğumuzla okulunuzda bir Model BM kulübü, Mock Trial ekibi veya Mathletes programı başlatın. Eğitimcilerin sıfırdan başarılı programlar oluşturmasına yardımcı oluyoruz.",
+    "audienceTeachersBody": "Ücretsiz müfredatımız, pozisyon kağıdı şablonlarımız, matematik yarışması pratik problemlerimiz ve sürekli mentorluğumuzla okulunuzda bir Model BM kulübü, Mock Trial ekibi veya Mathletes programı başlatın. Eğitimcilerin sıfırdan başarılı programlar oluşturmasına yardımcı oluyoruz.",
     "audienceTeachersCta": "Ücretsiz kaynaklar edinin",
     "orangeQuote": "Bu çocuklar için ne muhteşem bir hafta sonu yarattınız. Bunu sonsuza kadar hatırlayacaklar.",
     "orangeQuoteAttribution": "— Jon Mall, 8. Sınıf Öğretmeni",
@@ -1267,11 +1267,11 @@
     "skillTeamwork": "Ekip çalışması",
     "skillTeamworkBody": "Okullar ve çevreler genelinde karar taslakları hazırlayın, vakalar hazırlayın ve sorunları birlikte çözün.",
     "skillProblemSolving": "Sorun çözme",
-    "skillProblemSolvingBody": "MATHCOUNTS sorunlarının, diplomatik ikilemlerin ve vaka stratejilerinin üstesinden yaratıcılıkla gelin.",
+    "skillProblemSolvingBody": "matematik yarışması sorunlarının, diplomatik ikilemlerin ve vaka stratejilerinin üstesinden yaratıcılıkla gelin.",
     "skillLeadership": "Liderlik",
     "skillLeadershipBody": "Komitelere başkanlık, lider bloklar ve kaptan takımlar; başkalarına rehberlik etme güveni.",
     "skillCompetitive": "Rekabetçi mükemmellik",
-    "skillCompetitiveBody": "MATHCOUNTS, AMC 8, bölgesel Mock Trial ve Model UN için eğitim; kapıları açan bir geçmiş performans.",
+    "skillCompetitiveBody": "JAMUN konferanslarında, bölgesel Mock Trial ve Model UN'de yarışın — ayrıca MATHCOUNTS ve AMC 8 için beceriler geliştirin.",
     "whyCompetitionsTitle": "Akademik yarışmalar ortaokul öğrencileri için neden önemlidir?",
     "whyCompetitionsBody1": "Araştırmalar, Model UN, Mock Trial ve matematik ligleri gibi akademik yarışmalara katılan öğrencilerin standart testlerde daha güçlü performans, daha yüksek genel not ortalamaları ve daha iyi üniversiteye kabul oranları gösterdiklerini gösteriyor. Bu ders dışı etkinlikler, yalnızca geleneksel sınıflarda öğretilemeyen temel 21. yüzyıl becerilerini geliştirir.",
     "whyCompetitionsBody2": "Ortaokula (5-8. Sınıflar) başlamak öğrencilere önemli bir avantaj sağlar. Topluluk önünde konuşma, tartışma ve eleştirel düşünme konusunda temel beceriler geliştirirler ve bu beceriler zamanla birleşerek onları ilgi çekici okul programları, lise başarıları ve sonunda üniversiteye kabul konusunda daha rekabetçi hale getirir.",
@@ -1284,7 +1284,7 @@
     "faq2Q": "İlk Sahte Deneme yarışmama nasıl hazırlanabilirim?",
     "faq2A": "Ücretsiz Deneme Denemesi hazırlığı sağlıyoruz: vaka analizi kılavuzları, açılış bildirimi şablonları, çapraz sorgu teknikleri ve uygulama oturumları. Yeni delegeler, adım adım eğitimlerle mahkeme salonu prosedürlerini, delil kurallarını ve itiraz stratejilerini öğreniyor. Deneyimli mentorlarımız, öğrencilerin hem avukat hem de tanık rollerine dönüşmelerine yardımcı olur.",
     "faq3Q": "JAMUN öğrencileri hangi matematik yarışmalarına hazırlıyor?",
-    "faq3A": "Mathletes programımız MATHCOUNTS, AMC 8, Matematik Ligi ve Matematik Olimpiyatları için delegeler yetiştiriyor. Sayı teorisi, cebir, geometri ve problem çözme stratejisi konularında pratik problemler sağlıyoruz. Öğrenciler takım tabanlı öğrenme ve bireysel zorluklar yoluyla hız, doğruluk ve yaratıcı matematiksel düşünme geliştirirler.",
+    "faq3A": "JAMUN, öğrencilerin sayı teorisi, cebir, geometri ve problem çözme stratejisinde zorlu problemlerle karşılaştığı kendi Mathletes matematik yarışmalarına ev sahipliği yapmaktadır. Öğrenciler bireysel ve takım halinde yarışarak hız, doğruluk ve yaratıcı matematiksel düşünme geliştirirler. JAMUN ile yarışmak aynı zamanda MATHCOUNTS, AMC 8 ve Math League gibi harici yarışmalara hazırlanmaya da yardımcı olur.",
     "faq4Q": "JAMUN'un programları uygun fiyatlı mı?",
     "faq4A": "Evet. Tüm müfredat kılavuzlarımız, eğitim materyallerimiz ve kaynaklarımız tamamen ücretsizdir. Konferanslar düşük maliyetlidir ve hibe programımız, desteğe ihtiyacı olan aileler için konferans masraflarının (kayıt, seyahat ve materyaller dahil) %100'üne kadarını karşılar. 501(c)(3) kar amacı gütmeyen bir kuruluş olarak, her bağış doğrudan öğrenci programlarına ve hibe fonuna gider.",
     "faq5Q": "Okulum nasıl bir Model BM kulübü veya akademik ekibi kurabilir?",
@@ -1313,7 +1313,7 @@
     "hero": {
       "headingStart": "Sayıların olduğu yer",
       "headingAccent": "süper güçler.",
-      "description": "JAMUN'un 5-8. sınıflar için Mathletes programında MATHCOUNTS, AMC 8 ve Math League yarışmalarına hazırlanın. Sorun çözmede ustalaşın, hız kazanın ve rekabet edin. 2026 Sonbaharında başlıyor.",
+      "description": "5-8. sınıflar için JAMUN'un kendi matematik yarışmalarında yarışın. Problem çözmede ustalaşın, hız kazanın ve akranlarınızla birlikte kendinize meydan okuyun. MATHCOUNTS ve AMC 8 için de mükemmel hazırlık. 2026 Sonbaharında başlıyor.",
       "joinInterestList": "İlgi Listesine Katılın",
       "exploreAllPrograms": "Tüm Programları Keşfedin"
     },
@@ -1451,9 +1451,9 @@
   },
   "MathletesPageMetadata": {
     "title": "5-8. Sınıflar İçin Mathletes - Matematik Yarışmaları",
-    "description": "5-8. Sınıflar için JAMUN'un Mathletes programına katılın. MATHCOUNTS, AMC 8 ve Math League yarışmalarına hazırlanın. Takım bazlı rekabetçi matematik yoluyla problem çözme becerilerini, sayı teorisini, cebiri ve geometriyi geliştirin.",
+    "description": "5-8. Sınıflar için JAMUN'un Mathletes programına katılın. Kendi matematik yarışmalarımızda yarışın ve problem çözme becerilerini, sayı teorisini, cebiri ve geometriyi geliştirin. MATHCOUNTS ve AMC 8 için mükemmel hazırlık.",
     "ogTitle": "Mathletes - Ortaokul için Rekabetçi Matematik - JAMUN",
-    "ogDescription": "Rekabetçi matematikle kendinize sorun! İlgi çekici matematik yarışmaları aracılığıyla analitik düşünceyi, hızı ve doğruluğu geliştirin. MATHCOUNTS ve AMC 8'e hazırlanın."
+    "ogDescription": "Rekabetçi matematikle kendinize meydan okuyun! JAMUN matematik yarışmalarında yarışın ve analitik düşünce, hız ve doğruluk geliştirin. MATHCOUNTS ve AMC 8 için mükemmel hazırlık."
   },
   "MathletesResourcePage": {
     "notFoundTitle": "Kaynak Bulunamadı | JAMUN Matematikçiler",
@@ -1530,10 +1530,10 @@
     "notFoundTitle": "Kaynak Bulunamadı | JAMUN Matematikçiler"
   },
   "MathletesResourcesPageMetadata": {
-    "title": "Ücretsiz Matematik Yarışması Kaynakları - MATHCOUNTS & AMC 8 Hazırlık",
-    "description": "Ortaokul öğrencileri için ücretsiz matematik yarışması kaynakları. Alıştırma problemleri, stratejiler ve çalışma kılavuzlarıyla MATHCOUNTS, AMC 8 ve Math League'e hazırlanın. Sayı teorisi, cebir ve geometri dersleri.",
+    "title": "Ücretsiz Matematik Yarışması Kaynakları - JAMUN Mathletes",
+    "description": "Ortaokul öğrencileri için ücretsiz matematik yarışması kaynakları. JAMUN Mathletes yarışmaları için alıştırma problemleri, stratejiler ve çalışma kılavuzları. Ayrıca MATHCOUNTS, AMC 8 ve Math League için mükemmel hazırlık.",
     "ogTitle": "Ücretsiz Matematik Yarışması Kaynakları - JAMUN Mathletes",
-    "ogDescription": "MATHCOUNTS ve AMC 8'e hazırlanın: alıştırma problemleri, problem çözme stratejileri ve rekabetçi matematik için konu kılavuzları."
+    "ogDescription": "JAMUN Mathletes yarışmaları ve rekabetçi matematik için alıştırma problemleri, problem çözme stratejileri ve konu kılavuzları."
   },
   "MockTrialPage": {
     "hero": {
