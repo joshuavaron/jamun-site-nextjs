@@ -43,7 +43,7 @@
     "mockTrialSkill7": "Examen de testigos",
     "mockTrialSkill8": "Preparación del caso",
     "mathletesProgramName": "Programa de competición Mathletes",
-    "mathletesProgramDescription": "Prepárese para las competencias MATHCOUNTS, AMC 8 y Math League a través de capacitación competitiva en matemáticas en equipos diseñada para estudiantes de secundaria en los grados 5 a 8.",
+    "mathletesProgramDescription": "Compita en las competencias de matemáticas de JAMUN a través de entrenamiento competitivo en equipos diseñado para estudiantes de secundaria en los grados 5 a 8. Excelente preparación para MATHCOUNTS y AMC 8.",
     "mathletesSkill1": "Resolución de problemas",
     "mathletesSkill2": "Teoría de números",
     "mathletesSkill3": "Álgebra",
@@ -1228,7 +1228,7 @@
     "programMockTrialName": "Juicio simulado",
     "programMockTrialBody": "Tome la sala del tribunal. Interroga, construye casos, argumenta con convicción en una simulación jurídica real.",
     "programMathletesName": "Matemáticos",
-    "programMathletesBody": "Compite en MATHCOUNTS, AMC 8 y Math League. Entrene con sus compañeros, resuelva los problemas más difíciles.",
+    "programMathletesBody": "Compite en las competencias de matemáticas de JAMUN. Entrena con tus compañeros, resuelve los problemas más difíciles y desarrolla habilidades para MATHCOUNTS y AMC 8.",
     "learnMore": "Más información",
     "whoWeServeTitle": "Diseñado para estudiantes, familias y escuelas.",
     "whoWeServeSubtitle": "Los programas y recursos gratuitos de JAMUN están diseñados para todos en el recorrido académico, desde los delegados por primera vez hasta los administradores escolares que inician un nuevo club.",
@@ -1239,7 +1239,7 @@
     "audienceParentsBody": "¿Busca actividades extracurriculares significativas que preparen a su hijo para la escuela secundaria, las admisiones especializadas y la universidad? Nuestros programas académicos asequibles desarrollan el liderazgo, la comunicación y el pensamiento analítico que distinguen a los estudiantes, con subvenciones de hasta el 100 % para las familias que las necesitan.",
     "audienceParentsCta": "Explorar programas",
     "audienceTeachersTitle": "Profesores y escuelas.",
-    "audienceTeachersBody": "Inicie un club Modelo ONU, un equipo de juicio simulado o un programa Mathletes en su escuela con nuestro plan de estudios gratuito, plantillas de documentos de posición, problemas de práctica de MATHCOUNTS y ​​tutoría continua. Ayudamos a los educadores a crear programas exitosos desde cero.",
+    "audienceTeachersBody": "Inicie un club Modelo ONU, un equipo de juicio simulado o un programa Mathletes en su escuela con nuestro plan de estudios gratuito, plantillas de documentos de posición, problemas de práctica de competencias de matemáticas y ​​tutoría continua. Ayudamos a los educadores a crear programas exitosos desde cero.",
     "audienceTeachersCta": "Obtenga recursos gratuitos",
     "orangeQuote": "Qué fin de semana tan increíble creaste para estos niños. Lo recordarán para siempre.",
     "orangeQuoteAttribution": "— Jon Mall, maestro de octavo grado",
@@ -1267,11 +1267,11 @@
     "skillTeamwork": "Trabajo en equipo",
     "skillTeamworkBody": "Redactar resoluciones, preparar casos y resolver problemas juntos en diferentes escuelas y orígenes.",
     "skillProblemSolving": "resolución de problemas",
-    "skillProblemSolvingBody": "Aborde los problemas de MATHCOUNTS, los dilemas diplomáticos y las estrategias de casos con creatividad.",
+    "skillProblemSolvingBody": "Aborde los problemas de competencias de matemáticas, los dilemas diplomáticos y las estrategias de casos con creatividad.",
     "skillLeadership": "Liderazgo",
     "skillLeadershipBody": "Presidir comités, liderar bloques y capitanear equipos: la confianza para guiar a otros.",
     "skillCompetitive": "Excelencia competitiva",
-    "skillCompetitiveBody": "Capacítese para MATHCOUNTS, AMC 8, juicio simulado regional y Modelo ONU: un historial que abre puertas.",
+    "skillCompetitiveBody": "Compita en conferencias JAMUN, juicio simulado regional y Modelo ONU — además desarrolle habilidades para MATHCOUNTS y AMC 8.",
     "whyCompetitionsTitle": "Por qué las competencias académicas son importantes para los estudiantes de secundaria.",
     "whyCompetitionsBody1": "Las investigaciones muestran que los estudiantes que participan en competencias académicas como el Modelo ONU, Juicios Simulados y ligas de matemáticas demuestran un mejor desempeño en exámenes estandarizados, GPA más altos y mejores tasas de admisión a la universidad. Estas actividades extracurriculares desarrollan habilidades esenciales del siglo XXI que no se pueden enseñar únicamente en las aulas tradicionales.",
     "whyCompetitionsBody2": "Comenzar en la escuela intermedia (grados 5 a 8) brinda a los estudiantes una ventaja significativa. Desarrollan habilidades fundamentales para hablar en público, debatir y pensar críticamente, que se agravan con el tiempo, lo que los hace más competitivos para los programas de escuelas especializadas, las carreras de honores de la escuela secundaria y, eventualmente, las admisiones a la universidad.",
@@ -1284,7 +1284,7 @@
     "faq2Q": "¿Cómo me preparo para mi primera competencia de juicio simulado?",
     "faq2A": "Proporcionamos preparación gratuita para juicios simulados: guías de análisis de casos, plantillas de declaraciones iniciales, técnicas de contrainterrogatorio y sesiones de práctica. Los nuevos delegados aprenden procedimientos judiciales, reglas de evidencia y estrategias de objeción a través de tutoriales paso a paso. Nuestros mentores experimentados ayudan a los estudiantes a convertirse en abogados y testigos.",
     "faq3Q": "¿Para qué competencias de matemáticas prepara JAMUN a los estudiantes?",
-    "faq3A": "Nuestro programa Mathletes capacita a delegados para MATHCOUNTS, AMC 8, Math League y Math Olympiad. Ofrecemos problemas de práctica en teoría de números, álgebra, geometría y estrategia de resolución de problemas. Los estudiantes desarrollan velocidad, precisión y pensamiento matemático creativo a través del aprendizaje en equipo y desafíos individuales.",
+    "faq3A": "JAMUN organiza sus propias competencias de matemáticas Mathletes donde los estudiantes enfrentan problemas desafiantes en teoría de números, álgebra, geometría y estrategia de resolución de problemas. Los estudiantes compiten individualmente y en equipos, desarrollando velocidad, precisión y pensamiento matemático creativo. Competir con JAMUN también ayuda a preparar a los estudiantes para competencias externas como MATHCOUNTS, AMC 8 y Math League.",
     "faq4Q": "¿Son asequibles los programas de JAMUN?",
     "faq4A": "Sí. Todas nuestras guías curriculares, materiales de capacitación y recursos son completamente gratuitos. Las conferencias son de bajo costo y nuestro programa de subvenciones cubre hasta el 100 % de los costos de la conferencia (incluidos la inscripción, los viajes y los materiales) para las familias que necesitan apoyo. Como organización sin fines de lucro 501(c)(3), cada donación se destina directamente a los programas estudiantiles y al fondo de subvenciones.",
     "faq5Q": "¿Cómo puede mi escuela iniciar un club o equipo académico Modelo ONU?",
@@ -1313,7 +1313,7 @@
     "hero": {
       "headingStart": "donde los números se convierten",
       "headingAccent": "superpoderes.",
-      "description": "Prepárese para las competencias MATHCOUNTS, AMC 8 y Math League en el programa Mathletes de JAMUN para los grados 5 a 8. Domina la resolución de problemas, aumenta la velocidad y compite. Lanzamiento en otoño de 2026.",
+      "description": "Compite en las propias competencias de matemáticas de JAMUN para los grados 5 a 8. Domina la resolución de problemas, aumenta la velocidad y desafíate junto a tus compañeros. Excelente preparación para MATHCOUNTS y AMC 8. Lanzamiento en otoño de 2026.",
       "joinInterestList": "Únase a la lista de interesados",
       "exploreAllPrograms": "Explora todos los programas"
     },
@@ -1451,9 +1451,9 @@
   },
   "MathletesPageMetadata": {
     "title": "Mathletes para los grados 5 a 8: competencias de matemáticas",
-    "description": "Únase al programa Mathletes de JAMUN para los grados 5-8. Prepárese para las competencias MATHCOUNTS, AMC 8 y Math League. Desarrollar habilidades de resolución de problemas, teoría de números, álgebra y geometría a través de matemáticas competitivas en equipo.",
+    "description": "Únase al programa Mathletes de JAMUN para los grados 5-8. Compita en nuestras propias competencias de matemáticas y desarrolle habilidades de resolución de problemas, teoría de números, álgebra y geometría. Excelente preparación para MATHCOUNTS y AMC 8.",
     "ogTitle": "Mathletes - Matemáticas competitivas para la escuela secundaria - JAMUN",
-    "ogDescription": "¡Ponte a prueba con matemáticas competitivas! Desarrolle el pensamiento analítico, la velocidad y la precisión a través de interesantes competencias de matemáticas. Prepárese para MATHCOUNTS y ​​AMC 8."
+    "ogDescription": "¡Ponte a prueba con matemáticas competitivas! Compite en competencias de matemáticas de JAMUN y desarrolla pensamiento analítico, velocidad y precisión. Excelente preparación para MATHCOUNTS y AMC 8."
   },
   "MathletesResourcePage": {
     "notFoundTitle": "Recurso no encontrado | Matemáticos JAMUN",
@@ -1530,10 +1530,10 @@
     "notFoundTitle": "Recurso no encontrado | Matemáticos JAMUN"
   },
   "MathletesResourcesPageMetadata": {
-    "title": "Recursos gratuitos para la competencia de matemáticas: MATHCOUNTS y ​​AMC 8 Prep",
-    "description": "Recursos gratuitos de competencia de matemáticas para estudiantes de secundaria. Prepárese para MATHCOUNTS, AMC 8 y Math League con problemas de práctica, estrategias y guías de estudio. Tutoriales de teoría de números, álgebra y geometría.",
+    "title": "Recursos gratuitos para competencias de matemáticas - JAMUN Mathletes",
+    "description": "Recursos gratuitos de competencia de matemáticas para estudiantes de secundaria. Problemas de práctica, estrategias y guías de estudio para competencias Mathletes de JAMUN. También excelente preparación para MATHCOUNTS, AMC 8 y Math League.",
     "ogTitle": "Recursos gratuitos para la competencia de matemáticas - JAMUN Mathletes",
-    "ogDescription": "Prepárese para MATHCOUNTS y ​​AMC 8: practique problemas, estrategias de resolución de problemas y guías temáticas para matemáticas competitivas."
+    "ogDescription": "Problemas de práctica, estrategias de resolución de problemas y guías temáticas para competencias Mathletes de JAMUN y matemáticas competitivas."
   },
   "MockTrialPage": {
     "hero": {

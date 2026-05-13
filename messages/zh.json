@@ -43,7 +43,7 @@
     "mockTrialSkill7": "证人考试",
     "mockTrialSkill8": "案例准备",
     "mathletesProgramName": "数学竞赛项目",
-    "mathletesProgramDescription": "通过专为 5-8 年级中学生设计的基于团队的竞争性数学训练，为 MATHCOUNTS、AMC 8 和数学联盟比赛做好准备。",
+    "mathletesProgramDescription": "参加JAMUN自己的数学竞赛，通过专为5-8年级中学生设计的团队竞赛性数学训练。也是MATHCOUNTS和AMC 8的优秀准备。",
     "mathletesSkill1": "解决问题",
     "mathletesSkill2": "数论",
     "mathletesSkill3": "代数",
@@ -1228,7 +1228,7 @@
     "programMockTrialName": "模拟审判",
     "programMockTrialBody": "就拿法庭来说吧。在真实的法律模拟中进行盘问、立案、进行有说服力的辩论。",
     "programMathletesName": "数学运动员",
-    "programMathletesBody": "参加 MATHCOUNTS、AMC 8 和数学联赛。与同行一起培训，解决最棘手的问题。",
+    "programMathletesBody": "参加JAMUN数学竞赛。与同伴一起训练，解决最棘手的问题，并为MATHCOUNTS和AMC 8打下基础。",
     "learnMore": "了解更多",
     "whoWeServeTitle": "专为学生、家庭和学校而打造。",
     "whoWeServeSubtitle": "JAMUN 的项目和免费资源是为学术旅程中的每个人而设计的——从首次代表到创办新俱乐部的学校管理人员。",
@@ -1239,7 +1239,7 @@
     "audienceParentsBody": "您正在寻找有意义的课外活动来帮助您的孩子为高中、磁力录取和大学做好准备吗？我们负担得起的学术课程培养学生的领导力、沟通能力和分析思维，使学生脱颖而​​出——为有需要的家庭提供高达 100% 的助学金。",
     "audienceParentsCta": "探索计划",
     "audienceTeachersTitle": "教师和学校。",
-    "audienceTeachersBody": "利用我们的免费课程、立场文件模板、MATHCOUNTS 练习题和持续指导，在您的学校启动模拟联合国俱乐部、模拟审判队或数学项目。我们帮助教育工作者从头开始构建成功的项目。",
+    "audienceTeachersBody": "利用我们的免费课程、立场文件模板、数学竞赛练习题和持续指导，在您的学校启动模拟联合国俱乐部、模拟审判队或数学项目。我们帮助教育工作者从头开始构建成功的项目。",
     "audienceTeachersCta": "获取免费资源",
     "orangeQuote": "您为这些孩子们创造了多么令人难以置信的周末啊。他们将永远记住这一点。",
     "orangeQuoteAttribution": "— 乔恩·马尔 (Jon Mall)，八年级教师",
@@ -1271,7 +1271,7 @@
     "skillLeadership": "领导",
     "skillLeadershipBody": "担任委员会主席、领导集团和领导团队——指导他人的信心。",
     "skillCompetitive": "卓越竞争",
-    "skillCompetitiveBody": "参加 MATHCOUNTS、AMC 8、地区模拟审判和模拟联合国培训 — 一项打开大门的记录。",
+    "skillCompetitiveBody": "参加JAMUN会议、地区模拟审判和模拟联合国 — 同时为MATHCOUNTS和AMC 8培养技能。",
     "whyCompetitionsTitle": "为什么学术竞赛对中学生很重要。",
     "whyCompetitionsBody1": "研究表明，参加模拟联合国、模拟审判和数学联赛等学术竞赛的学生在标准化考试中表现出更强的表现、更高的 GPA 和更高的大学录取率。这些课外活动培养了 21 世纪的基本技能，而这些技能是仅在传统课堂上无法教授的。",
     "whyCompetitionsBody2": "从中学（5-8 年级）开始，学生就拥有显着的优势。他们在公开演讲、辩论和批判性思维方面建立了基础技能，这些技能随着时间的推移而不断增强，使他们在精英学校项目、高中荣誉课程以及最终的大学录取中更具竞争力。",
@@ -1284,7 +1284,7 @@
     "faq2Q": "我该如何准备我的第一次模拟审判比赛？",
     "faq2A": "我们提供免费的模拟审判准备：案例分析指南、开庭陈述模板、交叉询问技巧和练习课程。新代表通过分步教程学习法庭程序、证据规则和异议策略。我们经验丰富的导师帮助学生成长为律师和证人角色。",
     "faq3Q": "JAMUN 为学生准备哪些数学竞赛？",
-    "faq3A": "我们的数学项目为 MATHCOUNTS、AMC 8、数学联盟和数学奥林匹克代表进行培训。我们提供数论、代数、几何和解决问题策略的练习题。学生通过团队学习和个人挑战来培养速度、准确性和创造性的数学思维。",
+    "faq3A": "JAMUN举办自己的Mathletes数学竞赛，学生在数论、代数、几何和解题策略方面挑战有难度的问题。学生以个人和团队形式竞赛，培养速度、准确性和创造性数学思维。参加JAMUN的竞赛也有助于为MATHCOUNTS、AMC 8和数学联盟等外部竞赛做准备。",
     "faq4Q": "JAMUN 的项目负担得起吗？",
     "faq4A": "是的。我们所有的课程指南、培训材料和资源都是完全免费的。会议费用低廉，我们的资助计划为需要支持的家庭提供高达 100% 的会议费用，包括注册、旅行和材料。作为 501(c)(3) 非营利组织，每笔捐款都直接用于学生项目和补助基金。",
     "faq5Q": "我的学校如何建立模拟联合国俱乐部或学术团队？",
@@ -1313,7 +1313,7 @@
     "hero": {
       "headingStart": "数字变成的地方",
       "headingAccent": "超能力。",
-      "description": "为 5-8 年级 JAMUN 数学计划中的 MATHCOUNTS、AMC 8 和数学联盟比赛做准备。掌握解决问题、提高速度和竞争的能力。 2026 年秋季推出。",
+      "description": "参加JAMUN自己的5-8年级数学竞赛。掌握解题技巧、提高速度，与同伴一起挑战自我。也是MATHCOUNTS和AMC 8的优秀准备。2026年秋季推出。",
       "joinInterestList": "加入兴趣列表",
       "exploreAllPrograms": "探索所有计划"
     },
@@ -1451,9 +1451,9 @@
   },
   "MathletesPageMetadata": {
     "title": "5-8 年级数学运动员 - 数学竞赛",
-    "description": "加入 JAMUN 5-8 年级的数学项目。准备 MATHCOUNTS、AMC 8 和数学联盟比赛。通过基于团队的竞争性数学培养解决问题的技能、数论、代数和几何。",
+    "description": "加入JAMUN 5-8年级的数学项目。参加我们自己的数学竞赛，培养解题技能、数论、代数和几何。也是MATHCOUNTS和AMC 8的优秀准备。",
     "ogTitle": "数学 - 中学数学竞赛 - JAMUN",
-    "ogDescription": "用有竞争力的数学挑战自己！通过参加数学竞赛来培养分析思维、速度和准确性。准备 MATHCOUNTS 和 AMC 8。"
+    "ogDescription": "用竞赛数学挑战自己！参加JAMUN数学竞赛，培养分析思维、速度和准确性。也是MATHCOUNTS和AMC 8的优秀准备。"
   },
   "MathletesResourcePage": {
     "notFoundTitle": "未找到资源 |贾蒙数学运动员",
@@ -1530,10 +1530,10 @@
     "notFoundTitle": "未找到资源 |贾蒙数学运动员"
   },
   "MathletesResourcesPageMetadata": {
-    "title": "免费数学竞赛资源 - MATHCOUNTS 和 AMC 8 Prep",
-    "description": "为中学生免费提供数学竞赛资源。通过练习题、策略和学习指南为 MATHCOUNTS、AMC 8 和数学联盟做好准备。数论、代数和几何教程。",
+    "title": "免费数学竞赛资源 - JAMUN Mathletes",
+    "description": "为中学生免费提供数学竞赛资源。JAMUN Mathletes竞赛的练习题、策略和学习指南。也是MATHCOUNTS、AMC 8和数学联盟的优秀准备。",
     "ogTitle": "免费数学竞赛资源 - JAMUN Mathletes",
-    "ogDescription": "准备 MATHCOUNTS 和 AMC 8：练习题、解决问题的策略和数学竞赛的主题指南。"
+    "ogDescription": "练习题、解题策略和JAMUN Mathletes竞赛及竞赛数学的主题指南。"
   },
   "MockTrialPage": {
     "hero": {
