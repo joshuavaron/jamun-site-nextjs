@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { getCommitteeBySlug, getAllCommitteeSlugsAllLocales, getAlternateLanguages } from "@/lib/committees";
 import CommitteePageContent from "./CommitteePageContent";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 
 interface CommitteePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -49,7 +50,7 @@ export async function generateMetadata({
       description: committee.description,
       type: "website",
       images: [defaultOgImage],
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
     },
     alternates: {
       canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/modelun/committees/${slug}`,

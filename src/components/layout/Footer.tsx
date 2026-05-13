@@ -1,134 +1,102 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { siteConfig } from "@/config/site";
 
-// Footer link configurations with translation keys
-const programLinks = [
-  { key: "modelUN", href: "/modelun" },
-  { key: "mockTrial", href: "/mocktrial" },
-  { key: "mathletes", href: "/mathletes" },
-  { key: "leaderboards", href: "/leaderboards" },
-] as const;
-
-const resourceLinks = [
-  { key: "blog", href: "/blog" },
-  { key: "privacyPolicy", href: "/privacy" },
-  { key: "termsOfService", href: "/terms" },
-] as const;
+const fontBody = { fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" };
 
 export function Footer() {
   const t = useTranslations("Footer");
-  const tNav = useTranslations("Navigation");
-  const currentYear = new Date().getFullYear();
+
+  const FOOTER_COLUMNS = [
+    {
+      title: t("programsTitle"),
+      links: [
+        { label: t("modelUN"), href: "/modelun" },
+        { label: t("mockTrial"), href: "/mocktrial" },
+        { label: t("mathletes"), href: "/mathletes" },
+      ],
+    },
+    {
+      title: t("organizationTitle"),
+      links: [
+        { label: t("aboutUs"), href: "/about" },
+        { label: t("supportersLink"), href: "/supporters" },
+        { label: t("contact"), href: "mailto:contact@jamun.org" },
+      ],
+    },
+    {
+      title: t("resourcesTitle"),
+      links: [
+        { label: t("blogLink"), href: "/blog" },
+        { label: t("privacyPolicy"), href: "/privacy" },
+        { label: t("termsOfService"), href: "/terms" },
+      ],
+    },
+  ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="space-y-8 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-12">
-          {/* Brand Column */}
-          <div>
-            <Link href="/" className="flex items-center mb-4">
-              <div className="relative h-10 w-44">
+    <footer className="bg-[#0f172a] text-neutral-300" style={fontBody}>
+      <div className="mx-auto max-w-[1500px] px-6 md:px-16 lg:px-24 py-10 md:py-12">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 lg:gap-12">
+          {/* Brand column */}
+          <div className="col-span-2 lg:col-span-1 max-w-sm">
+            <Link
+              href="/"
+              className="inline-flex items-center mb-3"
+              aria-label={t("logoAlt")}
+            >
+              <div className="relative h-8 w-44">
                 <Image
                   src="/images/logos/jamun-white-side-logo.svg"
                   alt={t("logoAlt")}
                   fill
-                  className="object-contain"
+                  className="object-contain object-left"
                 />
               </div>
             </Link>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-neutral-400 leading-relaxed mb-3">
               {t("tagline")}
             </p>
-            <p className="text-xs text-gray-500">
-              {t("nonprofit", { name: siteConfig.fullName })}
+            <p className="text-xs text-neutral-500 leading-relaxed">
+              {t("nonprofit")}
             </p>
           </div>
 
-          {/* Link Columns - always side by side */}
-          <div className="grid grid-cols-3 gap-6 lg:col-span-3 lg:gap-12">
-            {/* Programs Column */}
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("programs")}</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                {programLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                    >
-                      {t(item.key)}
-                    </Link>
+          {/* Link columns */}
+          {FOOTER_COLUMNS.map((col) => (
+            <div key={col.title}>
+              <h3 className="text-sm font-semibold text-white mb-3">{col.title}</h3>
+              <ul className="space-y-2">
+                {col.links.map((l) => (
+                  <li key={l.href}>
+                    {l.href.startsWith("mailto:") ? (
+                      <a
+                        href={l.href}
+                        className="text-sm text-neutral-400 hover:text-white transition-colors"
+                      >
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={l.href}
+                        className="text-sm text-neutral-400 hover:text-white transition-colors"
+                      >
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
-
-            {/* Organization Column */}
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("organization")}</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                <li>
-                  <Link
-                    href="/about"
-                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {t("aboutUs")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/supporters"
-                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {t("supporters")}
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    href="mailto:contact@jamun.org"
-                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {tNav("contact")}
-                  </a>
-                </li>
-                <li>
-                  <Link
-                    href="/referral"
-                    className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                  >
-                    {t("referral")}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Resources Column */}
-            <div>
-              <h3 className="font-semibold text-white mb-4 text-sm sm:text-base">{t("resources")}</h3>
-              <ul className="space-y-2 sm:space-y-3">
-                {resourceLinks.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
-                    >
-                      {item.key === "blog" ? tNav("blog") : t(item.key)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <p className="text-sm text-gray-500 text-center">
-            {t("copyright", { year: currentYear, name: siteConfig.fullName })}
+        {/* Bottom bar */}
+        <div className="mt-8 pt-6 border-t border-white/10 text-center">
+          <p className="text-xs text-neutral-500">
+            {t("copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>

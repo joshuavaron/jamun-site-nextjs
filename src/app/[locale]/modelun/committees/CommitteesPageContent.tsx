@@ -3,21 +3,21 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
-import { Section, SectionHeader, Button, TypewriterText } from "@/components/ui";
-import {
-  Globe,
-  ArrowRight,
-  Search,
-  Users,
-  Rocket,
-  GraduationCap,
-  X,
-} from "lucide-react";
+import { Search, Users, X } from "lucide-react";
+import { Container, Heading, PillButton } from "@/components/ui";
+import { fontBody, fontHeading, bodySize } from "@/lib/typography";
+import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
 import { cn } from "@/lib/utils";
-import { CommitteeMeta } from "@/lib/committees";
+import type { CommitteeMeta } from "@/lib/committees";
 import { useTranslations } from "next-intl";
 
-// Shifting topic component for Ad-Hoc committee
+// ────────── Photos — unique to this page ──────────
+const PHOTOS = {
+  hero: "/images/conferences/DSC01567.webp",
+  finalCta: "/images/conferences/DSC01724.webp",
+} as const;
+
+// ────────── ShiftingTopic for Ad-Hoc committees ──────────
 function ShiftingTopic({ topics }: { topics: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -31,29 +31,18 @@ function ShiftingTopic({ topics }: { topics: string[] }) {
 
   if (topics.length === 0) return <span>CLASSIFIED</span>;
 
-  return (
-    <span className="font-mono">{topics[currentIndex]}</span>
-  );
+  return <span className="font-mono">{topics[currentIndex]}</span>;
 }
 
-interface CommitteesPageContentProps {
-  committees: CommitteeMeta[];
-}
+// ────────── Types & helpers ──────────
+type CommitteeType =
+  | "General Assembly"
+  | "Crisis"
+  | "Security Council"
+  | "Specialized Agency"
+  | "Regional Body";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-// Size categories for filtering
+type DifficultyLevel = "Beginner-Friendly" | "Intermediate" | "Advanced";
 type SizeCategory = "Small" | "Medium" | "Large";
 
 function getSizeCategory(delegateCount: number): SizeCategory {
@@ -62,25 +51,31 @@ function getSizeCategory(delegateCount: number): SizeCategory {
   return "Large";
 }
 
-// These helper functions are now defined inside the component to use translations
+function levelStyle(level: string) {
+  if (level === "Beginner-Friendly")
+    return { bg: "#10b9811a", text: "#10b981" };
+  if (level === "Intermediate") return { bg: "#f973161a", text: "#f97316" };
+  return { bg: "#ef44441a", text: "#ef4444" };
+}
 
-// Committee type options
-type CommitteeType =
-  | "General Assembly"
-  | "Crisis"
-  | "Security Council"
-  | "Specialized Agency"
-  | "Regional Body";
+const DIFFICULTY_COLORS: Record<DifficultyLevel, string> = {
+  "Beginner-Friendly": "#10b981",
+  Intermediate: "#f97316",
+  Advanced: "#ef4444",
+};
 
-// Difficulty options
-type DifficultyLevel = "Beginner-Friendly" | "Intermediate" | "Advanced";
+// ────────── Component ──────────
+
+interface CommitteesPageContentProps {
+  committees: CommitteeMeta[];
+}
 
 export default function CommitteesPageContent({
   committees,
 }: CommitteesPageContentProps) {
   const t = useTranslations("CommitteesPage");
 
-  // Helper function to get translated type name
+  // Translation helpers
   const getTypeName = (type: CommitteeType): string => {
     switch (type) {
       case "General Assembly":
@@ -96,7 +91,6 @@ export default function CommitteesPageContent({
     }
   };
 
-  // Helper function to get translated difficulty name
   const getDifficultyName = (difficulty: DifficultyLevel): string => {
     switch (difficulty) {
       case "Beginner-Friendly":
@@ -108,7 +102,6 @@ export default function CommitteesPageContent({
     }
   };
 
-  // Helper function to get translated size label
   const getSizeLabel = (size: SizeCategory): string => {
     switch (size) {
       case "Small":
@@ -120,6 +113,7 @@ export default function CommitteesPageContent({
     }
   };
 
+  // ── Filter state ──
   const [selectedTypes, setSelectedTypes] = useState<Set<CommitteeType>>(
     new Set()
   );
@@ -131,35 +125,25 @@ export default function CommitteesPageContent({
   );
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Toggle functions for multi-select
   const toggleType = (type: CommitteeType) => {
-    const newSet = new Set(selectedTypes);
-    if (newSet.has(type)) {
-      newSet.delete(type);
-    } else {
-      newSet.add(type);
-    }
-    setSelectedTypes(newSet);
+    const next = new Set(selectedTypes);
+    if (next.has(type)) next.delete(type);
+    else next.add(type);
+    setSelectedTypes(next);
   };
 
   const toggleDifficulty = (difficulty: DifficultyLevel) => {
-    const newSet = new Set(selectedDifficulties);
-    if (newSet.has(difficulty)) {
-      newSet.delete(difficulty);
-    } else {
-      newSet.add(difficulty);
-    }
-    setSelectedDifficulties(newSet);
+    const next = new Set(selectedDifficulties);
+    if (next.has(difficulty)) next.delete(difficulty);
+    else next.add(difficulty);
+    setSelectedDifficulties(next);
   };
 
   const toggleSize = (size: SizeCategory) => {
-    const newSet = new Set(selectedSizes);
-    if (newSet.has(size)) {
-      newSet.delete(size);
-    } else {
-      newSet.add(size);
-    }
-    setSelectedSizes(newSet);
+    const next = new Set(selectedSizes);
+    if (next.has(size)) next.delete(size);
+    else next.add(size);
+    setSelectedSizes(next);
   };
 
   const clearAllFilters = () => {
@@ -175,40 +159,37 @@ export default function CommitteesPageContent({
     selectedSizes.size > 0 ||
     searchQuery.length > 0;
 
-  // Build type options with counts
+  // ── Derived data ──
   const allTypeOptions: { name: CommitteeType; count: number }[] = [
     {
-      name: "General Assembly" as CommitteeType,
+      name: "General Assembly",
       count: committees.filter((c) => c.category === "General Assembly").length,
     },
     {
-      name: "Crisis" as CommitteeType,
+      name: "Crisis",
       count: committees.filter((c) => c.category === "Crisis").length,
     },
     {
-      name: "Security Council" as CommitteeType,
+      name: "Security Council",
       count: committees.filter((c) => c.category === "Security Council").length,
     },
     {
-      name: "Specialized Agency" as CommitteeType,
+      name: "Specialized Agency",
       count: committees.filter((c) => c.category === "Specialized Agency")
         .length,
     },
     {
-      name: "Regional Body" as CommitteeType,
+      name: "Regional Body",
       count: committees.filter((c) => c.category === "Regional Body").length,
     },
   ];
   const typeOptions = allTypeOptions.filter((t) => t.count > 0);
 
-  // Difficulty options
   const difficultyOptions: DifficultyLevel[] = [
     "Beginner-Friendly",
     "Intermediate",
     "Advanced",
   ];
-
-  // Size options
   const sizeOptions: SizeCategory[] = ["Small", "Medium", "Large"];
 
   const filteredCommittees = committees.filter((committee) => {
@@ -228,7 +209,6 @@ export default function CommitteesPageContent({
     return matchesType && matchesDifficulty && matchesSize && matchesSearch;
   });
 
-  // Count totals
   const totalDelegates = committees.reduce(
     (sum, c) => sum + c.delegateCount,
     0
@@ -237,377 +217,328 @@ export default function CommitteesPageContent({
     (c) => c.level === "Beginner-Friendly"
   ).length;
 
+  const filterKey = `${Array.from(selectedTypes).join("-")}-${Array.from(selectedDifficulties).join("-")}-${Array.from(selectedSizes).join("-")}-${searchQuery}`;
+
   return (
-    <main>
-      {/* Hero Section with Filters */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-sky-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-sky-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-sky-100/20 to-indigo-100/20 rounded-full blur-3xl -z-10" />
+    <div className="bg-white text-[#0a0a0a]">
+      {/* ───── Hero ───── */}
+      <DiagonalSpread
+        photoSide="right"
+        photoSrc={PHOTOS.hero}
+        photoAlt="JAMUN delegates studying background guides before committee session."
+        photoPriority
+        minHeight="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]"
+        panelClassName="py-16 md:py-0"
+        animation="entry"
+      >
+        <Heading size="hero">
+          {t("heroTitlePart1")}
+          <span className="text-[#397bce]">{t("heroTitlePart2")}</span>
+        </Heading>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20"
+        <p style={fontBody} className={`mt-6 max-w-lg ${bodySize.lead}`}>
+          {t("heroDescription")}
+        </p>
+
+        {/* Search */}
+        <div className="relative max-w-md mt-8">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+          <input
+            type="text"
+            placeholder={t("searchPlaceholder")}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={fontBody}
+            className="w-full pl-12 pr-4 py-3.5 rounded-full border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-[#397bce]/30 focus:border-[#397bce] transition-all text-[15px]"
+          />
+        </div>
+
+        {/* Quick stats */}
+        <div
+          style={fontBody}
+          className="flex flex-wrap gap-x-6 gap-y-2 mt-8 text-sm text-neutral-500"
+        >
+          <span>
+            <strong className="text-[#0a0a0a]">{committees.length}</strong>{" "}
+            {t("statsCommittees")}
+          </span>
+          <span className="text-neutral-300">·</span>
+          <span>
+            <strong className="text-[#0a0a0a]">{totalDelegates}+</strong>{" "}
+            {t("statsDelegateSpots")}
+          </span>
+          <span className="text-neutral-300">·</span>
+          <span>
+            <strong className="text-[#0a0a0a]">{beginnerCount}</strong>{" "}
+            {t("statsBeginnerFriendly")}
+          </span>
+        </div>
+      </DiagonalSpread>
+
+      {/* ───── Filters + Grid ───── */}
+      <section className="bg-white border-t border-black/5">
+        <Container className="py-14 md:py-20">
+          {/* Filter rows */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4 mb-12 md:mb-16"
+          >
+            {/* Type */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                style={fontBody}
+                className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mr-2 shrink-0"
               >
-                <Globe className="w-4 h-4" />
-                {t("badge")}
-              </motion.span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text={t("heroTitlePart1")} delay={0.3} />
-                <TypewriterText
-                  text={t("heroTitlePart2")}
-                  delay={0.3 + 12 * 0.03}
-                  className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent"
-                />
-              </h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
-              >
-                {t("heroDescription")}
-              </motion.p>
-
-              {/* Search Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="relative max-w-md"
-              >
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder={t("searchPlaceholder")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3.5 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-jamun-blue/30 focus:border-jamun-blue transition-all"
-                />
-              </motion.div>
-
-              {/* Quick Stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="flex flex-wrap gap-6 mt-8"
-              >
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Globe className="w-5 h-5 text-jamun-blue" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">
-                      {committees.length}
-                    </strong>{" "}
-                    {t("statsCommittees")}
+                {t("filterType")}
+              </span>
+              {typeOptions.map((type) => (
+                <button
+                  key={type.name}
+                  onClick={() => toggleType(type.name)}
+                  style={fontBody}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                    selectedTypes.has(type.name)
+                      ? "bg-[#397bce] text-white"
+                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                  )}
+                >
+                  {getTypeName(type.name)}
+                  <span className="ml-1.5 text-xs opacity-60">
+                    ({type.count})
                   </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Users className="w-5 h-5 text-sky-600" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{totalDelegates}+</strong>{" "}
-                    {t("statsDelegateSpots")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <GraduationCap className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm">
-                    <strong className="text-gray-900">{beginnerCount}</strong>{" "}
-                    {t("statsBeginnerFriendly")}
-                  </span>
-                </div>
-              </motion.div>
-            </motion.div>
+                </button>
+              ))}
+            </div>
 
-            {/* Filters Panel */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {t("filterTitle")}
-                </h3>
-                {hasActiveFilters && (
+            {/* Difficulty */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                style={fontBody}
+                className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mr-2 shrink-0"
+              >
+                {t("filterDifficulty")}
+              </span>
+              {difficultyOptions.map((difficulty) => {
+                const hex = DIFFICULTY_COLORS[difficulty];
+                return (
                   <button
-                    onClick={clearAllFilters}
-                    className="text-sm text-jamun-blue hover:text-jamun-blue-dark font-medium flex items-center gap-1"
+                    key={difficulty}
+                    onClick={() => toggleDifficulty(difficulty)}
+                    style={{
+                      ...fontBody,
+                      ...(selectedDifficulties.has(difficulty)
+                        ? { backgroundColor: hex, color: "#fff" }
+                        : {}),
+                    }}
+                    className={cn(
+                      "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                      !selectedDifficulties.has(difficulty) &&
+                        "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                    )}
                   >
-                    <X className="w-4 h-4" />
-                    {t("clearAll")}
+                    {getDifficultyName(difficulty)}
                   </button>
-                )}
-              </div>
+                );
+              })}
+            </div>
 
-              <div className="space-y-6">
-                {/* Type Filter */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-3">
-                    {t("filterType")}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {typeOptions.map((type) => (
-                      <button
-                        key={type.name}
-                        onClick={() => toggleType(type.name)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                          selectedTypes.has(type.name)
-                            ? "bg-jamun-blue text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        )}
-                      >
-                        {getTypeName(type.name)}
-                        <span
-                          className={cn(
-                            "ml-1.5 text-xs",
-                            selectedTypes.has(type.name)
-                              ? "text-white/70"
-                              : "text-gray-400"
-                          )}
-                        >
-                          ({type.count})
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+            {/* Size */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                style={fontBody}
+                className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mr-2 shrink-0"
+              >
+                {t("filterSize")}
+              </span>
+              {sizeOptions.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => toggleSize(size)}
+                  style={fontBody}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                    selectedSizes.has(size)
+                      ? "bg-[#0ea5e9] text-white"
+                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                  )}
+                >
+                  {getSizeLabel(size)}
+                </button>
+              ))}
+            </div>
 
-                {/* Difficulty Filter */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                    <GraduationCap className="w-4 h-4" />
-                    {t("filterDifficulty")}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {difficultyOptions.map((difficulty) => (
-                      <button
-                        key={difficulty}
-                        onClick={() => toggleDifficulty(difficulty)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                          selectedDifficulties.has(difficulty)
-                            ? difficulty === "Beginner-Friendly"
-                              ? "bg-green-500 text-white"
-                              : difficulty === "Intermediate"
-                                ? "bg-amber-500 text-white"
-                                : "bg-red-500 text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        )}
-                      >
-                        {getDifficultyName(difficulty)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Size Filter */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                    <Users className="w-4 h-4" />
-                    {t("filterSize")}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {sizeOptions.map((size) => (
-                      <button
-                        key={size}
-                        onClick={() => toggleSize(size)}
-                        className={cn(
-                          "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                          selectedSizes.has(size)
-                            ? "bg-sky-500 text-white"
-                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        )}
-                      >
-                        {getSizeLabel(size)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Results count */}
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <p className="text-sm text-gray-600">
+            {/* Active filter info + clear */}
+            {hasActiveFilters && (
+              <div className="flex items-center gap-4 pt-2">
+                <span style={fontBody} className="text-sm text-neutral-500">
                   {t("showingResults", {
                     count: filteredCommittees.length,
                     total: committees.length,
                   })}
-                </p>
+                </span>
+                <button
+                  onClick={clearAllFilters}
+                  style={fontBody}
+                  className="flex items-center gap-1 text-sm font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  {t("clearAll")}
+                </button>
               </div>
+            )}
+          </motion.div>
+
+          {/* Grid or empty state */}
+          {filteredCommittees.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-100 flex items-center justify-center">
+                <Search className="w-8 h-8 text-neutral-400" />
+              </div>
+              <Heading size="micro" className="mb-2">
+                {t("noResultsTitle")}
+              </Heading>
+              <p
+                style={fontBody}
+                className={`${bodySize.base} mb-6 max-w-md mx-auto`}
+              >
+                {t("noResultsDescription")}
+              </p>
+              <PillButton onClick={clearAllFilters} tone="outline" size="md">
+                {t("clearFilters")}
+              </PillButton>
             </motion.div>
-          </div>
-        </div>
+          ) : (
+            <div
+              key={filterKey}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            >
+              {filteredCommittees.map((committee, i) => {
+                const lvl = levelStyle(committee.level);
+                return (
+                  <motion.div
+                    key={committee.slug}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{ delay: (i % 3) * 0.08, duration: 0.7 }}
+                  >
+                    <Link
+                      href={`/modelun/committees/${committee.slug}`}
+                      className="group block h-full rounded-2xl border border-black/5 p-6 md:p-7 transition-colors hover:border-black/10"
+                    >
+                      <div className="flex items-start justify-between mb-1">
+                        <span
+                          style={{ ...fontHeading, fontWeight: 600 }}
+                          className="text-2xl text-[#0a0a0a]"
+                        >
+                          {committee.abbreviation}
+                        </span>
+                        <span
+                          style={{
+                            ...fontBody,
+                            backgroundColor: lvl.bg,
+                            color: lvl.text,
+                          }}
+                          className="rounded-full px-3 py-1 text-xs font-semibold shrink-0"
+                        >
+                          {getDifficultyName(
+                            committee.level as DifficultyLevel
+                          )}
+                        </span>
+                      </div>
+
+                      <p
+                        style={fontBody}
+                        className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-4"
+                      >
+                        {getTypeName(committee.category as CommitteeType)}
+                      </p>
+
+                      <Heading
+                        size="micro"
+                        className="text-[#397bce] group-hover:text-[#2a5fa3] transition-colors mb-2"
+                      >
+                        {committee.isAdHoc &&
+                        committee.redHerringTopics &&
+                        committee.redHerringTopics.length > 0 ? (
+                          <ShiftingTopic topics={committee.redHerringTopics} />
+                        ) : (
+                          committee.topic
+                        )}
+                      </Heading>
+
+                      <p
+                        style={fontBody}
+                        className={`${bodySize.micro} flex-1 mb-6`}
+                      >
+                        {committee.description}
+                      </p>
+
+                      <div
+                        style={fontBody}
+                        className="pt-4 border-t border-black/5 flex items-center gap-2 text-sm text-neutral-500"
+                      >
+                        <Users className="w-4 h-4" />
+                        <span>
+                          {t("delegates", {
+                            count: committee.delegateCount,
+                          })}
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </Container>
       </section>
 
-      {/* Committees Grid */}
-      <Section background="gray" className="py-16 md:py-20">
-        <SectionHeader
-          eyebrow={t("sectionEyebrow")}
-          title={t("sectionTitle")}
-          subtitle={t("sectionSubtitle")}
-        />
+      {/* ───── Final CTA ───── */}
+      <DiagonalSpread
+        photoSide="left"
+        photoSrc={PHOTOS.finalCta}
+        photoAlt="JAMUN delegates celebrating together after a successful conference."
+        clip="none"
+        minHeight="min-h-[70svh]"
+        panelClassName="py-16 md:py-0"
+      >
+        <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
+          {t("ctaTitle")}
+          <span className="text-[#397bce]">{t("ctaTitleHighlight")}</span>
+        </Heading>
 
-        {filteredCommittees.length === 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-16"
+        <p style={fontBody} className={`${bodySize.lead} mb-9`}>
+          {t("ctaDescription")}
+        </p>
+
+        <div className="flex flex-wrap gap-3">
+          <PillButton href="/register" withArrow>
+            {t("registerButton")}
+          </PillButton>
+          <PillButton href="/modelun" tone="outline">
+            {t("learnMoreButton")}
+          </PillButton>
+        </div>
+
+        <p style={fontBody} className="mt-8 text-sm text-neutral-600">
+          {t("ctaQuestion")}{" "}
+          <a
+            href="mailto:modelun@jamun.org"
+            className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-200 flex items-center justify-center">
-              <Search className="w-8 h-8 text-gray-400" />
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {t("noResultsTitle")}
-            </h3>
-            <p className="text-gray-600 mb-6">
-              {t("noResultsDescription")}
-            </p>
-            <Button onClick={clearAllFilters} variant="outline">
-              {t("clearFilters")}
-            </Button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key={`${Array.from(selectedTypes).join("-")}-${Array.from(selectedDifficulties).join("-")}-${Array.from(selectedSizes).join("-")}-${searchQuery}`}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredCommittees.map((committee) => (
-              <motion.div key={committee.slug} variants={itemVariants}>
-                <Link href={`/modelun/committees/${committee.slug}`}>
-                  <motion.div
-                    whileHover={{ y: -4 }}
-                    className="group bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
-                  >
-                    {/* Header: Abbreviation + Level Badge */}
-                    <div className="flex items-start justify-between mb-1">
-                      <h3 className="text-2xl font-semibold text-gray-900">
-                        {committee.abbreviation}
-                      </h3>
-                      <span
-                        className={cn(
-                          "px-3 py-1 text-xs font-semibold rounded-full flex-shrink-0",
-                          committee.level === "Beginner-Friendly"
-                            ? "bg-green-100 text-green-700"
-                            : committee.level === "Intermediate"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-red-100 text-red-700"
-                        )}
-                      >
-                        {getDifficultyName(committee.level as DifficultyLevel)}
-                      </span>
-                    </div>
-
-                    {/* Category */}
-                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                      {getTypeName(committee.category as CommitteeType)}
-                    </p>
-
-                    {/* Topic */}
-                    <h4 className="text-lg font-semibold text-jamun-blue mb-2 group-hover:text-jamun-blue-dark transition-colors">
-                      {committee.isAdHoc && committee.redHerringTopics && committee.redHerringTopics.length > 0 ? (
-                        <ShiftingTopic topics={committee.redHerringTopics} />
-                      ) : (
-                        committee.topic
-                      )}
-                    </h4>
-
-                    {/* Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed flex-1 mb-6">
-                      {committee.description}
-                    </p>
-
-                    {/* Footer: Delegate count */}
-                    <div className="pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Users className="w-4 h-4" />
-                        <span>{t("delegates", { count: committee.delegateCount })}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </Section>
-
-      {/* CTA Section */}
-      <Section background="white" className="py-16 md:py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-jamun-blue/10 rounded-full">
-            <Rocket className="w-4 h-4 text-jamun-blue" />
-            <span className="text-sm font-medium text-jamun-blue">
-              {t("ctaBadge")}
-            </span>
-          </div>
-
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            {t("ctaTitle")}
-            <span className="bg-gradient-to-r from-jamun-blue via-sky-500 to-jamun-blue bg-clip-text text-transparent">
-              {t("ctaTitleHighlight")}
-            </span>
-          </h2>
-
-          <p className="text-lg text-gray-600 mb-10 leading-relaxed">
-            {t("ctaDescription")}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/register" size="lg" className="group">
-                {t("registerButton")}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href="/modelun" variant="outline" size="lg">
-                {t("learnMoreButton")}
-              </Button>
-            </motion.div>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mt-8 text-sm text-gray-500"
-          >
-            {t("ctaQuestion")}{" "}
-            <a
-              href="mailto:modelun@jamun.org"
-              className="text-jamun-blue hover:text-jamun-blue-dark transition-colors font-medium"
-            >
-              {t("ctaContactLink")}
-            </a>
-          </motion.p>
-        </motion.div>
-      </Section>
-    </main>
+            {t("ctaContactLink")}
+          </a>
+        </p>
+      </DiagonalSpread>
+    </div>
   );
 }

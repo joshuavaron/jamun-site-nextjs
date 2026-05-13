@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("ogDescription"),
       url: `${siteConfig.url}/programs`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -40,6 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: "/programs",
         es: "/es/programs",
+        zh: "/zh/programs",
+        ar: "/ar/programs",
+        hi: "/hi/programs",
+        tr: "/tr/programs",
       },
     },
   };

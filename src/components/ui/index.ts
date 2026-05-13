@@ -1,3 +1,4 @@
+// Existing primitives
 export { Button } from "./Button";
 export type { ButtonProps, ButtonVariant, ButtonSize } from "./Button";
 
@@ -20,3 +21,10 @@ export { AnimatedNumber } from "./AnimatedNumber";
 
 export { SearchDropdown } from "./SearchDropdown";
 export type { SearchResult } from "./SearchDropdown";
+
+// New design-system primitives (post-redesign — May 2026)
+export { Container } from "./Container";
+export { Heading } from "./Heading";
+export { PillButton } from "./PillButton";
+export { ArrowLink } from "./ArrowLink";
+export { IconTile } from "./IconTile";

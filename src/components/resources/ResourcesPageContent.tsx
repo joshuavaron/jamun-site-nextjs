@@ -4,242 +4,109 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Section, Button, TypewriterText } from "@/components/ui";
 import {
   BookOpen,
-  ArrowRight,
   Search,
   FileText,
   Video,
   File,
   Star,
   X,
-  Download,
   Clock,
   Trophy,
   Zap,
   PenTool,
-  Scale,
-  Calculator,
-  Rocket,
   Compass,
-  Lightbulb,
-  CheckCircle,
+  CheckCircle2,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import {
+  Container,
+  Heading,
+  PillButton,
+  ArrowLink,
+  IconTile,
+} from "@/components/ui";
+import { fontBody, bodySize } from "@/lib/typography";
+import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
+import { TestimonialSpread } from "@/components/sections/TestimonialSpread";
+import { SectionIntro } from "@/components/sections/SectionIntro";
+import { cn } from "@/lib/utils";
+import type {
   ResourceMeta,
   ResourceCategory,
   ResourceFormat,
   ProgramConfig,
 } from "@/lib/program-resources";
+import type { LucideIcon } from "lucide-react";
 
+// ────────── Photos — unique to this page ──────────
+const PHOTOS = {
+  hero: "/images/conferences/DSCF9443.webp",
+  ppwPromo: "/images/conferences/DSC01601.webp",
+  testimonial: "/images/conferences/DSC01363.webp",
+  finalCta: "/images/conferences/DSCF9430.webp",
+} as const;
+
+// ────────── Learning paths ──────────
+const LEARNING_PATHS = [
+  {
+    key: "gettingStarted",
+    icon: Compass,
+    color: "#10b981",
+    slugs: ["delegate-handbook", "rules-of-procedure", "public-speaking-tips"],
+  },
+  {
+    key: "writingSkills",
+    icon: PenTool,
+    color: "#f97316",
+    slugs: [
+      "writing-position-papers",
+      "resolution-writing-guide",
+      "ga-position-paper-outline",
+      "draft-resolution-outline",
+    ],
+  },
+  {
+    key: "crisisCommittees",
+    icon: Zap,
+    color: "#ef4444",
+    slugs: [
+      "crisis-guide",
+      "crisis-position-paper-outline",
+      "directive-outline",
+      "example-directive",
+      "example-crisis-note",
+    ],
+  },
+  {
+    key: "levelUp",
+    icon: Trophy,
+    color: "#9333ea",
+    slugs: [
+      "advanced-debate-strategies",
+      "country-research-guide",
+      "ga-guide",
+    ],
+  },
+];
+
+// PATH_TITLES moved inside component for i18n access
+
+// ────────── Format config ──────────
+const FORMAT_CONFIG: Record<
+  ResourceFormat,
+  { icon: LucideIcon; color: string }
+> = {
+  Article: { icon: BookOpen, color: "#10b981" },
+  PDF: { icon: FileText, color: "#397bce" },
+  Video: { icon: Video, color: "#ef4444" },
+  Worksheet: { icon: File, color: "#f97316" },
+};
+
+// ────────── Props ──────────
 interface ResourcesPageContentProps {
   resources: ResourceMeta[];
   programConfig: ProgramConfig;
-}
-
-// Learning paths - always expanded
-const LEARNING_PATHS = {
-  gettingStarted: {
-    title: "Getting Started",
-    description: "New to Model UN? Start here!",
-    icon: Compass,
-    color: "bg-teal-500",
-    borderColor: "border-teal-200",
-    bgColor: "bg-teal-50",
-    slugs: ["delegate-handbook", "rules-of-procedure", "public-speaking-tips"],
-  },
-  writingSkills: {
-    title: "Writing Skills",
-    description: "Position papers & resolutions",
-    icon: PenTool,
-    color: "bg-orange-500",
-    borderColor: "border-orange-200",
-    bgColor: "bg-orange-50",
-    slugs: ["writing-position-papers", "resolution-writing-guide", "ga-position-paper-outline", "draft-resolution-outline"],
-  },
-  crisisCommittees: {
-    title: "Crisis Committees",
-    description: "Fast-paced & strategic",
-    icon: Zap,
-    color: "bg-red-500",
-    borderColor: "border-red-200",
-    bgColor: "bg-red-50",
-    slugs: ["crisis-guide", "crisis-position-paper-outline", "directive-outline", "example-directive", "example-crisis-note"],
-  },
-  levelUp: {
-    title: "Level Up",
-    description: "Advanced strategies",
-    icon: Trophy,
-    color: "bg-purple-500",
-    borderColor: "border-purple-200",
-    bgColor: "bg-purple-50",
-    slugs: ["advanced-debate-strategies", "country-research-guide", "ga-guide"],
-  },
-};
-
-// Format icons and colors
-const FORMAT_CONFIG: Record<ResourceFormat, { icon: typeof FileText; bg: string; text: string }> = {
-  Article: { icon: BookOpen, bg: "bg-emerald-100", text: "text-emerald-700" },
-  PDF: { icon: FileText, bg: "bg-blue-100", text: "text-blue-700" },
-  Video: { icon: Video, bg: "bg-red-100", text: "text-red-700" },
-  Worksheet: { icon: File, bg: "bg-amber-100", text: "text-amber-700" },
-};
-
-// Category colors
-const CATEGORY_COLORS: Record<ResourceCategory, string> = {
-  Skills: "bg-teal-100 text-teal-700 border-teal-200",
-  Background: "bg-blue-100 text-blue-700 border-blue-200",
-  Rules: "bg-purple-100 text-purple-700 border-purple-200",
-  Reference: "bg-amber-100 text-amber-700 border-amber-200",
-  Examples: "bg-pink-100 text-pink-700 border-pink-200",
-  Strategy: "bg-orange-100 text-orange-700 border-orange-200",
-};
-
-// Get the program icon component
-function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
-  switch (iconName) {
-    case "Scale":
-      return <Scale className={className} />;
-    case "Calculator":
-      return <Calculator className={className} />;
-    default:
-      return <BookOpen className={className} />;
-  }
-}
-
-// Resource Card
-function ResourceCard({
-  resource,
-  basePath,
-  t,
-}: {
-  resource: ResourceMeta;
-  basePath: string;
-  t: ReturnType<typeof useTranslations>;
-}) {
-  const formatConfig = FORMAT_CONFIG[resource.format] || FORMAT_CONFIG.Article;
-  const FormatIcon = formatConfig.icon;
-  const categoryColor = CATEGORY_COLORS[resource.category] || CATEGORY_COLORS.Skills;
-
-  const getCategoryName = (category: ResourceCategory): string => {
-    const categoryMap: Record<ResourceCategory, string> = {
-      Skills: t("categorySkills"),
-      Background: t("categoryBackground"),
-      Rules: t("categoryRules"),
-      Reference: t("categoryReference"),
-      Examples: t("categoryExamples"),
-      Strategy: t("categoryStrategy"),
-    };
-    return categoryMap[category] || category;
-  };
-
-  return (
-    <Link
-      href={`${basePath}/${resource.slug}`}
-      className="group block bg-white rounded-xl border-2 border-gray-100 hover:border-jamun-blue/30 hover:shadow-md transition-all duration-200 h-full"
-    >
-      <div className="p-5 h-full flex flex-col">
-        <div className="flex items-start justify-between mb-3">
-          <div className={cn("w-10 h-10 rounded-lg flex items-center justify-center", formatConfig.bg)}>
-            <FormatIcon className={cn("w-5 h-5", formatConfig.text)} />
-          </div>
-          {resource.featured && (
-            <div className="flex items-center gap-1 text-amber-600">
-              <Star className="w-4 h-4 fill-current" />
-              <span className="text-xs font-medium">{t("featured")}</span>
-            </div>
-          )}
-        </div>
-
-        <span className={cn("inline-flex self-start px-2 py-0.5 text-xs font-medium rounded border mb-2", categoryColor)}>
-          {getCategoryName(resource.category)}
-        </span>
-
-        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-jamun-blue transition-colors line-clamp-2">
-          {resource.title}
-        </h3>
-
-        <p className="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-2 mb-3">
-          {resource.description}
-        </p>
-
-        <div className="flex items-center gap-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
-          {resource.duration && (
-            <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              {resource.duration}
-            </span>
-          )}
-          {resource.pages && (
-            <span className="flex items-center gap-1">
-              <FileText className="w-3.5 h-3.5" />
-              {resource.pages} {t("pages")}
-            </span>
-          )}
-          {resource.downloadUrl && (
-            <span className="flex items-center gap-1 text-jamun-blue">
-              <Download className="w-3.5 h-3.5" />
-            </span>
-          )}
-          <span className="ml-auto flex items-center gap-1 text-jamun-blue font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-            Read <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-// Learning Path Card - always expanded, no toggle
-function LearningPathCard({
-  path,
-  resources,
-  basePath,
-}: {
-  path: typeof LEARNING_PATHS.gettingStarted;
-  resources: ResourceMeta[];
-  basePath: string;
-}) {
-  const PathIcon = path.icon;
-  const pathResources = resources.filter(r => path.slugs.includes(r.slug));
-
-  if (pathResources.length === 0) return null;
-
-  return (
-    <div className={cn("bg-white rounded-xl border-2 overflow-hidden", path.borderColor)}>
-      {/* Header */}
-      <div className={cn("p-4 flex items-center gap-4", path.bgColor)}>
-        <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-white", path.color)}>
-          <PathIcon className="w-6 h-6" />
-        </div>
-        <div>
-          <h3 className="font-semibold text-gray-900">{path.title}</h3>
-          <p className="text-sm text-gray-600">{path.description}</p>
-        </div>
-      </div>
-
-      {/* Resources - always visible */}
-      <div className="p-4 space-y-2">
-        {pathResources.map((resource, index) => (
-          <Link
-            key={resource.slug}
-            href={`${basePath}/${resource.slug}`}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group border border-transparent hover:border-gray-200"
-          >
-            <span className={cn("w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0", path.color)}>
-              {index + 1}
-            </span>
-            <span className="flex-1 text-sm font-medium text-gray-700 group-hover:text-gray-900">
-              {resource.title}
-            </span>
-            <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0" />
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export default function ResourcesPageContent({
@@ -247,36 +114,69 @@ export default function ResourcesPageContent({
   programConfig,
 }: ResourcesPageContentProps) {
   const t = useTranslations(programConfig.translationNamespace);
+
+  const PATH_TITLES: Record<string, { title: string; description: string }> = {
+    gettingStarted: {
+      title: t("pathGettingStartedTitle"),
+      description: t("pathGettingStartedDescription"),
+    },
+    writingSkills: {
+      title: t("pathWritingSkillsTitle"),
+      description: t("pathWritingSkillsDescription"),
+    },
+    crisisCommittees: {
+      title: t("pathCrisisCommitteesTitle"),
+      description: t("pathCrisisCommitteesDescription"),
+    },
+    levelUp: {
+      title: t("pathLevelUpTitle"),
+      description: t("pathLevelUpDescription"),
+    },
+  };
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<ResourceCategory | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<ResourceCategory | null>(null);
 
-  const { basePath, iconName } = programConfig;
+  const { basePath } = programConfig;
 
-  // Get category counts
+  // Category counts
   const categoryOptions = useMemo(() => {
     const counts: Record<ResourceCategory, number> = {
-      Skills: 0, Background: 0, Rules: 0, Reference: 0, Examples: 0, Strategy: 0,
+      Skills: 0,
+      Background: 0,
+      Rules: 0,
+      Reference: 0,
+      Examples: 0,
+      Strategy: 0,
     };
-    resources.forEach(r => counts[r.category]++);
+    resources.forEach((r) => counts[r.category]++);
     return Object.entries(counts)
       .filter(([, count]) => count > 0)
       .map(([name, count]) => ({ name: name as ResourceCategory, count }));
   }, [resources]);
 
-  // Filter resources
+  // Filtered resources
   const filteredResources = useMemo(() => {
     return resources.filter((resource) => {
-      const matchesCategory = !selectedCategory || resource.category === selectedCategory;
+      const matchesCategory =
+        !selectedCategory || resource.category === selectedCategory;
       const matchesSearch =
         searchQuery === "" ||
         resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        resource.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+        resource.description
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        resource.tags?.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase())
+        );
       return matchesCategory && matchesSearch;
     });
   }, [resources, selectedCategory, searchQuery]);
 
-  const hasActiveFilters = selectedCategory !== null || searchQuery.length > 0;
+  const hasActiveFilters =
+    selectedCategory !== null || searchQuery.length > 0;
+  const featuredCount = resources.filter((r) => r.featured).length;
 
   const clearFilters = () => {
     setSelectedCategory(null);
@@ -295,339 +195,490 @@ export default function ResourcesPageContent({
     return categoryMap[category] || category;
   };
 
-  // Empty state
+  // Empty state for programs with no resources yet
   if (resources.length === 0) {
     return (
-      <main>
-        <Section background="white" className="py-24">
-          <div className="text-center max-w-md mx-auto">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gray-100 flex items-center justify-center">
-              <ProgramIcon iconName={iconName} className="w-10 h-10 text-gray-400" />
+      <div className="bg-white text-[#0a0a0a]">
+        <section className="bg-white">
+          <Container className="py-24">
+            <div className="text-center max-w-md mx-auto">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-100 flex items-center justify-center">
+                <Search className="w-8 h-8 text-neutral-400" />
+              </div>
+              <Heading size="micro" className="mb-2">
+                {t("comingSoonTitle")}
+              </Heading>
+              <p style={fontBody} className={bodySize.base}>
+                {t("comingSoonDescription")}
+              </p>
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-3">
-              {t("comingSoonTitle")}
-            </h1>
-            <p className="text-gray-600">
-              {t("comingSoonDescription")}
-            </p>
-          </div>
-        </Section>
-      </main>
+          </Container>
+        </section>
+      </div>
     );
   }
 
   return (
-    <main>
-      {/* Hero Section - matching site style */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-emerald-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-emerald-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-emerald-400/10 to-jamun-blue/10 rounded-full blur-3xl -z-10" />
+    <div className="bg-white text-[#0a0a0a]">
+      {/* ───── Hero ───── */}
+      <DiagonalSpread
+        photoSide="left"
+        photoSrc={PHOTOS.hero}
+        photoAlt={t("heroPhotoAlt")}
+        photoPriority
+        photoClassName="min-h-[60svh]"
+        minHeight="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]"
+        panelClassName="py-16 md:py-0"
+        animation="entry"
+      >
+        <Heading size="hero">
+          {t("heroTitle")}
+          <span className="text-[#f97316]">{t("heroTitleHighlight")}</span>
+        </Heading>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+        <p style={fontBody} className={`mt-6 max-w-lg ${bodySize.lead}`}>
+          {t("heroDescription")}
+        </p>
+
+        {/* Search */}
+        <div className="relative max-w-md mt-8">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+          <input
+            type="text"
+            placeholder={t("searchPlaceholder")}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={fontBody}
+            className="w-full pl-12 pr-4 py-3.5 rounded-full border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-[#397bce]/30 focus:border-[#397bce] transition-all text-[15px]"
+          />
+        </div>
+
+        {/* Quick stats */}
+        <div
+          style={fontBody}
+          className="flex flex-wrap gap-x-6 gap-y-2 mt-8 text-sm text-neutral-500"
+        >
+          <span>
+            <strong className="text-[#0a0a0a]">{resources.length}</strong>{" "}
+            {t("resources")}
+          </span>
+          <span className="text-neutral-300">&middot;</span>
+          <span>
+            <strong className="text-[#0a0a0a]">{featuredCount}</strong>{" "}
+            {t("featured")}
+          </span>
+          <span className="text-neutral-300">&middot;</span>
+          <span>
+            <strong className="text-[#10b981]">100%</strong> {t("free")}
+          </span>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <PillButton href="#resources" withArrow>
+            {t("sectionTitle")}
+          </PillButton>
+          {programConfig.type === "modelun" && (
+            <PillButton
+              href={`${basePath}/position-paper-writer`}
+              tone="outline"
             >
-              <motion.span
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-emerald-700 bg-emerald-100 rounded-full border border-emerald-200"
-              >
-                <BookOpen className="w-4 h-4" />
-                FREE Delegate Resources
-              </motion.span>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-                <TypewriterText text="Everything You Need to " delay={0.3} />
-                <TypewriterText
-                  text="Succeed"
-                  delay={0.3 + 22 * 0.03}
-                  className="bg-gradient-to-r from-emerald-600 via-jamun-blue to-emerald-600 bg-clip-text text-transparent"
-                />
-              </h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed"
-              >
-                Guides, templates, and examples created by experienced delegates. Whether you&apos;re preparing for your first conference or aiming for Best Delegate, we&apos;ve got you covered.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <Button href="#resources" size="lg" className="group">
-                  Browse Resources
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-                <Button href="/modelun/committees" variant="outline" size="lg">
-                  Explore Committees
-                </Button>
-              </motion.div>
-
-              {/* Quick stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.6 }}
-                className="flex flex-wrap gap-6 mt-8"
-              >
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm text-gray-600"><strong className="text-gray-900">{resources.length}</strong> Resources</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm text-gray-600"><strong className="text-gray-900">{resources.filter(r => r.featured).length}</strong> Must-Reads</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm text-gray-600"><strong className="text-emerald-600">100%</strong> Free</span>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Right side - Position Paper Writer Tool */}
-            {programConfig.type === "modelun" && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
-                <Link
-                  href={`${basePath}/position-paper-writer`}
-                  className="block bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 rounded-2xl p-8 text-white hover:shadow-2xl transition-shadow group relative overflow-hidden"
-                >
-                  {/* Decorative elements */}
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
-                  <div className="relative">
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="text-xs font-medium bg-white/20 px-2.5 py-1 rounded-full">NEW TOOL</span>
-                      <span className="text-xs font-medium bg-emerald-500/80 px-2.5 py-1 rounded-full">FREE</span>
-                    </div>
-
-                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center mb-5">
-                      <PenTool className="w-7 h-7" />
-                    </div>
-
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Position Paper Writer</h2>
-
-                    <p className="text-white/80 text-base mb-6 leading-relaxed">
-                      Write your position paper step-by-step with our guided tool. Save drafts, get formatting help, and export when you&apos;re done.
-                    </p>
-
-                    <div className="space-y-2 mb-6">
-                      <div className="flex items-center gap-2 text-sm text-white/90">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        Step-by-step guidance
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-white/90">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        Save multiple drafts
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-white/90">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        Export to PDF
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2 text-white font-semibold">
-                      Start Writing
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Learning Paths Section */}
-      <Section background="gray" className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-jamun-blue/10 flex items-center justify-center">
-              <Compass className="w-6 h-6 text-jamun-blue" />
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">Learning Paths</h2>
-              <p className="text-gray-600">Follow a guided journey based on your goals</p>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {Object.entries(LEARNING_PATHS).map(([key, path]) => (
-              <LearningPathCard
-                key={key}
-                path={path}
-                resources={resources}
-                basePath={basePath}
-              />
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* All Resources Section */}
-      <Section background="white" className="py-16 md:py-20" id="resources">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
-              <Lightbulb className="w-6 h-6 text-amber-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">All Resources</h2>
-              <p className="text-gray-600">Browse our complete library of {resources.length} resources</p>
-            </div>
-          </div>
-
-          {/* Search and filters */}
-          <div className="bg-warm-gray rounded-xl p-4 md:p-6 mb-8">
-            <div className="relative mb-4">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder={t("searchPlaceholder")}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-jamun-blue/30 focus:border-jamun-blue transition-all"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setSelectedCategory(null)}
-                className={cn(
-                  "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  selectedCategory === null
-                    ? "bg-jamun-blue text-white"
-                    : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300"
-                )}
-              >
-                All ({resources.length})
-              </button>
-              {categoryOptions.map((category) => (
-                <button
-                  type="button"
-                  key={category.name}
-                  onClick={() => setSelectedCategory(selectedCategory === category.name ? null : category.name)}
-                  className={cn(
-                    "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                    selectedCategory === category.name
-                      ? "bg-jamun-blue text-white"
-                      : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300"
-                  )}
-                >
-                  {getCategoryName(category.name)} ({category.count})
-                </button>
-              ))}
-            </div>
-
-            {hasActiveFilters && (
-              <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between">
-                <p className="text-sm text-gray-600">
-                  Showing {filteredResources.length} of {resources.length} resources
-                </p>
-                <button
-                  type="button"
-                  onClick={clearFilters}
-                  className="text-sm text-jamun-blue font-medium hover:text-jamun-blue/80 flex items-center gap-1"
-                >
-                  <X className="w-4 h-4" />
-                  Clear filters
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Resources grid */}
-          {filteredResources.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                <Search className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {t("noResultsTitle")}
-              </h3>
-              <p className="text-gray-600 mb-4">
-                {t("noResultsDescription")}
-              </p>
-              <Button type="button" onClick={clearFilters} variant="outline">
-                {t("clearFilters")}
-              </Button>
-            </div>
-          ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {filteredResources.map((resource) => (
-                <ResourceCard
-                  key={resource.slug}
-                  resource={resource}
-                  basePath={basePath}
-                  t={t}
-                />
-              ))}
-            </div>
+              {t("positionPaperWriter")}
+            </PillButton>
           )}
         </div>
-      </Section>
+      </DiagonalSpread>
 
-      {/* CTA Section */}
-      <Section background="gray" className="py-16 md:py-20">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+      {/* ───── Learning Paths ───── */}
+      <section className="bg-white">
+        <Container className="py-14 md:py-20">
+          <SectionIntro
+            title={t("learningPathsTitle")}
+            subtitle={t("learningPathsSubtitle")}
+            spacing="loose"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+            {LEARNING_PATHS.map((path, i) => {
+              const info = PATH_TITLES[path.key];
+              const pathResources = resources.filter((r) =>
+                path.slugs.includes(r.slug)
+              );
+              if (pathResources.length === 0) return null;
+
+              return (
+                <motion.div
+                  key={path.key}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ delay: i * 0.08, duration: 0.7 }}
+                  className="rounded-2xl border border-black/5 p-6 md:p-8 flex flex-col"
+                >
+                  <IconTile
+                    icon={path.icon}
+                    color={path.color}
+                    size="md"
+                    className="mb-5"
+                  />
+                  <Heading size="cardLg" className="mb-2">
+                    {info.title}
+                  </Heading>
+                  <p
+                    style={fontBody}
+                    className={`${bodySize.micro} mb-5`}
+                  >
+                    {info.description}
+                  </p>
+
+                  <div className="space-y-1.5 mb-6 flex-1">
+                    {pathResources.map((resource, idx) => (
+                      <Link
+                        key={resource.slug}
+                        href={`${basePath}/${resource.slug}`}
+                        className="group flex items-center gap-3 p-2.5 rounded-lg hover:bg-neutral-50 transition-colors"
+                      >
+                        <span
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold text-white shrink-0"
+                          style={{ backgroundColor: path.color }}
+                        >
+                          {idx + 1}
+                        </span>
+                        <span
+                          style={fontBody}
+                          className="text-sm font-medium text-neutral-700 group-hover:text-[#0a0a0a] transition-colors"
+                        >
+                          {resource.title}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+
+                  <ArrowLink
+                    href="#resources"
+                    color={path.color}
+                    className="mt-auto self-start"
+                  >
+                    {t("viewAllResources")}
+                  </ArrowLink>
+                </motion.div>
+              );
+            })}
+          </div>
+        </Container>
+      </section>
+
+      {/* ───── Position Paper Writer Promo (Model UN only) ───── */}
+      {programConfig.type === "modelun" && (
+        <DiagonalSpread
+          photoSide="right"
+          photoSrc={PHOTOS.ppwPromo}
+          photoAlt={t("ppwPhotoAlt")}
+          clip="none"
+          panelBg="#9333ea"
+          panelText="#ffffff"
+        >
+          <span
+            style={{
+              ...fontBody,
+              backgroundColor: "rgba(255,255,255,0.18)",
+            }}
+            className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[13px] text-white mb-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-sm font-medium text-jamun-blue bg-jamun-blue/10 rounded-full border border-jamun-blue/20">
-              <Rocket className="w-4 h-4" />
-              Ready to compete?
-            </div>
+            <PenTool className="w-3.5 h-3.5" />
+            {t("newTool")}
+          </span>
 
-            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-              Put Your Knowledge to the{" "}
-              <span className="bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent">
-                Test
+          <Heading size="section" className="text-white mb-4">
+            {t("positionPaperWriter")}
+          </Heading>
+
+          <p
+            style={fontBody}
+            className={`${bodySize.lead} text-white/90 mb-8`}
+          >
+            {t("ppwDescription")}
+          </p>
+
+          <div className="space-y-2.5 mb-8">
+            {[
+              t("ppwFeature1"),
+              t("ppwFeature2"),
+              t("ppwFeature3"),
+            ].map((feature) => (
+              <div
+                key={feature}
+                className="flex items-center gap-2.5 text-sm text-white/90"
+              >
+                <CheckCircle2 className="w-4 h-4 text-white/70 shrink-0" />
+                <span style={fontBody}>{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          <PillButton
+            href={`${basePath}/position-paper-writer`}
+            tone="custom"
+            color="#ffffff"
+            className="!text-[#0a0a0a]"
+            withArrow
+          >
+            {t("startWriting")}
+          </PillButton>
+        </DiagonalSpread>
+      )}
+
+      {/* ───── All Resources ───── */}
+      <section className="bg-white border-t border-black/5" id="resources">
+        <Container className="py-14 md:py-20">
+          <SectionIntro
+            title={t("browseAllTitle")}
+            subtitle={t("browseAllSubtitle", {
+              count: resources.length,
+            })}
+          />
+
+          {/* Filter bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="space-y-4 mb-12 md:mb-16"
+          >
+            {/* Category row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                style={fontBody}
+                className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500 mr-2 shrink-0"
+              >
+                {t("filterCategory")}
               </span>
-            </h2>
-
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              You&apos;ve got the resources. Now join a conference and experience the excitement of Model UN firsthand!
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/register" size="lg" className="group">
-                Register for a Conference
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button href="/modelun/committees" variant="outline" size="lg">
-                Explore Committees
-              </Button>
+              <button
+                onClick={() => setSelectedCategory(null)}
+                style={fontBody}
+                className={cn(
+                  "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                  selectedCategory === null
+                    ? "bg-[#397bce] text-white"
+                    : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                )}
+              >
+                {t("all")}
+                <span className="ml-1.5 text-xs opacity-60">
+                  ({resources.length})
+                </span>
+              </button>
+              {categoryOptions.map((cat) => (
+                <button
+                  key={cat.name}
+                  onClick={() =>
+                    setSelectedCategory(
+                      selectedCategory === cat.name ? null : cat.name
+                    )
+                  }
+                  style={fontBody}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                    selectedCategory === cat.name
+                      ? "bg-[#397bce] text-white"
+                      : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+                  )}
+                >
+                  {getCategoryName(cat.name)}
+                  <span className="ml-1.5 text-xs opacity-60">
+                    ({cat.count})
+                  </span>
+                </button>
+              ))}
             </div>
 
-            <p className="mt-8 text-sm text-gray-500">
-              Questions? Email us at{" "}
-              <a href={`mailto:${programConfig.contactEmail}`} className="text-jamun-blue hover:underline font-medium">
-                {programConfig.contactEmail}
-              </a>
-            </p>
+            {/* Active filter info + clear */}
+            {hasActiveFilters && (
+              <div className="flex items-center gap-4 pt-2">
+                <span style={fontBody} className="text-sm text-neutral-500">
+                  {t("showingResults", {
+                    count: filteredResources.length,
+                    total: resources.length,
+                  })}
+                </span>
+                <button
+                  onClick={clearFilters}
+                  style={fontBody}
+                  className="flex items-center gap-1 text-sm font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  {t("clearAll")}
+                </button>
+              </div>
+            )}
           </motion.div>
+
+          {/* Grid or empty state */}
+          {filteredResources.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
+            >
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-neutral-100 flex items-center justify-center">
+                <Search className="w-8 h-8 text-neutral-400" />
+              </div>
+              <Heading size="micro" className="mb-2">
+                {t("noResultsTitle")}
+              </Heading>
+              <p
+                style={fontBody}
+                className={`${bodySize.base} mb-6 max-w-md mx-auto`}
+              >
+                {t("noResultsDescription")}
+              </p>
+              <PillButton onClick={clearFilters} tone="outline" size="md">
+                {t("clearFilters")}
+              </PillButton>
+            </motion.div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {filteredResources.map((resource, i) => {
+                const fmt =
+                  FORMAT_CONFIG[resource.format] || FORMAT_CONFIG.Article;
+                return (
+                  <motion.div
+                    key={resource.slug}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{
+                      delay: (i % 3) * 0.08,
+                      duration: 0.7,
+                    }}
+                  >
+                    <Link
+                      href={`${basePath}/${resource.slug}`}
+                      className="group block h-full rounded-2xl border border-black/5 p-6 md:p-7 transition-colors hover:border-black/10"
+                    >
+                      {/* Top row: format icon + featured badge */}
+                      <div className="flex items-start justify-between mb-4">
+                        <IconTile
+                          icon={fmt.icon}
+                          color={fmt.color}
+                          size="sm"
+                        />
+                        {resource.featured && (
+                          <span
+                            style={{
+                              ...fontBody,
+                              backgroundColor: "#f973161a",
+                              color: "#f97316",
+                            }}
+                            className="rounded-full px-3 py-1 text-xs font-semibold shrink-0 flex items-center gap-1"
+                          >
+                            <Star className="w-3 h-3 fill-current" />
+                            {t("featured")}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Category label */}
+                      <p
+                        style={fontBody}
+                        className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-3"
+                      >
+                        {getCategoryName(resource.category)}
+                      </p>
+
+                      {/* Title */}
+                      <Heading
+                        size="micro"
+                        className="text-[#397bce] group-hover:text-[#2a5fa3] transition-colors mb-2"
+                      >
+                        {resource.title}
+                      </Heading>
+
+                      {/* Description */}
+                      <p
+                        style={fontBody}
+                        className={`${bodySize.micro} flex-1 mb-6 line-clamp-2`}
+                      >
+                        {resource.description}
+                      </p>
+
+                      {/* Footer metadata */}
+                      <div
+                        style={fontBody}
+                        className="pt-4 border-t border-black/5 flex items-center gap-3 text-sm text-neutral-500"
+                      >
+                        {resource.duration && (
+                          <span className="flex items-center gap-1.5">
+                            <Clock className="w-4 h-4" />
+                            {resource.duration}
+                          </span>
+                        )}
+                        {resource.pages && (
+                          <span className="flex items-center gap-1.5">
+                            <FileText className="w-4 h-4" />
+                            {resource.pages} {t("pages")}
+                          </span>
+                        )}
+                        <span
+                          className="ml-auto flex items-center gap-1.5 text-[#397bce] font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          {t("readMore")} →
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </Container>
+      </section>
+
+      {/* ───── Testimonial ───── */}
+      <TestimonialSpread
+        bg="#397bce"
+        photoSide="right"
+        photoSrc={PHOTOS.testimonial}
+        photoAlt={t("testimonialPhotoAlt")}
+        heading={t("testimonialHeading")}
+        quote={t("testimonialQuote")}
+        attribution={t("testimonialAttribution")}
+      />
+
+      {/* ───── Final CTA ───── */}
+      <DiagonalSpread
+        photoSide="right"
+        photoSrc={PHOTOS.finalCta}
+        photoAlt={t("ctaPhotoAlt")}
+        clip="none"
+        minHeight="min-h-[70svh]"
+        panelClassName="py-16 md:py-0"
+      >
+        <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
+          {t("ctaTitle")}
+          <span className="text-[#f97316]">{t("ctaTitleHighlight")}</span>
+        </Heading>
+        <p style={fontBody} className={`${bodySize.lead} mb-9`}>
+          {t("ctaDescription")}
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <PillButton href={t("primaryButtonHref")} withArrow>
+            {t("primaryButton")}
+          </PillButton>
+          <PillButton href={t("secondaryButtonHref")} tone="outline">
+            {t("secondaryButton")}
+          </PillButton>
         </div>
-      </Section>
-    </main>
+        <p style={fontBody} className="mt-8 text-sm text-neutral-600">
+          {t("questionsText")}{" "}
+          <a
+            href={`mailto:${programConfig.contactEmail}`}
+            className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
+          >
+            {programConfig.contactEmail}
+          </a>
+        </p>
+      </DiagonalSpread>
+    </div>
   );
 }

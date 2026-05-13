@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
 import CommitteesPageContent from "./CommitteesPageContent";
 import { siteConfig, defaultOgImage } from "@/config/site";
-import { routing } from "@/i18n/routing";
+import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("ogDescription"),
       url: `${siteConfig.url}/modelun/committees`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -43,6 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: "/modelun/committees",
         es: "/es/modelun/committees",
+        zh: "/zh/modelun/committees",
+        ar: "/ar/modelun/committees",
+        hi: "/hi/modelun/committees",
+        tr: "/tr/modelun/committees",
       },
     },
   };

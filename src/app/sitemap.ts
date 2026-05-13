@@ -32,10 +32,8 @@ const STATIC_PAGES = [
   { path: "/mocktrial/resources", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/mathletes", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/mathletes/resources", priority: 0.6, changeFrequency: "monthly" as const },
-  { path: "/leaderboards", priority: 0.6, changeFrequency: "weekly" as const },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
-  { path: "/will", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/modelun/resources/position-paper-writer", priority: 0.7, changeFrequency: "monthly" as const },
 ];
 

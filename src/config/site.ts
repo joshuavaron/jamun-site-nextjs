@@ -84,7 +84,6 @@ export const siteConfig = {
       { label: "Model UN", href: "/modelun" },
       { label: "Mock Trial", href: "/mocktrial" },
       { label: "Mathletes", href: "/mathletes" },
-      { label: "Leaderboards", href: "/leaderboards" },
     ],
     organization: [
       { label: "About Us", href: "/about" },
@@ -93,7 +92,6 @@ export const siteConfig = {
     ],
     resources: [
       { label: "Blog", href: "/blog" },
-      { label: "School Referral", href: "/referral" },
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
     ],
