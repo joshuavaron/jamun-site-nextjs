@@ -10,6 +10,7 @@ import {
 } from "@/lib/program-resources";
 import { ResourcePageContent } from "@/components/resources";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 
 interface ResourcePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -60,7 +61,7 @@ export async function generateMetadata({
       title: resource.title,
       description: resource.description,
       type: "article",
-      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {

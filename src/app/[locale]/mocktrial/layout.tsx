@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 import {
   generateProgramSchema,
   generateBreadcrumbSchema,
@@ -43,7 +44,7 @@ export async function generateMetadata({
       description: t("ogDescription"),
       url: `${siteConfig.url}/mocktrial`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -51,6 +52,10 @@ export async function generateMetadata({
       languages: {
         en: "/mocktrial",
         es: "/es/mocktrial",
+        zh: "/zh/mocktrial",
+        ar: "/ar/mocktrial",
+        hi: "/hi/mocktrial",
+        tr: "/tr/mocktrial",
       },
     },
   };

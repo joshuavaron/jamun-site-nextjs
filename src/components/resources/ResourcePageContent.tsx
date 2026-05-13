@@ -9,7 +9,6 @@ import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import {
   ArrowLeft,
-  ArrowRight,
   BookOpen,
   FileText,
   Video,
@@ -21,69 +20,71 @@ import {
   Calendar,
   User,
   Printer,
-  Scale,
-  Calculator,
 } from "lucide-react";
-import { Section, Button } from "@/components/ui";
+import {
+  Container,
+  Heading,
+  PillButton,
+  IconTile,
+} from "@/components/ui";
+import { fontBody, bodySize } from "@/lib/typography";
+import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
+import { SectionIntro } from "@/components/sections/SectionIntro";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Resource, ResourceMeta, ResourceFormat, ResourceCategory, ProgramConfig } from "@/lib/program-resources";
+import {
+  Resource,
+  ResourceMeta,
+  ResourceFormat,
+  ResourceCategory,
+  ProgramConfig,
+} from "@/lib/program-resources";
 import { cn } from "@/lib/utils";
 import ResourceNavSidebar from "./ResourceNavSidebar";
+import type { LucideIcon } from "lucide-react";
 
+// ────────── Photos — final CTA ──────────
+const PHOTOS = {
+  finalCta: "/images/conferences/DSC01640.webp",
+} as const;
+
+// ────────── Format config ──────────
+const FORMAT_CONFIG: Record<
+  ResourceFormat,
+  { icon: LucideIcon; color: string }
+> = {
+  Article: { icon: BookOpen, color: "#10b981" },
+  PDF: { icon: FileText, color: "#397bce" },
+  Video: { icon: Video, color: "#ef4444" },
+  Worksheet: { icon: File, color: "#f97316" },
+};
+
+// ────────── Category colors (raw hex) ──────────
+const CATEGORY_COLORS: Record<ResourceCategory, string> = {
+  Skills: "#397bce",
+  Background: "#9333ea",
+  Rules: "#f97316",
+  Reference: "#10b981",
+  Examples: "#0ea5e9",
+  Strategy: "#ef4444",
+};
+
+// ────────── Program accent colors ──────────
+function getProgramAccent(type: ProgramConfig["type"]): string {
+  switch (type) {
+    case "mocktrial":
+      return "#9333ea";
+    case "mathletes":
+      return "#10b981";
+    default:
+      return "#397bce";
+  }
+}
+
+// ────────── Props ──────────
 interface ResourcePageContentProps {
   resource: Resource;
   relatedResources: ResourceMeta[];
   programConfig: ProgramConfig;
-}
-
-// Format icons - returns JSX element
-function renderFormatIcon(format: ResourceFormat, className?: string) {
-  switch (format) {
-    case "Video":
-      return <Video className={className} />;
-    case "PDF":
-      return <FileText className={className} />;
-    case "Worksheet":
-      return <File className={className} />;
-    default:
-      return <BookOpen className={className} />;
-  }
-}
-
-// Format colors
-function getFormatColor(format: ResourceFormat) {
-  switch (format) {
-    case "Video":
-      return { bg: "bg-red-100", text: "text-red-700", border: "border-red-200" };
-    case "PDF":
-      return { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" };
-    case "Worksheet":
-      return { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" };
-    default:
-      return { bg: "bg-gray-100", text: "text-gray-700", border: "border-gray-200" };
-  }
-}
-
-// Category colors (topic-based categories per CONTENT-CREATION.md)
-const categoryColors: Record<ResourceCategory, { bg: string; text: string; border: string }> = {
-  Skills: { bg: "bg-blue-100", text: "text-blue-700", border: "border-blue-200" },
-  Background: { bg: "bg-purple-100", text: "text-purple-700", border: "border-purple-200" },
-  Rules: { bg: "bg-amber-100", text: "text-amber-700", border: "border-amber-200" },
-  Reference: { bg: "bg-green-100", text: "text-green-700", border: "border-green-200" },
-  Examples: { bg: "bg-indigo-100", text: "text-indigo-700", border: "border-indigo-200" },
-  Strategy: { bg: "bg-red-100", text: "text-red-700", border: "border-red-200" },
-};
-
-// Get the program icon component
-function ProgramIcon({ iconName, className }: { iconName: ProgramConfig["iconName"]; className?: string }) {
-  switch (iconName) {
-    case "Scale":
-      return <Scale className={className} />;
-    case "Calculator":
-      return <Calculator className={className} />;
-    default:
-      return <BookOpen className={className} />;
-  }
 }
 
 export default function ResourcePageContent({
@@ -92,13 +93,16 @@ export default function ResourcePageContent({
   programConfig,
 }: ResourcePageContentProps) {
   const t = useTranslations(programConfig.detailTranslationNamespace);
-  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(
+    null,
+  );
 
-  const { colors, basePath, iconName } = programConfig;
-  const formatColor = getFormatColor(resource.format);
-  const categoryColor = categoryColors[resource.category] || categoryColors.Skills;
+  const { basePath } = programConfig;
+  const accent = getProgramAccent(programConfig.type);
+  const fmt = FORMAT_CONFIG[resource.format] || FORMAT_CONFIG.Article;
+  const categoryColor =
+    CATEGORY_COLORS[resource.category] || CATEGORY_COLORS.Skills;
 
-  // Get translated category name
   const getCategoryName = (category: string): string => {
     const categoryMap: Record<string, string> = {
       Skills: t("categorySkills"),
@@ -127,77 +131,26 @@ export default function ResourcePageContent({
     window.print();
   };
 
-  // Dynamic classes based on program colors
-  const getGradientTextClasses = () => cn(
-    "bg-gradient-to-r bg-clip-text text-transparent",
-    programConfig.type === "mocktrial"
-      ? "from-purple-600 via-violet-600 to-purple-600"
-      : "from-emerald-600 via-jamun-blue to-emerald-600"
-  );
-
-  const getDownloadButtonClasses = () => cn(
-    "inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full text-white transition-colors",
-    colors.primaryBg,
-    `hover:${colors.primaryBg.replace("600", "700")}`
-  );
-
-  const getProseClasses = () => cn(
-    "prose prose-lg prose-gray max-w-none",
-    "prose-headings:text-gray-900 prose-headings:font-semibold",
-    "prose-h1:text-3xl prose-h1:md:text-4xl prose-h1:mb-6 prose-h1:mt-10",
-    "prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b prose-h2:border-gray-200",
-    "prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mb-3 prose-h3:mt-8",
-    "prose-h4:text-lg prose-h4:md:text-xl prose-h4:mb-2 prose-h4:mt-6",
-    "prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-4",
-    "prose-strong:text-gray-900 prose-strong:font-semibold",
-    "prose-ul:text-gray-600 prose-ul:my-4",
-    "prose-ol:text-gray-600 prose-ol:my-4",
-    "prose-li:text-gray-600 prose-li:my-1",
-    // Dynamic blockquote color based on program
-    programConfig.type === "mocktrial"
-      ? "prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50"
-      : "prose-blockquote:border-l-4 prose-blockquote:border-emerald-500 prose-blockquote:bg-emerald-50",
-    "prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:text-gray-700 prose-blockquote:italic prose-blockquote:not-italic",
-    "prose-hr:my-8 prose-hr:border-gray-200",
-    // Dynamic link color based on program
-    programConfig.type === "mocktrial"
-      ? "prose-a:text-purple-600 prose-a:no-underline hover:prose-a:underline"
-      : "prose-a:text-emerald-600 prose-a:no-underline hover:prose-a:underline",
-    "prose-table:w-full prose-table:border-collapse",
-    "prose-th:bg-gray-50 prose-th:border prose-th:border-gray-200 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold",
-    "prose-td:border prose-td:border-gray-200 prose-td:px-4 prose-td:py-2"
-  );
-
   return (
-    <main>
-      {/* Hero Section */}
-      <section className={cn(
-        "relative overflow-hidden bg-gradient-to-br py-16 md:py-20 lg:py-24",
-        colors.gradientFrom,
-        colors.gradientVia,
-        colors.gradientTo
-      )}>
-        {/* Decorative elements */}
-        <div className={cn("absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob1)} />
-        <div className={cn("absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r rounded-full blur-3xl -z-10", colors.heroBlob2)} />
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white text-[#0a0a0a]">
+      {/* ───── Header ───── */}
+      <section className="bg-white border-b border-black/5">
+        <Container className="pt-10 md:pt-14 pb-12 md:pb-16">
           {/* Back link */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
-            className="mb-6"
+            className="mb-8"
           >
             <Link
               href={basePath}
-              className={cn(
-                "inline-flex items-center gap-2 text-gray-600 transition-colors group",
-                `hover:${colors.primaryText}`
-              )}
+              className="inline-flex items-center gap-2 text-neutral-500 hover:text-[#397bce] transition-colors group"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              {t("allResources")}
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <span style={fontBody} className="text-sm font-medium">
+                {t("allResources")}
+              </span>
             </Link>
           </motion.div>
 
@@ -205,341 +158,375 @@ export default function ResourcePageContent({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex flex-wrap items-center gap-2 mb-4"
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="flex flex-wrap items-center gap-2 mb-5"
           >
             {/* Format badge */}
             <span
-              className={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                formatColor.bg,
-                formatColor.text,
-                formatColor.border
-              )}
+              style={{
+                ...fontBody,
+                backgroundColor: `${fmt.color}1a`,
+                color: fmt.color,
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full"
             >
-              {renderFormatIcon(resource.format, "w-4 h-4")}
+              <fmt.icon className="w-3.5 h-3.5" />
               {resource.format}
             </span>
 
             {/* Category badge */}
             <span
-              className={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                categoryColor.bg,
-                categoryColor.text,
-                categoryColor.border
-              )}
+              style={{
+                ...fontBody,
+                backgroundColor: `${categoryColor}1a`,
+                color: categoryColor,
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full"
             >
-              <ProgramIcon iconName={iconName} className="w-4 h-4" />
               {getCategoryName(resource.category)}
             </span>
 
             {/* Featured badge */}
             {resource.featured && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold rounded-full bg-amber-100 text-amber-700 border border-amber-200">
-                <Star className="w-4 h-4" />
+              <span
+                style={{
+                  ...fontBody,
+                  backgroundColor: "#f973161a",
+                  color: "#f97316",
+                }}
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full"
+              >
+                <Star className="w-3.5 h-3.5 fill-current" />
                 {t("featured")}
               </span>
             )}
           </motion.div>
 
           {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4"
+            transition={{ delay: 0.15, duration: 0.6 }}
           >
-            {resource.title}
-          </motion.h1>
+            <Heading size="section">{resource.title}</Heading>
+          </motion.div>
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            style={fontBody}
+            className={`mt-5 max-w-3xl ${bodySize.lead}`}
           >
             {resource.description}
           </motion.p>
 
           {/* Meta info */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-6 text-sm text-gray-500"
+            transition={{ delay: 0.25, duration: 0.6 }}
+            style={fontBody}
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6 text-sm text-neutral-500"
           >
             {resource.author && (
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <User className="w-4 h-4" />
-                <span>{resource.author}</span>
-              </div>
+                {resource.author}
+              </span>
             )}
             {resource.publishedAt && (
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                <span>
-                  {new Date(resource.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </span>
-              </div>
+                {new Date(resource.publishedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
             )}
             {resource.duration && (
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span>{resource.duration}</span>
-              </div>
+                {resource.duration}
+              </span>
             )}
             {resource.pages && (
-              <div className="flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                <span>{resource.pages} {t("pages")}</span>
-              </div>
+                {resource.pages} {t("pages")}
+              </span>
             )}
           </motion.div>
 
           {/* Action buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            {/* Download button if available */}
             {resource.downloadUrl && (
               <a
                 href={resource.downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className={getDownloadButtonClasses()}
+                style={{
+                  ...fontBody,
+                  backgroundColor: accent,
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold rounded-full text-white hover:opacity-90 transition-opacity"
               >
-                <Download className="w-5 h-5" />
+                <Download className="w-4.5 h-4.5" />
                 {t("downloadResource")}
               </a>
             )}
-
-            {/* Print/Save as PDF button */}
             <button
               onClick={handlePrintPDF}
               data-print-hidden="true"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-full border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors"
+              style={fontBody}
+              className="inline-flex items-center gap-2 px-6 py-3 text-[14px] font-semibold rounded-full border-2 border-black/10 text-neutral-700 hover:border-black/20 transition-colors"
             >
-              <Printer className="w-5 h-5" />
+              <Printer className="w-4.5 h-4.5" />
               {t("saveAsPdf")}
             </button>
           </motion.div>
-        </div>
+        </Container>
       </section>
 
-      {/* Content Section with Sidebar */}
+      {/* ───── Content + Sidebar ───── */}
       <section className="bg-white">
         <div className="flex">
-          {/* Left Sidebar - Navigation */}
-          <aside className="hidden lg:block w-64 xl:w-72 flex-shrink-0 bg-gray-50/50" data-print-hidden="true">
+          {/* Sidebar */}
+          <aside
+            className="hidden lg:block w-64 xl:w-72 flex-shrink-0 border-r border-black/5"
+            data-print-hidden="true"
+          >
             <div className="sticky top-16 h-[calc(100vh-4rem)]">
               <ResourceNavSidebar />
             </div>
           </aside>
 
           {/* Main Content */}
-          <div className="flex-1 min-w-0 py-16 md:py-20 px-6 sm:px-8 lg:px-12 xl:px-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-                className={getProseClasses()}
-              >
-                {mdxSource ? (
-                  <MDXRemote {...mdxSource} components={MDXComponents} />
-                ) : (
-                  <div className="space-y-4">
-                    <div className="h-6 bg-gray-200 rounded animate-pulse w-3/4" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-4/6" />
-                    <div className="h-6 bg-gray-200 rounded animate-pulse w-2/3 mt-8" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
-                  </div>
-                )}
-              </motion.div>
-
-              {/* Tags */}
-              {resource.tags && resource.tags.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                  className="mt-12 pt-8 border-t border-gray-200"
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <Tag className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">
-                      {t("tags")}
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {resource.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1.5 text-sm font-medium bg-gray-100 text-gray-600 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
+          <div className="flex-1 min-w-0 py-14 md:py-20 px-6 sm:px-8 lg:px-12 xl:px-16">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={cn(
+                "prose prose-lg max-w-none",
+                // Headings
+                "prose-headings:text-[#0a0a0a]",
+                "prose-h1:text-3xl prose-h1:md:text-4xl prose-h1:mb-6 prose-h1:mt-10",
+                "prose-h2:text-2xl prose-h2:md:text-3xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b prose-h2:border-black/5",
+                "prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mb-3 prose-h3:mt-8",
+                "prose-h4:text-lg prose-h4:md:text-xl prose-h4:mb-2 prose-h4:mt-6",
+                // Body text
+                "prose-p:text-neutral-700 prose-p:leading-relaxed prose-p:mb-4",
+                "prose-strong:text-[#0a0a0a] prose-strong:font-semibold",
+                "prose-ul:text-neutral-700 prose-ul:my-4",
+                "prose-ol:text-neutral-700 prose-ol:my-4",
+                "prose-li:text-neutral-700 prose-li:my-1",
+                // Blockquote — uses program accent
+                `prose-blockquote:border-l-2 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-blockquote:text-neutral-700 prose-blockquote:not-italic`,
+                // Links — uses program accent
+                "prose-a:no-underline hover:prose-a:underline",
+                // Tables
+                "prose-hr:my-8 prose-hr:border-black/5",
+                "prose-table:w-full prose-table:border-collapse",
+                "prose-th:bg-neutral-50 prose-th:border prose-th:border-black/10 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold",
+                "prose-td:border prose-td:border-black/10 prose-td:px-4 prose-td:py-2",
               )}
+              style={
+                {
+                  "--tw-prose-links": accent,
+                  "--tw-prose-quotes": accent,
+                  "--tw-prose-quote-borders": accent,
+                } as React.CSSProperties
+              }
+            >
+              {mdxSource ? (
+                <MDXRemote {...mdxSource} components={MDXComponents} />
+              ) : (
+                <div className="space-y-4 animate-pulse">
+                  <div className="h-4 bg-neutral-200 rounded w-full" />
+                  <div className="h-4 bg-neutral-200 rounded w-5/6" />
+                  <div className="h-4 bg-neutral-200 rounded w-4/6" />
+                  <div className="h-8 mt-6" />
+                  <div className="h-4 bg-neutral-200 rounded w-full" />
+                  <div className="h-4 bg-neutral-200 rounded w-3/4" />
+                </div>
+              )}
+            </motion.div>
+
+            {/* Tags */}
+            {resource.tags && resource.tags.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="mt-12 pt-8 border-t border-black/5"
+              >
+                <div className="flex items-center gap-2 mb-4">
+                  <Tag className="w-4 h-4 text-neutral-400" />
+                  <span
+                    style={fontBody}
+                    className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em]"
+                  >
+                    {t("tags")}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {resource.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      style={fontBody}
+                      className="px-3 py-1.5 text-sm font-medium bg-neutral-100 text-neutral-600 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Recommended Resources Section */}
+      {/* ───── Related Resources ───── */}
       {relatedResources.length > 0 && (
-        <Section background="gray" className="py-16 md:py-20" data-print-hidden="true">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="max-w-6xl mx-auto"
-          >
-            <div className="text-center mb-12">
-              <p className={cn("text-sm font-semibold uppercase tracking-widest mb-4", colors.primaryText)}>
-                {t("continueLearningEyebrow")}
-              </p>
-              <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-                {t("recommendedTitle")}
-                <span className={getGradientTextClasses()}>
-                  {t("recommendedTitleHighlight")}
-                </span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                {t("recommendedDescription")}
-              </p>
-            </div>
+        <section
+          className="bg-white border-t border-black/5"
+          data-print-hidden="true"
+        >
+          <Container className="py-14 md:py-20">
+            <SectionIntro
+              title={
+                <>
+                  {t("recommendedTitle")}
+                  <span style={{ color: accent }}>
+                    {t("recommendedTitleHighlight")}
+                  </span>
+                </>
+              }
+              subtitle={t("recommendedDescription")}
+            />
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedResources.map((related, index) => {
-                const relatedFormatColor = getFormatColor(related.format);
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {relatedResources.map((related, i) => {
+                const relFmt =
+                  FORMAT_CONFIG[related.format] || FORMAT_CONFIG.Article;
                 return (
                   <motion.div
                     key={related.slug}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true, margin: "-80px" }}
+                    transition={{
+                      delay: (i % 4) * 0.08,
+                      duration: 0.7,
+                    }}
                   >
-                    <Link href={`${basePath}/${related.slug}`}>
-                      <motion.div
-                        whileHover={{ y: -4 }}
-                        className="group bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full flex flex-col"
-                      >
-                        {/* Header: Format Icon + Featured Badge */}
-                        <div className="flex items-start justify-between mb-3">
-                          <div
-                            className={cn(
-                              "w-9 h-9 rounded-lg flex items-center justify-center",
-                              relatedFormatColor.bg,
-                              relatedFormatColor.text
-                            )}
+                    <Link
+                      href={`${basePath}/${related.slug}`}
+                      className="group block h-full rounded-2xl border border-black/5 p-5 md:p-6 transition-colors hover:border-black/10"
+                    >
+                      {/* Format icon + featured */}
+                      <div className="flex items-start justify-between mb-3">
+                        <IconTile
+                          icon={relFmt.icon}
+                          color={relFmt.color}
+                          size="sm"
+                        />
+                        {related.featured && (
+                          <span
+                            style={{
+                              ...fontBody,
+                              backgroundColor: "#f973161a",
+                              color: "#f97316",
+                            }}
+                            className="rounded-full px-2.5 py-0.5 text-[11px] font-semibold shrink-0 flex items-center gap-1"
                           >
-                            {renderFormatIcon(related.format, "w-4 h-4")}
-                          </div>
-                          {related.featured && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-semibold rounded-full bg-amber-100 text-amber-700">
-                              <Star className="w-3 h-3" />
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Category */}
-                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                          {getCategoryName(related.category)}
-                        </p>
-
-                        {/* Title */}
-                        <h4 className={cn(
-                          "text-base font-semibold text-gray-900 mb-2 transition-colors line-clamp-2",
-                          `group-hover:${colors.primaryText}`
-                        )}>
-                          {related.title}
-                        </h4>
-
-                        {/* Description */}
-                        <p className="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-2">
-                          {related.description.split(".")[0]}.
-                        </p>
-
-                        {/* Arrow indicator */}
-                        <div className="mt-4 pt-3 border-t border-gray-100">
-                          <span className={cn(
-                            "inline-flex items-center text-sm font-medium",
-                            colors.primaryText
-                          )}>
-                            {t("readMore")}
-                            <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                            <Star className="w-3 h-3 fill-current" />
                           </span>
-                        </div>
-                      </motion.div>
+                        )}
+                      </div>
+
+                      {/* Category */}
+                      <p
+                        style={fontBody}
+                        className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-2"
+                      >
+                        {getCategoryName(related.category)}
+                      </p>
+
+                      {/* Title */}
+                      <Heading
+                        size="micro"
+                        className="text-[#0a0a0a] group-hover:text-[#397bce] transition-colors mb-2 line-clamp-2"
+                      >
+                        {related.title}
+                      </Heading>
+
+                      {/* Description */}
+                      <p
+                        style={fontBody}
+                        className={`${bodySize.micro} flex-1 line-clamp-2`}
+                      >
+                        {related.description}
+                      </p>
+
+                      {/* Footer */}
+                      <div
+                        style={fontBody}
+                        className="mt-4 pt-3 border-t border-black/5"
+                      >
+                        <span
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: accent }}
+                        >
+                          {t("readMore")} →
+                        </span>
+                      </div>
                     </Link>
                   </motion.div>
                 );
               })}
             </div>
-          </motion.div>
-        </Section>
+          </Container>
+        </section>
       )}
 
-      {/* CTA Section */}
-      <Section background="white" className="py-16 md:py-20" data-print-hidden="true">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto"
+      {/* ───── Final CTA ───── */}
+      <div data-print-hidden="true">
+        <DiagonalSpread
+          photoSide="right"
+          photoSrc={PHOTOS.finalCta}
+          photoAlt={t("finalCtaPhotoAlt")}
+          clip="none"
+          minHeight="min-h-[70svh]"
+          panelClassName="py-16 md:py-0"
         >
-          <div className={cn("inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full", colors.primaryBgLight)}>
-            <ProgramIcon iconName={iconName} className={cn("w-4 h-4", colors.primaryText)} />
-            <span className={cn("text-sm font-medium", colors.primaryTextLight)}>
-              {t("ctaBadge")}
-            </span>
-          </div>
-
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
+          <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
             {t("ctaTitle")}
-            <span className={getGradientTextClasses()}>
-              {t("ctaTitleHighlight")}
-            </span>
-          </h2>
-
-          <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+            <span className="text-[#f97316]">{t("ctaTitleHighlight")}</span>
+          </Heading>
+          <p style={fontBody} className={`${bodySize.lead} mb-9`}>
             {t("ctaDescription")}
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href={t("primaryButtonHref")} size="lg" className="group">
-                {t("primaryButton")}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              <Button href={basePath} variant="outline" size="lg">
-                {t("browseAllButton")}
-              </Button>
-            </motion.div>
+          <div className="flex flex-wrap gap-3">
+            <PillButton href={t("primaryButtonHref")} withArrow>
+              {t("primaryButton")}
+            </PillButton>
+            <PillButton href={basePath} tone="outline">
+              {t("browseAllButton")}
+            </PillButton>
           </div>
-        </motion.div>
-      </Section>
-    </main>
+        </DiagonalSpread>
+      </div>
+    </div>
   );
 }

@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllResources, getProgramConfig } from "@/lib/program-resources";
 import { ResourcesPageContent } from "@/components/resources";
 import { siteConfig, defaultOgImage } from "@/config/site";
-import { routing } from "@/i18n/routing";
+import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("ogDescription"),
       url: `${siteConfig.url}/mocktrial/resources`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -48,6 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: "/mocktrial/resources",
         es: "/es/mocktrial/resources",
         zh: "/zh/mocktrial/resources",
+        ar: "/ar/mocktrial/resources",
+        hi: "/hi/mocktrial/resources",
+        tr: "/tr/mocktrial/resources",
       },
     },
   };

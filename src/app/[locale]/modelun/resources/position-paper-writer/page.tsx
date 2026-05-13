@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import BGWriterPageContent from "./BGWriterPageContent";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 
 interface BGWriterPageProps {
   params: Promise<{ locale: string }>;
@@ -22,7 +23,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("description"),
       type: "website",
-      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -31,6 +32,9 @@ export async function generateMetadata({
         en: basePath,
         es: `/es${basePath}`,
         zh: `/zh${basePath}`,
+        ar: `/ar${basePath}`,
+        hi: `/hi${basePath}`,
+        tr: `/tr${basePath}`,
       },
     },
   };

@@ -1,10 +1,16 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { getPostBySlug, getAllSlugsAllLocales, getAlternateLanguages } from "@/lib/blog";
-import BlogPostContent from "./BlogPostContent";
+import {
+  getPostBySlug,
+  getAllPosts,
+  getAllSlugsAllLocales,
+  getAlternateLanguages,
+} from "@/lib/blog";
+import { BlogPostPage } from "@/components/sections";
 import { siteConfig, defaultOgImage } from "@/config/site";
 import { generateArticleSchema, jsonLdScript } from "@/lib/structured-data";
+import { ogLocale } from "@/i18n/routing";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -25,21 +31,18 @@ export async function generateMetadata({
 
   if (!post) {
     const t = await getTranslations({ locale, namespace: "BlogPage" });
-    return {
-      title: t("notFoundTitle"),
-    };
+    return { title: t("notFoundTitle") };
   }
 
-  // Build alternate languages for SEO
   const alternates = getAlternateLanguages(slug, locale);
   const languages: Record<string, string> = {};
-
-  // Add current locale
-  languages[locale] = locale === "en" ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
-
-  // Add alternate locales
+  languages[locale] =
+    locale === "en" ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
   for (const alt of alternates) {
-    languages[alt.locale] = alt.locale === "en" ? `/blog/${alt.slug}` : `/${alt.locale}/blog/${alt.slug}`;
+    languages[alt.locale] =
+      alt.locale === "en"
+        ? `/blog/${alt.slug}`
+        : `/${alt.locale}/blog/${alt.slug}`;
   }
 
   return {
@@ -60,7 +63,7 @@ export async function generateMetadata({
       authors: [post.author.name],
       images: [defaultOgImage],
       siteName: siteConfig.seo.openGraph.siteName,
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
     },
     twitter: {
       card: "summary_large_image",
@@ -75,7 +78,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function Page({ params }: BlogPostPageProps) {
   const { slug, locale } = await params;
   const t = await getTranslations({ locale, namespace: "BlogPage" });
   const post = getPostBySlug(slug, locale, t.raw("readTime"));
@@ -84,15 +87,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
+  // Build related posts (same category, excluding current)
+  const allPosts = getAllPosts(locale, t.raw("readTime"));
+  const relatedPosts = allPosts
+    .filter((p) => p.category === post.category && p.slug !== slug)
+    .slice(0, 3)
+    .map((p, i) => ({
+      id: String(i),
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      coverImage: p.coverImage,
+      category: p.category,
+      author: p.author,
+      publishedAt: p.publishedAt,
+      readTime: p.readTime,
+    }));
+
   const articleSchema = generateArticleSchema({
     title: post.title,
     description: post.excerpt,
     url: `/blog/${slug}`,
     image: post.coverImage,
     datePublished: post.publishedAt,
-    author: {
-      name: post.author.name,
-    },
+    author: { name: post.author.name },
     category: post.category,
   });
 
@@ -100,11 +118,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdScript(articleSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(articleSchema) }}
       />
-      <BlogPostContent post={post} />
+      <BlogPostPage post={post} relatedPosts={relatedPosts} />
     </>
   );
 }

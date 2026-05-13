@@ -1,62 +1,14 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { HeroSection } from "@/components/sections";
+import { LandingPage } from "@/components/sections/LandingPage";
 import { siteConfig, defaultOgImage } from "@/config/site";
-
-// Lazy-load below-fold sections to split JS bundles
-const StatsSection = dynamic(() =>
-  import("@/components/sections/StatsSection").then((m) => ({
-    default: m.StatsSection,
-  }))
-);
-const WhoWeServeSection = dynamic(() =>
-  import("@/components/sections/WhoWeServeSection").then((m) => ({
-    default: m.WhoWeServeSection,
-  }))
-);
-const ProgramsSection = dynamic(() =>
-  import("@/components/sections/ProgramsSection").then((m) => ({
-    default: m.ProgramsSection,
-  }))
-);
-const WhyChooseSection = dynamic(() =>
-  import("@/components/sections/WhyChooseSection").then((m) => ({
-    default: m.WhyChooseSection,
-  }))
-);
-const SkillsSection = dynamic(() =>
-  import("@/components/sections/SkillsSection").then((m) => ({
-    default: m.SkillsSection,
-  }))
-);
-const GallerySection = dynamic(() =>
-  import("@/components/sections/GallerySection").then((m) => ({
-    default: m.GallerySection,
-  }))
-);
-const TestimonialSection = dynamic(() =>
-  import("@/components/sections/TestimonialSection").then((m) => ({
-    default: m.TestimonialSection,
-  }))
-);
-const FAQSection = dynamic(() =>
-  import("@/components/sections/FAQSection").then((m) => ({
-    default: m.FAQSection,
-  }))
-);
-const CTASection = dynamic(() =>
-  import("@/components/sections/CTASection").then((m) => ({
-    default: m.CTASection,
-  }))
-);
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
   generateFAQSchema,
   jsonLdScript,
 } from "@/lib/structured-data";
-import { routing } from "@/i18n/routing";
+import { routing, ogLocale } from "@/i18n/routing";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -90,7 +42,7 @@ export async function generateMetadata({
       description: t("ogDescription"),
       url: siteConfig.url,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -98,10 +50,53 @@ export async function generateMetadata({
       languages: {
         en: "/",
         es: "/es",
+        zh: "/zh",
+        ar: "/ar",
+        hi: "/hi",
+        tr: "/tr",
       },
     },
   };
 }
+
+// FAQ structured data — mirrors the questions rendered in LandingPage.
+const HOMEPAGE_FAQS = [
+  {
+    question: "What is Model UN, and how does it help middle schoolers?",
+    answer:
+      "Model UN is an educational simulation where students represent different countries and debate global issues as UN delegates. For middle schoolers in grades 5–8, it builds public speaking, research, diplomatic negotiation, and an early understanding of international relations. Students learn to write position papers, draft resolutions, and deliver speeches — skills that compound into high school debate, magnet admissions, and college applications.",
+  },
+  {
+    question: "How do I prepare for my first Mock Trial competition?",
+    answer:
+      "We provide free Mock Trial prep: case analysis guides, opening statement templates, cross-examination techniques, and practice sessions. New delegates learn courtroom procedure, evidence rules, and objection strategies through step-by-step tutorials. Our experienced mentors help students grow into both attorney and witness roles.",
+  },
+  {
+    question: "What math competitions does JAMUN prepare students for?",
+    answer:
+      "Our Mathletes program trains delegates for MATHCOUNTS, AMC 8, Math League, and Math Olympiad. We provide practice problems across number theory, algebra, geometry, and problem-solving strategy. Students build speed, accuracy, and creative mathematical thinking through team-based learning and individual challenges.",
+  },
+  {
+    question: "Are JAMUN's programs affordable?",
+    answer:
+      "Yes. All of our curriculum guides, training materials, and resources are completely free. Conferences are low-cost, and our grant program covers up to 100% of conference costs — including registration, travel, and materials — for families who need support. As a 501(c)(3) nonprofit, every donation goes directly to student programs and the grant fund.",
+  },
+  {
+    question: "How can my school start a Model UN club or academic team?",
+    answer:
+      "JAMUN provides complete startup kits: free curriculum, training, position paper templates, and ongoing mentorship for educators. Whether you're launching a Model UN club, Mock Trial team, or Mathletes program, we'll help you draft an implementation plan tailored to your school. Email us to schedule a consultation.",
+  },
+  {
+    question: "Do academic competitions help with high school and college admissions?",
+    answer:
+      "Yes — academic competitions demonstrate intellectual curiosity, leadership, and commitment, the qualities admissions officers value most. Students who participate from middle school build impressive track records of public speaking, critical thinking, and teamwork that strengthen high school, magnet, and college applications.",
+  },
+  {
+    question: "Do students need experience to join?",
+    answer:
+      "Not at all. JAMUN is designed for beginners. Most of our delegates start with zero experience and our coaches teach you everything — from how to research your country to parliamentary procedure to building a Mock Trial case. The only requirement is showing up curious.",
+  },
+];
 
 export default async function Home({
   params,
@@ -111,44 +106,9 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  // Get translations for FAQ structured data
-  const t = await getTranslations({ locale, namespace: "FAQSection" });
-
-  // FAQ data for structured data - uses translations
-  const homepageFAQs = [
-    {
-      question: t("faq1Question"),
-      answer: t("faq1Answer"),
-    },
-    {
-      question: t("faq2Question"),
-      answer: t("faq2Answer"),
-    },
-    {
-      question: t("faq3Question"),
-      answer: t("faq3Answer"),
-    },
-    {
-      question: t("faq4Question"),
-      answer: t("faq4Answer"),
-    },
-    {
-      question: t("faq5Question"),
-      answer: t("faq5Answer"),
-    },
-    {
-      question: t("faq6Question"),
-      answer: t("faq6Answer"),
-    },
-    {
-      question: t("faq7Question"),
-      answer: t("faq7Answer"),
-    },
-  ];
-
   const organizationSchema = generateOrganizationSchema();
   const websiteSchema = generateWebsiteSchema();
-  const faqSchema = generateFAQSchema(homepageFAQs);
+  const faqSchema = generateFAQSchema(HOMEPAGE_FAQS);
 
   return (
     <>
@@ -158,16 +118,7 @@ export default async function Home({
           __html: jsonLdScript([organizationSchema, websiteSchema, faqSchema]),
         }}
       />
-      <HeroSection />
-      <StatsSection />
-      <WhoWeServeSection />
-      <ProgramsSection />
-      <WhyChooseSection />
-      <SkillsSection />
-      <GallerySection />
-      <TestimonialSection />
-      <FAQSection />
-      <CTASection />
+      <LandingPage />
     </>
   );
 }

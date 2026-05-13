@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
-import ModelUNPageContent from "./ModelUNPageContent";
+import { ModelUNPage as ModelUNPageContent } from "@/components/sections/ModelUNPage";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 import {
   generateProgramSchema,
   generateBreadcrumbSchema,
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t("ogDescription"),
       url: `${siteConfig.url}/modelun`,
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {
@@ -48,6 +49,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: "/modelun",
         es: "/es/modelun",
+        zh: "/zh/modelun",
+        ar: "/ar/modelun",
+        hi: "/hi/modelun",
+        tr: "/tr/modelun",
       },
     },
   };

@@ -59,6 +59,7 @@ import { cn } from '@/lib/utils';
 
 ## Domain-Specific Rules
 See `.claude/rules/` for detailed guidance:
+- `design-system.md` - **New-design** typography, color, layout, primitives (use for new pages)
 - `components.md` - Component patterns, animation usage
 - `pages.md` - Page structure, metadata, hero patterns
 - `content.md` - MDX frontmatter, translations

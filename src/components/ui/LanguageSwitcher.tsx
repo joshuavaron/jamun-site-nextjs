@@ -12,12 +12,18 @@ const localeNames: Record<Locale, string> = {
   en: "English",
   es: "Español",
   zh: "中文",
+  ar: "العربية",
+  hi: "हिन्दी",
+  tr: "Türkçe",
 };
 
 const localeCodes: Record<Locale, string> = {
   en: "EN",
   es: "ES",
   zh: "中文",
+  ar: "عر",
+  hi: "हि",
+  tr: "TR",
 };
 
 export function LanguageSwitcher() {

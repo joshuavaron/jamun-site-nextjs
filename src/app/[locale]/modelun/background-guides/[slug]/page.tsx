@@ -9,6 +9,7 @@ import {
 import { getCommitteeBySlug, getAllCommittees } from "@/lib/committees";
 import BackgroundGuidePageContent from "./BackgroundGuidePageContent";
 import { siteConfig, defaultOgImage } from "@/config/site";
+import { ogLocale } from "@/i18n/routing";
 
 interface BackgroundGuidePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -58,7 +59,7 @@ export async function generateMetadata({
       title: guide.title,
       description: `Background guide for JAMUN Model UN conference - ${guide.title}`,
       type: "article",
-      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      locale: ogLocale(locale),
       images: [defaultOgImage],
     },
     alternates: {

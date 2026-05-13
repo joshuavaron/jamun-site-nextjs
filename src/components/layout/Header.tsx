@@ -1,63 +1,71 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
-import { Link } from "@/i18n/navigation";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
-import { Button, SearchDropdown } from "@/components/ui";
-import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
-import type { SearchResult } from "@/components/ui";
+import { ChevronDown, Search, Globe, Check, Menu, X } from "lucide-react";
+import type { Locale } from "@/i18n/routing";
 
-// Explore menu items - keys map to translation keys
-const exploreItemKeys = [
-  { key: "programs", href: "/programs" },
-  { key: "about", href: "/about" },
-  { key: "supporters", href: "/supporters" },
-  { key: "leaderboards", href: "/leaderboards" },
-  { key: "blog", href: "/blog" },
-] as const;
+const fontBody = { fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif" };
 
-// Static pages to search - keys map to translation keys
-const staticPageKeys = [
-  { titleKey: "searchModelUN", url: "/modelun", keywordKeys: ["searchKwModel", "searchKwUN", "searchKwMUN", "searchKwUnitedNations"] },
-  { titleKey: "searchMockTrial", url: "/mocktrial", keywordKeys: ["searchKwMock", "searchKwTrial", "searchKwLaw", "searchKwCourt"] },
-  { titleKey: "searchMathletes", url: "/mathletes", keywordKeys: ["searchKwMath", "searchKwMathletes", "searchKwCompetition"] },
-  { titleKey: "searchPrograms", url: "/programs", keywordKeys: ["searchKwPrograms", "searchKwActivities"] },
-  { titleKey: "searchAbout", url: "/about", keywordKeys: ["searchKwAbout", "searchKwWho", "searchKwTeam", "searchKwOrganization"] },
-  { titleKey: "searchDonate", url: "/donate", keywordKeys: ["searchKwDonate", "searchKwSupport", "searchKwGive", "searchKwContribution"] },
-  { titleKey: "searchRegister", url: "/register", keywordKeys: ["searchKwRegister", "searchKwSignUp", "searchKwJoin"] },
-  { titleKey: "searchGrants", url: "/grants", keywordKeys: ["searchKwGrants", "searchKwFunding", "searchKwFinancial", "searchKwAid"] },
-  { titleKey: "searchBlog", url: "/blog", keywordKeys: ["searchKwBlog", "searchKwNews", "searchKwArticles", "searchKwPosts"] },
-  { titleKey: "searchCommittees", url: "/modelun/committees", keywordKeys: ["searchKwCommittees", "searchKwGA", "searchKwSecurityCouncil"] },
-  { titleKey: "searchModelUNResources", url: "/modelun/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwModelUN"] },
-  { titleKey: "searchMockTrialResources", url: "/mocktrial/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwMockTrial"] },
-  { titleKey: "searchMathletesResources", url: "/mathletes/resources", keywordKeys: ["searchKwResources", "searchKwGuides", "searchKwMath"] },
-  { titleKey: "searchLeaderboards", url: "/leaderboards", keywordKeys: ["searchKwLeaderboard", "searchKwRankings", "searchKwScores"] },
-] as const;
+const LOCALES: { code: Locale; label: string; name: string }[] = [
+  { code: "en", label: "EN", name: "English" },
+  { code: "es", label: "ES", name: "Español" },
+  { code: "zh", label: "中文", name: "中文" },
+  { code: "ar", label: "عر", name: "العربية" },
+  { code: "hi", label: "हि", name: "हिन्दी" },
+  { code: "tr", label: "TR", name: "Türkçe" },
+];
 
 export function Header() {
-  const t = useTranslations("Navigation");
+  const t = useTranslations("Header");
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale() as Locale;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
+  const EXPLORE_ITEMS = [
+    { label: t("programs"), href: "/programs" },
+    { label: t("about"), href: "/about" },
+    { label: t("supporters"), href: "/supporters" },
+    { label: t("blog"), href: "/blog" },
+  ];
+
+  const SEARCH_TARGETS = [
+    { title: t("searchModelUN"), url: "/modelun" },
+    { title: t("searchMockTrial"), url: "/mocktrial" },
+    { title: t("searchMathletes"), url: "/mathletes" },
+    { title: t("searchPrograms"), url: "/programs" },
+    { title: t("searchAbout"), url: "/about" },
+    { title: t("searchGrants"), url: "/grants" },
+    { title: t("searchDonate"), url: "/donate" },
+    { title: t("searchRegister"), url: "/register" },
+    { title: t("searchBlog"), url: "/blog" },
+    { title: t("searchCommittees"), url: "/modelun/committees" },
+  ];
+
+  const activeLocaleData = LOCALES.find((l) => l.code === locale) || LOCALES[0];
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-explore]")) setIsExploreOpen(false);
+      if (!target.closest("[data-lang]")) setIsLangOpen(false);
+      if (!target.closest("[data-search]")) setIsSearchFocused(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // Prevent body scroll when menu is open
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -69,160 +77,58 @@ export function Header() {
     };
   }, [isMenuOpen]);
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest("[data-explore-dropdown]")) {
-        setIsExploreOpen(false);
-      }
-      if (!target.closest("[data-search-dropdown]")) {
-        setIsSearchFocused(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  const q = searchQuery.trim().toLowerCase();
+  const searchResults = q
+    ? SEARCH_TARGETS.filter((t) => t.title.toLowerCase().includes(q)).slice(0, 6)
+    : [];
+  const showSearchDropdown =
+    isSearchFocused && q.length > 0 && searchResults.length > 0;
 
-  // Build translated static pages for search
-  const staticPages = useMemo(() => {
-    return staticPageKeys.map((page) => ({
-      title: t(page.titleKey),
-      url: page.url,
-      keywords: page.keywordKeys.map((key) => t(key).toLowerCase()),
-    }));
-  }, [t]);
-
-  // Search logic - derived state using useMemo
-  const searchResults = useMemo((): SearchResult[] => {
-    if (!searchQuery.trim()) {
-      return [];
-    }
-
-    const query = searchQuery.toLowerCase();
-    const results: SearchResult[] = [];
-
-    // Search static pages first (higher priority)
-    for (const page of staticPages) {
-      const titleMatch = page.title.toLowerCase().includes(query);
-      const keywordMatch = page.keywords.some((k: string) => k.includes(query));
-      if (titleMatch || keywordMatch) {
-        results.push({ title: page.title, url: page.url, type: "page" });
-      }
-    }
-
-    // Limit results
-    return results.slice(0, 6);
-  }, [searchQuery, staticPages]);
-
-  // Keyboard navigation handler
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (!searchResults.length) return;
-
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setSelectedIndex((i) => Math.min(i + 1, searchResults.length - 1));
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setSelectedIndex((i) => Math.max(i - 1, -1));
-        break;
-      case "Enter":
-        e.preventDefault();
-        if (selectedIndex >= 0 && searchResults[selectedIndex]) {
-          window.location.href = searchResults[selectedIndex].url;
-        }
-        break;
-      case "Escape":
-        setIsSearchFocused(false);
-        inputRef.current?.blur();
-        break;
-    }
-  }, [searchResults, selectedIndex]);
-
-  // Callbacks for dropdown interactions
-  const handleDesktopResultClick = useCallback(() => {
-    setSearchQuery("");
-    setIsSearchFocused(false);
-  }, []);
-
-  const handleMobileResultClick = useCallback(() => {
-    setSearchQuery("");
-    setIsSearchFocused(false);
-    setIsMenuOpen(false);
-  }, []);
-
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    setSelectedIndex(-1);
-  }, []);
-
-  const handleSearchFocus = useCallback(() => {
-    setIsSearchFocused(true);
-  }, []);
-
-  const toggleExplore = useCallback(() => {
-    setIsExploreOpen((prev) => !prev);
-  }, []);
-
-  const closeExplore = useCallback(() => {
-    setIsExploreOpen(false);
-  }, []);
-
-  const toggleMenu = useCallback(() => {
-    setIsMenuOpen((prev) => !prev);
-  }, []);
-
-  const closeMenu = useCallback(() => {
-    setIsMenuOpen(false);
-  }, []);
-
-  const showDropdown = isSearchFocused && searchQuery.trim().length > 0 && searchResults.length > 0;
+  const handleLocaleChange = (newLocale: Locale) => {
+    setIsLangOpen(false);
+    router.replace(pathname, { locale: newLocale });
+  };
 
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-white/75 backdrop-blur-md shadow-sm" : "bg-white"
-      )}
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/85 border-b border-black/5"
+      style={fontBody}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1500px] px-6 md:px-16 lg:px-24">
         <div className="relative flex items-center justify-between h-14 md:h-16">
-          {/* Left side: Explore dropdown + Search */}
-          <div className="hidden nav:flex items-center gap-4">
-            {/* Explore Dropdown */}
-            <div className="relative" data-explore-dropdown>
+          {/* Left: Explore + Search */}
+          <div className="hidden md:flex items-center gap-4">
+            {/* Explore dropdown */}
+            <div className="relative" data-explore>
               <button
-                onClick={toggleExplore}
-                className="flex items-center gap-1 text-gray-700 hover:text-jamun-blue font-medium transition-colors cursor-pointer"
+                onClick={() => setIsExploreOpen((v) => !v)}
+                className="flex items-center gap-1 text-[14px] text-neutral-700 hover:text-[#397bce] transition-colors"
               >
                 {t("explore")}
                 <ChevronDown
-                  className={cn(
-                    "w-4 h-4 transition-transform duration-200",
-                    isExploreOpen && "rotate-180"
-                  )}
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isExploreOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
-
               <AnimatePresence>
                 {isExploreOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50"
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50"
                   >
-                    {exploreItemKeys.map((item) => (
+                    {EXPLORE_ITEMS.map((item) => (
                       <Link
                         key={item.href}
                         href={item.href}
-                        onClick={closeExplore}
-                        className="block px-4 py-2 text-gray-700 hover:bg-jamun-blue/5 hover:text-jamun-blue transition-colors"
+                        onClick={() => setIsExploreOpen(false)}
+                        className="block px-4 py-2 text-[14px] text-neutral-700 hover:bg-[#397bce]/5 hover:text-[#397bce] transition-colors"
                       >
-                        {t(item.key)}
+                        {item.label}
                       </Link>
                     ))}
                   </motion.div>
@@ -230,138 +136,257 @@ export function Header() {
               </AnimatePresence>
             </div>
 
-            {/* Search Bar */}
-            <div className="relative" data-search-dropdown ref={searchRef}>
+            {/* Search */}
+            <div className="relative" data-search>
               <div
-                className={cn(
-                  "flex items-center rounded-full transition-all duration-200 h-9 w-52",
-                  isSearchFocused ? "bg-white shadow-md" : "bg-gray-100"
-                )}
+                className={`flex items-center rounded-full h-9 w-52 transition-all duration-200 ${
+                  isSearchFocused
+                    ? "bg-white shadow-md ring-1 ring-black/10"
+                    : "bg-neutral-100"
+                }`}
               >
-                <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
+                <Search className="w-4 h-4 text-neutral-400 ml-3 shrink-0" />
                 <input
-                  ref={inputRef}
                   type="text"
-                  placeholder={t("search")}
+                  placeholder={t("searchPlaceholder")}
                   value={searchQuery}
-                  onChange={handleSearchChange}
-                  onFocus={handleSearchFocus}
-                  onKeyDown={handleKeyDown}
-                  className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  className="w-full bg-transparent px-2 py-1.5 text-[13px] text-neutral-700 placeholder-neutral-400 focus:outline-none"
                 />
               </div>
-
-              <SearchDropdown
-                results={searchResults}
-                selectedIndex={selectedIndex}
-                onResultClick={handleDesktopResultClick}
-                show={showDropdown}
-              />
+              <AnimatePresence>
+                {showSearchDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1 z-50 overflow-hidden"
+                  >
+                    {searchResults.map((r) => (
+                      <Link
+                        key={r.url}
+                        href={r.url}
+                        onClick={() => {
+                          setSearchQuery("");
+                          setIsSearchFocused(false);
+                        }}
+                        className="flex items-center gap-3 px-3 py-2 text-[13px] text-neutral-700 hover:bg-neutral-50 transition-colors"
+                      >
+                        <Search className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                        {r.title}
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
-          {/* Logo: Left-aligned on mobile, centered on desktop */}
+          {/* Center: Logo */}
           <Link
             href="/"
-            className="flex items-center shrink-0 nav:absolute nav:left-1/2 nav:top-1/2 nav:-translate-x-1/2 nav:-translate-y-1/2"
+            className="flex items-center shrink-0 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
+            aria-label={t("logoAlt")}
           >
             <div className="relative h-8 w-40 md:h-9 md:w-52">
               <Image
                 src="/images/logos/jamun-blue-side-logo.svg"
                 alt={t("logoAlt")}
                 fill
-                className="object-contain object-left nav:object-center"
+                className="object-contain object-left md:object-center"
                 priority
               />
             </div>
           </Link>
 
-          {/* Right side: CTA Buttons + Language Switcher */}
-          <div className="hidden nav:flex items-center gap-4 ml-auto">
-            <LanguageSwitcher />
+          {/* Right: Language + Grants + Donate + Register */}
+          <div className="hidden md:flex items-center gap-4 ml-auto">
+            {/* Language switcher */}
+            <div className="relative" data-lang>
+              <button
+                onClick={() => setIsLangOpen((v) => !v)}
+                className="flex items-center gap-1.5 text-[14px] text-neutral-700 hover:text-[#397bce] transition-colors"
+              >
+                <Globe className="w-4 h-4" />
+                <span>{activeLocaleData.label}</span>
+                <ChevronDown
+                  className={`w-3 h-3 transition-transform duration-200 ${
+                    isLangOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[160px] overflow-hidden"
+                  >
+                    {LOCALES.map((l) => (
+                      <button
+                        key={l.code}
+                        onClick={() => handleLocaleChange(l.code)}
+                        className={`w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors ${
+                          locale === l.code
+                            ? "text-[#397bce] bg-[#397bce]/5"
+                            : "text-neutral-700 hover:bg-neutral-50"
+                        }`}
+                      >
+                        <span className={locale === l.code ? "font-medium" : ""}>
+                          {l.name}
+                        </span>
+                        {locale === l.code && (
+                          <Check className="w-4 h-4 text-[#397bce]" />
+                        )}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <Link
               href="/grants"
-              className="text-gray-700 hover:text-jamun-blue font-medium transition-colors"
+              className="text-[14px] text-neutral-700 hover:text-[#397bce] transition-colors"
             >
               {t("grants")}
             </Link>
-            <Button href="/donate" variant="accent" size="sm">
+            <Link
+              href="/donate"
+              className="px-4 py-1.5 rounded-full bg-[#f97316] text-white text-[13px] hover:bg-[#ea580c] transition-colors"
+            >
               {t("donate")}
-            </Button>
-            <Button href="/register" variant="primary" size="sm">
+            </Link>
+            <Link
+              href="/register"
+              className="px-4 py-1.5 rounded-full bg-[#397bce] text-white text-[13px] hover:bg-[#2a5fa3] transition-colors"
+            >
               {t("register")}
-            </Button>
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
-            onClick={toggleMenu}
-            className="nav:hidden p-2 text-gray-700 hover:text-jamun-blue transition-colors ml-auto"
+            onClick={() => setIsMenuOpen((v) => !v)}
+            className="md:hidden p-2 text-neutral-700 hover:text-[#397bce] transition-colors ml-auto"
             aria-label={isMenuOpen ? t("closeMenu") : t("openMenu")}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="nav:hidden bg-white border-t overflow-hidden"
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-white border-t border-black/5 overflow-hidden"
           >
-            <nav className="max-w-7xl mx-auto px-4 py-6 space-y-4">
-              {/* Mobile Language Switcher */}
+            <nav className="max-w-[1500px] mx-auto px-4 py-6 space-y-4">
+              {/* Mobile language switcher */}
               <div className="flex justify-end mb-2">
-                <LanguageSwitcher />
+                <div className="relative" data-lang>
+                  <button
+                    onClick={() => setIsLangOpen((v) => !v)}
+                    className="flex items-center gap-1.5 text-[14px] text-neutral-700"
+                  >
+                    <Globe className="w-4 h-4" />
+                    <span>{activeLocaleData.label}</span>
+                    <ChevronDown
+                      className={`w-3 h-3 transition-transform duration-200 ${
+                        isLangOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {isLangOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[160px] overflow-hidden"
+                      >
+                        {LOCALES.map((l) => (
+                          <button
+                            key={l.code}
+                            onClick={() => {
+                              handleLocaleChange(l.code);
+                              setIsMenuOpen(false);
+                            }}
+                            className={`w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors ${
+                              locale === l.code
+                                ? "text-[#397bce] bg-[#397bce]/5"
+                                : "text-neutral-700 hover:bg-neutral-50"
+                            }`}
+                          >
+                            <span className={locale === l.code ? "font-medium" : ""}>
+                              {l.name}
+                            </span>
+                            {locale === l.code && (
+                              <Check className="w-4 h-4 text-[#397bce]" />
+                            )}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
 
-              {/* Mobile Search */}
-              <div className="relative" data-search-dropdown>
-                <div className="flex items-center bg-gray-100 rounded-full h-10">
-                  <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
-                  <input
-                    type="text"
-                    placeholder={t("search")}
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    onFocus={handleSearchFocus}
-                    className="no-focus-outline w-full bg-transparent px-2 py-1.5 text-sm text-gray-700 placeholder-gray-400"
-                  />
-                </div>
-
-                <SearchDropdown
-                  results={searchResults}
-                  selectedIndex={-1}
-                  onResultClick={handleMobileResultClick}
-                  show={showDropdown}
+              {/* Mobile search */}
+              <div className="flex items-center bg-neutral-100 rounded-full h-10">
+                <Search className="w-4 h-4 text-neutral-400 ml-3 shrink-0" />
+                <input
+                  type="text"
+                  placeholder={t("searchPlaceholder")}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent px-2 py-1.5 text-sm text-neutral-700 placeholder-neutral-400 focus:outline-none"
                 />
               </div>
 
-              {exploreItemKeys.map((item) => (
+              {EXPLORE_ITEMS.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={closeMenu}
-                  className="block text-lg text-gray-700 hover:text-jamun-blue font-medium py-2 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-base text-neutral-700 hover:text-[#397bce] font-medium py-2 transition-colors"
                 >
-                  {t(item.key)}
+                  {item.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t space-y-3">
-                <Button href="/grants" variant="ghost" className="w-full bg-gray-100">
+
+              <div className="pt-4 border-t border-black/5 space-y-3">
+                <Link
+                  href="/grants"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-center px-5 py-3 rounded-full bg-neutral-100 text-[14px] text-neutral-700 hover:bg-neutral-200 transition-colors"
+                >
                   {t("grants")}
-                </Button>
-                <Button href="/donate" variant="accent" className="w-full">
+                </Link>
+                <Link
+                  href="/donate"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-center px-5 py-3 rounded-full bg-[#f97316] text-white text-[14px] hover:bg-[#ea580c] transition-colors"
+                >
                   {t("donate")}
-                </Button>
-                <Button href="/register" variant="primary" className="w-full">
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block text-center px-5 py-3 rounded-full bg-[#397bce] text-white text-[14px] hover:bg-[#2a5fa3] transition-colors"
+                >
                   {t("register")}
-                </Button>
+                </Link>
               </div>
             </nav>
           </motion.div>

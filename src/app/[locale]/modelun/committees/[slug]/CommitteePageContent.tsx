@@ -9,8 +9,6 @@ import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import {
   ArrowLeft,
-  ArrowRight,
-  Users,
   Globe,
   FileText,
   Download,
@@ -19,15 +17,17 @@ import {
   File,
   GraduationCap,
   User,
-  Flag,
 } from "lucide-react";
-import { Section, SectionHeader } from "@/components/ui";
+import { Container, Heading, IconTile } from "@/components/ui";
+import { fontBody, fontHeading, bodySize } from "@/lib/typography";
+import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
+import { SectionIntro } from "@/components/sections/SectionIntro";
 import MDXComponents from "@/components/mdx/MDXComponents";
-import { Committee } from "@/lib/committees";
+import type { Committee } from "@/lib/committees";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
-// Shifting topic component for Ad-Hoc committee
+// ────────── ShiftingTopic for Ad-Hoc committees ──────────
 function ShiftingTopic({ topics }: { topics: string[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -41,63 +41,54 @@ function ShiftingTopic({ topics }: { topics: string[] }) {
 
   if (topics.length === 0) return <span>CLASSIFIED</span>;
 
-  return (
-    <span className="font-mono">{topics[currentIndex]}</span>
-  );
+  return <span className="font-mono">{topics[currentIndex]}</span>;
 }
 
-interface CommitteePageContentProps {
-  committee: Committee;
-}
-
-const levelColors: Record<string, { bg: string; text: string; border: string }> = {
-  "Beginner-Friendly": {
-    bg: "bg-green-100",
-    text: "text-green-700",
-    border: "border-green-200",
-  },
-  Intermediate: {
-    bg: "bg-amber-100",
-    text: "text-amber-700",
-    border: "border-amber-200",
-  },
-  Advanced: {
-    bg: "bg-red-100",
-    text: "text-red-700",
-    border: "border-red-200",
-  },
+// ────────── Color helpers ──────────
+const CATEGORY_HEX: Record<string, string> = {
+  "General Assembly": "#397bce",
+  "Security Council": "#ef4444",
+  "Specialized Agency": "#9333ea",
+  "Regional Body": "#10b981",
+  Crisis: "#f97316",
 };
 
-const categoryColors: Record<string, { bg: string; text: string }> = {
-  "General Assembly": { bg: "bg-jamun-blue/10", text: "text-jamun-blue" },
-  "Security Council": { bg: "bg-red-100", text: "text-red-600" },
-  "Specialized Agency": { bg: "bg-purple-100", text: "text-purple-600" },
-  "Regional Body": { bg: "bg-emerald-100", text: "text-emerald-600" },
-  Crisis: { bg: "bg-amber-100", text: "text-amber-600" },
+const LEVEL_HEX: Record<string, string> = {
+  "Beginner-Friendly": "#10b981",
+  Intermediate: "#f97316",
+  Advanced: "#ef4444",
 };
 
-const documentIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+const documentIcons: Record<
+  string,
+  React.ComponentType<{ className?: string }>
+> = {
   "background-guide": BookOpen,
   rules: Scale,
   "position-paper": FileText,
   other: File,
 };
 
-// Helper to get country flag URL from country code
 function getFlagUrl(countryCode: string): string {
   return `https://flagcdn.com/w80/${countryCode.toLowerCase()}.png`;
+}
+
+// ────────── Component ──────────
+
+interface CommitteePageContentProps {
+  committee: Committee;
 }
 
 export default function CommitteePageContent({
   committee,
 }: CommitteePageContentProps) {
   const t = useTranslations("CommitteeDetailPage");
-  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
+  const [mdxSource, setMdxSource] =
+    useState<MDXRemoteSerializeResult | null>(null);
 
-  const levelColor = levelColors[committee.level] || levelColors["Beginner-Friendly"];
-  const catColor = categoryColors[committee.category] || categoryColors["General Assembly"];
+  const catHex = CATEGORY_HEX[committee.category] || "#397bce";
+  const lvlHex = LEVEL_HEX[committee.level] || "#10b981";
 
-  // Helper function to get translated level name
   const getLevelName = (level: string): string => {
     switch (level) {
       case "Beginner-Friendly":
@@ -111,7 +102,6 @@ export default function CommitteePageContent({
     }
   };
 
-  // Helper function to get translated category name
   const getCategoryName = (category: string): string => {
     switch (category) {
       case "General Assembly":
@@ -132,9 +122,7 @@ export default function CommitteePageContent({
   useEffect(() => {
     async function compileMDX() {
       const source = await serialize(committee.letterFromChair, {
-        mdxOptions: {
-          remarkPlugins: [remarkGfm],
-        },
+        mdxOptions: { remarkPlugins: [remarkGfm] },
       });
       setMdxSource(source);
     }
@@ -142,429 +130,442 @@ export default function CommitteePageContent({
   }, [committee.letterFromChair]);
 
   return (
-    <main>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-jamun-blue/5 via-white to-purple-50 min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] flex items-center py-16 md:py-20 lg:py-24">
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-to-r from-jamun-blue/10 to-purple-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-to-r from-jamun-orange/10 to-pink-400/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-purple-100/30 to-blue-100/30 rounded-full blur-3xl -z-10" />
+    <div className="bg-white text-[#0a0a0a]">
+      {/* ───── Hero ───── */}
+      <DiagonalSpread
+        photoSide="right"
+        photoSrc={committee.image || "/images/conferences/DSC00848.webp"}
+        photoAlt={committee.name}
+        photoPriority
+        minHeight="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]"
+        panelClassName="py-16 md:py-0"
+        animation="entry"
+      >
+        {/* Back link */}
+        <Link
+          href="/modelun/committees"
+          style={fontBody}
+          className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-[#397bce] transition-colors group mb-6"
+        >
+          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+          {t("backLink")}
+        </Link>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Back link */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-6"
+        {/* Badges */}
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <span
+            style={{
+              ...fontBody,
+              backgroundColor: `${catHex}1a`,
+              color: catHex,
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full"
           >
-            <Link
-              href="/modelun/committees"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-jamun-blue transition-colors group"
-            >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              {t("backLink")}
-            </Link>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {/* Category badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="flex flex-wrap items-center gap-2 mb-4"
-              >
-                <span
-                  className={cn(
-                    "inline-flex items-center gap-2 px-4 py-1.5 text-sm font-medium rounded-full border",
-                    catColor.bg,
-                    catColor.text
-                  )}
-                >
-                  <Globe className="w-4 h-4" />
-                  {getCategoryName(committee.category)}
-                </span>
-                <span
-                  className={cn(
-                    "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
-                    levelColor.bg,
-                    levelColor.text,
-                    levelColor.border
-                  )}
-                >
-                  <GraduationCap className="w-4 h-4" />
-                  {getLevelName(committee.level)}
-                </span>
-              </motion.div>
-
-              {/* Committee name */}
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-2"
-              >
-                {committee.name}
-              </motion.h1>
-
-              {/* Abbreviation */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25, duration: 0.6 }}
-                className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-jamun-blue via-purple-600 to-jamun-blue bg-clip-text text-transparent mb-4"
-              >
-                {committee.abbreviation}
-              </motion.p>
-
-              {/* Topic */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                className="mb-4"
-              >
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">
-                  {t("topic")}
-                </p>
-                <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-                  {committee.isAdHoc && committee.redHerringTopics && committee.redHerringTopics.length > 0 ? (
-                    <ShiftingTopic topics={committee.redHerringTopics} />
-                  ) : (
-                    committee.topic
-                  )}
-                </h2>
-              </motion.div>
-
-              {/* Quick stats */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.6 }}
-                className="flex flex-wrap gap-6"
-              >
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Users className="w-5 h-5 text-jamun-blue" />
-                  <span>
-                    <strong className="text-gray-900">{committee.delegateCount}</strong>{" "}
-                    {t("delegates")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Flag className="w-5 h-5 text-purple-600" />
-                  <span>
-                    <strong className="text-gray-900">{committee.delegationSize}</strong>{" "}
-                    {t("delegation")}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Globe className="w-5 h-5 text-emerald-600" />
-                  <span>
-                    <strong className="text-gray-900">{committee.countries.length}</strong>{" "}
-                    {t("countries")}
-                  </span>
-                </div>
-              </motion.div>
-
-            </motion.div>
-
-            {/* Image Side */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src={committee.image || "/images/conferences/DSC00848.webp"}
-                  alt={committee.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-br from-jamun-blue/30 to-purple-400/20 rounded-full blur-2xl -z-10" />
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-gradient-to-br from-purple-400/30 to-jamun-blue/20 rounded-full blur-3xl -z-10" />
-            </motion.div>
-          </div>
+            <Globe className="w-3.5 h-3.5" />
+            {getCategoryName(committee.category)}
+          </span>
+          <span
+            style={{
+              ...fontBody,
+              backgroundColor: `${lvlHex}1a`,
+              color: lvlHex,
+            }}
+            className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold rounded-full"
+          >
+            <GraduationCap className="w-3.5 h-3.5" />
+            {getLevelName(committee.level)}
+          </span>
         </div>
-      </section>
 
-      {/* Two-Column Section: Committee Info + Letter from Chair */}
-      <Section background="white" className="py-16 md:py-20">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-12">
-          {/* Left Column: Committee Information */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
+        {/* Committee name */}
+        <Heading size="hero">{committee.name}</Heading>
+
+        {/* Abbreviation */}
+        <span
+          style={{ ...fontHeading, fontWeight: 600 }}
+          className="block mt-1 text-2xl md:text-3xl text-[#397bce]"
+        >
+          {committee.abbreviation}
+        </span>
+
+        {/* Topic */}
+        <div className="mt-5">
+          <span
+            style={fontBody}
+            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-neutral-500"
           >
-            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-8">
-              {t("committeeInformation")}
-            </h2>
+            {t("topic")}
+          </span>
+          <p
+            style={fontBody}
+            className={`mt-1 max-w-lg ${bodySize.lead} font-medium`}
+          >
+            {committee.isAdHoc &&
+            committee.redHerringTopics &&
+            committee.redHerringTopics.length > 0 ? (
+              <ShiftingTopic topics={committee.redHerringTopics} />
+            ) : (
+              committee.topic
+            )}
+          </p>
+        </div>
 
-            {/* Info Cards */}
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  {t("topic")}
-                </p>
-                <p className="text-lg font-medium text-gray-900">
-                  {committee.isAdHoc && committee.redHerringTopics && committee.redHerringTopics.length > 0 ? (
-                    <ShiftingTopic topics={committee.redHerringTopics} />
-                  ) : (
-                    committee.topic
-                  )}
-                </p>
-              </div>
+        {/* Quick stats */}
+        <div
+          style={fontBody}
+          className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-neutral-500"
+        >
+          <span>
+            <strong className="text-[#0a0a0a]">
+              {committee.delegateCount}
+            </strong>{" "}
+            {t("delegates")}
+          </span>
+          <span className="text-neutral-300">·</span>
+          <span>
+            <strong className="text-[#0a0a0a]">
+              {committee.delegationSize}
+            </strong>{" "}
+            {t("delegation")}
+          </span>
+          <span className="text-neutral-300">·</span>
+          <span>
+            <strong className="text-[#0a0a0a]">
+              {committee.countries.length}
+            </strong>{" "}
+            {t("countries")}
+          </span>
+        </div>
+      </DiagonalSpread>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                  <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                    {t("delegationSize")}
-                  </p>
-                  <p className="text-lg font-medium text-gray-900">
-                    {committee.delegationSize}
-                  </p>
-                </div>
-                <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                  <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                    {t("numberOfDelegates")}
-                  </p>
-                  <p className="text-lg font-medium text-gray-900">
-                    {committee.delegateCount}
-                  </p>
-                </div>
-              </div>
+      {/* ───── Committee Info + Letter from Chair ───── */}
+      <section className="bg-white">
+        <Container className="py-14 md:py-20">
+          <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-16">
+            {/* Left column: Committee information */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+            >
+              <Heading size="cardLg" className="mb-8">
+                {t("committeeInformation")}
+              </Heading>
 
-              <div className="bg-gray-50 rounded-xl p-5 border border-gray-100">
-                <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  {t("difficultyLevel")}
-                </p>
-                <div className="flex items-center gap-2 mt-1">
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1.5 px-3 py-1 text-sm font-medium rounded-full",
-                      levelColor.bg,
-                      levelColor.text
+              <div className="space-y-4">
+                {/* Topic card */}
+                <div className="rounded-2xl border border-black/5 p-5">
+                  <p
+                    style={fontBody}
+                    className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-1"
+                  >
+                    {t("topic")}
+                  </p>
+                  <p
+                    style={fontBody}
+                    className="text-base font-medium text-[#0a0a0a]"
+                  >
+                    {committee.isAdHoc &&
+                    committee.redHerringTopics &&
+                    committee.redHerringTopics.length > 0 ? (
+                      <ShiftingTopic topics={committee.redHerringTopics} />
+                    ) : (
+                      committee.topic
                     )}
+                  </p>
+                </div>
+
+                {/* Delegation size + count */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="rounded-2xl border border-black/5 p-5">
+                    <p
+                      style={fontBody}
+                      className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-1"
+                    >
+                      {t("delegationSize")}
+                    </p>
+                    <p
+                      style={fontBody}
+                      className="text-base font-medium text-[#0a0a0a]"
+                    >
+                      {committee.delegationSize}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-black/5 p-5">
+                    <p
+                      style={fontBody}
+                      className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-1"
+                    >
+                      {t("numberOfDelegates")}
+                    </p>
+                    <p
+                      style={fontBody}
+                      className="text-base font-medium text-[#0a0a0a]"
+                    >
+                      {committee.delegateCount}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Difficulty */}
+                <div className="rounded-2xl border border-black/5 p-5">
+                  <p
+                    style={fontBody}
+                    className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-2"
+                  >
+                    {t("difficultyLevel")}
+                  </p>
+                  <span
+                    style={{
+                      ...fontBody,
+                      backgroundColor: `${lvlHex}1a`,
+                      color: lvlHex,
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 text-sm font-semibold rounded-full"
                   >
                     <GraduationCap className="w-4 h-4" />
                     {getLevelName(committee.level)}
                   </span>
                 </div>
-              </div>
 
-              {/* Committee Executives */}
-              {committee.executives.length > 0 && (
-                <div className="bg-gradient-to-br from-jamun-blue/5 to-purple-50 rounded-xl p-5 border border-jamun-blue/10">
-                  <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-                    {t("committeeExecutives")}
-                  </p>
-                  <div className="space-y-3">
-                    {committee.executives.map((exec, index) => (
-                      <div key={index} className="flex items-center gap-3">
-                        {exec.avatar ? (
-                          <Image
-                            src={exec.avatar}
-                            alt={exec.name}
-                            width={40}
-                            height={40}
-                            className="rounded-full"
-                          />
-                        ) : (
-                          <div className="w-10 h-10 rounded-full bg-jamun-blue/10 flex items-center justify-center">
-                            <User className="w-5 h-5 text-jamun-blue" />
+                {/* Committee Executives */}
+                {committee.executives.length > 0 && (
+                  <div
+                    className="rounded-2xl border border-black/5 p-5"
+                    style={{ backgroundColor: `${catHex}08` }}
+                  >
+                    <p
+                      style={fontBody}
+                      className="text-[11px] font-semibold text-neutral-500 uppercase tracking-[0.18em] mb-4"
+                    >
+                      {t("committeeExecutives")}
+                    </p>
+                    <div className="space-y-3">
+                      {committee.executives.map((exec, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                          {exec.avatar ? (
+                            <Image
+                              src={exec.avatar}
+                              alt={exec.name}
+                              width={40}
+                              height={40}
+                              className="rounded-full"
+                            />
+                          ) : (
+                            <div
+                              className="w-10 h-10 rounded-full flex items-center justify-center"
+                              style={{ backgroundColor: `${catHex}1a` }}
+                            >
+                              <User
+                                className="w-5 h-5"
+                                style={{ color: catHex }}
+                              />
+                            </div>
+                          )}
+                          <div>
+                            <p
+                              style={fontBody}
+                              className="font-medium text-[#0a0a0a]"
+                            >
+                              {exec.name}
+                            </p>
+                            <p
+                              style={fontBody}
+                              className="text-sm text-neutral-500"
+                            >
+                              {exec.role}
+                            </p>
                           </div>
-                        )}
-                        <div>
-                          <p className="font-medium text-gray-900">{exec.name}</p>
-                          <p className="text-sm text-gray-500">{exec.role}</p>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          </motion.div>
-
-          {/* Right Column: Letter from Chair + Documents */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* Letter from Chair */}
-            <div className="mb-10">
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-                {t("letterFromChair")}
-              </h2>
-              <div className="prose prose-gray max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600">
-                {mdxSource ? (
-                  <MDXRemote {...mdxSource} components={MDXComponents} />
-                ) : (
-                  <div className="space-y-4">
-                    <div className="h-4 bg-gray-200 rounded animate-pulse" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-5/6" />
-                    <div className="h-4 bg-gray-200 rounded animate-pulse w-4/6" />
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Committee Documents */}
-            <div id="documents">
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-6">
-                {t("committeeDocuments")}
-              </h2>
-              {(committee.backgroundGuide || committee.documents.length > 0) ? (
-                <div className="space-y-4">
-                  {/* Background Guide Link (if available) */}
-                  {committee.backgroundGuide && (
-                    <motion.div whileHover={{ y: -2 }}>
+            {/* Right column: Letter from Chair + Documents */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.15 }}
+            >
+              {/* Letter from Chair */}
+              <div className="mb-10">
+                <Heading size="cardLg" className="mb-6">
+                  {t("letterFromChair")}
+                </Heading>
+                <div className="prose prose-neutral max-w-none prose-headings:text-[#0a0a0a] prose-p:text-neutral-700 prose-strong:text-[#0a0a0a] prose-ul:text-neutral-700 prose-li:text-neutral-700">
+                  {mdxSource ? (
+                    <MDXRemote {...mdxSource} components={MDXComponents} />
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="h-4 bg-neutral-200 rounded animate-pulse" />
+                      <div className="h-4 bg-neutral-200 rounded animate-pulse w-5/6" />
+                      <div className="h-4 bg-neutral-200 rounded animate-pulse w-4/6" />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Committee Documents */}
+              <div id="documents">
+                <Heading size="cardLg" className="mb-6">
+                  {t("committeeDocuments")}
+                </Heading>
+                {committee.backgroundGuide || committee.documents.length > 0 ? (
+                  <div className="space-y-3">
+                    {/* Background Guide */}
+                    {committee.backgroundGuide && (
                       <Link
                         href={`/modelun/background-guides/${committee.backgroundGuide}`}
-                        className="group flex items-center gap-4 bg-white rounded-xl p-5 border border-gray-200 hover:border-jamun-blue/30 hover:shadow-md transition-all duration-300"
+                        className="group flex items-center gap-4 rounded-2xl border border-black/5 p-5 transition-colors hover:border-black/10"
                       >
-                        <div className="w-12 h-12 rounded-xl bg-jamun-blue/10 flex items-center justify-center group-hover:bg-jamun-blue/20 transition-colors">
-                          <BookOpen className="w-6 h-6 text-jamun-blue" />
-                        </div>
+                        <IconTile
+                          icon={BookOpen}
+                          color="#397bce"
+                          size="sm"
+                        />
                         <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-gray-900 group-hover:text-jamun-blue transition-colors">
+                          <p
+                            style={fontBody}
+                            className="font-semibold text-[#0a0a0a] group-hover:text-[#397bce] transition-colors"
+                          >
                             {t("backgroundGuide")}
                           </p>
-                          <p className="text-sm text-gray-500 truncate">
+                          <p
+                            style={fontBody}
+                            className="text-sm text-neutral-500 truncate"
+                          >
                             {t("backgroundGuideDescription")}
                           </p>
                         </div>
-                        <div className="flex-shrink-0">
-                          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-jamun-blue group-hover:text-white transition-all">
-                            <ArrowRight className="w-5 h-5" />
-                          </div>
-                        </div>
+                        <span
+                          style={fontBody}
+                          className="text-sm font-semibold text-[#397bce] shrink-0"
+                        >
+                          →
+                        </span>
                       </Link>
-                    </motion.div>
-                  )}
-                  {/* Other Documents (PDF downloads) */}
-                  {committee.documents.map((doc, index) => {
-                    const IconComponent = documentIcons[doc.icon || "other"] || File;
-                    return (
-                      <motion.a
-                        key={index}
-                        href={doc.file}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        download
-                        whileHover={{ y: -2 }}
-                        className="group flex items-center gap-4 bg-white rounded-xl p-5 border border-gray-200 hover:border-jamun-blue/30 hover:shadow-md transition-all duration-300"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-jamun-blue/10 flex items-center justify-center group-hover:bg-jamun-blue/20 transition-colors">
-                          <IconComponent className="w-6 h-6 text-jamun-blue" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-semibold text-gray-900 group-hover:text-jamun-blue transition-colors">
-                            {doc.title}
-                          </p>
-                          {doc.description && (
-                            <p className="text-sm text-gray-500 truncate">
-                              {doc.description}
+                    )}
+
+                    {/* Other Documents (PDF downloads) */}
+                    {committee.documents.map((doc, index) => {
+                      const IconComponent =
+                        documentIcons[doc.icon || "other"] || File;
+                      return (
+                        <a
+                          key={index}
+                          href={doc.file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                          className="group flex items-center gap-4 rounded-2xl border border-black/5 p-5 transition-colors hover:border-black/10"
+                        >
+                          <IconTile
+                            icon={IconComponent}
+                            color="#397bce"
+                            size="sm"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p
+                              style={fontBody}
+                              className="font-semibold text-[#0a0a0a] group-hover:text-[#397bce] transition-colors"
+                            >
+                              {doc.title}
                             </p>
-                          )}
-                        </div>
-                        <div className="flex-shrink-0">
-                          <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-jamun-blue group-hover:text-white transition-all">
-                            <Download className="w-5 h-5" />
+                            {doc.description && (
+                              <p
+                                style={fontBody}
+                                className="text-sm text-neutral-500 truncate"
+                              >
+                                {doc.description}
+                              </p>
+                            )}
                           </div>
-                        </div>
-                      </motion.a>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div className="bg-gray-50 rounded-xl p-6 text-center border border-gray-100">
-                  <FileText className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">
-                    {t("documentsComingSoon")}
-                  </p>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </Section>
-
-      {/* Country Assignments Section */}
-      <Section background="gray" className="py-16 md:py-20">
-        <SectionHeader
-          eyebrow={t("countryAssignmentsEyebrow")}
-          title={t("countryAssignmentsTitle")}
-          subtitle={t("countryAssignmentsSubtitle")}
-        />
-
-        {committee.countries.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
-          >
-            {committee.countries.map((country, index) => (
-              <motion.div
-                key={country.code}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.02 }}
-                whileHover={{ y: -4 }}
-                className={cn(
-                  "bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 text-center",
-                  country.available === false && "opacity-60"
+                          <Download className="w-5 h-5 text-neutral-400 group-hover:text-[#397bce] transition-colors shrink-0" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-black/5 p-8 text-center">
+                    <FileText className="w-12 h-12 text-neutral-300 mx-auto mb-3" />
+                    <p style={fontBody} className="text-neutral-500">
+                      {t("documentsComingSoon")}
+                    </p>
+                  </div>
                 )}
-              >
-                <div className="w-16 h-12 mx-auto mb-3 rounded-md overflow-hidden shadow-sm border border-gray-100 relative">
-                  <Image
-                    src={getFlagUrl(country.code)}
-                    alt={`${country.name} flag`}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
-                </div>
-                <p className="font-medium text-gray-900 text-sm leading-tight">
-                  {country.name}
-                </p>
-                {country.available === false && (
-                  <span className="inline-block mt-2 px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-500 rounded-full">
-                    {t("assigned")}
-                  </span>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-        ) : (
-          <div className="bg-white rounded-xl p-8 text-center border border-gray-100">
-            <Globe className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">
-              {t("countryAssignmentsComingSoon")}
-            </p>
+              </div>
+            </motion.div>
           </div>
-        )}
-      </Section>
+        </Container>
+      </section>
 
-    </main>
+      {/* ───── Country Assignments ───── */}
+      <section className="bg-white border-t border-black/5">
+        <Container className="py-14 md:py-20">
+          <SectionIntro
+            title={t("countryAssignmentsTitle")}
+            subtitle={t("countryAssignmentsSubtitle")}
+          />
+
+          {committee.countries.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {committee.countries.map((country, index) => (
+                <motion.div
+                  key={country.code}
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: (index % 6) * 0.03, duration: 0.6 }}
+                  className={cn(
+                    "rounded-2xl border border-black/5 p-4 text-center",
+                    country.available === false && "opacity-60"
+                  )}
+                >
+                  <div className="w-16 h-12 mx-auto mb-3 rounded-md overflow-hidden border border-black/5 relative">
+                    <Image
+                      src={getFlagUrl(country.code)}
+                      alt={`${country.name} flag`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                  <p
+                    style={fontBody}
+                    className="font-medium text-[#0a0a0a] text-sm leading-tight"
+                  >
+                    {country.name}
+                  </p>
+                  {country.available === false && (
+                    <span
+                      style={{
+                        ...fontBody,
+                        backgroundColor: "#0a0a0a0d",
+                        color: "#737373",
+                      }}
+                      className="inline-block mt-2 px-2 py-0.5 text-xs font-medium rounded-full"
+                    >
+                      {t("assigned")}
+                    </span>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-black/5 p-8 text-center">
+              <Globe className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
+              <p style={fontBody} className={bodySize.base}>
+                {t("countryAssignmentsComingSoon")}
+              </p>
+            </div>
+          )}
+        </Container>
+      </section>
+    </div>
   );
 }

@@ -10,7 +10,7 @@ import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { TranslationNotice } from "@/components/ui";
 import { siteConfig } from "@/config/site";
-import { routing, type Locale } from "@/i18n/routing";
+import { routing, ogLocale, type Locale } from "@/i18n/routing";
 
 const GA_MEASUREMENT_ID = "G-JYTR5V7G12";
 
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     openGraph: {
       type: "website",
-      locale: locale === "es" ? "es_ES" : locale === "zh" ? "zh_CN" : "en_US",
+      locale: ogLocale(locale),
       url: siteConfig.url,
       siteName: t("siteFullName"),
       title: t("defaultTitle"),
@@ -94,6 +94,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: siteConfig.url,
         es: `${siteConfig.url}/es`,
         zh: `${siteConfig.url}/zh`,
+        ar: `${siteConfig.url}/ar`,
+        hi: `${siteConfig.url}/hi`,
+        tr: `${siteConfig.url}/tr`,
       },
     },
     category: "Education",
@@ -142,6 +145,8 @@ export default async function LocaleLayout({
           type="font/woff2"
           crossOrigin="anonymous"
         />
+        {/* Typekit: Freight Text Pro for serif headers */}
+        <link rel="stylesheet" href="https://use.typekit.net/vxu0ezk.css" />
         {/* Google Analytics */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
