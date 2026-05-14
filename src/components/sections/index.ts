@@ -1,6 +1,8 @@
 export { LandingPage } from "./LandingPage";
 export { ProgramsPage } from "./ProgramsPage";
 export { AboutPage } from "./AboutPage";
+export { JoshuaPage } from "./JoshuaPage";
+export { TeamMemberPage } from "./TeamMemberPage";
 export { DonatePage } from "./DonatePage";
 export { GrantsPage } from "./GrantsPage";
 export { PrivacyPage } from "./PrivacyPage";

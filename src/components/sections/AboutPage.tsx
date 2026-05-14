@@ -17,10 +17,12 @@ import {
   ArrowLink,
   IconTile,
 } from "@/components/ui";
+import { Link } from "@/i18n/navigation";
 import { fontBody, fontHeading, fontSerif, bodySize } from "@/lib/typography";
 import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
 import { TestimonialSpread } from "@/components/sections/TestimonialSpread";
 import { SectionIntro } from "@/components/sections/SectionIntro";
+import { TEAM_MEMBERS } from "@/lib/team-members";
 
 // ────────── Conference photos — distinct from LandingPage and ProgramsPage ──────────
 const PHOTOS = {
@@ -205,65 +207,16 @@ export function AboutPage() {
     },
   ];
 
-  // ────────── Team ──────────
-  const TEAM = [
-    {
-      name: t("team.members.joshuaVaron.name"),
-      role: t("team.members.joshuaVaron.role"),
-      photo: null,
-      initials: "JV",
-      color: "#397bce",
-      bio: t("team.members.joshuaVaron.bio"),
-    },
-    {
-      name: t("team.members.dustinSimon.name"),
-      role: t("team.members.dustinSimon.role"),
-      photo: "/images/team/dustin.webp",
-      initials: "DS",
-      color: "#10b981",
-      bio: t("team.members.dustinSimon.bio"),
-    },
-    {
-      name: t("team.members.charlieFumerton.name"),
-      role: t("team.members.charlieFumerton.role"),
-      photo: "/images/team/charlie.webp",
-      initials: "CF",
-      color: "#f97316",
-      bio: t("team.members.charlieFumerton.bio"),
-    },
-    {
-      name: t("team.members.danyEsparza.name"),
-      role: t("team.members.danyEsparza.role"),
-      photo: null,
-      initials: "DE",
-      color: "#9333ea",
-      bio: t("team.members.danyEsparza.bio"),
-    },
-    {
-      name: t("team.members.bellaEsparza.name"),
-      role: t("team.members.bellaEsparza.role"),
-      photo: null,
-      initials: "BE",
-      color: "#9333ea",
-      bio: t("team.members.bellaEsparza.bio"),
-    },
-    {
-      name: t("team.members.jiahanLyu.name"),
-      role: t("team.members.jiahanLyu.role"),
-      photo: null,
-      initials: "JL",
-      color: "#ec4899",
-      bio: t("team.members.jiahanLyu.bio"),
-    },
-    {
-      name: t("team.members.willBallis.name"),
-      role: t("team.members.willBallis.role"),
-      photo: "/images/team/will.webp",
-      initials: "WB",
-      color: "#0ea5e9",
-      bio: t("team.members.willBallis.bio"),
-    },
-  ];
+  // ────────── Team — derived from TEAM_MEMBERS (translations pulled per-member) ──────────
+  const TEAM = TEAM_MEMBERS.map((m) => ({
+    slug: m.slug,
+    name: t(`team.members.${m.messageKey}.name`),
+    role: t(`team.members.${m.messageKey}.role`),
+    photo: m.photo,
+    initials: m.initials,
+    color: m.color,
+    bio: t(`team.members.${m.messageKey}.bio`),
+  }));
 
   return (
     <div className="bg-white text-[#0a0a0a]">
@@ -477,26 +430,41 @@ export function AboutPage() {
                 transition={{ delay: (i % 4) * 0.08, duration: 0.7 }}
                 className="text-center"
               >
-                <div className="mx-auto mb-5 inline-block">
-                  <TeamAvatar
-                    photo={m.photo}
-                    initials={m.initials}
-                    color={m.color}
-                    name={m.name}
-                  />
-                </div>
-                <span
-                  style={{ ...fontBody, color: m.color }}
-                  className="block text-[11px] font-semibold uppercase tracking-[0.22em] mb-2"
+                <Link
+                  href={`/about/${m.slug}`}
+                  className="group block rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-offset-4 transition-colors"
+                  style={{ ["--tw-ring-color" as string]: m.color }}
+                  aria-label={`Read about ${m.name}`}
                 >
-                  {m.role}
-                </span>
-                <Heading size="micro" className="text-neutral-900 mb-3">
-                  {m.name}
-                </Heading>
-                <p style={fontBody} className={`${bodySize.micro} max-w-[18rem] mx-auto`}>
-                  {m.bio}
-                </p>
+                  <div className="mx-auto mb-5 inline-block transition-transform duration-300 group-hover:scale-[1.04]">
+                    <TeamAvatar
+                      photo={m.photo}
+                      initials={m.initials}
+                      color={m.color}
+                      name={m.name}
+                    />
+                  </div>
+                  <span
+                    style={{ ...fontBody, color: m.color }}
+                    className="block text-[11px] font-semibold uppercase tracking-[0.22em] mb-2"
+                  >
+                    {m.role}
+                  </span>
+                  <Heading
+                    size="micro"
+                    className="text-neutral-900 mb-3 transition-colors"
+                  >
+                    <span
+                      className="bg-[length:0%_1px] bg-no-repeat bg-[position:0_100%] group-hover:bg-[length:100%_1px] transition-[background-size] duration-300"
+                      style={{ backgroundImage: `linear-gradient(${m.color}, ${m.color})` }}
+                    >
+                      {m.name}
+                    </span>
+                  </Heading>
+                  <p style={fontBody} className={`${bodySize.micro} max-w-[18rem] mx-auto`}>
+                    {m.bio}
+                  </p>
+                </Link>
               </motion.div>
             ))}
           </div>
