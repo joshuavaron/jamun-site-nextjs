@@ -346,8 +346,8 @@ export function GrantsPage() {
         photoSrc={PHOTOS.cta}
         photoAlt={t("ctaPhotoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
         animation="inView"
       >
         <Heading size="ctaHero">

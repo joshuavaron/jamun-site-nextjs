@@ -140,6 +140,7 @@ export function LandingPage() {
         photoClassName="min-h-[60svh]"
         minHeight="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]"
         panelClassName="py-16 md:py-0"
+        objectPosition="40% 35%"
         animation="entry"
       >
         <Heading size="hero">
@@ -163,8 +164,8 @@ export function LandingPage() {
         photoSide="left"
         photoSrc={PHOTOS.boysCircle}
         photoAlt={t("statsPhotoAlt")}
-        minHeight="min-h-[72svh]"
-        panelClassName="py-8 md:py-12"
+        minHeight="md:min-h-[72svh]"
+        panelClassName="py-10 md:py-12"
       >
         <Heading size="section" className="mb-10">
           {t("statsTitle")}
@@ -373,10 +374,10 @@ export function LandingPage() {
               <Heading size="sub" className="mb-4 text-neutral-900">
                 {t("whyCompetitionsTitle")}
               </Heading>
-              <p style={fontBody} className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed mb-4">
+              <p style={fontBody} className={`${bodySize.base} mb-4`}>
                 {t("whyCompetitionsBody1")}
               </p>
-              <p style={fontBody} className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed">
+              <p style={fontBody} className={bodySize.base}>
                 {t("whyCompetitionsBody2")}
               </p>
             </div>
@@ -411,8 +412,8 @@ export function LandingPage() {
         photoSrc={PHOTOS.voting}
         photoAlt={t("ctaPhotoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("ctaTitle1")}{" "}

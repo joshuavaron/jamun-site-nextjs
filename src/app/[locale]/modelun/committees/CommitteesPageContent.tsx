@@ -508,8 +508,8 @@ export default function CommitteesPageContent({
         photoSrc={PHOTOS.finalCta}
         photoAlt="JAMUN delegates celebrating together after a successful conference."
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("ctaTitle")}

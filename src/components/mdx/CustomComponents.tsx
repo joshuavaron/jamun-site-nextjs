@@ -60,10 +60,16 @@ interface ImageGalleryProps {
 
 export function ImageGallery({ images }: ImageGalleryProps) {
   return (
-    <div className="grid grid-cols-2 gap-4 my-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-8">
       {images.map((image, index) => (
         <div key={index} className="relative aspect-video rounded-lg overflow-hidden">
-          <Image src={image.src} alt={image.alt} fill className="object-cover" />
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            className="object-cover"
+            sizes="(min-width:640px) 50vw, 100vw"
+          />
         </div>
       ))}
     </div>

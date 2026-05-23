@@ -452,7 +452,7 @@ function StepIndicator({
               </div>
               {stepNum < total && (
                 <div
-                  className={`w-12 md:w-20 h-0.5 mx-2 ${
+                  className={`w-6 sm:w-10 md:w-20 h-0.5 mx-1 sm:mx-2 ${
                     stepNum < current ? "bg-[#397bce]" : "bg-neutral-200"
                   }`}
                 />
@@ -485,7 +485,7 @@ function StepIndicator({
                   {stepLabels[i]}
                 </span>
               </div>
-              {stepNum < total && <div className="w-12 md:w-20 mx-2" />}
+              {stepNum < total && <div className="w-6 sm:w-10 md:w-20 mx-1 sm:mx-2" />}
             </div>
           );
         })}
@@ -1301,8 +1301,8 @@ export function RegisterPage() {
         photoSrc={PHOTOS.cta}
         photoAlt={t("ctaPhotoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("finalCta.headingBefore")}

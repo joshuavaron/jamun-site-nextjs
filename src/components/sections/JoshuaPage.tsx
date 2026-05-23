@@ -194,7 +194,7 @@ export function JoshuaPage() {
         photoSide="left"
         photoSrc={PHOTOS.stats}
         photoAlt="Joshua Varon"
-        minHeight="min-h-[72svh]"
+        minHeight="md:min-h-[72svh]"
         panelClassName="py-12 md:py-16"
       >
         <Heading size="section" className="mb-3">
@@ -327,14 +327,14 @@ export function JoshuaPage() {
               <Heading size="sub" className="mb-4 text-neutral-900">
                 Beyond JAMUN.
               </Heading>
-              <p style={fontBody} className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed mb-4">
+              <p style={fontBody} className={`${bodySize.base} mb-4`}>
                 When I&rsquo;m not running JAMUN, I&rsquo;m at Duke studying
                 mathematics and computer science — two fields that, oddly,
                 turn out to be excellent training for running a youth-led
                 nonprofit. Both reward the patience to keep asking why
                 something works until you actually understand it.
               </p>
-              <p style={fontBody} className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed">
+              <p style={fontBody} className={bodySize.base}>
                 I read too much, write a little, and am probably most useful
                 in a room where someone is trying to scope a problem that
                 feels too big to start.
@@ -350,8 +350,8 @@ export function JoshuaPage() {
         photoSrc={PHOTOS.finalCta}
         photoAlt="JAMUN students celebrating at a conference"
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           Want to{" "}

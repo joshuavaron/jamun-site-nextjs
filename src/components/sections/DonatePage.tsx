@@ -120,7 +120,7 @@ export function DonatePage() {
 
       {/* ───── Hero — heading + donate widget side by side ───── */}
       <section className="bg-white" id="donate-widget">
-        <Container className="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)] flex items-center py-24 md:py-20">
+        <Container className="min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)] flex items-center py-16 md:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
             {/* Left: heading + copy + stats */}
             <motion.div
@@ -332,8 +332,8 @@ export function DonatePage() {
         photoSrc={PHOTOS.finalCta}
         photoAlt={t("ctaPhotoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("finalCta.headingBefore")}
