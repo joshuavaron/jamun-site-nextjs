@@ -287,7 +287,7 @@ export function MathletesPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.08, duration: 0.6 }}
-                className="px-4 py-5 md:py-2 md:px-8 text-center"
+                className="px-3 sm:px-4 py-6 md:py-2 md:px-8 text-center"
               >
                 <div
                   style={{ ...fontHeading, fontWeight: 600 }}
@@ -477,8 +477,8 @@ export function MathletesPage() {
         clip="none"
         panelBg="#10b981"
         panelText="#ffffff"
-        minHeight="min-h-[60svh]"
-        panelClassName="py-14 md:py-16"
+        minHeight="md:min-h-[60svh]"
+        panelClassName="py-12 md:py-16"
       >
         <Heading size="panel" className="text-white mb-8">
           {t("topicsSpread.heading")}
@@ -630,8 +630,8 @@ export function MathletesPage() {
         photoSrc={PHOTOS.finalCta}
         photoAlt={t("finalCtaPhotoAlt")}
         clip="diagonal"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-10"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-10"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("finalCta.headingStart")}{" "}

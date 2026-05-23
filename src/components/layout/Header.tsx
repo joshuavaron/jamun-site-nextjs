@@ -97,7 +97,7 @@ export function Header() {
     >
       <div className="mx-auto max-w-[1500px] px-6 md:px-16 lg:px-24">
         <div className="relative flex items-center justify-between h-14 md:h-16">
-          {/* Left: Explore + Search */}
+          {/* Left: Explore + Search (search appears at lg) */}
           <div className="hidden md:flex items-center gap-4">
             {/* Explore dropdown */}
             <div className="relative" data-explore>
@@ -136,8 +136,9 @@ export function Header() {
               </AnimatePresence>
             </div>
 
-            {/* Search */}
-            <div className="relative" data-search>
+            {/* Search — only at lg+, since the absolute-centered logo needs the
+                gutter free at md to avoid collision with the right-side CTAs. */}
+            <div className="relative hidden lg:block" data-search>
               <div
                 className={`flex items-center rounded-full h-9 w-52 transition-all duration-200 ${
                   isSearchFocused
@@ -184,13 +185,16 @@ export function Header() {
             </div>
           </div>
 
-          {/* Center: Logo */}
+          {/* Center: Logo — absolute-centered at md+. The logo is sized
+              smaller at md (w-44) than lg (w-52) so it fits between the
+              Explore button on the left and the CTA cluster on the right
+              at the narrowest md width. */}
           <Link
             href="/"
             className="flex items-center shrink-0 md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2"
             aria-label={t("logoAlt")}
           >
-            <div className="relative h-8 w-40 md:h-9 md:w-52">
+            <div className="relative h-8 w-40 md:h-9 md:w-44 lg:w-52">
               <Image
                 src="/images/logos/jamun-blue-side-logo.svg"
                 alt={t("logoAlt")}
@@ -202,7 +206,7 @@ export function Header() {
           </Link>
 
           {/* Right: Language + Grants + Donate + Register */}
-          <div className="hidden md:flex items-center gap-4 ml-auto">
+          <div className="hidden md:flex items-center gap-3 lg:gap-4 ml-auto">
             {/* Language switcher */}
             <div className="relative" data-lang>
               <button
@@ -224,7 +228,7 @@ export function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[160px] overflow-hidden"
+                    className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[140px] sm:min-w-[160px] overflow-hidden"
                   >
                     {LOCALES.map((l) => (
                       <button
@@ -251,19 +255,19 @@ export function Header() {
 
             <Link
               href="/grants"
-              className="text-[14px] text-neutral-700 hover:text-[#397bce] transition-colors"
+              className="hidden lg:inline text-[14px] text-neutral-700 hover:text-[#397bce] transition-colors"
             >
               {t("grants")}
             </Link>
             <Link
               href="/donate"
-              className="px-4 py-1.5 rounded-full bg-[#f97316] text-white text-[13px] hover:bg-[#ea580c] transition-colors"
+              className="px-3 lg:px-4 py-1.5 rounded-full bg-[#f97316] text-white text-[13px] hover:bg-[#ea580c] transition-colors"
             >
               {t("donate")}
             </Link>
             <Link
               href="/register"
-              className="px-4 py-1.5 rounded-full bg-[#397bce] text-white text-[13px] hover:bg-[#2a5fa3] transition-colors"
+              className="px-3 lg:px-4 py-1.5 rounded-full bg-[#397bce] text-white text-[13px] hover:bg-[#2a5fa3] transition-colors"
             >
               {t("register")}
             </Link>
@@ -313,7 +317,7 @@ export function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[160px] overflow-hidden"
+                        className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1.5 z-50 min-w-[140px] sm:min-w-[160px] overflow-hidden"
                       >
                         {LOCALES.map((l) => (
                           <button
@@ -343,15 +347,45 @@ export function Header() {
               </div>
 
               {/* Mobile search */}
-              <div className="flex items-center bg-neutral-100 rounded-full h-10">
-                <Search className="w-4 h-4 text-neutral-400 ml-3 shrink-0" />
-                <input
-                  type="text"
-                  placeholder={t("searchPlaceholder")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent px-2 py-1.5 text-sm text-neutral-700 placeholder-neutral-400 focus:outline-none"
-                />
+              <div className="relative" data-search>
+                <div className="flex items-center bg-neutral-100 rounded-full h-10">
+                  <Search className="w-4 h-4 text-neutral-400 ml-3 shrink-0" />
+                  <input
+                    type="text"
+                    placeholder={t("searchPlaceholder")}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onFocus={() => setIsSearchFocused(true)}
+                    className="w-full bg-transparent px-2 py-1.5 text-sm text-neutral-700 placeholder-neutral-400 focus:outline-none"
+                  />
+                </div>
+                <AnimatePresence>
+                  {showSearchDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-black/[0.08] py-1 z-50 overflow-hidden"
+                    >
+                      {searchResults.map((r) => (
+                        <Link
+                          key={r.url}
+                          href={r.url}
+                          onClick={() => {
+                            setSearchQuery("");
+                            setIsSearchFocused(false);
+                            setIsMenuOpen(false);
+                          }}
+                          className="flex items-center gap-3 px-3 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors"
+                        >
+                          <Search className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                          {r.title}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {EXPLORE_ITEMS.map((item) => (

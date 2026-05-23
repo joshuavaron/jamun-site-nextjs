@@ -44,6 +44,10 @@ interface DiagonalSpreadProps {
   panelClassName?: string;
   /** Override the photo column extra classes. */
   photoClassName?: string;
+  /** CSS `object-position` for the photo (e.g. `"center"`, `"70% center"`,
+   *  `"right top"`). Use to shift the crop focus when the subject is not
+   *  at the geometric center of the source image. Defaults to `"center"`. */
+  objectPosition?: string;
   /** Animation timing for the text panel. */
   animation?: "entry" | "inView";
   children: ReactNode;
@@ -61,6 +65,7 @@ export function DiagonalSpread({
   panelText,
   panelClassName,
   photoClassName,
+  objectPosition,
   animation = "inView",
   children,
   className,
@@ -71,12 +76,23 @@ export function DiagonalSpread({
   const photoOrder = photoSide === "left" ? "order-2 md:order-1" : "order-1 md:order-2";
   const panelOrder = photoSide === "left" ? "order-1 md:order-2" : "order-2 md:order-1";
 
-  const photoStyle: CSSProperties = clipPath ? { clipPath } : {};
+  // Apply clip-path only when the spread is in two-column mode (md+). At
+  // mobile/single-column the photo sits above the panel as a rectangle —
+  // applying a diagonal there carves an empty triangle into the image with
+  // nothing to bleed into.
+  const photoCssVar = clipPath
+    ? ({ "--photo-clip": clipPath } as CSSProperties)
+    : undefined;
 
   const photo = (
     <div
-      className={cn("relative min-h-[50svh] md:min-h-0", photoOrder, photoClassName)}
-      style={photoStyle}
+      className={cn(
+        "relative min-h-[50svh] md:min-h-0",
+        photoOrder,
+        clipPath && "md:[clip-path:var(--photo-clip)]",
+        photoClassName,
+      )}
+      style={photoCssVar}
     >
       <Image
         src={photoSrc}
@@ -84,6 +100,7 @@ export function DiagonalSpread({
         fill
         priority={photoPriority}
         className="object-cover"
+        style={objectPosition ? { objectPosition } : undefined}
         sizes="(min-width:768px) 50vw, 100vw"
       />
     </div>
@@ -105,7 +122,7 @@ export function DiagonalSpread({
       viewport={panelViewport}
       transition={{ duration: 0.9 }}
       className={cn(
-        "px-6 md:px-12 lg:px-16 py-12 md:py-16 flex flex-col justify-center",
+        "px-6 md:px-12 lg:px-16 py-10 md:py-16 flex flex-col justify-center",
         // Align the panel's "outer" edge (the side at the viewport border)
         // with `Container`'s content right/left edge at every viewport, so
         // text inside a full-bleed spread lands on the same right rail as

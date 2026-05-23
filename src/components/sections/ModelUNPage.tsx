@@ -273,7 +273,7 @@ export function ModelUNPage({ committees }: ModelUNPageProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.08, duration: 0.6 }}
-                className="px-4 py-5 md:py-2 md:px-8 text-center"
+                className="px-3 sm:px-4 py-6 md:py-2 md:px-8 text-center"
               >
                 <div
                   style={{ ...fontHeading, fontWeight: 600 }}
@@ -463,8 +463,8 @@ export function ModelUNPage({ committees }: ModelUNPageProps) {
         clip="none"
         panelBg="#397bce"
         panelText="#ffffff"
-        minHeight="min-h-[55svh]"
-        panelClassName="py-14 md:py-16"
+        minHeight="md:min-h-[55svh]"
+        panelClassName="py-12 md:py-16"
       >
         <Heading size="panel" className="text-white mb-6">
           {t("conferenceSpread.heading")}
@@ -720,8 +720,8 @@ export function ModelUNPage({ committees }: ModelUNPageProps) {
         photoSrc={PHOTOS.finalCta}
         photoAlt={t("finalCta.photoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-10"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-10"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("finalCta.headingPart1")}

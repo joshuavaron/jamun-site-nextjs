@@ -156,12 +156,12 @@ export const mdxRenderers: MDXComponentsType = {
 
   // Lists
   ul: ({ children }) => (
-    <ul className="list-disc list-outside ml-6 mb-6 space-y-2 text-gray-700">
+    <ul className="list-disc list-outside ml-5 sm:ml-6 mb-6 space-y-2 text-gray-700">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal list-outside ml-6 mb-6 space-y-2 text-gray-700">
+    <ol className="list-decimal list-outside ml-5 sm:ml-6 mb-6 space-y-2 text-gray-700">
       {children}
     </ol>
   ),
@@ -238,19 +238,19 @@ export const mdxRenderers: MDXComponentsType = {
 
   // Blockquote
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-jamun-blue/30 pl-6 pr-4 py-4 my-6 bg-jamun-blue/5 rounded-r-lg text-gray-700 italic [&_p]:mb-0">
+    <blockquote className="border-l-4 border-jamun-blue/30 pl-4 sm:pl-6 pr-3 sm:pr-4 py-3 sm:py-4 my-6 bg-jamun-blue/5 rounded-r-lg text-gray-700 italic [&_p]:mb-0">
       {children}
     </blockquote>
   ),
 
   // Code
   code: ({ children }) => (
-    <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">
+    <code className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono break-words">
       {children}
     </code>
   ),
   pre: ({ children }) => (
-    <pre className="bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto mb-6 text-sm">
+    <pre className="bg-gray-900 text-gray-100 p-3 sm:p-4 rounded-xl overflow-x-auto mb-6 text-xs sm:text-sm">
       {children}
     </pre>
   ),
@@ -260,32 +260,33 @@ export const mdxRenderers: MDXComponentsType = {
 
   // Tables
   table: ({ children }) => (
-    <div className="overflow-x-auto mb-6">
-      <table className="w-full border-collapse border border-gray-200 rounded-lg overflow-hidden">
+    <div className="overflow-x-auto -mx-1 sm:mx-0 mb-6">
+      <table className="min-w-full border-collapse border border-gray-200 rounded-lg overflow-hidden text-sm">
         {children}
       </table>
     </div>
   ),
   th: ({ children }) => (
-    <th className="bg-gray-50 border border-gray-200 px-4 py-2 text-left font-semibold text-gray-900">
+    <th className="bg-gray-50 border border-gray-200 px-2 py-2 sm:px-4 text-left font-semibold text-gray-900">
       {children}
     </th>
   ),
   td: ({ children }) => (
-    <td className="border border-gray-200 px-4 py-2 text-gray-700">
+    <td className="border border-gray-200 px-2 py-2 sm:px-4 text-gray-700">
       {children}
     </td>
   ),
 
   // Images
   img: ({ src, alt }) => (
-    <figure className="my-8">
+    <figure className="my-6 sm:my-8">
       <div className="relative aspect-video rounded-xl overflow-hidden">
         <Image
           src={src || ""}
           alt={alt || ""}
           fill
           className="object-cover"
+          sizes="(min-width:1024px) 768px, 100vw"
         />
       </div>
       {alt && (

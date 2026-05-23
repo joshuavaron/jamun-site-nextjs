@@ -54,7 +54,7 @@ function FaqRow({
       <button
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="w-full flex items-start justify-between text-left py-5 md:py-6 gap-6 group"
+        className="w-full flex items-start justify-between text-left py-5 md:py-6 gap-3 md:gap-6 group"
       >
         <span
           style={{ ...fontBody, fontWeight: 500 }}
@@ -85,7 +85,7 @@ function FaqRow({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p style={fontBody} className="pb-6 pr-12 text-base text-neutral-700 leading-relaxed">
+            <p style={fontBody} className="pb-6 pr-2 md:pr-12 text-base text-neutral-700 leading-relaxed">
               {answer}
             </p>
           </motion.div>

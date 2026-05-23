@@ -194,13 +194,13 @@ export function TeamMemberPage({ slug }: Props) {
                 </Heading>
                 <p
                   style={fontBody}
-                  className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed mb-4"
+                  className={`${bodySize.base} mb-4`}
                 >
                   {member.beyondJamun.paragraphs[0]}
                 </p>
                 <p
                   style={fontBody}
-                  className="text-base md:text-[1.05rem] text-neutral-700 leading-relaxed"
+                  className={bodySize.base}
                 >
                   {member.beyondJamun.paragraphs[1]}
                 </p>
@@ -216,8 +216,8 @@ export function TeamMemberPage({ slug }: Props) {
         photoSrc={member.ctaPhoto}
         photoAlt="JAMUN students at a conference"
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           Want to reach{" "}

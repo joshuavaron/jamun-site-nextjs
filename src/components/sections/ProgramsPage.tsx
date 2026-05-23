@@ -259,7 +259,7 @@ export function ProgramsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ delay: i * 0.08, duration: 0.6 }}
-                className="px-4 py-5 md:py-2 md:px-8 text-center"
+                className="px-3 sm:px-4 py-6 md:py-2 md:px-8 text-center"
               >
                 <div
                   style={{ ...fontHeading, fontWeight: 600 }}
@@ -298,7 +298,7 @@ export function ProgramsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="relative block aspect-[3/4] md:aspect-[4/5] overflow-hidden group"
+              className="relative block aspect-[4/5] sm:aspect-[3/4] md:aspect-[4/5] overflow-hidden group"
             >
               <Image
                 src={p.photo}
@@ -357,8 +357,8 @@ export function ProgramsPage() {
             clip="none"
             panelBg={program.color}
             panelText="#ffffff"
-            minHeight="min-h-[78svh]"
-            panelClassName="py-16 md:py-20"
+            minHeight="md:min-h-[78svh]"
+            panelClassName="py-14 md:py-20"
           >
             <Heading size="section" className="text-white mb-6">
               {program.title}
@@ -548,8 +548,8 @@ export function ProgramsPage() {
         photoSrc={PHOTOS.awardWinners}
         photoAlt={t("ctaPhotoAlt")}
         clip="diagonal"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("ctaTitle")}{" "}

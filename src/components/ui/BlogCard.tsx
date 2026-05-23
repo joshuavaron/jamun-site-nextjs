@@ -47,11 +47,12 @@ function BlogCardComponent({ post, featured = false, className }: BlogCardProps)
         <Link href={`/blog/${post.slug}`} className="block">
           <div className="grid md:grid-cols-2 gap-0">
             {/* Image */}
-            <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
+            <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px] lg:min-h-[380px] overflow-hidden">
               <Image
                 src={post.coverImage}
                 alt={post.title}
                 fill
+                sizes="(min-width:768px) 50vw, 100vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />

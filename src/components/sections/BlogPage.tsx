@@ -211,7 +211,7 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
         {/* Stats */}
         <div
           style={fontBody}
-          className="flex gap-6 mt-8 text-sm text-neutral-500"
+          className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-1 mt-8 text-sm text-neutral-500"
         >
           <span>
             <strong className="text-[#0a0a0a]">{posts.length}</strong>{" "}
@@ -245,7 +245,7 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
                 className="group block"
               >
                 <div className="grid md:grid-cols-2 gap-0 rounded-2xl overflow-hidden border border-black/5">
-                  <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
+                  <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[320px] lg:min-h-[380px] overflow-hidden">
                     <Image
                       src={featuredPost.coverImage}
                       alt={featuredPost.title}
@@ -254,7 +254,7 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
                       sizes="(min-width:768px) 50vw, 100vw"
                     />
                   </div>
-                  <div className="p-8 md:p-10 lg:p-12 flex flex-col justify-center">
+                  <div className="p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-center">
                     <CategoryBadge
                       category={featuredPost.category}
                       className="mb-5 self-start"
@@ -380,8 +380,8 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
         photoSrc={PHOTOS.finalCta}
         photoAlt={t("ctaPhotoAlt")}
         clip="none"
-        minHeight="min-h-[70svh]"
-        panelClassName="py-16 md:py-0"
+        minHeight="md:min-h-[70svh]"
+        panelClassName="py-12 md:py-0"
       >
         <Heading size="ctaHero" className="mb-6 text-[#0a0a0a]">
           {t("shareStoryTitle")}
