@@ -1,4 +1,5 @@
 export { LandingPage } from "./LandingPage";
+export { SummaryPage } from "./SummaryPage";
 export { ProgramsPage } from "./ProgramsPage";
 export { AboutPage } from "./AboutPage";
 export { JoshuaPage } from "./JoshuaPage";
