@@ -10,7 +10,7 @@ interface AnimatedNumberProps {
 
 function AnimatedNumberComponent({ value, duration = 2000 }: AnimatedNumberProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px 0px" });
   const [displayValue, setDisplayValue] = useState("0");
 
   useEffect(() => {
