@@ -16,6 +16,7 @@ export function Footer() {
         { label: t("modelUN"), href: "/modelun" },
         { label: t("mockTrial"), href: "/mocktrial" },
         { label: t("mathletes"), href: "/mathletes" },
+        { label: t("summary"), href: "/summary" },
       ],
     },
     {
