@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -12,7 +12,7 @@ import { TranslationNotice } from "@/components/ui";
 import { siteConfig } from "@/config/site";
 import { routing, ogLocale, type Locale } from "@/i18n/routing";
 
-const GA_MEASUREMENT_ID = "G-JYTR5V7G12";
+const GTM_ID = "GTM-MXCXMJ3Z";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -147,20 +147,8 @@ export default async function LocaleLayout({
         />
         {/* Typekit: Freight Text Pro for serif headers */}
         <link rel="stylesheet" href="https://use.typekit.net/vxu0ezk.css" />
-        {/* Google Analytics */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
       </head>
+      <GoogleTagManager gtmId={GTM_ID} />
       <body className="antialiased overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           <LayoutWrapper
