@@ -110,7 +110,8 @@ export function getAllBackgroundGuideSlugsAllLocales(): { slug: string; locale: 
 
   const localeDirs = fs.readdirSync(contentDirectory).filter((dir) => {
     const dirPath = path.join(contentDirectory, dir);
-    return fs.statSync(dirPath).isDirectory();
+    // Skip underscore-prefixed dirs (e.g. _archive) — they aren't locales.
+    return !dir.startsWith("_") && fs.statSync(dirPath).isDirectory();
   });
 
   for (const locale of localeDirs) {
@@ -144,7 +145,8 @@ export function getAlternateLanguages(slug: string, currentLocale: string): { lo
 
   const localeDirs = fs.readdirSync(contentDirectory).filter((dir) => {
     const dirPath = path.join(contentDirectory, dir);
-    return fs.statSync(dirPath).isDirectory() && dir !== currentLocale;
+    // Skip underscore-prefixed dirs (e.g. _archive) — they aren't locales.
+    return !dir.startsWith("_") && fs.statSync(dirPath).isDirectory() && dir !== currentLocale;
   });
 
   for (const locale of localeDirs) {
