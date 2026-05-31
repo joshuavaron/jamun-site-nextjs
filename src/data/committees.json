@@ -6,304 +6,31 @@
       "abbreviation": "ADHOC",
       "category": "Crisis",
       "topic": "CLASSIFIED",
-      "description": "CLASSIFIED",
+      "description": "A classified ad-hoc crisis. Delegates will be briefed when committee begins — prepare to respond to the unexpected.",
       "level": "Advanced",
       "delegationSize": "Single",
       "delegateCount": 24,
       "image": "/images/conferences/model-un.webp",
       "color": "bg-slate-800",
-      "executives": [
-        {
-          "name": "Osiris Khan",
-          "role": "Chair"
-        },
-        {
-          "name": "Andrew Walsh",
-          "role": "Vice Chair"
-        }
-      ],
+      "executives": [],
       "documents": [],
       "countries": [],
       "featured": true,
       "isAdHoc": true,
       "redHerringTopics": [
-        "Climate Change Mitigation",
-        "Space Law Reform",
-        "Cybersecurity",
-        "Pandemic Response",
-        "Arctic Resources",
-        "AI Governance",
-        "Nuclear Treaties",
-        "Organized Crime",
-        "Ocean Conservation",
-        "Refugee Protocols",
-        "Water Scarcity",
-        "Digital Privacy"
+        "Cold War Espionage",
+        "Arms Reduction Talks",
+        "Soviet Economic Reform",
+        "Space Race Funding",
+        "Grain Shortages",
+        "Border Security",
+        "Energy Independence",
+        "Industrial Accidents",
+        "Public Health Emergency",
+        "Media Censorship",
+        "Environmental Disaster",
+        "Military Readiness"
       ],
-      "locale": "en"
-    },
-    {
-      "slug": "african-union",
-      "name": "African Union",
-      "abbreviation": "AU",
-      "category": "General Assembly",
-      "topic": "The Independence of Colonial Territories",
-      "description": "Examine the ongoing struggles for independence and self-determination in remaining colonial territories across Africa.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 55,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-green-600",
-      "executives": [
-        {
-          "name": "Alex Silverman",
-          "role": "Chair"
-        },
-        {
-          "name": "Alex Rechitsky",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Algeria",
-          "code": "DZ"
-        },
-        {
-          "name": "Angola",
-          "code": "AO"
-        },
-        {
-          "name": "Benin",
-          "code": "BJ"
-        },
-        {
-          "name": "Botswana",
-          "code": "BW"
-        },
-        {
-          "name": "Burkina Faso",
-          "code": "BF"
-        },
-        {
-          "name": "Burundi",
-          "code": "BI"
-        },
-        {
-          "name": "Cameroon",
-          "code": "CM"
-        },
-        {
-          "name": "Cape Verde",
-          "code": "CV"
-        },
-        {
-          "name": "Central African Republic",
-          "code": "CF"
-        },
-        {
-          "name": "Chad",
-          "code": "TD"
-        },
-        {
-          "name": "Comoros",
-          "code": "KM"
-        },
-        {
-          "name": "Congo",
-          "code": "CG"
-        },
-        {
-          "name": "Democratic Republic of the Congo",
-          "code": "CD"
-        },
-        {
-          "name": "Djibouti",
-          "code": "DJ"
-        },
-        {
-          "name": "Egypt",
-          "code": "EG"
-        },
-        {
-          "name": "Equatorial Guinea",
-          "code": "GQ"
-        },
-        {
-          "name": "Eritrea",
-          "code": "ER"
-        },
-        {
-          "name": "Eswatini",
-          "code": "SZ"
-        },
-        {
-          "name": "Ethiopia",
-          "code": "ET"
-        },
-        {
-          "name": "Gabon",
-          "code": "GA"
-        },
-        {
-          "name": "Gambia",
-          "code": "GM"
-        },
-        {
-          "name": "Ghana",
-          "code": "GH"
-        },
-        {
-          "name": "Guinea",
-          "code": "GN"
-        },
-        {
-          "name": "Guinea-Bissau",
-          "code": "GW"
-        },
-        {
-          "name": "Kenya",
-          "code": "KE"
-        },
-        {
-          "name": "Lesotho",
-          "code": "LS"
-        },
-        {
-          "name": "Liberia",
-          "code": "LR"
-        },
-        {
-          "name": "Libya",
-          "code": "LY"
-        },
-        {
-          "name": "Madagascar",
-          "code": "MG"
-        },
-        {
-          "name": "Malawi",
-          "code": "MW"
-        },
-        {
-          "name": "Mali",
-          "code": "ML"
-        },
-        {
-          "name": "Mauritania",
-          "code": "MR"
-        },
-        {
-          "name": "Mauritius",
-          "code": "MU"
-        },
-        {
-          "name": "Morocco",
-          "code": "MA"
-        },
-        {
-          "name": "Mozambique",
-          "code": "MZ"
-        },
-        {
-          "name": "Namibia",
-          "code": "NA"
-        },
-        {
-          "name": "Niger",
-          "code": "NE"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Rwanda",
-          "code": "RW"
-        },
-        {
-          "name": "Senegal",
-          "code": "SN"
-        },
-        {
-          "name": "Seychelles",
-          "code": "SC"
-        },
-        {
-          "name": "Sierra Leone",
-          "code": "SL"
-        },
-        {
-          "name": "Somalia",
-          "code": "SO"
-        },
-        {
-          "name": "South Africa",
-          "code": "ZA"
-        },
-        {
-          "name": "South Sudan",
-          "code": "SS"
-        },
-        {
-          "name": "Sudan",
-          "code": "SD"
-        },
-        {
-          "name": "Tanzania",
-          "code": "TZ"
-        },
-        {
-          "name": "Togo",
-          "code": "TG"
-        },
-        {
-          "name": "Tunisia",
-          "code": "TN"
-        },
-        {
-          "name": "Uganda",
-          "code": "UG"
-        },
-        {
-          "name": "Zambia",
-          "code": "ZM"
-        },
-        {
-          "name": "Zimbabwe",
-          "code": "ZW"
-        },
-        {
-          "name": "Western Sahara",
-          "code": "EH"
-        },
-        {
-          "name": "Ivory Coast",
-          "code": "CI"
-        },
-        {
-          "name": "São Tomé and Príncipe",
-          "code": "ST"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "au-assembly",
       "locale": "en"
     },
     {
@@ -312,321 +39,38 @@
       "abbreviation": "UNION",
       "category": "Crisis",
       "topic": "Preserving the Union",
-      "description": "Lead the Union through the crucible of civil war and shape the future of American democracy.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 18,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-blue-800",
-      "executives": [
-        {
-          "name": "Daniel Greenspon",
-          "role": "Chair"
-        },
-        {
-          "name": "Maxwell Leuthner",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Lucas Bryan",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "union-high-command",
-      "locale": "en"
-    },
-    {
-      "slug": "asean",
-      "name": "Association of Southeast Asian Nations",
-      "abbreviation": "ASEAN",
-      "category": "General Assembly",
-      "topic": "Labor Laws and Accountability",
-      "description": "Develop regional frameworks for fair labor practices and corporate accountability across Southeast Asia.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 40,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-amber-500",
-      "executives": [
-        {
-          "name": "Abby Vandesteeg",
-          "role": "Chair"
-        },
-        {
-          "name": "Holden Moons",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Brunei",
-          "code": "BN"
-        },
-        {
-          "name": "Cambodia",
-          "code": "KH"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Laos",
-          "code": "LA"
-        },
-        {
-          "name": "Malaysia",
-          "code": "MY"
-        },
-        {
-          "name": "Myanmar",
-          "code": "MM"
-        },
-        {
-          "name": "Philippines",
-          "code": "PH"
-        },
-        {
-          "name": "Singapore",
-          "code": "SG"
-        },
-        {
-          "name": "Thailand",
-          "code": "TH"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Japan",
-          "code": "JP"
-        },
-        {
-          "name": "New Zealand",
-          "code": "NZ"
-        },
-        {
-          "name": "South Korea",
-          "code": "KR"
-        },
-        {
-          "name": "Russia",
-          "code": "RU"
-        },
-        {
-          "name": "United States",
-          "code": "US"
-        },
-        {
-          "name": "Bangladesh",
-          "code": "BD"
-        },
-        {
-          "name": "Canada",
-          "code": "CA"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "Mongolia",
-          "code": "MN"
-        },
-        {
-          "name": "Nepal",
-          "code": "NP"
-        },
-        {
-          "name": "Norway",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistan",
-          "code": "PK"
-        },
-        {
-          "name": "Sri Lanka",
-          "code": "LK"
-        },
-        {
-          "name": "Switzerland",
-          "code": "CH"
-        },
-        {
-          "name": "Timor-Leste",
-          "code": "TL"
-        },
-        {
-          "name": "Turkey",
-          "code": "TR"
-        },
-        {
-          "name": "United Kingdom",
-          "code": "GB"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Netherlands",
-          "code": "NL"
-        },
-        {
-          "name": "Sweden",
-          "code": "SE"
-        },
-        {
-          "name": "Italy",
-          "code": "IT"
-        },
-        {
-          "name": "Spain",
-          "code": "ES"
-        },
-        {
-          "name": "Brazil",
-          "code": "BR"
-        },
-        {
-          "name": "Mexico",
-          "code": "MX"
-        },
-        {
-          "name": "Bhutan",
-          "code": "BT"
-        },
-        {
-          "name": "Papua New Guinea",
-          "code": "PG"
-        },
-        {
-          "name": "Fiji",
-          "code": "FJ"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "asean",
-      "locale": "en"
-    },
-    {
-      "slug": "chinese-civil-war",
-      "name": "Chinese Civil War",
-      "abbreviation": "CHINA",
-      "category": "Crisis",
-      "topic": "The Struggle for China",
-      "description": "Experience the pivotal conflict between Nationalist and Communist forces that shaped modern China.",
+      "description": "Take command of the Union war effort and shape the future of American democracy through its most divisive conflict.",
       "level": "Advanced",
       "delegationSize": "Single",
-      "delegateCount": 20,
+      "delegateCount": 30,
       "image": "/images/conferences/model-un.webp",
-      "color": "bg-red-800",
-      "executives": [
-        {
-          "name": "Sam Harutyunyan",
-          "role": "Chair"
-        },
-        {
-          "name": "Scarlett Jackson",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
+      "color": "bg-blue-800",
+      "executives": [],
+      "documents": [],
       "countries": [],
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
-      "backgroundGuide": "chinese-civil-war",
       "locale": "en"
     },
     {
-      "slug": "cuban-missile-crisis",
-      "name": "Cuban Missile Crisis",
-      "abbreviation": "CUBA",
+      "slug": "carnegie-steel",
+      "name": "Carnegie Steel Company",
+      "abbreviation": "CARNEGIE",
       "category": "Crisis",
-      "topic": "Thirteen Days on the Brink",
-      "description": "Experience the tension of the closest the world came to nuclear war and make decisions that could save or destroy civilization.",
-      "level": "Intermediate",
+      "topic": "Industry, labor, and antitrust at the turn of the century",
+      "description": "Sit on the board of an industrial empire and navigate strikes, antitrust pressure, and cutthroat competition.",
+      "level": "Advanced",
       "delegationSize": "Single",
-      "delegateCount": 20,
+      "delegateCount": 24,
       "image": "/images/conferences/model-un.webp",
-      "color": "bg-gray-800",
-      "executives": [
-        {
-          "name": "Bee Kuehn",
-          "role": "Chair"
-        },
-        {
-          "name": "Ceci Frye",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Charlie Fumerton",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
+      "color": "bg-zinc-700",
+      "executives": [],
+      "documents": [],
       "countries": [],
-      "featured": true,
+      "featured": false,
       "isAdHoc": false,
       "redHerringTopics": [],
-      "backgroundGuide": "excomm-cuban-missile-crisis",
       "locale": "en"
     },
     {
@@ -634,421 +78,103 @@
       "name": "Disarmament and International Security Committee",
       "abbreviation": "DISEC",
       "category": "General Assembly",
-      "topic": "Nuclear Weaponry",
-      "description": "Negotiate frameworks for nuclear disarmament and non-proliferation in the modern era.",
+      "topic": "Disarmament of AI-enabled cyber weapons and attacks",
+      "description": "Negotiate global frameworks to disarm AI-driven cyber weapons and prevent a new era of digital conflict.",
       "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 70,
+      "delegationSize": "Single",
+      "delegateCount": 101,
       "image": "/images/conferences/model-un.webp",
       "color": "bg-red-600",
-      "executives": [
-        {
-          "name": "Miranda Winters",
-          "role": "Chair"
-        },
-        {
-          "name": "Noah Cohen",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
+      "executives": [],
+      "documents": [],
       "countries": [
         {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Brazil",
-          "code": "BR"
-        },
-        {
-          "name": "Canada",
-          "code": "CA"
+          "name": "United States",
+          "code": "US"
         },
         {
           "name": "China",
           "code": "CN"
         },
         {
-          "name": "Egypt",
-          "code": "EG"
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
         },
         {
           "name": "France",
           "code": "FR"
         },
         {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Iran",
-          "code": "IR"
-        },
-        {
           "name": "Israel",
           "code": "IL"
-        },
-        {
-          "name": "Italy",
-          "code": "IT"
-        },
-        {
-          "name": "Japan",
-          "code": "JP"
-        },
-        {
-          "name": "Kazakhstan",
-          "code": "KZ"
-        },
-        {
-          "name": "Mexico",
-          "code": "MX"
-        },
-        {
-          "name": "Netherlands",
-          "code": "NL"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
         },
         {
           "name": "North Korea",
           "code": "KP"
         },
         {
-          "name": "Norway",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistan",
-          "code": "PK"
-        },
-        {
-          "name": "Poland",
-          "code": "PL"
-        },
-        {
-          "name": "Russia",
-          "code": "RU"
-        },
-        {
-          "name": "Saudi Arabia",
-          "code": "SA"
-        },
-        {
-          "name": "South Africa",
-          "code": "ZA"
-        },
-        {
           "name": "South Korea",
           "code": "KR"
-        },
-        {
-          "name": "Spain",
-          "code": "ES"
-        },
-        {
-          "name": "Sweden",
-          "code": "SE"
-        },
-        {
-          "name": "Switzerland",
-          "code": "CH"
-        },
-        {
-          "name": "Turkey",
-          "code": "TR"
-        },
-        {
-          "name": "Ukraine",
-          "code": "UA"
-        },
-        {
-          "name": "United Arab Emirates",
-          "code": "AE"
-        },
-        {
-          "name": "United Kingdom",
-          "code": "GB"
-        },
-        {
-          "name": "United States",
-          "code": "US"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "disec",
-      "locale": "en"
-    },
-    {
-      "slug": "ecosoc",
-      "name": "Economic and Social Council",
-      "abbreviation": "ECOSOC",
-      "category": "General Assembly",
-      "topic": "Government Embezzlement and Transparency",
-      "description": "Combat corruption and promote government transparency through international cooperation and frameworks.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-emerald-600",
-      "executives": [
-        {
-          "name": "Andrew Calderon",
-          "role": "Chair"
-        },
-        {
-          "name": "Lainey Reinglass",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Josh Walsh",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Afghanistan",
-          "code": "AF"
-        },
-        {
-          "name": "Argentina",
-          "code": "AR"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Bangladesh",
-          "code": "BD"
-        },
-        {
-          "name": "Belgium",
-          "code": "BE"
-        },
-        {
-          "name": "Brazil",
-          "code": "BR"
-        },
-        {
-          "name": "Canada",
-          "code": "CA"
-        },
-        {
-          "name": "Chile",
-          "code": "CL"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Colombia",
-          "code": "CO"
-        },
-        {
-          "name": "Czech Republic",
-          "code": "CZ"
-        },
-        {
-          "name": "Denmark",
-          "code": "DK"
-        },
-        {
-          "name": "Ecuador",
-          "code": "EC"
-        },
-        {
-          "name": "Egypt",
-          "code": "EG"
-        },
-        {
-          "name": "Ethiopia",
-          "code": "ET"
-        },
-        {
-          "name": "Finland",
-          "code": "FI"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "Ghana",
-          "code": "GH"
-        },
-        {
-          "name": "Greece",
-          "code": "GR"
-        },
-        {
-          "name": "Hungary",
-          "code": "HU"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
         },
         {
           "name": "Iran",
           "code": "IR"
         },
         {
-          "name": "Ireland",
-          "code": "IE"
-        },
-        {
-          "name": "Israel",
-          "code": "IL"
-        },
-        {
-          "name": "Italy",
-          "code": "IT"
-        },
-        {
-          "name": "Jamaica",
-          "code": "JM"
+          "name": "India",
+          "code": "IN"
         },
         {
           "name": "Japan",
           "code": "JP"
         },
         {
-          "name": "Jordan",
-          "code": "JO"
+          "name": "Germany",
+          "code": "DE"
         },
         {
-          "name": "Kenya",
-          "code": "KE"
+          "name": "Estonia",
+          "code": "EE"
         },
         {
-          "name": "Malaysia",
-          "code": "MY"
+          "name": "Ukraine",
+          "code": "UA"
         },
         {
-          "name": "Mexico",
-          "code": "MX"
+          "name": "Australia",
+          "code": "AU"
         },
         {
-          "name": "Morocco",
-          "code": "MA"
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
         },
         {
           "name": "Netherlands",
           "code": "NL"
-        },
-        {
-          "name": "New Zealand",
-          "code": "NZ"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Norway",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistan",
-          "code": "PK"
-        },
-        {
-          "name": "Peru",
-          "code": "PE"
-        },
-        {
-          "name": "Philippines",
-          "code": "PH"
-        },
-        {
-          "name": "Poland",
-          "code": "PL"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Russia",
-          "code": "RU"
-        },
-        {
-          "name": "Saudi Arabia",
-          "code": "SA"
         },
         {
           "name": "Singapore",
           "code": "SG"
         },
         {
-          "name": "South Africa",
-          "code": "ZA"
+          "name": "Cuba",
+          "code": "CU"
         },
         {
-          "name": "South Korea",
-          "code": "KR"
+          "name": "Venezuela",
+          "code": "VE"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
         },
         {
           "name": "Spain",
@@ -1061,512 +187,138 @@
         {
           "name": "Switzerland",
           "code": "CH"
-        },
-        {
-          "name": "Thailand",
-          "code": "TH"
-        },
-        {
-          "name": "Tunisia",
-          "code": "TN"
-        },
-        {
-          "name": "Turkey",
-          "code": "TR"
-        },
-        {
-          "name": "Ukraine",
-          "code": "UA"
-        },
-        {
-          "name": "United Arab Emirates",
-          "code": "AE"
-        },
-        {
-          "name": "United Kingdom",
-          "code": "GB"
-        },
-        {
-          "name": "United States",
-          "code": "US"
-        },
-        {
-          "name": "Venezuela",
-          "code": "VE"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "ecosoc-government-embezzlement",
-      "locale": "en"
-    },
-    {
-      "slug": "european-union",
-      "name": "European Union",
-      "abbreviation": "EU",
-      "category": "General Assembly",
-      "topic": "Border Security and Refugees",
-      "description": "Balance border security concerns with humanitarian obligations toward refugees seeking safety in Europe.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 27,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-indigo-600",
-      "executives": [
-        {
-          "name": "Naomi Altneu",
-          "role": "Chair"
-        },
-        {
-          "name": "Noah Cook",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Belgium",
-          "code": "BE"
-        },
-        {
-          "name": "Bulgaria",
-          "code": "BG"
-        },
-        {
-          "name": "Croatia",
-          "code": "HR"
-        },
-        {
-          "name": "Cyprus",
-          "code": "CY"
-        },
-        {
-          "name": "Czech Republic",
-          "code": "CZ"
-        },
-        {
-          "name": "Denmark",
-          "code": "DK"
-        },
-        {
-          "name": "Estonia",
-          "code": "EE"
-        },
-        {
-          "name": "Finland",
-          "code": "FI"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "Greece",
-          "code": "GR"
-        },
-        {
-          "name": "Hungary",
-          "code": "HU"
-        },
-        {
-          "name": "Ireland",
-          "code": "IE"
-        },
-        {
-          "name": "Italy",
-          "code": "IT"
-        },
-        {
-          "name": "Latvia",
-          "code": "LV"
-        },
-        {
-          "name": "Lithuania",
-          "code": "LT"
-        },
-        {
-          "name": "Luxembourg",
-          "code": "LU"
-        },
-        {
-          "name": "Malta",
-          "code": "MT"
-        },
-        {
-          "name": "Netherlands",
-          "code": "NL"
-        },
-        {
-          "name": "Poland",
-          "code": "PL"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Romania",
-          "code": "RO"
-        },
-        {
-          "name": "Slovakia",
-          "code": "SK"
-        },
-        {
-          "name": "Slovenia",
-          "code": "SI"
-        },
-        {
-          "name": "Spain",
-          "code": "ES"
-        },
-        {
-          "name": "Sweden",
-          "code": "SE"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "european-union-border-security",
-      "locale": "en"
-    },
-    {
-      "slug": "haiti-independence",
-      "name": "Haiti's Independence",
-      "abbreviation": "HAITI",
-      "category": "Crisis",
-      "topic": "The Haitian Revolution",
-      "description": "Navigate the complex political and military landscape of Haiti's struggle for independence from colonial rule.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-rose-700",
-      "executives": [
-        {
-          "name": "Eric Nodland",
-          "role": "Chair"
-        },
-        {
-          "name": "Stephanie Jiang",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "haitian-revolution",
-      "locale": "en"
-    },
-    {
-      "slug": "rwandan-genocide",
-      "name": "Rwandan Genocide",
-      "abbreviation": "RWANDA",
-      "category": "Crisis",
-      "topic": "International Response to Genocide",
-      "description": "Confront the international community's response to one of history's darkest chapters and work to prevent future atrocities.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-purple-900",
-      "executives": [
-        {
-          "name": "Danielle Murray",
-          "role": "Chair"
-        },
-        {
-          "name": "Dylan Liu",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Anson Ni",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "rwanda-1994-rpf",
-      "locale": "en"
-    },
-    {
-      "slug": "sochum",
-      "name": "Social, Humanitarian and Cultural Committee",
-      "abbreviation": "SOCHUM",
-      "category": "General Assembly",
-      "topic": "Homeless Persons and Refugees in Europe",
-      "description": "The Third Committee of the UN General Assembly addresses social, humanitarian, and cultural issues, including human rights, refugees, and the advancement of women.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Single",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-purple-500",
-      "executives": [
-        {
-          "name": "Jaden Livshutz",
-          "role": "Chair"
-        },
-        {
-          "name": "Jonathan Greenspon",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Albania",
-          "code": "AL"
-        },
-        {
-          "name": "Armenia",
-          "code": "AM"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Azerbaijan",
-          "code": "AZ"
-        },
-        {
-          "name": "Belarus",
-          "code": "BY"
-        },
-        {
-          "name": "Belgium",
-          "code": "BE"
-        },
-        {
-          "name": "Bosnia and Herzegovina",
-          "code": "BA"
-        },
-        {
-          "name": "Bulgaria",
-          "code": "BG"
-        },
-        {
-          "name": "Croatia",
-          "code": "HR"
-        },
-        {
-          "name": "Cyprus",
-          "code": "CY"
-        },
-        {
-          "name": "Czech Republic",
-          "code": "CZ"
-        },
-        {
-          "name": "Denmark",
-          "code": "DK"
-        },
-        {
-          "name": "Estonia",
-          "code": "EE"
-        },
-        {
-          "name": "Finland",
-          "code": "FI"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Georgia",
-          "code": "GE"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "Greece",
-          "code": "GR"
-        },
-        {
-          "name": "Hungary",
-          "code": "HU"
-        },
-        {
-          "name": "Iceland",
-          "code": "IS"
-        },
-        {
-          "name": "Ireland",
-          "code": "IE"
-        },
-        {
-          "name": "Italy",
-          "code": "IT"
-        },
-        {
-          "name": "Latvia",
-          "code": "LV"
-        },
-        {
-          "name": "Lithuania",
-          "code": "LT"
-        },
-        {
-          "name": "Luxembourg",
-          "code": "LU"
-        },
-        {
-          "name": "Malta",
-          "code": "MT"
-        },
-        {
-          "name": "Moldova",
-          "code": "MD"
-        },
-        {
-          "name": "Monaco",
-          "code": "MC"
-        },
-        {
-          "name": "Montenegro",
-          "code": "ME"
-        },
-        {
-          "name": "Netherlands",
-          "code": "NL"
-        },
-        {
-          "name": "North Macedonia",
-          "code": "MK"
         },
         {
           "name": "Norway",
           "code": "NO"
         },
         {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
           "name": "Poland",
           "code": "PL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Austria",
+          "code": "AT"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Ireland",
+          "code": "IE"
         },
         {
           "name": "Portugal",
           "code": "PT"
         },
         {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Czechia",
+          "code": "CZ"
+        },
+        {
           "name": "Romania",
           "code": "RO"
         },
         {
-          "name": "Russia",
-          "code": "RU"
+          "name": "Hungary",
+          "code": "HU"
         },
         {
-          "name": "San Marino",
-          "code": "SM"
+          "name": "Lithuania",
+          "code": "LT"
         },
         {
-          "name": "Serbia",
-          "code": "RS"
+          "name": "Latvia",
+          "code": "LV"
         },
         {
-          "name": "Slovakia",
-          "code": "SK"
-        },
-        {
-          "name": "Slovenia",
-          "code": "SI"
-        },
-        {
-          "name": "Spain",
-          "code": "ES"
-        },
-        {
-          "name": "Sweden",
-          "code": "SE"
-        },
-        {
-          "name": "Switzerland",
-          "code": "CH"
-        },
-        {
-          "name": "Turkey",
+          "name": "Türkiye",
           "code": "TR"
         },
         {
-          "name": "Ukraine",
-          "code": "UA"
+          "name": "Saudi Arabia",
+          "code": "SA"
         },
         {
-          "name": "United Kingdom",
-          "code": "GB"
+          "name": "United Arab Emirates",
+          "code": "AE"
         },
         {
-          "name": "Vatican City",
-          "code": "VA"
+          "name": "Qatar",
+          "code": "QA"
         },
         {
-          "name": "Andorra",
-          "code": "AD"
+          "name": "Egypt",
+          "code": "EG"
         },
         {
-          "name": "Liechtenstein",
-          "code": "LI"
+          "name": "Jordan",
+          "code": "JO"
         },
         {
-          "name": "Kosovo",
-          "code": "XK"
+          "name": "Lebanon",
+          "code": "LB"
+        },
+        {
+          "name": "Iraq",
+          "code": "IQ"
+        },
+        {
+          "name": "Syria",
+          "code": "SY"
+        },
+        {
+          "name": "Kuwait",
+          "code": "KW"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Nepal",
+          "code": "NP"
         },
         {
           "name": "Kazakhstan",
@@ -1577,2382 +329,806 @@
           "code": "UZ"
         },
         {
-          "name": "Turkmenistan",
-          "code": "TM"
-        },
-        {
-          "name": "Tajikistan",
-          "code": "TJ"
-        },
-        {
-          "name": "Kyrgyzstan",
-          "code": "KG"
-        },
-        {
           "name": "Afghanistan",
           "code": "AF"
-        },
-        {
-          "name": "Syria",
-          "code": "SY"
-        },
-        {
-          "name": "Iraq",
-          "code": "IQ"
-        },
-        {
-          "name": "Iran",
-          "code": "IR"
-        },
-        {
-          "name": "Egypt",
-          "code": "EG"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "sochum",
-      "locale": "en"
-    },
-    {
-      "slug": "specpol",
-      "name": "Special Political and Decolonization Committee",
-      "abbreviation": "SPECPOL",
-      "category": "General Assembly",
-      "topic": "International Trade Security of Colonized Nations",
-      "description": "Address trade inequalities and economic exploitation affecting colonized and formerly colonized nations.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-teal-500",
-      "executives": [
-        {
-          "name": "Rishi Mowan",
-          "role": "Chair"
-        },
-        {
-          "name": "Emma Lagunas",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Finn Morrow",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Algeria",
-          "code": "DZ"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Brazil",
-          "code": "BR"
-        },
-        {
-          "name": "Canada",
-          "code": "CA"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Cuba",
-          "code": "CU"
-        },
-        {
-          "name": "Egypt",
-          "code": "EG"
-        },
-        {
-          "name": "Ethiopia",
-          "code": "ET"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "Ghana",
-          "code": "GH"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Jamaica",
-          "code": "JM"
-        },
-        {
-          "name": "Japan",
-          "code": "JP"
-        },
-        {
-          "name": "Kenya",
-          "code": "KE"
-        },
-        {
-          "name": "Mexico",
-          "code": "MX"
-        },
-        {
-          "name": "Morocco",
-          "code": "MA"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Pakistan",
-          "code": "PK"
-        },
-        {
-          "name": "Philippines",
-          "code": "PH"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Russia",
-          "code": "RU"
-        },
-        {
-          "name": "South Africa",
-          "code": "ZA"
-        },
-        {
-          "name": "South Korea",
-          "code": "KR"
-        },
-        {
-          "name": "Turkey",
-          "code": "TR"
-        },
-        {
-          "name": "United Kingdom",
-          "code": "GB"
-        },
-        {
-          "name": "United States",
-          "code": "US"
-        },
-        {
-          "name": "Venezuela",
-          "code": "VE"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "specpol",
-      "locale": "en"
-    },
-    {
-      "slug": "sudan-civil-war",
-      "name": "Sudan Civil War",
-      "abbreviation": "SUDAN",
-      "category": "Crisis",
-      "topic": "Conflict Resolution in Sudan",
-      "description": "Navigate the complex ethnic, political, and humanitarian dimensions of Sudan's ongoing civil conflict.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 18,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-orange-800",
-      "executives": [
-        {
-          "name": "Gregory Kislovsky",
-          "role": "Chair"
-        },
-        {
-          "name": "Austin Blumberg",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "usf-anya-nya-1965",
-      "locale": "en"
-    },
-    {
-      "slug": "great-depression",
-      "name": "The Great Depression",
-      "abbreviation": "DEPRESSION",
-      "category": "Crisis",
-      "topic": "Economic Collapse and Recovery",
-      "description": "Address the unprecedented economic challenges of the 1930s and develop strategies for recovery.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Single",
-      "delegateCount": 12,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-amber-800",
-      "executives": [
-        {
-          "name": "Myra Amin",
-          "role": "Chair"
-        },
-        {
-          "name": "Augusto Aguilar",
-          "role": "Vice Chair"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Crisis Procedures",
-          "description": "Guide to crisis committee procedures and directive writing",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "great-depression-1932",
-      "locale": "en"
-    },
-    {
-      "slug": "unicef",
-      "name": "United Nations Children's Fund",
-      "abbreviation": "UNICEF",
-      "category": "General Assembly",
-      "topic": "Access to Primary Education in Conflict Zones",
-      "description": "Address the challenges of providing quality primary education to children living in conflict-affected regions worldwide.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-blue-500",
-      "executives": [
-        {
-          "name": "Abby Kettlewell",
-          "role": "Chair"
-        },
-        {
-          "name": "Grant Nusinow",
-          "role": "Vice Chair"
-        },
-        {
-          "name": "Abraham Ergashev",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Rules of Procedure",
-          "description": "Parliamentary procedures and rules for committee sessions",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Position Paper Template",
-          "description": "Template and guidelines for writing your position paper",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Afghanistan",
-          "code": "AF"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Bangladesh",
-          "code": "BD"
-        },
-        {
-          "name": "Brazil",
-          "code": "BR"
-        },
-        {
-          "name": "Canada",
-          "code": "CA"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Egypt",
-          "code": "EG"
-        },
-        {
-          "name": "Ethiopia",
-          "code": "ET"
-        },
-        {
-          "name": "France",
-          "code": "FR"
-        },
-        {
-          "name": "Germany",
-          "code": "DE"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Iraq",
-          "code": "IQ"
-        },
-        {
-          "name": "Japan",
-          "code": "JP"
-        },
-        {
-          "name": "Jordan",
-          "code": "JO"
-        },
-        {
-          "name": "Kenya",
-          "code": "KE"
-        },
-        {
-          "name": "Lebanon",
-          "code": "LB"
-        },
-        {
-          "name": "Mexico",
-          "code": "MX"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Pakistan",
-          "code": "PK"
-        },
-        {
-          "name": "Russia",
-          "code": "RU"
-        },
-        {
-          "name": "South Africa",
-          "code": "ZA"
-        },
-        {
-          "name": "South Korea",
-          "code": "KR"
-        },
-        {
-          "name": "Syria",
-          "code": "SY"
-        },
-        {
-          "name": "Turkey",
-          "code": "TR"
-        },
-        {
-          "name": "Ukraine",
-          "code": "UA"
-        },
-        {
-          "name": "United Kingdom",
-          "code": "GB"
-        },
-        {
-          "name": "United States",
-          "code": "US"
-        },
-        {
-          "name": "Yemen",
-          "code": "YE"
-        },
-        {
-          "name": "Zimbabwe",
-          "code": "ZW"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "backgroundGuide": "unicef",
-      "locale": "en"
-    }
-  ],
-  "es": [
-    {
-      "slug": "asean",
-      "name": "Asociación de Naciones del Sudeste Asiático",
-      "abbreviation": "ASEAN",
-      "category": "General Assembly",
-      "topic": "Leyes Laborales y Responsabilidad Empresarial",
-      "description": "Desarrollar marcos regionales para prácticas laborales justas y responsabilidad empresarial en todo el Sudeste Asiático.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 40,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-amber-500",
-      "executives": [
-        {
-          "name": "Abby Vandesteeg",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Holden Moons",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/asean-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Brunéi",
-          "code": "BN"
-        },
-        {
-          "name": "Camboya",
-          "code": "KH"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Laos",
-          "code": "LA"
-        },
-        {
-          "name": "Malasia",
-          "code": "MY"
         },
         {
           "name": "Myanmar",
           "code": "MM"
         },
         {
-          "name": "Filipinas",
-          "code": "PH"
-        },
-        {
-          "name": "Singapur",
-          "code": "SG"
-        },
-        {
-          "name": "Tailandia",
-          "code": "TH"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Japón",
-          "code": "JP"
-        },
-        {
-          "name": "Nueva Zelanda",
-          "code": "NZ"
-        },
-        {
-          "name": "Corea del Sur",
-          "code": "KR"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "Estados Unidos",
-          "code": "US"
-        },
-        {
-          "name": "Bangladés",
-          "code": "BD"
-        },
-        {
-          "name": "Canadá",
-          "code": "CA"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "Mongolia",
-          "code": "MN"
-        },
-        {
-          "name": "Nepal",
-          "code": "NP"
-        },
-        {
-          "name": "Noruega",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistán",
-          "code": "PK"
-        },
-        {
-          "name": "Sri Lanka",
-          "code": "LK"
-        },
-        {
-          "name": "Suiza",
-          "code": "CH"
-        },
-        {
-          "name": "Timor Oriental",
-          "code": "TL"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Países Bajos",
-          "code": "NL"
-        },
-        {
-          "name": "Suecia",
-          "code": "SE"
-        },
-        {
-          "name": "Italia",
-          "code": "IT"
-        },
-        {
-          "name": "España",
-          "code": "ES"
-        },
-        {
-          "name": "Brasil",
-          "code": "BR"
-        },
-        {
-          "name": "México",
-          "code": "MX"
-        },
-        {
-          "name": "Bután",
-          "code": "BT"
-        },
-        {
-          "name": "Papúa Nueva Guinea",
-          "code": "PG"
-        },
-        {
-          "name": "Fiyi",
-          "code": "FJ"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "asean",
-      "locale": "es"
-    },
-    {
-      "slug": "adhoc",
-      "name": "Comité Ad-Hoc del Secretario General",
-      "abbreviation": "ADHOC",
-      "category": "Crisis",
-      "topic": "CLASIFICADO",
-      "description": "CLASIFICADO",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 24,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-slate-800",
-      "executives": [
-        {
-          "name": "Osiris Khan",
-          "role": "Presidente"
-        },
-        {
-          "name": "Andrew Walsh",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": true,
-      "redHerringTopics": [
-        "Mitigación del Cambio Climático",
-        "Reforma del Derecho Espacial",
-        "Ciberseguridad",
-        "Respuesta a Pandemias",
-        "Recursos del Ártico",
-        "Gobernanza de la IA",
-        "Tratados Nucleares",
-        "Crimen Organizado",
-        "Conservación Oceánica",
-        "Protocolos de Refugiados",
-        "Escasez de Agua",
-        "Privacidad Digital"
-      ],
-      "canonicalSlug": "adhoc",
-      "locale": "es"
-    },
-    {
-      "slug": "disec",
-      "name": "Comité de Desarme y Seguridad Internacional",
-      "abbreviation": "DISEC",
-      "category": "General Assembly",
-      "topic": "Armamento Nuclear",
-      "description": "Negociar marcos para el desarme nuclear y la no proliferación en la era moderna.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 70,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-red-600",
-      "executives": [
-        {
-          "name": "Miranda Winters",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Noah Cohen",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/disec-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Brasil",
-          "code": "BR"
-        },
-        {
-          "name": "Canadá",
-          "code": "CA"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Irán",
-          "code": "IR"
-        },
-        {
-          "name": "Israel",
-          "code": "IL"
-        },
-        {
-          "name": "Italia",
-          "code": "IT"
-        },
-        {
-          "name": "Japón",
-          "code": "JP"
-        },
-        {
-          "name": "Kazajistán",
-          "code": "KZ"
-        },
-        {
-          "name": "México",
-          "code": "MX"
-        },
-        {
-          "name": "Países Bajos",
-          "code": "NL"
+          "name": "South Africa",
+          "code": "ZA"
         },
         {
           "name": "Nigeria",
           "code": "NG"
         },
         {
-          "name": "Corea del Norte",
-          "code": "KP"
+          "name": "Kenya",
+          "code": "KE"
         },
         {
-          "name": "Noruega",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistán",
-          "code": "PK"
-        },
-        {
-          "name": "Polonia",
-          "code": "PL"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "Arabia Saudita",
-          "code": "SA"
-        },
-        {
-          "name": "Sudáfrica",
-          "code": "ZA"
-        },
-        {
-          "name": "Corea del Sur",
-          "code": "KR"
-        },
-        {
-          "name": "España",
-          "code": "ES"
-        },
-        {
-          "name": "Suecia",
-          "code": "SE"
-        },
-        {
-          "name": "Suiza",
-          "code": "CH"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Ucrania",
-          "code": "UA"
-        },
-        {
-          "name": "Emiratos Árabes Unidos",
-          "code": "AE"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Estados Unidos",
-          "code": "US"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "disec",
-      "locale": "es"
-    },
-    {
-      "slug": "specpol",
-      "name": "Comité Político Especial y de Descolonización",
-      "abbreviation": "SPECPOL",
-      "category": "General Assembly",
-      "topic": "Seguridad del Comercio Internacional de Naciones Colonizadas",
-      "description": "Abordar las desigualdades comerciales y la explotación económica que afectan a las naciones colonizadas y anteriormente colonizadas.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-teal-500",
-      "executives": [
-        {
-          "name": "Rishi Mowan",
-          "role": "Presidente"
-        },
-        {
-          "name": "Emma Lagunas",
-          "role": "Vicepresidenta"
-        },
-        {
-          "name": "Finn Morrow",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/specpol-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Argelia",
-          "code": "DZ"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Brasil",
-          "code": "BR"
-        },
-        {
-          "name": "Canadá",
-          "code": "CA"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Cuba",
-          "code": "CU"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        },
-        {
-          "name": "Etiopía",
+          "name": "Ethiopia",
           "code": "ET"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
         },
         {
           "name": "Ghana",
           "code": "GH"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Jamaica",
-          "code": "JM"
-        },
-        {
-          "name": "Japón",
-          "code": "JP"
-        },
-        {
-          "name": "Kenia",
-          "code": "KE"
-        },
-        {
-          "name": "México",
-          "code": "MX"
-        },
-        {
-          "name": "Marruecos",
-          "code": "MA"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Pakistán",
-          "code": "PK"
-        },
-        {
-          "name": "Filipinas",
-          "code": "PH"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "Sudáfrica",
-          "code": "ZA"
-        },
-        {
-          "name": "Corea del Sur",
-          "code": "KR"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Estados Unidos",
-          "code": "US"
-        },
-        {
-          "name": "Venezuela",
-          "code": "VE"
-        },
-        {
-          "name": "Vietnam",
-          "code": "VN"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "specpol",
-      "locale": "es"
-    },
-    {
-      "slug": "sochum",
-      "name": "Comité Social, Humanitario y Cultural",
-      "abbreviation": "SOCHUM",
-      "category": "General Assembly",
-      "topic": "Personas Sin Hogar y Refugiados en Europa",
-      "description": "El Tercer Comité de la Asamblea General de la ONU aborda cuestiones sociales, humanitarias y culturales, incluyendo derechos humanos, refugiados y el avance de la mujer.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Single",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-purple-500",
-      "executives": [
-        {
-          "name": "Jaden Livshutz",
-          "role": "Presidente"
-        },
-        {
-          "name": "Jonathan Greenspon",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/sochum-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Albania",
-          "code": "AL"
-        },
-        {
-          "name": "Armenia",
-          "code": "AM"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Azerbaiyán",
-          "code": "AZ"
-        },
-        {
-          "name": "Bielorrusia",
-          "code": "BY"
-        },
-        {
-          "name": "Bélgica",
-          "code": "BE"
-        },
-        {
-          "name": "Bosnia y Herzegovina",
-          "code": "BA"
-        },
-        {
-          "name": "Bulgaria",
-          "code": "BG"
-        },
-        {
-          "name": "Croacia",
-          "code": "HR"
-        },
-        {
-          "name": "Chipre",
-          "code": "CY"
-        },
-        {
-          "name": "República Checa",
-          "code": "CZ"
-        },
-        {
-          "name": "Dinamarca",
-          "code": "DK"
-        },
-        {
-          "name": "Estonia",
-          "code": "EE"
-        },
-        {
-          "name": "Finlandia",
-          "code": "FI"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Georgia",
-          "code": "GE"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "Grecia",
-          "code": "GR"
-        },
-        {
-          "name": "Hungría",
-          "code": "HU"
-        },
-        {
-          "name": "Islandia",
-          "code": "IS"
-        },
-        {
-          "name": "Irlanda",
-          "code": "IE"
-        },
-        {
-          "name": "Italia",
-          "code": "IT"
-        },
-        {
-          "name": "Letonia",
-          "code": "LV"
-        },
-        {
-          "name": "Lituania",
-          "code": "LT"
-        },
-        {
-          "name": "Luxemburgo",
-          "code": "LU"
-        },
-        {
-          "name": "Malta",
-          "code": "MT"
-        },
-        {
-          "name": "Moldavia",
-          "code": "MD"
-        },
-        {
-          "name": "Mónaco",
-          "code": "MC"
-        },
-        {
-          "name": "Montenegro",
-          "code": "ME"
-        },
-        {
-          "name": "Países Bajos",
-          "code": "NL"
-        },
-        {
-          "name": "Macedonia del Norte",
-          "code": "MK"
-        },
-        {
-          "name": "Noruega",
-          "code": "NO"
-        },
-        {
-          "name": "Polonia",
-          "code": "PL"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Rumanía",
-          "code": "RO"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "San Marino",
-          "code": "SM"
-        },
-        {
-          "name": "Serbia",
-          "code": "RS"
-        },
-        {
-          "name": "Eslovaquia",
-          "code": "SK"
-        },
-        {
-          "name": "Eslovenia",
-          "code": "SI"
-        },
-        {
-          "name": "España",
-          "code": "ES"
-        },
-        {
-          "name": "Suecia",
-          "code": "SE"
-        },
-        {
-          "name": "Suiza",
-          "code": "CH"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Ucrania",
-          "code": "UA"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Ciudad del Vaticano",
-          "code": "VA"
-        },
-        {
-          "name": "Andorra",
-          "code": "AD"
-        },
-        {
-          "name": "Liechtenstein",
-          "code": "LI"
-        },
-        {
-          "name": "Kosovo",
-          "code": "XK"
-        },
-        {
-          "name": "Kazajistán",
-          "code": "KZ"
-        },
-        {
-          "name": "Uzbekistán",
-          "code": "UZ"
-        },
-        {
-          "name": "Turkmenistán",
-          "code": "TM"
-        },
-        {
-          "name": "Tayikistán",
-          "code": "TJ"
-        },
-        {
-          "name": "Kirguistán",
-          "code": "KG"
-        },
-        {
-          "name": "Afganistán",
-          "code": "AF"
-        },
-        {
-          "name": "Siria",
-          "code": "SY"
-        },
-        {
-          "name": "Irak",
-          "code": "IQ"
-        },
-        {
-          "name": "Irán",
-          "code": "IR"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "sochum",
-      "locale": "es"
-    },
-    {
-      "slug": "ecosoc",
-      "name": "Consejo Económico y Social",
-      "abbreviation": "ECOSOC",
-      "category": "General Assembly",
-      "topic": "Malversación Gubernamental y Transparencia",
-      "description": "Combatir la corrupción y promover la transparencia gubernamental a través de la cooperación internacional y marcos regulatorios.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-emerald-600",
-      "executives": [
-        {
-          "name": "Andrew Calderon",
-          "role": "Presidente"
-        },
-        {
-          "name": "Lainey Reinglass",
-          "role": "Vicepresidenta"
-        },
-        {
-          "name": "Josh Walsh",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/ecosoc-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Afganistán",
-          "code": "AF"
-        },
-        {
-          "name": "Argentina",
-          "code": "AR"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Austria",
-          "code": "AT"
-        },
-        {
-          "name": "Bangladés",
-          "code": "BD"
-        },
-        {
-          "name": "Bélgica",
-          "code": "BE"
-        },
-        {
-          "name": "Brasil",
-          "code": "BR"
-        },
-        {
-          "name": "Canadá",
-          "code": "CA"
-        },
-        {
-          "name": "Chile",
-          "code": "CL"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Colombia",
-          "code": "CO"
-        },
-        {
-          "name": "República Checa",
-          "code": "CZ"
-        },
-        {
-          "name": "Dinamarca",
-          "code": "DK"
-        },
-        {
-          "name": "Ecuador",
-          "code": "EC"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        },
-        {
-          "name": "Etiopía",
-          "code": "ET"
-        },
-        {
-          "name": "Finlandia",
-          "code": "FI"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "Ghana",
-          "code": "GH"
-        },
-        {
-          "name": "Grecia",
-          "code": "GR"
-        },
-        {
-          "name": "Hungría",
-          "code": "HU"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Irán",
-          "code": "IR"
-        },
-        {
-          "name": "Irlanda",
-          "code": "IE"
-        },
-        {
-          "name": "Israel",
-          "code": "IL"
-        },
-        {
-          "name": "Italia",
-          "code": "IT"
-        },
-        {
-          "name": "Jamaica",
-          "code": "JM"
-        },
-        {
-          "name": "Japón",
-          "code": "JP"
-        },
-        {
-          "name": "Jordania",
-          "code": "JO"
-        },
-        {
-          "name": "Kenia",
-          "code": "KE"
-        },
-        {
-          "name": "Malasia",
-          "code": "MY"
-        },
-        {
-          "name": "México",
-          "code": "MX"
-        },
-        {
-          "name": "Marruecos",
-          "code": "MA"
-        },
-        {
-          "name": "Países Bajos",
-          "code": "NL"
-        },
-        {
-          "name": "Nueva Zelanda",
-          "code": "NZ"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Noruega",
-          "code": "NO"
-        },
-        {
-          "name": "Pakistán",
-          "code": "PK"
-        },
-        {
-          "name": "Perú",
-          "code": "PE"
-        },
-        {
-          "name": "Filipinas",
-          "code": "PH"
-        },
-        {
-          "name": "Polonia",
-          "code": "PL"
-        },
-        {
-          "name": "Portugal",
-          "code": "PT"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "Arabia Saudita",
-          "code": "SA"
-        },
-        {
-          "name": "Singapur",
-          "code": "SG"
-        },
-        {
-          "name": "Sudáfrica",
-          "code": "ZA"
-        },
-        {
-          "name": "Corea del Sur",
-          "code": "KR"
-        },
-        {
-          "name": "España",
-          "code": "ES"
-        },
-        {
-          "name": "Suecia",
-          "code": "SE"
-        },
-        {
-          "name": "Suiza",
-          "code": "CH"
-        },
-        {
-          "name": "Tailandia",
-          "code": "TH"
-        },
-        {
-          "name": "Túnez",
-          "code": "TN"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Ucrania",
-          "code": "UA"
-        },
-        {
-          "name": "Emiratos Árabes Unidos",
-          "code": "AE"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Estados Unidos",
-          "code": "US"
-        },
-        {
-          "name": "Venezuela",
-          "code": "VE"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "ecosoc",
-      "locale": "es"
-    },
-    {
-      "slug": "cuban-missile-crisis",
-      "name": "Crisis de los Misiles de Cuba",
-      "abbreviation": "CUBA",
-      "category": "Crisis",
-      "topic": "Trece Días al Borde del Abismo",
-      "description": "Experimente la tensión del momento en que el mundo estuvo más cerca de una guerra nuclear y tome decisiones que podrían salvar o destruir la civilización.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-gray-800",
-      "executives": [
-        {
-          "name": "Bee Kuehn",
-          "role": "Presidente"
-        },
-        {
-          "name": "Ceci Frye",
-          "role": "Vicepresidenta"
-        },
-        {
-          "name": "Charlie Fumerton",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/cuban-missile-crisis-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "cuban-missile-crisis",
-      "locale": "es"
-    },
-    {
-      "slug": "unicef",
-      "name": "Fondo de las Naciones Unidas para la Infancia",
-      "abbreviation": "UNICEF",
-      "category": "General Assembly",
-      "topic": "Acceso a la Educación Primaria en Zonas de Conflicto",
-      "description": "Abordar los desafíos de proporcionar educación primaria de calidad a niños que viven en regiones afectadas por conflictos en todo el mundo.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Double",
-      "delegateCount": 60,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-blue-500",
-      "executives": [
-        {
-          "name": "Abby Kettlewell",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Grant Nusinow",
-          "role": "Vicepresidente"
-        },
-        {
-          "name": "Abraham Ergashev",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/unicef-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Afganistán",
-          "code": "AF"
-        },
-        {
-          "name": "Australia",
-          "code": "AU"
-        },
-        {
-          "name": "Bangladés",
-          "code": "BD"
-        },
-        {
-          "name": "Brasil",
-          "code": "BR"
-        },
-        {
-          "name": "Canadá",
-          "code": "CA"
-        },
-        {
-          "name": "China",
-          "code": "CN"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        },
-        {
-          "name": "Etiopía",
-          "code": "ET"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "India",
-          "code": "IN"
-        },
-        {
-          "name": "Indonesia",
-          "code": "ID"
-        },
-        {
-          "name": "Irak",
-          "code": "IQ"
-        },
-        {
-          "name": "Japón",
-          "code": "JP"
-        },
-        {
-          "name": "Jordania",
-          "code": "JO"
-        },
-        {
-          "name": "Kenia",
-          "code": "KE"
-        },
-        {
-          "name": "Líbano",
-          "code": "LB"
-        },
-        {
-          "name": "México",
-          "code": "MX"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Pakistán",
-          "code": "PK"
-        },
-        {
-          "name": "Rusia",
-          "code": "RU"
-        },
-        {
-          "name": "Sudáfrica",
-          "code": "ZA"
-        },
-        {
-          "name": "Corea del Sur",
-          "code": "KR"
-        },
-        {
-          "name": "Siria",
-          "code": "SY"
-        },
-        {
-          "name": "Turquía",
-          "code": "TR"
-        },
-        {
-          "name": "Ucrania",
-          "code": "UA"
-        },
-        {
-          "name": "Reino Unido",
-          "code": "GB"
-        },
-        {
-          "name": "Estados Unidos",
-          "code": "US"
-        },
-        {
-          "name": "Yemen",
-          "code": "YE"
-        },
-        {
-          "name": "Zimbabue",
-          "code": "ZW"
-        }
-      ],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "unicef",
-      "locale": "es"
-    },
-    {
-      "slug": "rwandan-genocide",
-      "name": "Genocidio de Ruanda",
-      "abbreviation": "RUANDA",
-      "category": "Crisis",
-      "topic": "Respuesta Internacional al Genocidio",
-      "description": "Confrontar la respuesta de la comunidad internacional a uno de los capítulos más oscuros de la historia y trabajar para prevenir futuras atrocidades.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-purple-900",
-      "executives": [
-        {
-          "name": "Danielle Murray",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Dylan Liu",
-          "role": "Vicepresidente"
-        },
-        {
-          "name": "Anson Ni",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/rwandan-genocide-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "rwandan-genocide",
-      "locale": "es"
-    },
-    {
-      "slug": "chinese-civil-war",
-      "name": "Guerra Civil China",
-      "abbreviation": "CHINA",
-      "category": "Crisis",
-      "topic": "La Lucha por China",
-      "description": "Experimente el conflicto crucial entre las fuerzas nacionalistas y comunistas que dio forma a la China moderna.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-red-800",
-      "executives": [
-        {
-          "name": "Sam Harutyunyan",
-          "role": "Presidente"
-        },
-        {
-          "name": "Scarlett Jackson",
-          "role": "Vicepresidenta"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/chinese-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "chinese-civil-war",
-      "locale": "es"
-    },
-    {
-      "slug": "sudan-civil-war",
-      "name": "Guerra Civil de Sudán",
-      "abbreviation": "SUDÁN",
-      "category": "Crisis",
-      "topic": "Resolución de Conflictos en Sudán",
-      "description": "Navegar las complejas dimensiones étnicas, políticas y humanitarias del conflicto civil en curso en Sudán.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 18,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-orange-800",
-      "executives": [
-        {
-          "name": "Gregory Kislovsky",
-          "role": "Presidente"
-        },
-        {
-          "name": "Austin Blumberg",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/sudan-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "sudan-civil-war",
-      "locale": "es"
-    },
-    {
-      "slug": "american-civil-war",
-      "name": "Guerra Civil Estadounidense (Unión)",
-      "abbreviation": "UNION",
-      "category": "Crisis",
-      "topic": "Preservando la Unión",
-      "description": "Lidere a la Unión a través del crisol de la guerra civil y dé forma al futuro de la democracia estadounidense.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 18,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-blue-800",
-      "executives": [
-        {
-          "name": "Daniel Greenspon",
-          "role": "Presidente"
-        },
-        {
-          "name": "Maxwell Leuthner",
-          "role": "Vicepresidente"
-        },
-        {
-          "name": "Lucas Bryan",
-          "role": "Director"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/american-civil-war-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "american-civil-war",
-      "locale": "es"
-    },
-    {
-      "slug": "great-depression",
-      "name": "La Gran Depresión",
-      "abbreviation": "DEPRESIÓN",
-      "category": "Crisis",
-      "topic": "Colapso Económico y Recuperación",
-      "description": "Abordar los desafíos económicos sin precedentes de la década de 1930 y desarrollar estrategias de recuperación.",
-      "level": "Beginner-Friendly",
-      "delegationSize": "Single",
-      "delegateCount": 12,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-amber-800",
-      "executives": [
-        {
-          "name": "Myra Amin",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Augusto Aguilar",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/great-depression-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "great-depression",
-      "locale": "es"
-    },
-    {
-      "slug": "haiti-independence",
-      "name": "La Independencia de Haití",
-      "abbreviation": "HAITÍ",
-      "category": "Crisis",
-      "topic": "La Revolución Haitiana",
-      "description": "Navegar el complejo panorama político y militar de la lucha de Haití por la independencia del dominio colonial.",
-      "level": "Advanced",
-      "delegationSize": "Single",
-      "delegateCount": 20,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-rose-700",
-      "executives": [
-        {
-          "name": "Eric Nodland",
-          "role": "Presidente"
-        },
-        {
-          "name": "Stephanie Jiang",
-          "role": "Vicepresidenta"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el contexto histórico y las figuras clave",
-          "file": "/files/committees/haiti-independence-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Procedimientos de Crisis",
-          "description": "Guía de procedimientos del comité de crisis y redacción de directivas",
-          "file": "/files/committees/crisis-procedures.pdf",
-          "icon": "rules"
-        }
-      ],
-      "countries": [],
-      "featured": true,
-      "isAdHoc": false,
-      "redHerringTopics": [],
-      "canonicalSlug": "haiti-independence",
-      "locale": "es"
-    },
-    {
-      "slug": "african-union",
-      "name": "Unión Africana",
-      "abbreviation": "UA",
-      "category": "General Assembly",
-      "topic": "La Independencia de los Territorios Coloniales",
-      "description": "Examinar las luchas continuas por la independencia y la autodeterminación en los territorios coloniales restantes en África.",
-      "level": "Intermediate",
-      "delegationSize": "Single",
-      "delegateCount": 55,
-      "image": "/images/conferences/model-un.webp",
-      "color": "bg-green-600",
-      "executives": [
-        {
-          "name": "Alex Silverman",
-          "role": "Presidente"
-        },
-        {
-          "name": "Alex Rechitsky",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/african-union-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
-      "countries": [
-        {
-          "name": "Argelia",
-          "code": "DZ"
-        },
-        {
-          "name": "Angola",
-          "code": "AO"
-        },
-        {
-          "name": "Benín",
-          "code": "BJ"
-        },
-        {
-          "name": "Botsuana",
-          "code": "BW"
-        },
-        {
-          "name": "Burkina Faso",
-          "code": "BF"
-        },
-        {
-          "name": "Burundi",
-          "code": "BI"
-        },
-        {
-          "name": "Camerún",
-          "code": "CM"
-        },
-        {
-          "name": "Cabo Verde",
-          "code": "CV"
-        },
-        {
-          "name": "República Centroafricana",
-          "code": "CF"
-        },
-        {
-          "name": "Chad",
-          "code": "TD"
-        },
-        {
-          "name": "Comoras",
-          "code": "KM"
-        },
-        {
-          "name": "Congo",
-          "code": "CG"
-        },
-        {
-          "name": "República Democrática del Congo",
-          "code": "CD"
-        },
-        {
-          "name": "Yibuti",
-          "code": "DJ"
-        },
-        {
-          "name": "Egipto",
-          "code": "EG"
-        },
-        {
-          "name": "Guinea Ecuatorial",
-          "code": "GQ"
-        },
-        {
-          "name": "Eritrea",
-          "code": "ER"
-        },
-        {
-          "name": "Esuatini",
-          "code": "SZ"
-        },
-        {
-          "name": "Etiopía",
-          "code": "ET"
-        },
-        {
-          "name": "Gabón",
-          "code": "GA"
-        },
-        {
-          "name": "Gambia",
-          "code": "GM"
-        },
-        {
-          "name": "Ghana",
-          "code": "GH"
-        },
-        {
-          "name": "Guinea",
-          "code": "GN"
-        },
-        {
-          "name": "Guinea-Bisáu",
-          "code": "GW"
-        },
-        {
-          "name": "Kenia",
-          "code": "KE"
-        },
-        {
-          "name": "Lesoto",
-          "code": "LS"
-        },
-        {
-          "name": "Liberia",
-          "code": "LR"
-        },
-        {
-          "name": "Libia",
-          "code": "LY"
-        },
-        {
-          "name": "Madagascar",
-          "code": "MG"
-        },
-        {
-          "name": "Malaui",
-          "code": "MW"
-        },
-        {
-          "name": "Malí",
-          "code": "ML"
-        },
-        {
-          "name": "Mauritania",
-          "code": "MR"
-        },
-        {
-          "name": "Mauricio",
-          "code": "MU"
-        },
-        {
-          "name": "Marruecos",
-          "code": "MA"
-        },
-        {
-          "name": "Mozambique",
-          "code": "MZ"
-        },
-        {
-          "name": "Namibia",
-          "code": "NA"
-        },
-        {
-          "name": "Níger",
-          "code": "NE"
-        },
-        {
-          "name": "Nigeria",
-          "code": "NG"
-        },
-        {
-          "name": "Ruanda",
-          "code": "RW"
-        },
-        {
-          "name": "Senegal",
-          "code": "SN"
-        },
-        {
-          "name": "Seychelles",
-          "code": "SC"
-        },
-        {
-          "name": "Sierra Leona",
-          "code": "SL"
-        },
-        {
-          "name": "Somalia",
-          "code": "SO"
-        },
-        {
-          "name": "Sudáfrica",
-          "code": "ZA"
-        },
-        {
-          "name": "Sudán del Sur",
-          "code": "SS"
-        },
-        {
-          "name": "Sudán",
-          "code": "SD"
         },
         {
           "name": "Tanzania",
           "code": "TZ"
         },
         {
-          "name": "Togo",
-          "code": "TG"
+          "name": "Uganda",
+          "code": "UG"
         },
         {
-          "name": "Túnez",
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Algeria",
+          "code": "DZ"
+        },
+        {
+          "name": "Tunisia",
           "code": "TN"
+        },
+        {
+          "name": "Rwanda",
+          "code": "RW"
+        },
+        {
+          "name": "Zimbabwe",
+          "code": "ZW"
+        },
+        {
+          "name": "Cameroon",
+          "code": "CM"
+        },
+        {
+          "name": "Ivory Coast",
+          "code": "CI"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "code": "CD"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Ecuador",
+          "code": "EC"
+        },
+        {
+          "name": "Bolivia",
+          "code": "BO"
+        },
+        {
+          "name": "Uruguay",
+          "code": "UY"
+        },
+        {
+          "name": "Paraguay",
+          "code": "PY"
+        },
+        {
+          "name": "Costa Rica",
+          "code": "CR"
+        },
+        {
+          "name": "Panama",
+          "code": "PA"
+        },
+        {
+          "name": "Guatemala",
+          "code": "GT"
+        },
+        {
+          "name": "Jamaica",
+          "code": "JM"
+        },
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        },
+        {
+          "name": "Serbia",
+          "code": "RS"
+        },
+        {
+          "name": "Croatia",
+          "code": "HR"
+        },
+        {
+          "name": "Bulgaria",
+          "code": "BG"
+        },
+        {
+          "name": "Slovakia",
+          "code": "SK"
+        },
+        {
+          "name": "Slovenia",
+          "code": "SI"
+        },
+        {
+          "name": "Georgia",
+          "code": "GE"
+        },
+        {
+          "name": "Armenia",
+          "code": "AM"
+        },
+        {
+          "name": "Azerbaijan",
+          "code": "AZ"
+        },
+        {
+          "name": "Belarus",
+          "code": "BY"
+        }
+      ],
+      "featured": true,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "ecofin",
+      "name": "Economic and Financial Committee",
+      "abbreviation": "ECOFIN",
+      "category": "General Assembly",
+      "topic": "Economic dependence on the illegal drug market",
+      "description": "Confront the economies that have grown dependent on the illegal drug trade, with a focus on South America.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 91,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-green-600",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Bolivia",
+          "code": "BO"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Venezuela",
+          "code": "VE"
+        },
+        {
+          "name": "Ecuador",
+          "code": "EC"
+        },
+        {
+          "name": "Paraguay",
+          "code": "PY"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Uruguay",
+          "code": "UY"
+        },
+        {
+          "name": "Guyana",
+          "code": "GY"
+        },
+        {
+          "name": "Suriname",
+          "code": "SR"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Panama",
+          "code": "PA"
+        },
+        {
+          "name": "Costa Rica",
+          "code": "CR"
+        },
+        {
+          "name": "Guatemala",
+          "code": "GT"
+        },
+        {
+          "name": "Honduras",
+          "code": "HN"
+        },
+        {
+          "name": "Nicaragua",
+          "code": "NI"
+        },
+        {
+          "name": "El Salvador",
+          "code": "SV"
+        },
+        {
+          "name": "Dominican Republic",
+          "code": "DO"
+        },
+        {
+          "name": "Cuba",
+          "code": "CU"
+        },
+        {
+          "name": "Haiti",
+          "code": "HT"
+        },
+        {
+          "name": "Jamaica",
+          "code": "JM"
+        },
+        {
+          "name": "Trinidad and Tobago",
+          "code": "TT"
+        },
+        {
+          "name": "Bahamas",
+          "code": "BS"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "Spain",
+          "code": "ES"
+        },
+        {
+          "name": "Portugal",
+          "code": "PT"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Poland",
+          "code": "PL"
+        },
+        {
+          "name": "Austria",
+          "code": "AT"
+        },
+        {
+          "name": "Ireland",
+          "code": "IE"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "Ukraine",
+          "code": "UA"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Afghanistan",
+          "code": "AF"
+        },
+        {
+          "name": "Iran",
+          "code": "IR"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Myanmar",
+          "code": "MM"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Singapore",
+          "code": "SG"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Kazakhstan",
+          "code": "KZ"
+        },
+        {
+          "name": "Saudi Arabia",
+          "code": "SA"
+        },
+        {
+          "name": "United Arab Emirates",
+          "code": "AE"
+        },
+        {
+          "name": "Israel",
+          "code": "IL"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Algeria",
+          "code": "DZ"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Guinea-Bissau",
+          "code": "GW"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Mali",
+          "code": "ML"
+        },
+        {
+          "name": "Ivory Coast",
+          "code": "CI"
+        },
+        {
+          "name": "Cape Verde",
+          "code": "CV"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "code": "CD"
+        },
+        {
+          "name": "Angola",
+          "code": "AO"
+        },
+        {
+          "name": "Mozambique",
+          "code": "MZ"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        },
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        },
+        {
+          "name": "Fiji",
+          "code": "FJ"
+        },
+        {
+          "name": "Papua New Guinea",
+          "code": "PG"
+        },
+        {
+          "name": "Belize",
+          "code": "BZ"
+        },
+        {
+          "name": "Romania",
+          "code": "RO"
+        },
+        {
+          "name": "Czechia",
+          "code": "CZ"
+        },
+        {
+          "name": "Hungary",
+          "code": "HU"
+        },
+        {
+          "name": "Qatar",
+          "code": "QA"
+        }
+      ],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "greek-independence",
+      "name": "Greek War of Independence",
+      "abbreviation": "GREECE",
+      "category": "Crisis",
+      "topic": "Greece vs. the Ottoman Empire",
+      "description": "Fight for — or against — Greek independence from the Ottoman Empire in the 1820s.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 28,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-sky-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "hurricane-katrina",
+      "name": "Hurricane Katrina",
+      "abbreviation": "KATRINA",
+      "category": "Crisis",
+      "topic": "Managing the disaster and its aftermath",
+      "description": "Coordinate the U.S. response to a catastrophic hurricane while new crises pile on.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 30,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-cyan-700",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "ipu",
+      "name": "Inter-Parliamentary Union",
+      "abbreviation": "IPU",
+      "category": "General Assembly",
+      "topic": "Gender equality",
+      "description": "As the world’s parliaments, advance gender equality through legislation and global cooperation.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 92,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-pink-600",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Spain",
+          "code": "ES"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Saudi Arabia",
+          "code": "SA"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Iceland",
+          "code": "IS"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Austria",
+          "code": "AT"
+        },
+        {
+          "name": "Portugal",
+          "code": "PT"
+        },
+        {
+          "name": "Ireland",
+          "code": "IE"
+        },
+        {
+          "name": "Poland",
+          "code": "PL"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Hungary",
+          "code": "HU"
+        },
+        {
+          "name": "Czech Republic",
+          "code": "CZ"
+        },
+        {
+          "name": "Romania",
+          "code": "RO"
+        },
+        {
+          "name": "Ukraine",
+          "code": "UA"
+        },
+        {
+          "name": "Slovenia",
+          "code": "SI"
+        },
+        {
+          "name": "Rwanda",
+          "code": "RW"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Tunisia",
+          "code": "TN"
+        },
+        {
+          "name": "Algeria",
+          "code": "DZ"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
         },
         {
           "name": "Uganda",
@@ -3963,186 +1139,1981 @@
           "code": "ZM"
         },
         {
-          "name": "Zimbabue",
+          "name": "Zimbabwe",
           "code": "ZW"
         },
         {
-          "name": "Sahara Occidental",
-          "code": "EH"
+          "name": "Namibia",
+          "code": "NA"
         },
         {
-          "name": "Costa de Marfil",
+          "name": "Botswana",
+          "code": "BW"
+        },
+        {
+          "name": "Mozambique",
+          "code": "MZ"
+        },
+        {
+          "name": "Cameroon",
+          "code": "CM"
+        },
+        {
+          "name": "Ivory Coast",
           "code": "CI"
         },
         {
-          "name": "Santo Tomé y Príncipe",
-          "code": "ST"
+          "name": "Mali",
+          "code": "ML"
+        },
+        {
+          "name": "Niger",
+          "code": "NE"
+        },
+        {
+          "name": "Angola",
+          "code": "AO"
+        },
+        {
+          "name": "Madagascar",
+          "code": "MG"
+        },
+        {
+          "name": "Iran",
+          "code": "IR"
+        },
+        {
+          "name": "Iraq",
+          "code": "IQ"
+        },
+        {
+          "name": "Jordan",
+          "code": "JO"
+        },
+        {
+          "name": "Lebanon",
+          "code": "LB"
+        },
+        {
+          "name": "United Arab Emirates",
+          "code": "AE"
+        },
+        {
+          "name": "Qatar",
+          "code": "QA"
+        },
+        {
+          "name": "Kuwait",
+          "code": "KW"
+        },
+        {
+          "name": "Israel",
+          "code": "IL"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Nepal",
+          "code": "NP"
+        },
+        {
+          "name": "Afghanistan",
+          "code": "AF"
+        },
+        {
+          "name": "Kazakhstan",
+          "code": "KZ"
+        },
+        {
+          "name": "Uzbekistan",
+          "code": "UZ"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Singapore",
+          "code": "SG"
+        },
+        {
+          "name": "Cambodia",
+          "code": "KH"
+        },
+        {
+          "name": "Mongolia",
+          "code": "MN"
+        },
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        },
+        {
+          "name": "Fiji",
+          "code": "FJ"
+        },
+        {
+          "name": "Papua New Guinea",
+          "code": "PG"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Ecuador",
+          "code": "EC"
+        },
+        {
+          "name": "Bolivia",
+          "code": "BO"
+        },
+        {
+          "name": "Uruguay",
+          "code": "UY"
+        },
+        {
+          "name": "Costa Rica",
+          "code": "CR"
         }
       ],
-      "featured": true,
+      "featured": false,
       "isAdHoc": false,
       "redHerringTopics": [],
-      "canonicalSlug": "african-union",
-      "locale": "es"
+      "locale": "en"
     },
     {
-      "slug": "european-union",
-      "name": "Unión Europea",
-      "abbreviation": "UE",
-      "category": "General Assembly",
-      "topic": "Seguridad Fronteriza y Refugiados",
-      "description": "Equilibrar las preocupaciones de seguridad fronteriza con las obligaciones humanitarias hacia los refugiados que buscan seguridad en Europa.",
-      "level": "Intermediate",
+      "slug": "irish-war-of-independence",
+      "name": "Irish War of Independence (JCC)",
+      "abbreviation": "JCC",
+      "category": "Crisis",
+      "topic": "Ireland vs. Britain — a Joint Crisis Committee",
+      "description": "A dual-cabinet clash between Irish revolutionaries and the British government over the future of Ireland.",
+      "level": "Advanced",
       "delegationSize": "Single",
-      "delegateCount": 27,
+      "delegateCount": 28,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-emerald-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "legal",
+      "name": "Legal Committee",
+      "abbreviation": "LEGAL",
+      "category": "General Assembly",
+      "topic": "International regulations on the use of space",
+      "description": "Draft the legal frameworks that will govern humanity’s expanding presence in outer space.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 75,
       "image": "/images/conferences/model-un.webp",
       "color": "bg-indigo-600",
-      "executives": [
-        {
-          "name": "Naomi Altneu",
-          "role": "Presidenta"
-        },
-        {
-          "name": "Noah Cook",
-          "role": "Vicepresidente"
-        }
-      ],
-      "documents": [
-        {
-          "title": "Guía de Antecedentes",
-          "description": "Guía completa que cubre el tema, los problemas clave y las preguntas a considerar",
-          "file": "/files/committees/european-union-background-guide.pdf",
-          "icon": "background-guide"
-        },
-        {
-          "title": "Reglas de Procedimiento",
-          "description": "Procedimientos parlamentarios y reglas para las sesiones del comité",
-          "file": "/files/committees/rules-of-procedure.pdf",
-          "icon": "rules"
-        },
-        {
-          "title": "Plantilla de Documento de Posición",
-          "description": "Plantilla y pautas para escribir su documento de posición",
-          "file": "/files/committees/position-paper-template.pdf",
-          "icon": "position-paper"
-        }
-      ],
+      "executives": [],
+      "documents": [],
       "countries": [
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Israel",
+          "code": "IL"
+        },
+        {
+          "name": "Iran",
+          "code": "IR"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "North Korea",
+          "code": "KP"
+        },
+        {
+          "name": "Ukraine",
+          "code": "UA"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        },
+        {
+          "name": "Spain",
+          "code": "ES"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Poland",
+          "code": "PL"
+        },
         {
           "name": "Austria",
           "code": "AT"
         },
         {
-          "name": "Bélgica",
-          "code": "BE"
-        },
-        {
-          "name": "Bulgaria",
-          "code": "BG"
-        },
-        {
-          "name": "Croacia",
-          "code": "HR"
-        },
-        {
-          "name": "Chipre",
-          "code": "CY"
-        },
-        {
-          "name": "República Checa",
-          "code": "CZ"
-        },
-        {
-          "name": "Dinamarca",
-          "code": "DK"
-        },
-        {
-          "name": "Estonia",
-          "code": "EE"
-        },
-        {
-          "name": "Finlandia",
-          "code": "FI"
-        },
-        {
-          "name": "Francia",
-          "code": "FR"
-        },
-        {
-          "name": "Alemania",
-          "code": "DE"
-        },
-        {
-          "name": "Grecia",
-          "code": "GR"
-        },
-        {
-          "name": "Hungría",
-          "code": "HU"
-        },
-        {
-          "name": "Irlanda",
-          "code": "IE"
-        },
-        {
-          "name": "Italia",
-          "code": "IT"
-        },
-        {
-          "name": "Letonia",
-          "code": "LV"
-        },
-        {
-          "name": "Lituania",
-          "code": "LT"
-        },
-        {
-          "name": "Luxemburgo",
+          "name": "Luxembourg",
           "code": "LU"
         },
         {
-          "name": "Malta",
-          "code": "MT"
+          "name": "United Arab Emirates",
+          "code": "AE"
         },
         {
-          "name": "Países Bajos",
-          "code": "NL"
+          "name": "Saudi Arabia",
+          "code": "SA"
         },
         {
-          "name": "Polonia",
-          "code": "PL"
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Kazakhstan",
+          "code": "KZ"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Singapore",
+          "code": "SG"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Venezuela",
+          "code": "VE"
+        },
+        {
+          "name": "Cuba",
+          "code": "CU"
+        },
+        {
+          "name": "Algeria",
+          "code": "DZ"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Angola",
+          "code": "AO"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
+        },
+        {
+          "name": "Qatar",
+          "code": "QA"
+        },
+        {
+          "name": "Jordan",
+          "code": "JO"
+        },
+        {
+          "name": "Iraq",
+          "code": "IQ"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
         },
         {
           "name": "Portugal",
           "code": "PT"
         },
         {
-          "name": "Rumanía",
+          "name": "Ireland",
+          "code": "IE"
+        },
+        {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Czech Republic",
+          "code": "CZ"
+        },
+        {
+          "name": "Romania",
           "code": "RO"
         },
         {
-          "name": "Eslovaquia",
-          "code": "SK"
+          "name": "Hungary",
+          "code": "HU"
         },
         {
-          "name": "Eslovenia",
-          "code": "SI"
+          "name": "New Zealand",
+          "code": "NZ"
         },
         {
-          "name": "España",
+          "name": "Mongolia",
+          "code": "MN"
+        },
+        {
+          "name": "Uzbekistan",
+          "code": "UZ"
+        },
+        {
+          "name": "Azerbaijan",
+          "code": "AZ"
+        },
+        {
+          "name": "Cyprus",
+          "code": "CY"
+        },
+        {
+          "name": "Cote d'Ivoire",
+          "code": "CI"
+        },
+        {
+          "name": "Fiji",
+          "code": "FJ"
+        }
+      ],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "nato",
+      "name": "North Atlantic Treaty Organization",
+      "abbreviation": "NATO",
+      "category": "General Assembly",
+      "topic": "Humanitarian aid to Ukraine and reinforcing eastern members",
+      "description": "As the NATO alliance, coordinate humanitarian aid to Ukraine and the defense of eastern member states.",
+      "level": "Intermediate",
+      "delegationSize": "Double",
+      "delegateCount": 64,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-blue-700",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Spain",
           "code": "ES"
         },
         {
-          "name": "Suecia",
+          "name": "Poland",
+          "code": "PL"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Iceland",
+          "code": "IS"
+        },
+        {
+          "name": "Luxembourg",
+          "code": "LU"
+        },
+        {
+          "name": "Portugal",
+          "code": "PT"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Albania",
+          "code": "AL"
+        },
+        {
+          "name": "Bulgaria",
+          "code": "BG"
+        },
+        {
+          "name": "Croatia",
+          "code": "HR"
+        },
+        {
+          "name": "Czech Republic",
+          "code": "CZ"
+        },
+        {
+          "name": "Estonia",
+          "code": "EE"
+        },
+        {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
+          "name": "Hungary",
+          "code": "HU"
+        },
+        {
+          "name": "Latvia",
+          "code": "LV"
+        },
+        {
+          "name": "Lithuania",
+          "code": "LT"
+        },
+        {
+          "name": "Montenegro",
+          "code": "ME"
+        },
+        {
+          "name": "North Macedonia",
+          "code": "MK"
+        },
+        {
+          "name": "Romania",
+          "code": "RO"
+        },
+        {
+          "name": "Slovakia",
+          "code": "SK"
+        },
+        {
+          "name": "Slovenia",
+          "code": "SI"
+        },
+        {
+          "name": "Sweden",
           "code": "SE"
         }
       ],
       "featured": true,
       "isAdHoc": false,
       "redHerringTopics": [],
-      "canonicalSlug": "european-union",
-      "locale": "es"
+      "locale": "en"
+    },
+    {
+      "slug": "opec-oil-embargo",
+      "name": "OPEC Oil Embargo",
+      "abbreviation": "OPEC",
+      "category": "Crisis",
+      "topic": "The 1973 Oil Crisis",
+      "description": "As OPEC nations, wield oil as a weapon and reshape the global economy in 1973.",
+      "level": "Intermediate",
+      "delegationSize": "Single",
+      "delegateCount": 24,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-green-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "post-war-japan",
+      "name": "Post-War Japan",
+      "abbreviation": "JAPAN",
+      "category": "Crisis",
+      "topic": "Rebuilding Japan after the 1947 Constitution",
+      "description": "Reconstruct a nation after WWII amid cultural change, occupation, and the shadow of the Korean War.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 28,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-rose-700",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "continental-congress",
+      "name": "Second Continental Congress",
+      "abbreviation": "CONGRESS",
+      "category": "Crisis",
+      "topic": "The American Revolutionary War",
+      "description": "Steer the thirteen colonies through rebellion, independence, and the birth of a new nation.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 36,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-amber-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": true,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "sochum",
+      "name": "Social, Humanitarian and Cultural Committee",
+      "abbreviation": "SOCHUM",
+      "category": "General Assembly",
+      "topic": "The Yemeni Civil War and refugee crisis",
+      "description": "Address the humanitarian catastrophe of the Yemeni Civil War and the refugee crisis it has created.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 96,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-orange-600",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "Yemen",
+          "code": "YE"
+        },
+        {
+          "name": "Saudi Arabia",
+          "code": "SA"
+        },
+        {
+          "name": "United Arab Emirates",
+          "code": "AE"
+        },
+        {
+          "name": "Oman",
+          "code": "OM"
+        },
+        {
+          "name": "Qatar",
+          "code": "QA"
+        },
+        {
+          "name": "Bahrain",
+          "code": "BH"
+        },
+        {
+          "name": "Kuwait",
+          "code": "KW"
+        },
+        {
+          "name": "Iran",
+          "code": "IR"
+        },
+        {
+          "name": "Iraq",
+          "code": "IQ"
+        },
+        {
+          "name": "Syria",
+          "code": "SY"
+        },
+        {
+          "name": "Jordan",
+          "code": "JO"
+        },
+        {
+          "name": "Lebanon",
+          "code": "LB"
+        },
+        {
+          "name": "Israel",
+          "code": "IL"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "Sudan",
+          "code": "SD"
+        },
+        {
+          "name": "South Sudan",
+          "code": "SS"
+        },
+        {
+          "name": "Djibouti",
+          "code": "DJ"
+        },
+        {
+          "name": "Somalia",
+          "code": "SO"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Eritrea",
+          "code": "ER"
+        },
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Spain",
+          "code": "ES"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
+          "name": "Ireland",
+          "code": "IE"
+        },
+        {
+          "name": "Austria",
+          "code": "AT"
+        },
+        {
+          "name": "Poland",
+          "code": "PL"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Portugal",
+          "code": "PT"
+        },
+        {
+          "name": "Ukraine",
+          "code": "UA"
+        },
+        {
+          "name": "Romania",
+          "code": "RO"
+        },
+        {
+          "name": "Hungary",
+          "code": "HU"
+        },
+        {
+          "name": "Czechia",
+          "code": "CZ"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        },
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Singapore",
+          "code": "SG"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Afghanistan",
+          "code": "AF"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Nepal",
+          "code": "NP"
+        },
+        {
+          "name": "Kazakhstan",
+          "code": "KZ"
+        },
+        {
+          "name": "Uzbekistan",
+          "code": "UZ"
+        },
+        {
+          "name": "Azerbaijan",
+          "code": "AZ"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Venezuela",
+          "code": "VE"
+        },
+        {
+          "name": "Cuba",
+          "code": "CU"
+        },
+        {
+          "name": "Costa Rica",
+          "code": "CR"
+        },
+        {
+          "name": "Jamaica",
+          "code": "JM"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Algeria",
+          "code": "DZ"
+        },
+        {
+          "name": "Tunisia",
+          "code": "TN"
+        },
+        {
+          "name": "Libya",
+          "code": "LY"
+        },
+        {
+          "name": "Uganda",
+          "code": "UG"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
+        },
+        {
+          "name": "Rwanda",
+          "code": "RW"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "code": "CD"
+        },
+        {
+          "name": "Cameroon",
+          "code": "CM"
+        },
+        {
+          "name": "Ivory Coast",
+          "code": "CI"
+        },
+        {
+          "name": "Mali",
+          "code": "ML"
+        },
+        {
+          "name": "Chad",
+          "code": "TD"
+        },
+        {
+          "name": "Mozambique",
+          "code": "MZ"
+        },
+        {
+          "name": "Zambia",
+          "code": "ZM"
+        },
+        {
+          "name": "Angola",
+          "code": "AO"
+        },
+        {
+          "name": "Fiji",
+          "code": "FJ"
+        }
+      ],
+      "featured": true,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "specpol",
+      "name": "Special Political and Decolonization Committee",
+      "abbreviation": "SPECPOL",
+      "category": "General Assembly",
+      "topic": "Multinational corporations and the exploitation of governments and labor",
+      "description": "Examine how multinational corporations exploit governments and labor — and what the world can do about it.",
+      "level": "Intermediate",
+      "delegationSize": "Single",
+      "delegateCount": 80,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-purple-600",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Spain",
+          "code": "ES"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Ireland",
+          "code": "IE"
+        },
+        {
+          "name": "Singapore",
+          "code": "SG"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        },
+        {
+          "name": "Belgium",
+          "code": "BE"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Denmark",
+          "code": "DK"
+        },
+        {
+          "name": "Austria",
+          "code": "AT"
+        },
+        {
+          "name": "Finland",
+          "code": "FI"
+        },
+        {
+          "name": "Saudi Arabia",
+          "code": "SA"
+        },
+        {
+          "name": "United Arab Emirates",
+          "code": "AE"
+        },
+        {
+          "name": "Qatar",
+          "code": "QA"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "code": "CD"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Zambia",
+          "code": "ZM"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
+        },
+        {
+          "name": "Angola",
+          "code": "AO"
+        },
+        {
+          "name": "Guinea",
+          "code": "GN"
+        },
+        {
+          "name": "Ivory Coast",
+          "code": "CI"
+        },
+        {
+          "name": "Mozambique",
+          "code": "MZ"
+        },
+        {
+          "name": "Sierra Leone",
+          "code": "SL"
+        },
+        {
+          "name": "Morocco",
+          "code": "MA"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Uganda",
+          "code": "UG"
+        },
+        {
+          "name": "Zimbabwe",
+          "code": "ZW"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Cambodia",
+          "code": "KH"
+        },
+        {
+          "name": "Myanmar",
+          "code": "MM"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Nepal",
+          "code": "NP"
+        },
+        {
+          "name": "Papua New Guinea",
+          "code": "PG"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Bolivia",
+          "code": "BO"
+        },
+        {
+          "name": "Chile",
+          "code": "CL"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "Ecuador",
+          "code": "EC"
+        },
+        {
+          "name": "Venezuela",
+          "code": "VE"
+        },
+        {
+          "name": "Guatemala",
+          "code": "GT"
+        },
+        {
+          "name": "Honduras",
+          "code": "HN"
+        },
+        {
+          "name": "Poland",
+          "code": "PL"
+        },
+        {
+          "name": "Ukraine",
+          "code": "UA"
+        },
+        {
+          "name": "Greece",
+          "code": "GR"
+        },
+        {
+          "name": "Portugal",
+          "code": "PT"
+        },
+        {
+          "name": "Israel",
+          "code": "IL"
+        },
+        {
+          "name": "Iran",
+          "code": "IR"
+        },
+        {
+          "name": "Iraq",
+          "code": "IQ"
+        },
+        {
+          "name": "Kazakhstan",
+          "code": "KZ"
+        },
+        {
+          "name": "New Zealand",
+          "code": "NZ"
+        },
+        {
+          "name": "Cuba",
+          "code": "CU"
+        },
+        {
+          "name": "Jamaica",
+          "code": "JM"
+        },
+        {
+          "name": "Fiji",
+          "code": "FJ"
+        }
+      ],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "ebola-2014",
+      "name": "The 2014 Ebola Outbreak",
+      "abbreviation": "EBOLA",
+      "category": "Crisis",
+      "topic": "Containing a global outbreak",
+      "description": "Work across nations and agencies to contain a deadly Ebola outbreak before it spreads.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 32,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-lime-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "algerian-war",
+      "name": "The Algerian War",
+      "abbreviation": "ALGERIA",
+      "category": "Crisis",
+      "topic": "France and the threat of a coup",
+      "description": "As the French government, confront a colonial war and the threat of a military coup at home.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 28,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-blue-900",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "bank-war",
+      "name": "The Bank War",
+      "abbreviation": "BANK",
+      "category": "Crisis",
+      "topic": "The National Bank vs. the Jackson administration",
+      "description": "As the National Bank, survive President Jackson’s campaign to shut you down.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 24,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-emerald-900",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "delian-league",
+      "name": "The Delian League",
+      "abbreviation": "DELIAN",
+      "category": "Crisis",
+      "topic": "The Greco-Persian Wars",
+      "description": "Lead the alliance of Greek city-states as they confront the might of the Persian Empire.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 26,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-cyan-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "fall-of-constantinople",
+      "name": "The Fall of Constantinople",
+      "abbreviation": "BYZANTIUM",
+      "category": "Crisis",
+      "topic": "The Byzantine Empire in the 1450s",
+      "description": "As the Byzantine court, defend the last bastion of Rome against a rising Ottoman power.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 30,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-purple-900",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "haitian-revolution",
+      "name": "The Haitian Revolution",
+      "abbreviation": "HAITI",
+      "category": "Crisis",
+      "topic": "Revolution and independence in Saint-Domingue",
+      "description": "Join the revolutionaries fighting to overthrow colonial rule and found a free Haiti.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 26,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-red-900",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "iran-hostage-crisis",
+      "name": "The Iran Hostage Crisis",
+      "abbreviation": "IRAN",
+      "category": "Crisis",
+      "topic": "The United States during the embassy hostage crisis",
+      "description": "As the U.S. government, manage the crisis as embassy staff are held hostage in Tehran.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 30,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-stone-700",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "mongol-succession",
+      "name": "The Mongol Succession",
+      "abbreviation": "MONGOL",
+      "category": "Crisis",
+      "topic": "The empire after Genghis Khan",
+      "description": "With Genghis Khan dead, fight to hold together — or seize control of — the largest land empire in history.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 28,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-amber-900",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "partition-of-india",
+      "name": "The Partition of India",
+      "abbreviation": "PARTITION",
+      "category": "Crisis",
+      "topic": "Independence and partition from Britain",
+      "description": "Navigate the struggle for independence and the partition that will divide a subcontinent.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 32,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-orange-700",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "suez-crisis",
+      "name": "The Suez Crisis",
+      "abbreviation": "SUEZ",
+      "category": "Crisis",
+      "topic": "Trade disruption and refugees after the canal nationalization",
+      "description": "As France, Britain, and Israel, respond to Egypt’s nationalization of the Suez Canal and its global fallout.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 26,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-teal-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "unicef",
+      "name": "United Nations Children’s Fund",
+      "abbreviation": "UNICEF",
+      "category": "General Assembly",
+      "topic": "Child labor and exploitation in South Asia",
+      "description": "Tackle child labor and exploitation across South Asia and protect the rights of children worldwide.",
+      "level": "Beginner-Friendly",
+      "delegationSize": "Single",
+      "delegateCount": 61,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-sky-500",
+      "executives": [],
+      "documents": [],
+      "countries": [
+        {
+          "name": "India",
+          "code": "IN"
+        },
+        {
+          "name": "Pakistan",
+          "code": "PK"
+        },
+        {
+          "name": "Bangladesh",
+          "code": "BD"
+        },
+        {
+          "name": "Nepal",
+          "code": "NP"
+        },
+        {
+          "name": "Sri Lanka",
+          "code": "LK"
+        },
+        {
+          "name": "Bhutan",
+          "code": "BT"
+        },
+        {
+          "name": "Maldives",
+          "code": "MV"
+        },
+        {
+          "name": "Afghanistan",
+          "code": "AF"
+        },
+        {
+          "name": "Myanmar",
+          "code": "MM"
+        },
+        {
+          "name": "Cambodia",
+          "code": "KH"
+        },
+        {
+          "name": "Laos",
+          "code": "LA"
+        },
+        {
+          "name": "Thailand",
+          "code": "TH"
+        },
+        {
+          "name": "Vietnam",
+          "code": "VN"
+        },
+        {
+          "name": "Indonesia",
+          "code": "ID"
+        },
+        {
+          "name": "Philippines",
+          "code": "PH"
+        },
+        {
+          "name": "Malaysia",
+          "code": "MY"
+        },
+        {
+          "name": "China",
+          "code": "CN"
+        },
+        {
+          "name": "Japan",
+          "code": "JP"
+        },
+        {
+          "name": "South Korea",
+          "code": "KR"
+        },
+        {
+          "name": "South Sudan",
+          "code": "SS"
+        },
+        {
+          "name": "Ethiopia",
+          "code": "ET"
+        },
+        {
+          "name": "Nigeria",
+          "code": "NG"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "code": "CD"
+        },
+        {
+          "name": "Burkina Faso",
+          "code": "BF"
+        },
+        {
+          "name": "Mali",
+          "code": "ML"
+        },
+        {
+          "name": "Chad",
+          "code": "TD"
+        },
+        {
+          "name": "Niger",
+          "code": "NE"
+        },
+        {
+          "name": "Cameroon",
+          "code": "CM"
+        },
+        {
+          "name": "Ghana",
+          "code": "GH"
+        },
+        {
+          "name": "Ivory Coast",
+          "code": "CI"
+        },
+        {
+          "name": "Kenya",
+          "code": "KE"
+        },
+        {
+          "name": "Tanzania",
+          "code": "TZ"
+        },
+        {
+          "name": "Uganda",
+          "code": "UG"
+        },
+        {
+          "name": "Mozambique",
+          "code": "MZ"
+        },
+        {
+          "name": "Madagascar",
+          "code": "MG"
+        },
+        {
+          "name": "Zambia",
+          "code": "ZM"
+        },
+        {
+          "name": "Zimbabwe",
+          "code": "ZW"
+        },
+        {
+          "name": "Egypt",
+          "code": "EG"
+        },
+        {
+          "name": "South Africa",
+          "code": "ZA"
+        },
+        {
+          "name": "Senegal",
+          "code": "SN"
+        },
+        {
+          "name": "Brazil",
+          "code": "BR"
+        },
+        {
+          "name": "Mexico",
+          "code": "MX"
+        },
+        {
+          "name": "Peru",
+          "code": "PE"
+        },
+        {
+          "name": "Colombia",
+          "code": "CO"
+        },
+        {
+          "name": "Bolivia",
+          "code": "BO"
+        },
+        {
+          "name": "Guatemala",
+          "code": "GT"
+        },
+        {
+          "name": "Haiti",
+          "code": "HT"
+        },
+        {
+          "name": "Argentina",
+          "code": "AR"
+        },
+        {
+          "name": "United States",
+          "code": "US"
+        },
+        {
+          "name": "United Kingdom",
+          "code": "GB"
+        },
+        {
+          "name": "Germany",
+          "code": "DE"
+        },
+        {
+          "name": "France",
+          "code": "FR"
+        },
+        {
+          "name": "Canada",
+          "code": "CA"
+        },
+        {
+          "name": "Norway",
+          "code": "NO"
+        },
+        {
+          "name": "Sweden",
+          "code": "SE"
+        },
+        {
+          "name": "Netherlands",
+          "code": "NL"
+        },
+        {
+          "name": "Switzerland",
+          "code": "CH"
+        },
+        {
+          "name": "Italy",
+          "code": "IT"
+        },
+        {
+          "name": "Russia",
+          "code": "RU"
+        },
+        {
+          "name": "Turkey",
+          "code": "TR"
+        },
+        {
+          "name": "Australia",
+          "code": "AU"
+        }
+      ],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "war-of-1812",
+      "name": "War of 1812 (United States)",
+      "abbreviation": "1812",
+      "category": "Crisis",
+      "topic": "The young United States at war",
+      "description": "Guide the United States through a perilous war that will test the survival of the new republic.",
+      "level": "Intermediate",
+      "delegationSize": "Single",
+      "delegateCount": 30,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-indigo-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
+    },
+    {
+      "slug": "war-of-spanish-succession",
+      "name": "War of the Spanish Succession",
+      "abbreviation": "GRAND",
+      "category": "Crisis",
+      "topic": "The Grand Alliance",
+      "description": "Coordinate the Dutch Republic, England, and the Habsburg Monarchy against Bourbon ambitions in early-1700s Europe.",
+      "level": "Advanced",
+      "delegationSize": "Single",
+      "delegateCount": 30,
+      "image": "/images/conferences/model-un.webp",
+      "color": "bg-yellow-800",
+      "executives": [],
+      "documents": [],
+      "countries": [],
+      "featured": false,
+      "isAdHoc": false,
+      "redHerringTopics": [],
+      "locale": "en"
     }
   ],
+  "es": [],
   "zh": []
 }

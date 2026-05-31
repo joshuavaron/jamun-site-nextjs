@@ -8,7 +8,8 @@
     "build": "next build && node scripts/copy-english-to-root.mjs",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "npm run build && npx wrangler pages deploy out --project-name=jamun-site"
+    "deploy": "npm run build && npx wrangler pages deploy out --project-name=jamun-site",
+    "letter:build": "python3 scripts/build-letter.py"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

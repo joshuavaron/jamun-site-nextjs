@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   Self-hosted fonts (Outfit + Inter). The third family — Freight
+   Text Pro, used for serif display headings — is loaded via Adobe
+   Typekit in layout.tsx. See SETUP.md for how to swap it.
+   ────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/outfit-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/outfit-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/outfit-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/outfit-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/inter-700.woff2') format('woff2');
+}
+
+:root {
+  --font-heading: 'Outfit';
+  --font-body: 'Inter';
+
+  /* Brand colors — keep in sync with src/lib/colors.ts */
+  --brand-blue: #397bce;
+  --brand-blue-light: #5a9be0;
+  --brand-blue-dark: #2a5fa3;
+
+  --brand-orange: #f97316;
+  --brand-orange-light: #fb923c;
+  --brand-orange-dark: #ea580c;
+
+  --brand-purple: #9333ea;
+  --brand-emerald: #10b981;
+
+  /* Neutrals */
+  --warm-white: #fafafa;
+  --warm-gray: #f5f5f4;
+
+  /* Layout */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+}
+
+@theme inline {
+  /* Custom breakpoint used by the header (collapses nav below 900px) */
+  --breakpoint-nav: 900px;
+
+  /* Colors — expose brand tokens to Tailwind utilities if you want them */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-light: var(--brand-orange-light);
+  --color-brand-orange-dark: var(--brand-orange-dark);
+  --color-warm-white: var(--warm-white);
+  --color-warm-gray: var(--warm-gray);
+
+  /* Font families */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Raw heading tags fall back to Outfit. Most headings use the <Heading>
+   component, which sets the serif/sans family inline per size variant. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), ui-serif, Georgia, serif;
+}
+
+/* Smooth scrolling and prevent horizontal overflow (spreads are full-bleed) */
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+html,
+body {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
