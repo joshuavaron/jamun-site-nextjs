@@ -593,4 +593,42 @@ a[data-footnote-backref] {
     margin: 0.5in;
   }
 
+  /* ─────── Legal case documents ─────── */
+
+  /* Each document starts on a fresh page in the full-case packet.
+     (The first one doesn't force a leading blank page.) */
+  .case-component {
+    break-before: page;
+    page-break-before: always;
+  }
+  .case-component:first-of-type {
+    break-before: auto;
+    page-break-before: avoid;
+  }
+
+  /* Keep a document's heading attached to its body. */
+  .case-component header {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* The formal caption shouldn't be split across a page boundary. */
+  .case-caption {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #000 !important;
+    background: white !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Legal prose: serif body, tighter measure, dense pagination control. */
+  .legal-document {
+    font-family: "freight-text-pro", Georgia, "Times New Roman", serif;
+  }
+  .legal-document p,
+  .legal-document li {
+    orphans: 3;
+    widows: 3;
+  }
 }
+

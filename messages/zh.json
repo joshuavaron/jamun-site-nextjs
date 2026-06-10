@@ -1481,7 +1481,8 @@
     "categoryRules": "规则",
     "categoryReference": "参考",
     "categoryExamples": "示例",
-    "categoryStrategy": "战略"
+    "categoryStrategy": "战略",
+    "finalCtaPhotoAlt": "JAMUN 学生一起解决数学问题。"
   },
   "MathletesResourcesPage": {
     "heroBadge": "数学资源",
@@ -1537,16 +1538,22 @@
     "ogDescription": "练习题、解题策略和JAMUN Mathletes竞赛及竞赛数学的主题指南。"
   },
   "MockTrialPage": {
+    "theCase": {
+      "label": "The Current Case",
+      "openCase": "Open the case",
+      "readFull": "Read the full packet",
+      "photoAlt": "JAMUN Mock Trial students presenting in the courtroom"
+    },
     "hero": {
       "headingStart": "正义必将得到伸张",
       "headingAccent": "站立。",
-      "description": "JAMUN 模拟审判让中学生亲身体验法庭戏剧，培养批判性思维、公开演讲和法律推理技能。 2026 年秋季推出。",
-      "joinInterestList": "加入兴趣列表",
-      "exploreAllPrograms": "探索所有计划"
+      "description": "JAMUN 模拟审判让中学生亲身体验法庭戏剧，培养批判性思维、公开演讲和法律推理技能。",
+      "registerNow": "立即注册",
+      "readTheCase": "阅读案件"
     },
     "stats": {
-      "stat1Value": "2026 年秋季",
-      "stat1Label": "项目启动",
+      "stat1Value": "2",
+      "stat1Label": "控辩双方",
       "stat2Value": "100%",
       "stat2Label": "适合初学者",
       "stat3Value": "6+",
@@ -1558,8 +1565,8 @@
       "heading": "专为中学生打造的法庭模拟。",
       "paragraph1": "模拟审判是一种竞争性模拟，学生在现实的法庭环境中扮演律师和证人的角色。您分析案件，准备论点，询问证人，并将您的案件呈现给真正的法官。",
       "paragraph2": "这不是要记住法律术语，而是要批判性思维、团队合作以及在压力下陈述案件的兴奋感。无论您梦想成为一名律师还是只是喜欢一场精彩的辩论，模拟审判都适合您。",
-      "getNotifiedAtLaunch": "发布时收到通知",
-      "viewResources": "查看资源"
+      "viewResources": "查看资源",
+      "getStarted": "开始使用"
     },
     "purpleTestimonial": {
       "heading": "学生们发现了他们不知道自己拥有的声音。",
@@ -1594,13 +1601,11 @@
       "step4Title": "结案陈词",
       "step4Body": "双方总结证据，强调各自案件的优势，并要求陪审团做出有利于他们的裁决。"
     },
-    "featuredCase": {
-      "label": "2026 年秋季案例",
-      "caseName": "州诉亚历克斯·摩根",
-      "caseTypeBadge": "刑事案件——一级谋杀",
-      "description1": "当 22 岁的伊桑·莫拉莱斯 (Ethan Morales) 被发现死于布莱尔伍德大学化学实验室时，所有证据都指向同学亚历克斯·摩根 (Alex Morgan)。这是破坏行为还是一场悲惨的事故？",
-      "description2": "各小组将使用安全录像、化学证据和每方 6 名证人的证词对双方进行辩论。 12件展品。一项判决。",
-      "getCaseMaterials": "获取案例材料"
+    "competeSpread": {
+      "heading": "准备好为你的案件辩护了吗？",
+      "description": "加入团队，扮演一个角色，在真正的法官面前就 State v. Reed 案进行辩论。本季报名现已开放，助学金最高可覆盖 100% 的比赛费用。",
+      "registerNow": "立即注册",
+      "learnAboutGrants": "了解补助金"
     },
     "skills": {
       "sectionTitle": "受用一生的技能。",
@@ -1643,8 +1648,8 @@
       "a1": "一点也不！我们的计划是专门为初学者设计的。我们将教您从法庭程序到如何询问证人的一切。我们许多最有信心的倡导者都是从零经验开始的。",
       "q2": "什么年级可以参加？",
       "a2": "JAMUN 模拟审判是为 5-8 年级的中学生设计的。我们创建适合年龄的案例，并提供适合学生所在情况的培训。",
-      "q3": "模拟审判什么时候开始？",
-      "a3": "模拟审判将于 2026 年秋季推出！我们目前正在构建我们的课程和案例材料。加入我们的邮件列表，以便第一个知道注册何时开始。",
+      "q3": "我什么时候可以参加模拟审判？",
+      "a3": "模拟审判现已启动！本季报名现已开放。立即注册加入团队、选择你的角色，并借助我们的免费资源和培训开始准备 State v. Reed 案。",
       "q4": "我可以扮演什么角色？",
       "a4": "您可以扮演律师（控方或辩方）或证人。大多数学生在整个赛季都有机会尝试这两个角色，因此您可以找到最适合自己的角色。",
       "q5": "模拟审判需要多长时间？",
@@ -1653,13 +1658,13 @@
       "a6": "我们努力将成本降至最低。我们的许多资源都是免费的，并且我们为比赛费用提供经济援助。任何学生都不应因费用而无法参加。"
     },
     "finalCta": {
-      "headingStart": "成为创始成员",
+      "headingStart": "加入",
       "headingAccent": "JAMUN 模拟审判。",
-      "description": "我们正在制定一个项目，让法庭技能与批判性思维相结合。无论您是准备提出案子的学生还是希望成立模拟审判俱乐部的老师，请加入我们的兴趣列表，以便第一个知道我们何时启动。",
-      "joinInterestList": "加入兴趣列表",
-      "exploreOtherPrograms": "探索其他计划",
+      "description": "无论你是准备为自己的第一个案件辩护的学生，还是希望创办模拟审判俱乐部的老师，现在都是参与的好时机。本季报名现已开放。",
       "questions": "问题？",
-      "email": "模拟审判@jamun.org"
+      "email": "模拟审判@jamun.org",
+      "registerNow": "立即注册",
+      "exploreResources": "探索资源"
     },
     "heroPhotoAlt": "模拟审判的学生在法庭查房后握手。",
     "aboutPhotoAlt": "模拟审判学生在练习轮中进行交流。",
@@ -1672,7 +1677,7 @@
     "title": "中学模拟审判 - 学习法庭技巧",
     "description": "在 JAMUN 的 5-8 年级模拟审判项目中体验法庭戏剧。学习法律推理、交叉询问、开庭陈词和说服性论证。建立对公开演讲和批判性思维的信心。",
     "ogTitle": "中学模拟审判 - JAMUN",
-    "ogDescription": "学会像律师一样思考！通过法庭模拟培养论证、批判性分析和演讲技巧。 2026 年秋季推出。"
+    "ogDescription": "学会像律师一样思考！通过法庭模拟培养论证、批判性分析和演讲技巧。"
   },
   "MockTrialResourcePage": {
     "notFoundTitle": "未找到资源 | JAMUN模拟审判",
@@ -1699,7 +1704,8 @@
     "categoryRules": "规则",
     "categoryReference": "参考",
     "categoryExamples": "示例",
-    "categoryStrategy": "战略"
+    "categoryStrategy": "战略",
+    "finalCtaPhotoAlt": "JAMUN 学生在团队战略会议上进行讨论。"
   },
   "MockTrialResourcesPage": {
     "heroBadge": "模拟审判资源",
@@ -1746,7 +1752,18 @@
     "formatVideo": "视频",
     "formatWorksheet": "工作表",
     "readMore": "读",
-    "notFoundTitle": "未找到资源 | JAMUN模拟审判"
+    "notFoundTitle": "未找到资源 | JAMUN模拟审判",
+    "free": "自由的",
+    "browseAllTitle": "浏览所有资源。",
+    "browseAllSubtitle": "探索我们完整的 {count} 免费指南、模板和示例库。",
+    "filterCategory": "类别",
+    "all": "全部",
+    "heroPhotoAlt": "模拟审判学生在练习轮中进行交流。",
+    "testimonialHeading": "家长们看到了这个转变。",
+    "testimonialQuote": "我从没想过我会喜欢公开演讲，但模拟审判改变了这一点。现在我是第一个自愿在课堂上做演讲的人。",
+    "testimonialAttribution": "— Alicia T.，七年级，首次参与者",
+    "testimonialPhotoAlt": "JAMUN 学生在模拟审判比赛成功后庆祝。",
+    "ctaPhotoAlt": "JAMUN 学生在团队战略会议上进行讨论。"
   },
   "MockTrialResourcesPageMetadata": {
     "title": "为学生提供免费模拟试用指南和模板",
@@ -2385,7 +2402,8 @@
     "categoryRules": "规则",
     "categoryReference": "参考",
     "categoryExamples": "示例",
-    "categoryStrategy": "战略"
+    "categoryStrategy": "战略",
+    "finalCtaPhotoAlt": "JAMUN 代表在会议日取得成功后一起庆祝。"
   },
   "ResourcesPage": {
     "heroBadge": "模拟联合国资源",
@@ -2489,6 +2507,9 @@
     "boardMember2Name": "霍华德任务",
     "boardMember2Title": "顾问委员会成员",
     "boardMember2Bio": "Howard 拥有 40 多年的营销和商业咨询经验，是一位专业的董事会成员，帮助组织实现战略发展。他为 JAMUN 的业务发展和长期可持续发展提供建议。",
+    "boardMember3Name": "Erin Kerpel",
+    "boardMember3Title": "顾问委员会成员",
+    "boardMember3Bio": "Erin 为 JAMUN 顾问委员会带来了务实的非营利组织领导经验。作为 Furever Home Dog Sanctuary 董事会副主席兼 Gratitude Generation 服务活动总监，她热衷于社区服务和青少年参与，并为 JAMUN 的志愿者项目和非营利运营提供建议。",
     "ctaTitle": "想支持JAMUN吗？",
     "ctaDescription": "无论是通过合作、捐赠还是咨询服务，您的支持都有助于我们让每个中学生都能参与学术竞赛。",
     "ctaPartnerButton": "成为合作伙伴",
@@ -2626,8 +2647,8 @@
     "faq1Answer": "一点也不！我们的计划是专门为初学者设计的。我们将教您从法庭程序到如何询问证人的一切。我们许多最有信心的倡导者都是从零经验开始的。",
     "faq2Question": "什么年级可以参加？",
     "faq2Answer": "JAMUN模拟审判是为5-8年级的中学生设计的。我们创建适合年龄的案例，并提供适合学生所在情况的培训。",
-    "faq3Question": "模拟审判什么时候开始？",
-    "faq3Answer": "模拟审判将于 2026 年秋季推出！我们目前正在构建我们的课程和案例材料。加入我们的邮件列表，以便第一个知道注册何时开始。",
+    "faq3Question": "我什么时候可以参加模拟审判？",
+    "faq3Answer": "模拟审判现已启动！本季报名现已开放。立即注册加入团队、选择你的角色，并借助我们的免费资源和培训开始准备 State v. Reed 案。",
     "faq4Question": "我可以扮演什么角色？",
     "faq4Answer": "您可以扮演律师（控方或辩方）或证人。大多数学生在整个赛季都有机会尝试这两个角色，因此您可以找到最适合自己的角色。",
     "faq5Question": "模拟审判需要多长时间？",
@@ -2648,5 +2669,46 @@
     "faq5Answer": "如果您熟悉代数前的概念，那么您就可以开始了！我们的培训涵盖从基础算术到入门代数和几何的主题。",
     "faq6Question": "参与需要付费吗？",
     "faq6Answer": "我们努力将成本降至最低。我们的许多资源都是免费的，并且我们为竞赛注册费提供经济援助。任何学生都不应因费用而无法参加。"
+  },
+  "MockTrialCases": {
+    "allCases": "All Cases",
+    "backToMockTrial": "Back to Mock Trial",
+    "backToCase": "Back to case",
+    "readFullCase": "Read full case",
+    "downloadPacket": "Download packet (PDF)",
+    "downloadPdf": "Download PDF",
+    "printFullCase": "Print full case",
+    "saveAsPdf": "Save as PDF",
+    "fullCase": "Full case",
+    "fullCaseLabel": "Full Case Packet",
+    "caseDocuments": "Case Documents",
+    "contents": "Contents",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "componentPosition": "Document {current} of {total}",
+    "documentNav": "Document navigation",
+    "charges": "Charges",
+    "cast": "Cast of Characters",
+    "prosecution": "Prosecution",
+    "defense": "Defense",
+    "neutral": "Court",
+    "uncallable": "Uncallable",
+    "previous": "Previous",
+    "next": "Next",
+    "readDocument": "Read",
+    "indexTitle": "Mock Trial Cases",
+    "indexDescription": "Explore our Mock Trial case packets. Each case includes the indictment, statement of facts, witness affidavits, exhibits, applicable law, and jury instructions — read each document on its own or download the full packet.",
+    "browseTitle": "Browse Cases",
+    "browseSubtitle": "Pick a case to read the full packet or any individual document.",
+    "comingSoonTitle": "Cases Coming Soon",
+    "comingSoonDescription": "We're preparing our Mock Trial case packets. Check back soon.",
+    "typeIndictment": "Indictment",
+    "typeFacts": "Statement of Facts",
+    "typeAffidavit": "Affidavit",
+    "typeExhibit": "Exhibit",
+    "typeStipulations": "Stipulations",
+    "typeLaw": "Applicable Law",
+    "typeInstructions": "Jury Instructions",
+    "typeSpecial": "Special Instructions",
+    "typeOther": "Document"
   }
 }

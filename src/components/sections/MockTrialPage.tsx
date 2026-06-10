@@ -26,6 +26,7 @@ import {
   AnimatedNumber,
 } from "@/components/ui";
 import { fontBody, fontSerif, fontHeading, bodySize } from "@/lib/typography";
+import { Link } from "@/i18n/navigation";
 import { DiagonalSpread } from "@/components/sections/DiagonalSpread";
 import { TestimonialSpread } from "@/components/sections/TestimonialSpread";
 import { SectionIntro } from "@/components/sections/SectionIntro";
@@ -44,7 +45,17 @@ const PHOTOS = {
 
 // ────────── Component ──────────
 
-export function MockTrialPage() {
+// Minimal, serializable view of the active case, loaded server-side and passed
+// in so this client page can feature it without bundling the fs loader.
+export interface MockTrialCaseInfo {
+  title: string;
+  description: string;
+  caseType?: string;
+  caseNumber?: string;
+  documentCount: number;
+}
+
+export function MockTrialPage({ caseInfo }: { caseInfo?: MockTrialCaseInfo | null }) {
   const t = useTranslations("MockTrialPage");
 
   // ────────── Stats ──────────
@@ -233,11 +244,11 @@ export function MockTrialPage() {
           {t("hero.description")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" tone="custom" color="#9333ea" withArrow>
-            {t("hero.joinInterestList")}
+          <PillButton href="/register" tone="custom" color="#9333ea" withArrow>
+            {t("hero.registerNow")}
           </PillButton>
-          <PillButton href="/programs" tone="outline">
-            {t("hero.exploreAllPrograms")}
+          <PillButton href="/mocktrial/case" tone="outline">
+            {t("hero.readTheCase")}
           </PillButton>
         </div>
       </DiagonalSpread>
@@ -293,8 +304,8 @@ export function MockTrialPage() {
                 {t("whatIs.paragraph2")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <PillButton href="mailto:contact@jamun.org" size="md" tone="custom" color="#9333ea" withArrow>
-                  {t("whatIs.getNotifiedAtLaunch")}
+                <PillButton href="/register" size="md" tone="custom" color="#9333ea" withArrow>
+                  {t("whatIs.getStarted")}
                 </PillButton>
                 <PillButton href="/mocktrial/resources" tone="outline" size="md">
                   {t("whatIs.viewResources")}
@@ -320,6 +331,59 @@ export function MockTrialPage() {
           </div>
         </Container>
       </section>
+
+      {/* ───── The current case — State v. Reed ───── */}
+      {caseInfo && (
+        <DiagonalSpread
+          photoSide="right"
+          photoSrc={PHOTOS.caseSpread}
+          photoAlt={t("theCase.photoAlt")}
+          clip="diagonal"
+          animation="inView"
+        >
+          <p
+            style={fontBody}
+            className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#9333ea] mb-4"
+          >
+            {t("theCase.label")}
+          </p>
+          <Heading size="section" className="text-[#0a0a0a]">
+            {caseInfo.title}
+          </Heading>
+          {(caseInfo.caseNumber || caseInfo.caseType) && (
+            <div
+              style={fontBody}
+              className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-neutral-500"
+            >
+              {caseInfo.caseNumber && (
+                <span className="tabular-nums">{caseInfo.caseNumber}</span>
+              )}
+              {caseInfo.caseNumber && caseInfo.caseType && (
+                <span className="text-neutral-300">•</span>
+              )}
+              {caseInfo.caseType && (
+                <span className="uppercase tracking-[0.14em]">{caseInfo.caseType}</span>
+              )}
+            </div>
+          )}
+          <p style={fontBody} className={`mt-6 max-w-xl ${bodySize.base}`}>
+            {caseInfo.description}
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+            <PillButton href="/mocktrial/case" tone="custom" color="#9333ea" withArrow>
+              {t("theCase.openCase")}
+            </PillButton>
+            <Link
+              href="/mocktrial/case/full"
+              style={fontBody}
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#9333ea] hover:opacity-80 transition-opacity"
+            >
+              <FileText className="w-4 h-4" />
+              {t("theCase.readFull")}
+            </Link>
+          </div>
+        </DiagonalSpread>
+      )}
 
       {/* ───── Testimonial — purple ───── */}
       <TestimonialSpread
@@ -435,7 +499,7 @@ export function MockTrialPage() {
         </Container>
       </section>
 
-      {/* ───── Featured case spread ───── */}
+      {/* ───── Compete spread — register / grants CTA ───── */}
       <DiagonalSpread
         photoSide="right"
         photoSrc={PHOTOS.caseSpread}
@@ -443,39 +507,34 @@ export function MockTrialPage() {
         clip="none"
         panelBg="#9333ea"
         panelText="#ffffff"
-        minHeight="md:min-h-[60svh]"
+        minHeight="md:min-h-[55svh]"
         panelClassName="py-12 md:py-16"
       >
-        <span
-          style={fontBody}
-          className="inline-block text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70 mb-4"
-        >
-          {t("featuredCase.label")}
-        </span>
-        <Heading size="panel" className="text-white mb-2">
-          {t("featuredCase.caseName")}
+        <Heading size="panel" className="text-white mb-6">
+          {t("competeSpread.heading")}
         </Heading>
-        <span
-          style={fontBody}
-          className="inline-block rounded-full px-3 py-1 text-xs font-semibold bg-white/20 text-white mb-6"
-        >
-          {t("featuredCase.caseTypeBadge")}
-        </span>
-        <p style={fontBody} className="text-white/90 text-base md:text-lg leading-relaxed mb-4">
-          {t("featuredCase.description1")}
+        <p style={fontBody} className="text-white/90 text-base md:text-lg leading-relaxed mb-8">
+          {t("competeSpread.description")}
         </p>
-        <p style={fontBody} className="text-white/80 text-sm leading-relaxed mb-8">
-          {t("featuredCase.description2")}
-        </p>
-        <PillButton
-          href="mailto:contact@jamun.org"
-          tone="custom"
-          color="#ffffff"
-          className="!text-[#0a0a0a]"
-          withArrow
-        >
-          {t("featuredCase.getCaseMaterials")}
-        </PillButton>
+        <div className="flex flex-wrap gap-3">
+          <PillButton
+            href="/register"
+            tone="custom"
+            color="#ffffff"
+            className="!text-[#0a0a0a]"
+            withArrow
+          >
+            {t("competeSpread.registerNow")}
+          </PillButton>
+          <PillButton
+            href="/grants"
+            tone="custom"
+            color="rgba(255,255,255,0.18)"
+            className="!text-white"
+          >
+            {t("competeSpread.learnAboutGrants")}
+          </PillButton>
+        </div>
       </DiagonalSpread>
 
       {/* ───── Skills — 4-up grid ───── */}
@@ -610,11 +669,11 @@ export function MockTrialPage() {
           {t("finalCta.description")}
         </p>
         <div className="flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" tone="custom" color="#9333ea" withArrow>
-            {t("finalCta.joinInterestList")}
+          <PillButton href="/register" tone="custom" color="#9333ea" withArrow>
+            {t("finalCta.registerNow")}
           </PillButton>
-          <PillButton href="/programs" tone="outline">
-            {t("finalCta.exploreOtherPrograms")}
+          <PillButton href="/mocktrial/resources" tone="outline">
+            {t("finalCta.exploreResources")}
           </PillButton>
         </div>
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">

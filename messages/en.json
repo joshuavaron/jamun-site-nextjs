@@ -1481,7 +1481,8 @@
     "categoryRules": "Rules",
     "categoryReference": "Reference",
     "categoryExamples": "Examples",
-    "categoryStrategy": "Strategy"
+    "categoryStrategy": "Strategy",
+    "finalCtaPhotoAlt": "JAMUN students working through math problems together."
   },
   "MathletesResourcesPage": {
     "heroBadge": "Mathletes Resources",
@@ -1537,16 +1538,22 @@
     "ogDescription": "Practice problems, problem-solving strategies, and topic guides for JAMUN Mathletes competitions and competitive math."
   },
   "MockTrialPage": {
+    "theCase": {
+      "label": "The Current Case",
+      "openCase": "Open the case",
+      "readFull": "Read the full packet",
+      "photoAlt": "JAMUN Mock Trial students presenting in the courtroom"
+    },
     "hero": {
       "headingStart": "Justice takes the",
       "headingAccent": "stand.",
-      "description": "JAMUN Mock Trial lets middle schoolers experience courtroom drama firsthand — building critical thinking, public speaking, and legal reasoning skills. Launching Fall 2026.",
-      "joinInterestList": "Join the Interest List",
-      "exploreAllPrograms": "Explore All Programs"
+      "description": "JAMUN Mock Trial lets middle schoolers experience courtroom drama firsthand — building critical thinking, public speaking, and legal reasoning skills.",
+      "registerNow": "Register Now",
+      "readTheCase": "Read the Case"
     },
     "stats": {
-      "stat1Value": "Fall 2026",
-      "stat1Label": "Program Launch",
+      "stat1Value": "2",
+      "stat1Label": "Sides to Argue",
       "stat2Value": "100%",
       "stat2Label": "Beginner-Friendly",
       "stat3Value": "6+",
@@ -1558,8 +1565,8 @@
       "heading": "A courtroom simulation built for middle schoolers.",
       "paragraph1": "Mock Trial is a competitive simulation where students take on the roles of attorneys and witnesses in a realistic courtroom setting. You analyze a case, prepare arguments, examine witnesses, and present your case to real judges.",
       "paragraph2": "It's not about memorizing legal jargon — it's about critical thinking, teamwork, and the thrill of making your case under pressure. Whether you dream of being a lawyer or just love a good argument, Mock Trial is for you.",
-      "getNotifiedAtLaunch": "Get Notified at Launch",
-      "viewResources": "View Resources"
+      "viewResources": "View Resources",
+      "getStarted": "Get Started"
     },
     "purpleTestimonial": {
       "heading": "Students discover a voice they didn't know they had.",
@@ -1594,13 +1601,11 @@
       "step4Title": "Closing Arguments",
       "step4Body": "Both sides summarize the evidence, highlight strengths in their case, and ask the jury to reach a verdict in their favor."
     },
-    "featuredCase": {
-      "label": "Fall 2026 Case",
-      "caseName": "State v. Alex Morgan",
-      "caseTypeBadge": "Criminal Case — Murder in the First Degree",
-      "description1": "When Ethan Morales, 22, is found dead in a Briarwood University chemistry lab, all evidence points to fellow student Alex Morgan. Was it sabotage — or a tragic accident?",
-      "description2": "Teams will argue both sides using security footage, chemical evidence, and testimony from 6 witnesses per side. 12 exhibits. One verdict.",
-      "getCaseMaterials": "Get Case Materials"
+    "competeSpread": {
+      "heading": "Ready to make your case?",
+      "description": "Join a team, take on a role, and argue State v. Reed in front of real judges. Registration is open for the current season — and grants can cover up to 100% of competition costs.",
+      "registerNow": "Register Now",
+      "learnAboutGrants": "Learn About Grants"
     },
     "skills": {
       "sectionTitle": "Skills that last a lifetime.",
@@ -1643,8 +1648,8 @@
       "a1": "Not at all! Our program is designed specifically for beginners. We'll teach you everything from courtroom procedure to how to examine a witness. Many of our most confident advocates started with zero experience.",
       "q2": "What grades can participate?",
       "a2": "JAMUN Mock Trial is designed for middle school students in grades 5–8. We create age-appropriate cases and provide training that meets students where they are.",
-      "q3": "When does Mock Trial start?",
-      "a3": "Mock Trial launches in Fall 2026! We're currently building our curriculum and case materials. Join our mailing list to be the first to know when registration opens.",
+      "q3": "When can I join Mock Trial?",
+      "a3": "Mock Trial is live now — registration is open for the current season. Sign up to join a team, pick your role, and start preparing State v. Reed with our free resources and training.",
       "q4": "What roles can I play?",
       "a4": "You can play an attorney (prosecution or defense) or a witness. Most students get the opportunity to try both roles throughout the season, so you can find what suits you best.",
       "q5": "How much time does Mock Trial require?",
@@ -1653,13 +1658,13 @@
       "a6": "We work hard to keep costs minimal. Many of our resources are FREE, and we offer financial assistance for competition fees. No student should be unable to participate due to cost."
     },
     "finalCta": {
-      "headingStart": "Be a founding member of",
+      "headingStart": "Make your case with",
       "headingAccent": "JAMUN Mock Trial.",
-      "description": "We're building a program where courtroom skills meet critical thinking. Whether you're a student ready to make your case or a teacher looking to start a Mock Trial club, join our interest list to be the first to know when we launch.",
-      "joinInterestList": "Join the Interest List",
-      "exploreOtherPrograms": "Explore Other Programs",
+      "description": "Whether you're a student ready to argue your first case or a teacher looking to start a Mock Trial club, now's the time to get involved. Registration is open for the current season.",
       "questions": "Questions?",
-      "email": "mocktrial@jamun.org"
+      "email": "mocktrial@jamun.org",
+      "registerNow": "Register Now",
+      "exploreResources": "Explore Resources"
     },
     "heroPhotoAlt": "Mock Trial students shaking hands after a courtroom round.",
     "aboutPhotoAlt": "Mock Trial students conferring during a practice round.",
@@ -1672,7 +1677,7 @@
     "title": "Mock Trial for Middle School - Learn Courtroom Skills",
     "description": "Experience courtroom drama in JAMUN's Mock Trial program for grades 5-8. Learn legal reasoning, cross-examination, opening statements, and persuasive argumentation. Build confidence in public speaking and critical thinking.",
     "ogTitle": "Mock Trial for Middle School - JAMUN",
-    "ogDescription": "Learn to think like a lawyer! Develop argumentation, critical analysis, and presentation skills through courtroom simulation. Launching Fall 2026."
+    "ogDescription": "Learn to think like a lawyer! Develop argumentation, critical analysis, and presentation skills through courtroom simulation."
   },
   "MockTrialResourcePage": {
     "notFoundTitle": "Resource Not Found | JAMUN Mock Trial",
@@ -1699,7 +1704,8 @@
     "categoryRules": "Rules",
     "categoryReference": "Reference",
     "categoryExamples": "Examples",
-    "categoryStrategy": "Strategy"
+    "categoryStrategy": "Strategy",
+    "finalCtaPhotoAlt": "JAMUN students in discussion during a team strategy session."
   },
   "MockTrialResourcesPage": {
     "heroBadge": "Mock Trial Resources",
@@ -1746,7 +1752,18 @@
     "formatVideo": "Video",
     "formatWorksheet": "Worksheet",
     "readMore": "Read",
-    "notFoundTitle": "Resource Not Found | JAMUN Mock Trial"
+    "notFoundTitle": "Resource Not Found | JAMUN Mock Trial",
+    "free": "Free",
+    "browseAllTitle": "Browse all resources.",
+    "browseAllSubtitle": "Explore our complete library of {count} free guides, templates, and examples.",
+    "filterCategory": "Category",
+    "all": "All",
+    "heroPhotoAlt": "Mock Trial students conferring during a practice round.",
+    "testimonialHeading": "Parents see the transformation.",
+    "testimonialQuote": "I never thought I'd love public speaking, but Mock Trial changed that. Now I'm the first one to volunteer for presentations in class.",
+    "testimonialAttribution": "— Alicia T., 7th Grade, First-Time Participant",
+    "testimonialPhotoAlt": "JAMUN students celebrating after a successful mock trial competition.",
+    "ctaPhotoAlt": "JAMUN students in discussion during a team strategy session."
   },
   "MockTrialResourcesPageMetadata": {
     "title": "Free Mock Trial Guides & Templates for Students",
@@ -2385,7 +2402,8 @@
     "categoryRules": "Rules",
     "categoryReference": "Reference",
     "categoryExamples": "Examples",
-    "categoryStrategy": "Strategy"
+    "categoryStrategy": "Strategy",
+    "finalCtaPhotoAlt": "JAMUN delegates celebrating together after a successful conference day."
   },
   "ResourcesPage": {
     "heroBadge": "Model UN Resources",
@@ -2489,6 +2507,9 @@
     "boardMember2Name": "Howard Task",
     "boardMember2Title": "Advisory Board Member",
     "boardMember2Bio": "With 40+ years of marketing and business advisory experience, Howard is a professional board member who helps organizations grow strategically. He advises JAMUN on business development and long-term sustainability.",
+    "boardMember3Name": "Erin Kerpel",
+    "boardMember3Title": "Advisory Board Member",
+    "boardMember3Bio": "Erin brings hands-on nonprofit leadership to JAMUN's advisory board. As Vice President of the Board at Furever Home Dog Sanctuary and Director of Service Events at Gratitude Generation, she is passionate about community service and youth engagement, and advises JAMUN on volunteer programs and nonprofit operations.",
     "ctaTitle": "Want to Support JAMUN?",
     "ctaDescription": "Whether through partnership, donation, or advisory service, your support helps us make academic competitions accessible to every middle school student.",
     "ctaPartnerButton": "Become a Partner",
@@ -2626,8 +2647,8 @@
     "faq1Answer": "Not at all! Our program is designed specifically for beginners. We will teach you everything from courtroom procedure to how to examine a witness. Many of our most confident advocates started with zero experience.",
     "faq2Question": "What grades can participate?",
     "faq2Answer": "JAMUN Mock Trial is designed for middle school students in grades 5-8. We create age-appropriate cases and provide training that meets students where they are.",
-    "faq3Question": "When does Mock Trial start?",
-    "faq3Answer": "Mock Trial launches in Fall 2026! We are currently building our curriculum and case materials. Join our mailing list to be the first to know when registration opens.",
+    "faq3Question": "When can I join Mock Trial?",
+    "faq3Answer": "Mock Trial is live now — registration is open for the current season. Sign up to join a team, pick your role, and start preparing State v. Reed with our free resources and training.",
     "faq4Question": "What roles can I play?",
     "faq4Answer": "You can play an attorney (prosecution or defense) or a witness. Most students get the opportunity to try both roles throughout the season, so you can find what suits you best.",
     "faq5Question": "How much time does Mock Trial require?",
@@ -2648,5 +2669,46 @@
     "faq5Answer": "If you are comfortable with pre-algebra concepts, you are ready to start! Our training covers topics from basic arithmetic through introductory algebra and geometry.",
     "faq6Question": "Is there a cost to participate?",
     "faq6Answer": "We work hard to keep costs minimal. Many of our resources are FREE, and we offer financial assistance for competition registration fees. No student should be unable to participate due to cost."
+  },
+  "MockTrialCases": {
+    "allCases": "All Cases",
+    "backToMockTrial": "Back to Mock Trial",
+    "backToCase": "Back to case",
+    "readFullCase": "Read full case",
+    "downloadPacket": "Download packet (PDF)",
+    "downloadPdf": "Download PDF",
+    "printFullCase": "Print full case",
+    "saveAsPdf": "Save as PDF",
+    "fullCase": "Full case",
+    "fullCaseLabel": "Full Case Packet",
+    "caseDocuments": "Case Documents",
+    "contents": "Contents",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "componentPosition": "Document {current} of {total}",
+    "documentNav": "Document navigation",
+    "charges": "Charges",
+    "cast": "Cast of Characters",
+    "prosecution": "Prosecution",
+    "defense": "Defense",
+    "neutral": "Court",
+    "uncallable": "Uncallable",
+    "previous": "Previous",
+    "next": "Next",
+    "readDocument": "Read",
+    "indexTitle": "Mock Trial Cases",
+    "indexDescription": "Explore our Mock Trial case packets. Each case includes the indictment, statement of facts, witness affidavits, exhibits, applicable law, and jury instructions — read each document on its own or download the full packet.",
+    "browseTitle": "Browse Cases",
+    "browseSubtitle": "Pick a case to read the full packet or any individual document.",
+    "comingSoonTitle": "Cases Coming Soon",
+    "comingSoonDescription": "We're preparing our Mock Trial case packets. Check back soon.",
+    "typeIndictment": "Indictment",
+    "typeFacts": "Statement of Facts",
+    "typeAffidavit": "Affidavit",
+    "typeExhibit": "Exhibit",
+    "typeStipulations": "Stipulations",
+    "typeLaw": "Applicable Law",
+    "typeInstructions": "Jury Instructions",
+    "typeSpecial": "Special Instructions",
+    "typeOther": "Document"
   }
 }

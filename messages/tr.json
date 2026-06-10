@@ -1481,7 +1481,8 @@
     "categoryRules": "Tüzük",
     "categoryReference": "Referans",
     "categoryExamples": "Örnekler",
-    "categoryStrategy": "Strateji"
+    "categoryStrategy": "Strateji",
+    "finalCtaPhotoAlt": "JAMUN öğrencileri matematik problemleri üzerinde birlikte çalışıyorlar."
   },
   "MathletesResourcesPage": {
     "heroBadge": "Matematik Kaynakları",
@@ -1537,16 +1538,22 @@
     "ogDescription": "JAMUN Mathletes yarışmaları ve rekabetçi matematik için alıştırma problemleri, problem çözme stratejileri ve konu kılavuzları."
   },
   "MockTrialPage": {
+    "theCase": {
+      "label": "The Current Case",
+      "openCase": "Open the case",
+      "readFull": "Read the full packet",
+      "photoAlt": "JAMUN Mock Trial students presenting in the courtroom"
+    },
     "hero": {
       "headingStart": "Adalet alır",
       "headingAccent": "durmak.",
-      "description": "JAMUN Mock Trial, ortaokul öğrencilerinin mahkeme salonu dramasını ilk elden deneyimlemelerine olanak tanıyarak eleştirel düşünme, topluluk önünde konuşma ve hukuki muhakeme becerilerini geliştirir. 2026 Sonbaharında başlıyor.",
-      "joinInterestList": "İlgi Listesine Katılın",
-      "exploreAllPrograms": "Tüm Programları Keşfedin"
+      "description": "JAMUN Mock Trial, ortaokul öğrencilerinin mahkeme salonu dramasını ilk elden deneyimlemelerine olanak tanıyarak eleştirel düşünme, topluluk önünde konuşma ve hukuki muhakeme becerilerini geliştirir.",
+      "registerNow": "Şimdi Kayıt Ol",
+      "readTheCase": "Davayı Oku"
     },
     "stats": {
-      "stat1Value": "2026 Sonbaharı",
-      "stat1Label": "Program Başlatma",
+      "stat1Value": "2",
+      "stat1Label": "Savunulacak Taraf",
       "stat2Value": "%100",
       "stat2Label": "Başlangıç ​​Dostu",
       "stat3Value": "6+",
@@ -1558,8 +1565,8 @@
       "heading": "Ortaokul öğrencileri için oluşturulmuş bir mahkeme salonu simülasyonu.",
       "paragraph1": "Mock Trial, öğrencilerin gerçekçi bir mahkeme salonu ortamında avukat ve tanık rollerini üstlendiği rekabetçi bir simülasyondur. Bir davayı analiz eder, argümanlar hazırlar, tanıkları sorgular ve davanızı gerçek hakimlere sunarsınız.",
       "paragraph2": "Bu, hukuki jargonu ezberlemekle ilgili değil; eleştirel düşünmeyle, takım çalışmasıyla ve baskı altında davanızı ortaya koymanın heyecanıyla ilgilidir. İster avukat olmayı hayal edin, ister sadece iyi bir tartışmayı sevin, Mock Trial tam size göre.",
-      "getNotifiedAtLaunch": "Lansmanda Bildirim Alın",
-      "viewResources": "Kaynakları Görüntüle"
+      "viewResources": "Kaynakları Görüntüle",
+      "getStarted": "Başlayın"
     },
     "purpleTestimonial": {
       "heading": "Öğrenciler sahip olduklarını bilmedikleri bir sesi keşfederler.",
@@ -1594,13 +1601,11 @@
       "step4Title": "Kapanış Tartışmaları",
       "step4Body": "Her iki taraf da kanıtları özetliyor, davalarındaki güçlü yönleri vurguluyor ve jüriden kendi lehlerine bir karara varmalarını istiyor."
     },
-    "featuredCase": {
-      "label": "2026 Sonbahar Vakası",
-      "caseName": "Eyalet / Alex Morgan",
-      "caseTypeBadge": "Ceza Davası - Birinci Derece Cinayet",
-      "description1": "22 yaşındaki Ethan Morales, Briarwood Üniversitesi kimya laboratuvarında ölü bulunduğunda, tüm kanıtlar öğrenci arkadaşı Alex Morgan'ı işaret ediyor. Sabotaj mıydı, yoksa trajik bir kaza mı?",
-      "description2": "Ekipler, güvenlik görüntülerini, kimyasal kanıtları ve her iki tarafta 6 tanığın ifadelerini kullanarak her iki tarafı da tartışacak. 12 sergi. Bir hüküm.",
-      "getCaseMaterials": "Kutu Malzemelerini Alın"
+    "competeSpread": {
+      "heading": "Davanı sunmaya hazır mısın?",
+      "description": "Bir ekibe katıl, bir rol üstlen ve gerçek hâkimler önünde State v. Reed davasını savun. Kayıtlar bu sezon için açık ve hibeler yarışma masraflarının %100'üne kadarını karşılayabilir.",
+      "registerNow": "Şimdi Kayıt Ol",
+      "learnAboutGrants": "Hibeler Hakkında Bilgi Edinin"
     },
     "skills": {
       "sectionTitle": "Ömür boyu süren beceriler.",
@@ -1643,8 +1648,8 @@
       "a1": "Hiç de bile! Programımız yeni başlayanlar için özel olarak tasarlanmıştır. Size mahkeme salonundaki prosedürlerden bir tanığın nasıl sorgulanacağına kadar her şeyi öğreteceğiz. Kendine en çok güvenen savunucularımızın çoğu sıfır deneyimle başladı.",
       "q2": "Hangi sınıflar katılabilir?",
       "a2": "JAMUN Deneme Denemesi 5-8. Sınıflardaki ortaokul öğrencileri için tasarlanmıştır. Yaşlarına uygun vakalar oluşturup öğrencileri bulundukları yerde buluşturan eğitimler sağlıyoruz.",
-      "q3": "Sahte Deneme ne zaman başlıyor?",
-      "a3": "Sahte Deneme 2026 Sonbaharında başlıyor! Şu anda müfredatımızı ve vaka materyallerimizi oluşturuyoruz. Kayıtların ne zaman açıldığını ilk öğrenen siz olmak için e-posta listemize katılın.",
+      "q3": "Sahte Deneme'ye ne zaman katılabilirim?",
+      "a3": "Sahte Deneme artık yayında! Kayıtlar bu sezon için açık. Bir ekibe katılmak, rolünü seçmek ve ücretsiz kaynaklarımız ile eğitimimizle State v. Reed davasına hazırlanmaya başlamak için kayıt ol.",
       "q4": "Hangi rolleri oynayabilirim?",
       "a4": "Bir avukatı (iddia makamı veya savunma) veya bir tanığı oynayabilirsiniz. Çoğu öğrenci sezon boyunca her iki rolü de deneme fırsatına sahip olur, böylece size en uygun olanı bulabilirsiniz.",
       "q5": "Sahte Deneme ne kadar zaman gerektirir?",
@@ -1653,13 +1658,13 @@
       "a6": "Maliyetleri minimumda tutmak için çok çalışıyoruz. Kaynaklarımızın çoğu ÜCRETSİZDİR ve yarışma ücretleri için mali yardım sunuyoruz. Hiçbir öğrenci maliyet nedeniyle katılamamalıdır."
     },
     "finalCta": {
-      "headingStart": "Kurucu üyesi olun",
+      "headingStart": "Davanı sun:",
       "headingAccent": "JAMUN Sahte Denemesi.",
-      "description": "Mahkeme salonu becerilerinin eleştirel düşünceyle buluştuğu bir program geliştiriyoruz. İster davanızı anlatmaya hazır bir öğrenci olun, ister Sahte Deneme kulübü kurmak isteyen bir öğretmen olun, ne zaman başladığımızı ilk öğrenen olmak için ilgi listemize katılın.",
-      "joinInterestList": "İlgi Listesine Katılın",
-      "exploreOtherPrograms": "Diğer Programları Keşfedin",
+      "description": "İster ilk davasını savunmaya hazır bir öğrenci ol, ister Sahte Deneme kulübü kurmak isteyen bir öğretmen, katılma zamanı şimdi. Kayıtlar bu sezon için açık.",
       "questions": "Sorunuz mu var?",
-      "email": "maketrial@jamun.org"
+      "email": "maketrial@jamun.org",
+      "registerNow": "Şimdi Kayıt Ol",
+      "exploreResources": "Kaynakları Keşfedin"
     },
     "heroPhotoAlt": "Sahte Deneme öğrencileri mahkeme salonu turundan sonra el sıkışırken.",
     "aboutPhotoAlt": "Deneme turu öğrencileri bir uygulama turu sırasında görüşüyor.",
@@ -1672,7 +1677,7 @@
     "title": "Ortaokul için Sahte Deneme - Mahkeme Salonu Becerilerini Öğrenin",
     "description": "JAMUN'un 5-8. sınıflar için Sahte Deneme programında mahkeme salonu dramasını deneyimleyin. Hukuki akıl yürütmeyi, çapraz sorgulamayı, açılış beyanlarını ve ikna edici tartışmayı öğrenin. Topluluk önünde konuşma ve eleştirel düşünme konusunda güven oluşturun.",
     "ogTitle": "Ortaokul için Sahte Deneme - JAMUN",
-    "ogDescription": "Bir avukat gibi düşünmeyi öğrenin! Mahkeme salonu simülasyonu aracılığıyla tartışma, eleştirel analiz ve sunum becerilerini geliştirin. 2026 Sonbaharında başlıyor."
+    "ogDescription": "Bir avukat gibi düşünmeyi öğrenin! Mahkeme salonu simülasyonu aracılığıyla tartışma, eleştirel analiz ve sunum becerilerini geliştirin."
   },
   "MockTrialResourcePage": {
     "notFoundTitle": "Kaynak Bulunamadı | JAMUN Sahte Denemesi",
@@ -1699,7 +1704,8 @@
     "categoryRules": "Tüzük",
     "categoryReference": "Referans",
     "categoryExamples": "Örnekler",
-    "categoryStrategy": "Strateji"
+    "categoryStrategy": "Strateji",
+    "finalCtaPhotoAlt": "JAMUN öğrencileri bir takım stratejisi oturumu sırasında tartışıyor."
   },
   "MockTrialResourcesPage": {
     "heroBadge": "Sahte Deneme Kaynakları",
@@ -1746,7 +1752,18 @@
     "formatVideo": "Video",
     "formatWorksheet": "Çalışma Sayfası",
     "readMore": "Okumak",
-    "notFoundTitle": "Kaynak Bulunamadı | JAMUN Sahte Denemesi"
+    "notFoundTitle": "Kaynak Bulunamadı | JAMUN Sahte Denemesi",
+    "free": "Özgür",
+    "browseAllTitle": "Tüm kaynaklara göz atın.",
+    "browseAllSubtitle": "{count} ücretsiz kılavuzlar, şablonlar ve örneklerden oluşan kütüphanemizin tamamını keşfedin.",
+    "filterCategory": "Kategori",
+    "all": "Tüm",
+    "heroPhotoAlt": "Deneme turu öğrencileri bir uygulama turu sırasında görüşüyor.",
+    "testimonialHeading": "Ebeveynler dönüşümü görüyor.",
+    "testimonialQuote": "Topluluk önünde konuşmayı seveceğimi hiç düşünmezdim ama Mock Trial bunu değiştirdi. Artık sınıfta sunumlara gönüllü olan ilk kişi benim.",
+    "testimonialAttribution": "— Alicia T., 7. Sınıf, İlk Kez Katılımcı",
+    "testimonialPhotoAlt": "JAMUN öğrencileri başarılı bir deneme yarışmasının ardından kutlama yapıyor.",
+    "ctaPhotoAlt": "JAMUN öğrencileri bir takım stratejisi oturumu sırasında tartışıyor."
   },
   "MockTrialResourcesPageMetadata": {
     "title": "Öğrenciler için Ücretsiz Deneme Deneme Kılavuzları ve Şablonları",
@@ -2385,7 +2402,8 @@
     "categoryRules": "Tüzük",
     "categoryReference": "Referans",
     "categoryExamples": "Örnekler",
-    "categoryStrategy": "Strateji"
+    "categoryStrategy": "Strateji",
+    "finalCtaPhotoAlt": "JAMUN delegeleri başarılı bir konferans gününün ardından birlikte kutlama yapıyor."
   },
   "ResourcesPage": {
     "heroBadge": "Model BM Kaynakları",
@@ -2489,6 +2507,9 @@
     "boardMember2Name": "Howard Görevi",
     "boardMember2Title": "Danışma Kurulu Üyesi",
     "boardMember2Bio": "40 yıldan fazla pazarlama ve iş danışmanlığı deneyimine sahip olan Howard, kuruluşların stratejik olarak büyümesine yardımcı olan profesyonel bir yönetim kurulu üyesidir. JAMUN'a iş geliştirme ve uzun vadeli sürdürülebilirlik konusunda tavsiyelerde bulunmaktadır.",
+    "boardMember3Name": "Erin Kerpel",
+    "boardMember3Title": "Danışma Kurulu Üyesi",
+    "boardMember3Bio": "Erin, JAMUN'un danışma kuruluna uygulamalı kâr amacı gütmeyen kuruluş liderliği deneyimi getiriyor. Furever Home Dog Sanctuary Yönetim Kurulu Başkan Yardımcısı ve Gratitude Generation'da Hizmet Etkinlikleri Direktörü olarak toplum hizmetine ve gençlerin katılımına tutkuyla bağlı olup, JAMUN'a gönüllülük programları ve kâr amacı gütmeyen operasyonlar konusunda danışmanlık yapıyor.",
     "ctaTitle": "JAMUN'u Desteklemek İster misiniz?",
     "ctaDescription": "İster ortaklık, bağış veya danışmanlık hizmeti yoluyla olsun, desteğiniz akademik yarışmaları her ortaokul öğrencisi için erişilebilir hale getirmemize yardımcı oluyor.",
     "ctaPartnerButton": "Ortak Olun",
@@ -2626,8 +2647,8 @@
     "faq1Answer": "Hiç de bile! Programımız yeni başlayanlar için özel olarak tasarlanmıştır. Size mahkeme salonundaki prosedürlerden bir tanığın nasıl sorgulanacağına kadar her şeyi öğreteceğiz. Kendine en çok güvenen savunucularımızın çoğu sıfır deneyimle başladı.",
     "faq2Question": "Hangi sınıflar katılabilir?",
     "faq2Answer": "JAMUN Deneme Denemesi 5-8. Sınıflardaki ortaokul öğrencileri için tasarlanmıştır. Yaşlarına uygun vakalar oluşturup öğrencileri bulundukları yerde buluşturan eğitimler sağlıyoruz.",
-    "faq3Question": "Sahte Deneme ne zaman başlıyor?",
-    "faq3Answer": "Sahte Deneme 2026 Sonbaharında başlıyor! Şu anda müfredatımızı ve vaka materyallerimizi oluşturuyoruz. Kayıtların ne zaman açıldığını ilk öğrenen siz olmak için e-posta listemize katılın.",
+    "faq3Question": "Sahte Deneme'ye ne zaman katılabilirim?",
+    "faq3Answer": "Sahte Deneme artık yayında! Kayıtlar bu sezon için açık. Bir ekibe katılmak, rolünü seçmek ve ücretsiz kaynaklarımız ile eğitimimizle State v. Reed davasına hazırlanmaya başlamak için kayıt ol.",
     "faq4Question": "Hangi rolleri oynayabilirim?",
     "faq4Answer": "Bir avukatı (iddia makamı veya savunma) veya bir tanığı oynayabilirsiniz. Çoğu öğrenci sezon boyunca her iki rolü de deneme fırsatına sahip olur, böylece size en uygun olanı bulabilirsiniz.",
     "faq5Question": "Sahte Deneme ne kadar zaman gerektirir?",
@@ -2648,5 +2669,46 @@
     "faq5Answer": "Cebir öncesi kavramlar konusunda rahatsanız başlamaya hazırsınız! Eğitimimiz temel aritmetikten cebir ve geometriye giriş konularını kapsamaktadır.",
     "faq6Question": "Katılımın bir maliyeti var mı?",
     "faq6Answer": "Maliyetleri minimumda tutmak için çok çalışıyoruz. Kaynaklarımızın çoğu ÜCRETSİZDİR ve yarışma kayıt ücretleri için mali yardım sunuyoruz. Hiçbir öğrenci maliyet nedeniyle katılamamalıdır."
+  },
+  "MockTrialCases": {
+    "allCases": "All Cases",
+    "backToMockTrial": "Back to Mock Trial",
+    "backToCase": "Back to case",
+    "readFullCase": "Read full case",
+    "downloadPacket": "Download packet (PDF)",
+    "downloadPdf": "Download PDF",
+    "printFullCase": "Print full case",
+    "saveAsPdf": "Save as PDF",
+    "fullCase": "Full case",
+    "fullCaseLabel": "Full Case Packet",
+    "caseDocuments": "Case Documents",
+    "contents": "Contents",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "componentPosition": "Document {current} of {total}",
+    "documentNav": "Document navigation",
+    "charges": "Charges",
+    "cast": "Cast of Characters",
+    "prosecution": "Prosecution",
+    "defense": "Defense",
+    "neutral": "Court",
+    "uncallable": "Uncallable",
+    "previous": "Previous",
+    "next": "Next",
+    "readDocument": "Read",
+    "indexTitle": "Mock Trial Cases",
+    "indexDescription": "Explore our Mock Trial case packets. Each case includes the indictment, statement of facts, witness affidavits, exhibits, applicable law, and jury instructions — read each document on its own or download the full packet.",
+    "browseTitle": "Browse Cases",
+    "browseSubtitle": "Pick a case to read the full packet or any individual document.",
+    "comingSoonTitle": "Cases Coming Soon",
+    "comingSoonDescription": "We're preparing our Mock Trial case packets. Check back soon.",
+    "typeIndictment": "Indictment",
+    "typeFacts": "Statement of Facts",
+    "typeAffidavit": "Affidavit",
+    "typeExhibit": "Exhibit",
+    "typeStipulations": "Stipulations",
+    "typeLaw": "Applicable Law",
+    "typeInstructions": "Jury Instructions",
+    "typeSpecial": "Special Instructions",
+    "typeOther": "Document"
   }
 }

@@ -1481,7 +1481,8 @@
     "categoryRules": "قواعد",
     "categoryReference": "مرجع",
     "categoryExamples": "أمثلة",
-    "categoryStrategy": "استراتيجية"
+    "categoryStrategy": "استراتيجية",
+    "finalCtaPhotoAlt": "طلاب JAMUN يعملون على حل مسائل الرياضيات معًا."
   },
   "MathletesResourcesPage": {
     "heroBadge": "موارد ماثليتس",
@@ -1537,16 +1538,22 @@
     "ogDescription": "مسائل تدريب واستراتيجيات حل المسائل وأدلة المواضيع لمسابقات JAMUN Mathletes والرياضيات التنافسية."
   },
   "MockTrialPage": {
+    "theCase": {
+      "label": "The Current Case",
+      "openCase": "Open the case",
+      "readFull": "Read the full packet",
+      "photoAlt": "JAMUN Mock Trial students presenting in the courtroom"
+    },
     "hero": {
       "headingStart": "العدالة تأخذ",
       "headingAccent": "يقف.",
-      "description": "تتيح JAMUN Mock Trial لطلاب المدارس المتوسطة تجربة الدراما في قاعة المحكمة بشكل مباشر - بناء التفكير النقدي والتحدث أمام الجمهور ومهارات التفكير القانوني. إطلاق خريف 2026.",
-      "joinInterestList": "انضم إلى قائمة الاهتمامات",
-      "exploreAllPrograms": "استكشاف كافة البرامج"
+      "description": "تتيح JAMUN Mock Trial لطلاب المدارس المتوسطة تجربة الدراما في قاعة المحكمة بشكل مباشر - بناء التفكير النقدي والتحدث أمام الجمهور ومهارات التفكير القانوني.",
+      "registerNow": "سجل الآن",
+      "readTheCase": "اقرأ القضية"
     },
     "stats": {
-      "stat1Value": "خريف 2026",
-      "stat1Label": "إطلاق البرنامج",
+      "stat1Value": "2",
+      "stat1Label": "طرفا الخصومة",
       "stat2Value": "100%",
       "stat2Label": "صديقة للمبتدئين",
       "stat3Value": "6+",
@@ -1558,8 +1565,8 @@
       "heading": "محاكاة قاعة المحكمة بنيت لطلاب المدارس المتوسطة.",
       "paragraph1": "المحاكمة الصورية عبارة عن محاكاة تنافسية حيث يقوم الطلاب بأدوار المحامين والشهود في قاعة محكمة واقعية. أنت تقوم بتحليل القضية، وإعداد الحجج، واستجواب الشهود، وعرض قضيتك على قضاة حقيقيين.",
       "paragraph2": "لا يتعلق الأمر بحفظ المصطلحات القانونية، بل يتعلق بالتفكير النقدي والعمل الجماعي والإثارة المتمثلة في رفع قضيتك تحت الضغط. سواء كنت تحلم بأن تصبح محاميًا أو تحب الجدال الجيد، فإن Mock Trial هو الحل المناسب لك.",
-      "getNotifiedAtLaunch": "الحصول على إخطار عند الإطلاق",
-      "viewResources": "عرض الموارد"
+      "viewResources": "عرض الموارد",
+      "getStarted": "ابدأ"
     },
     "purpleTestimonial": {
       "heading": "يكتشف الطلاب صوتًا لم يعرفوا أنهم يمتلكونه.",
@@ -1594,13 +1601,11 @@
       "step4Title": "الحجج الختامية",
       "step4Body": "يلخص كلا الجانبين الأدلة، ويسلطان الضوء على نقاط القوة في قضيتهما، ويطلبان من هيئة المحلفين التوصل إلى حكم لصالحهما."
     },
-    "featuredCase": {
-      "label": "قضية خريف 2026",
-      "caseName": "الدولة ضد أليكس مورغان",
-      "caseTypeBadge": "قضية جنائية - جريمة قتل من الدرجة الأولى",
-      "description1": "عندما يتم العثور على إيثان موراليس، 22 عامًا، ميتًا في معمل الكيمياء بجامعة برياروود، تشير كل الأدلة إلى زميله الطالب أليكس مورغان. هل كان عملاً تخريبيًا أم حادثًا مأساويًا؟",
-      "description2": "ستتجادل الفرق مع كلا الجانبين باستخدام اللقطات الأمنية والأدلة الكيميائية وشهادات 6 شهود من كل جانب. 12 معروضة. حكم واحد.",
-      "getCaseMaterials": "احصل على مواد الحالة"
+    "competeSpread": {
+      "heading": "هل أنت مستعد لتقديم قضيتك؟",
+      "description": "انضم إلى فريق، وتولَّ دورًا، وترافع في قضية State v. Reed أمام قضاة حقيقيين. التسجيل مفتوح للموسم الحالي - ويمكن للمنح أن تغطي ما يصل إلى 100% من تكاليف المسابقة.",
+      "registerNow": "سجل الآن",
+      "learnAboutGrants": "تعرف على المنح"
     },
     "skills": {
       "sectionTitle": "مهارات تدوم مدى الحياة.",
@@ -1643,8 +1648,8 @@
       "a1": "مُطْلَقاً! تم تصميم برنامجنا خصيصا للمبتدئين. سنعلمك كل شيء بدءًا من إجراءات قاعة المحكمة وحتى كيفية استجواب الشاهد. بدأ العديد من المدافعين الأكثر ثقة لدينا بخبرة معدومة.",
       "q2": "ما هي الدرجات التي يمكن أن تشارك؟",
       "a2": "تم تصميم JAMUN Mock Trial لطلاب المدارس المتوسطة في الصفوف 5-8. نقوم بإنشاء حالات مناسبة للعمر ونوفر التدريب الذي يلبي الطلاب أينما كانوا.",
-      "q3": "متى تبدأ المحاكمة الصورية؟",
-      "a3": "سيتم إطلاق المحاكمة الصورية في خريف 2026! نقوم حاليًا ببناء مناهجنا الدراسية ومواد الحالة. انضم إلى قائمتنا البريدية لتكون أول من يعلم بموعد فتح التسجيل.",
+      "q3": "متى يمكنني الانضمام إلى المحاكمة الصورية؟",
+      "a3": "المحاكمة الصورية متاحة الآن! التسجيل مفتوح للموسم الحالي. سجّل للانضمام إلى فريق، واختر دورك، وابدأ في التحضير لقضية State v. Reed باستخدام مواردنا وتدريبنا المجانية.",
       "q4": "ما الأدوار التي يمكنني لعبها؟",
       "a4": "يمكنك لعب دور المحامي (الادعاء أو الدفاع) أو الشاهد. يحصل معظم الطلاب على فرصة تجربة كلا الدورين طوال الموسم، حتى تتمكن من العثور على ما يناسبك.",
       "q5": "كم من الوقت تتطلب المحاكمة الصورية؟",
@@ -1653,13 +1658,13 @@
       "a6": "نحن نعمل بجد للحفاظ على الحد الأدنى من التكاليف. العديد من مواردنا مجانية، ونقدم المساعدة المالية لتغطية رسوم المنافسة. يجب ألا يتمكن أي طالب من المشاركة بسبب التكلفة."
     },
     "finalCta": {
-      "headingStart": "كن عضوًا مؤسسًا في",
+      "headingStart": "ترافع في قضيتك مع",
       "headingAccent": "محاكمة جامون الصورية.",
-      "description": "نحن نبني برنامجًا حيث تلتقي مهارات قاعة المحكمة مع التفكير النقدي. سواء كنت طالبًا مستعدًا لتقديم قضيتك أو مدرسًا يتطلع إلى بدء نادي للمحاكمة الصورية، انضم إلى قائمة اهتماماتنا لتكون أول من يعرف متى نطلق النادي.",
-      "joinInterestList": "انضم إلى قائمة الاهتمامات",
-      "exploreOtherPrograms": "اكتشف البرامج الأخرى",
+      "description": "سواء كنت طالبًا مستعدًا للترافع في قضيتك الأولى أو مدرسًا يتطلع إلى بدء نادٍ للمحاكمة الصورية، فقد حان وقت المشاركة. التسجيل مفتوح للموسم الحالي.",
       "questions": "أسئلة؟",
-      "email": "mocktrial@jamun.org"
+      "email": "mocktrial@jamun.org",
+      "registerNow": "سجل الآن",
+      "exploreResources": "اكتشف الموارد"
     },
     "heroPhotoAlt": "طلاب المحاكمة الصورية يتصافحون بعد جولة في قاعة المحكمة.",
     "aboutPhotoAlt": "طلاب المحاكمة الصورية يتشاورون خلال جولة تدريبية.",
@@ -1672,7 +1677,7 @@
     "title": "محاكمة صورية للمدرسة المتوسطة - تعلم مهارات قاعة المحكمة",
     "description": "استمتع بتجربة الدراما في قاعة المحكمة في برنامج JAMUN's Mock Trial للصفوف 5-8. تعلم المنطق القانوني، واستجواب شهود الخصم، والبيانات الافتتاحية، والحجج المقنعة. بناء الثقة في التحدث أمام الجمهور والتفكير النقدي.",
     "ogTitle": "محاكمة صورية للمدرسة المتوسطة - جامون",
-    "ogDescription": "تعلم أن تفكر مثل المحامي! تطوير مهارات المناقشة والتحليل النقدي والعرض من خلال محاكاة قاعة المحكمة. إطلاق خريف 2026."
+    "ogDescription": "تعلم أن تفكر مثل المحامي! تطوير مهارات المناقشة والتحليل النقدي والعرض من خلال محاكاة قاعة المحكمة."
   },
   "MockTrialResourcePage": {
     "notFoundTitle": "لم يتم العثور على المورد | محاكمة جامون الصورية",
@@ -1699,7 +1704,8 @@
     "categoryRules": "قواعد",
     "categoryReference": "مرجع",
     "categoryExamples": "أمثلة",
-    "categoryStrategy": "استراتيجية"
+    "categoryStrategy": "استراتيجية",
+    "finalCtaPhotoAlt": "طلاب JAMUN في مناقشة خلال جلسة استراتيجية الفريق."
   },
   "MockTrialResourcesPage": {
     "heroBadge": "موارد المحاكمة الصورية",
@@ -1746,7 +1752,18 @@
     "formatVideo": "فيديو",
     "formatWorksheet": "ورقة عمل",
     "readMore": "يقرأ",
-    "notFoundTitle": "لم يتم العثور على المورد | محاكمة جامون الصورية"
+    "notFoundTitle": "لم يتم العثور على المورد | محاكمة جامون الصورية",
+    "free": "حر",
+    "browseAllTitle": "تصفح جميع الموارد.",
+    "browseAllSubtitle": "استكشف مكتبتنا الكاملة التي تحتوي على أدلة وقوالب وأمثلة مجانية {count}.",
+    "filterCategory": "فئة",
+    "all": "الجميع",
+    "heroPhotoAlt": "طلاب المحاكمة الصورية يتشاورون خلال جولة تدريبية.",
+    "testimonialHeading": "يرى الآباء التحول.",
+    "testimonialQuote": "لم أعتقد أبدًا أنني سأحب التحدث أمام الجمهور، لكن المحاكمة الصورية غيرت ذلك. الآن أنا أول من تطوع لتقديم العروض التقديمية في الفصل.",
+    "testimonialAttribution": "— أليسيا ت.، الصف السابع، مشاركة لأول مرة",
+    "testimonialPhotoAlt": "طلاب JAMUN يحتفلون بعد نجاح مسابقة المحاكمة الصورية.",
+    "ctaPhotoAlt": "طلاب JAMUN في مناقشة خلال جلسة استراتيجية الفريق."
   },
   "MockTrialResourcesPageMetadata": {
     "title": "أدلة ونماذج تجريبية مجانية للطلاب",
@@ -2385,7 +2402,8 @@
     "categoryRules": "قواعد",
     "categoryReference": "مرجع",
     "categoryExamples": "أمثلة",
-    "categoryStrategy": "استراتيجية"
+    "categoryStrategy": "استراتيجية",
+    "finalCtaPhotoAlt": "مندوبو JAMUN يحتفلون معًا بعد يوم مؤتمر ناجح."
   },
   "ResourcesPage": {
     "heroBadge": "موارد الأمم المتحدة النموذجية",
@@ -2489,6 +2507,9 @@
     "boardMember2Name": "مهمة هوارد",
     "boardMember2Title": "عضو المجلس الاستشاري",
     "boardMember2Bio": "يتمتع هوارد بخبرة تزيد عن 40 عامًا في مجال التسويق واستشارات الأعمال، وهو عضو محترف في مجلس الإدارة يساعد المؤسسات على النمو بشكل استراتيجي. ويقدم المشورة لـ JAMUN بشأن تطوير الأعمال والاستدامة طويلة المدى.",
+    "boardMember3Name": "Erin Kerpel",
+    "boardMember3Title": "عضو المجلس الاستشاري",
+    "boardMember3Bio": "تجلب إيرين خبرة عملية في قيادة المنظمات غير الربحية إلى المجلس الاستشاري لـ JAMUN. وبصفتها نائبة رئيس مجلس إدارة Furever Home Dog Sanctuary ومديرة فعاليات الخدمة في Gratitude Generation، فهي شغوفة بخدمة المجتمع وإشراك الشباب، وتقدم المشورة لـ JAMUN بشأن برامج التطوع وعمليات المنظمات غير الربحية.",
     "ctaTitle": "هل تريد دعم JAMUN؟",
     "ctaDescription": "سواء من خلال الشراكة أو التبرع أو الخدمة الاستشارية، يساعدنا دعمك في جعل المسابقات الأكاديمية في متناول كل طالب في المدرسة الإعدادية.",
     "ctaPartnerButton": "كن شريكا",
@@ -2626,8 +2647,8 @@
     "faq1Answer": "مُطْلَقاً! تم تصميم برنامجنا خصيصا للمبتدئين. سنعلمك كل شيء بدءًا من إجراءات قاعة المحكمة وحتى كيفية استجواب الشاهد. بدأ العديد من المدافعين الأكثر ثقة لدينا بخبرة معدومة.",
     "faq2Question": "ما هي الدرجات التي يمكن أن تشارك؟",
     "faq2Answer": "تم تصميم JAMUN Mock Trial لطلاب المدارس المتوسطة في الصفوف 5-8. نقوم بإنشاء حالات مناسبة للعمر ونوفر التدريب الذي يلبي الطلاب أينما كانوا.",
-    "faq3Question": "متى تبدأ المحاكمة الصورية؟",
-    "faq3Answer": "سيتم إطلاق المحاكمة الصورية في خريف 2026! نقوم حاليًا ببناء مناهجنا الدراسية ومواد الحالة. انضم إلى قائمتنا البريدية لتكون أول من يعلم بموعد فتح التسجيل.",
+    "faq3Question": "متى يمكنني الانضمام إلى المحاكمة الصورية؟",
+    "faq3Answer": "المحاكمة الصورية متاحة الآن! التسجيل مفتوح للموسم الحالي. سجّل للانضمام إلى فريق، واختر دورك، وابدأ في التحضير لقضية State v. Reed باستخدام مواردنا وتدريبنا المجانية.",
     "faq4Question": "ما الأدوار التي يمكنني لعبها؟",
     "faq4Answer": "يمكنك لعب دور المحامي (الادعاء أو الدفاع) أو الشاهد. يحصل معظم الطلاب على فرصة تجربة كلا الدورين طوال الموسم، حتى تتمكن من العثور على ما يناسبك.",
     "faq5Question": "كم من الوقت تتطلب المحاكمة الصورية؟",
@@ -2648,5 +2669,46 @@
     "faq5Answer": "إذا كنت مرتاحًا لمفاهيم ما قبل الجبر، فأنت جاهز للبدء! يغطي تدريبنا موضوعات بدءًا من الرياضيات الأساسية وحتى الجبر التمهيدي والهندسة.",
     "faq6Question": "هل هناك تكلفة للمشاركة؟",
     "faq6Answer": "نحن نعمل بجد للحفاظ على الحد الأدنى من التكاليف. العديد من مواردنا مجانية، ونقدم المساعدة المالية لتغطية رسوم التسجيل في المسابقة. يجب ألا يتمكن أي طالب من المشاركة بسبب التكلفة."
+  },
+  "MockTrialCases": {
+    "allCases": "All Cases",
+    "backToMockTrial": "Back to Mock Trial",
+    "backToCase": "Back to case",
+    "readFullCase": "Read full case",
+    "downloadPacket": "Download packet (PDF)",
+    "downloadPdf": "Download PDF",
+    "printFullCase": "Print full case",
+    "saveAsPdf": "Save as PDF",
+    "fullCase": "Full case",
+    "fullCaseLabel": "Full Case Packet",
+    "caseDocuments": "Case Documents",
+    "contents": "Contents",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "componentPosition": "Document {current} of {total}",
+    "documentNav": "Document navigation",
+    "charges": "Charges",
+    "cast": "Cast of Characters",
+    "prosecution": "Prosecution",
+    "defense": "Defense",
+    "neutral": "Court",
+    "uncallable": "Uncallable",
+    "previous": "Previous",
+    "next": "Next",
+    "readDocument": "Read",
+    "indexTitle": "Mock Trial Cases",
+    "indexDescription": "Explore our Mock Trial case packets. Each case includes the indictment, statement of facts, witness affidavits, exhibits, applicable law, and jury instructions — read each document on its own or download the full packet.",
+    "browseTitle": "Browse Cases",
+    "browseSubtitle": "Pick a case to read the full packet or any individual document.",
+    "comingSoonTitle": "Cases Coming Soon",
+    "comingSoonDescription": "We're preparing our Mock Trial case packets. Check back soon.",
+    "typeIndictment": "Indictment",
+    "typeFacts": "Statement of Facts",
+    "typeAffidavit": "Affidavit",
+    "typeExhibit": "Exhibit",
+    "typeStipulations": "Stipulations",
+    "typeLaw": "Applicable Law",
+    "typeInstructions": "Jury Instructions",
+    "typeSpecial": "Special Instructions",
+    "typeOther": "Document"
   }
 }

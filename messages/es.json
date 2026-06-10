@@ -1481,7 +1481,8 @@
     "categoryRules": "Normas",
     "categoryReference": "Referencia",
     "categoryExamples": "Ejemplos",
-    "categoryStrategy": "Estrategia"
+    "categoryStrategy": "Estrategia",
+    "finalCtaPhotoAlt": "Estudiantes de JAMUN trabajando juntos en problemas de matemáticas."
   },
   "MathletesResourcesPage": {
     "heroBadge": "Recursos para matemáticos",
@@ -1537,16 +1538,22 @@
     "ogDescription": "Problemas de práctica, estrategias de resolución de problemas y guías temáticas para competencias Mathletes de JAMUN y matemáticas competitivas."
   },
   "MockTrialPage": {
+    "theCase": {
+      "label": "The Current Case",
+      "openCase": "Open the case",
+      "readFull": "Read the full packet",
+      "photoAlt": "JAMUN Mock Trial students presenting in the courtroom"
+    },
     "hero": {
       "headingStart": "La justicia toma la",
       "headingAccent": "pararse.",
-      "description": "JAMUN Mock Trial permite a los estudiantes de secundaria experimentar el drama judicial de primera mano, desarrollando habilidades de pensamiento crítico, oratoria y razonamiento legal. Lanzamiento en otoño de 2026.",
-      "joinInterestList": "Únase a la lista de interesados",
-      "exploreAllPrograms": "Explora todos los programas"
+      "description": "JAMUN Mock Trial permite a los estudiantes de secundaria experimentar el drama judicial de primera mano, desarrollando habilidades de pensamiento crítico, oratoria y razonamiento legal.",
+      "registerNow": "Regístrese ahora",
+      "readTheCase": "Lee el caso"
     },
     "stats": {
-      "stat1Value": "Otoño 2026",
-      "stat1Label": "Lanzamiento del programa",
+      "stat1Value": "2",
+      "stat1Label": "Partes que defender",
       "stat2Value": "100%",
       "stat2Label": "Apto para principiantes",
       "stat3Value": "6+",
@@ -1558,8 +1565,8 @@
       "heading": "Una simulación de tribunal diseñada para estudiantes de secundaria.",
       "paragraph1": "Mock Trial es una simulación competitiva en la que los estudiantes asumen los roles de abogados y testigos en un entorno de sala de tribunal realista. Analiza un caso, prepara argumentos, interroga a testigos y presenta su caso ante jueces reales.",
       "paragraph2": "No se trata de memorizar la jerga legal, sino de pensamiento crítico, trabajo en equipo y la emoción de presentar su caso bajo presión. Ya sea que sueñe con ser abogado o simplemente le guste un buen argumento, Mock Trial es para usted.",
-      "getNotifiedAtLaunch": "Reciba una notificación en el lanzamiento",
-      "viewResources": "Ver recursos"
+      "viewResources": "Ver recursos",
+      "getStarted": "Empezar"
     },
     "purpleTestimonial": {
       "heading": "Los estudiantes descubren una voz que no sabían que tenían.",
@@ -1594,13 +1601,11 @@
       "step4Title": "Argumentos finales",
       "step4Body": "Ambas partes resumen la evidencia, resaltan los puntos fuertes de su caso y piden al jurado que llegue a un veredicto a su favor."
     },
-    "featuredCase": {
-      "label": "Caso Otoño 2026",
-      "caseName": "Estado contra Alex Morgan",
-      "caseTypeBadge": "Caso Penal - Asesinato en Primer Grado",
-      "description1": "Cuando Ethan Morales, de 22 años, es encontrado muerto en un laboratorio de química de la Universidad de Briarwood, toda la evidencia apunta a su compañero de estudios Alex Morgan. ¿Fue un sabotaje o un trágico accidente?",
-      "description2": "Los equipos discutirán a ambas partes utilizando imágenes de seguridad, evidencia química y testimonios de 6 testigos por lado. 12 exhibiciones. Un veredicto.",
-      "getCaseMaterials": "Obtenga materiales del caso"
+    "competeSpread": {
+      "heading": "¿Listo para defender tu caso?",
+      "description": "Únete a un equipo, asume un rol y defiende State v. Reed ante jueces reales. Las inscripciones están abiertas para la temporada actual, y las subvenciones pueden cubrir hasta el 100 % de los costos de competición.",
+      "registerNow": "Regístrese ahora",
+      "learnAboutGrants": "Obtenga más información sobre las subvenciones"
     },
     "skills": {
       "sectionTitle": "Habilidades que duran toda la vida.",
@@ -1643,8 +1648,8 @@
       "a1": "¡De nada! Nuestro programa está diseñado específicamente para principiantes. Le enseñaremos todo, desde el procedimiento judicial hasta cómo interrogar a un testigo. Muchos de nuestros defensores más confiados comenzaron sin experiencia.",
       "q2": "¿Qué grados pueden participar?",
       "a2": "JAMUN Mock Trial está diseñado para estudiantes de secundaria de 5º a 8º grado. Creamos casos apropiados para la edad y brindamos capacitación que se adapta a los estudiantes dondequiera que se encuentren.",
-      "q3": "¿Cuándo comienza el juicio simulado?",
-      "a3": "¡El juicio simulado se lanza en el otoño de 2026! Actualmente estamos construyendo nuestro plan de estudios y materiales de casos. Únase a nuestra lista de correo para ser el primero en saber cuándo se abre el registro.",
+      "q3": "¿Cuándo puedo unirme al juicio simulado?",
+      "a3": "¡El juicio simulado ya está en marcha! Las inscripciones están abiertas para la temporada actual. Regístrate para unirte a un equipo, elegir tu rol y empezar a preparar State v. Reed con nuestros recursos y capacitación gratuitos.",
       "q4": "¿Qué roles puedo desempeñar?",
       "a4": "Puedes interpretar a un abogado (acusación o defensa) o a un testigo. La mayoría de los estudiantes tienen la oportunidad de probar ambos roles a lo largo de la temporada, para que puedas encontrar el que más te convenga.",
       "q5": "¿Cuánto tiempo requiere el juicio simulado?",
@@ -1653,13 +1658,13 @@
       "a6": "Trabajamos duro para mantener los costos al mínimo. Muchos de nuestros recursos son GRATUITOS y ofrecemos asistencia financiera para los honorarios de la competencia. Ningún estudiante debería no poder participar debido al costo."
     },
     "finalCta": {
-      "headingStart": "Ser miembro fundador de",
+      "headingStart": "Defiende tu caso con",
       "headingAccent": "Juicio simulado de JAMUN.",
-      "description": "Estamos creando un programa en el que las habilidades en el tribunal se combinan con el pensamiento crítico. Si usted es un estudiante listo para defender su caso o un maestro que busca iniciar un club de juicios simulados, únase a nuestra lista de interesados ​​para ser el primero en saber cuándo lo lanzaremos.",
-      "joinInterestList": "Únase a la lista de interesados",
-      "exploreOtherPrograms": "Explora otros programas",
+      "description": "Ya seas un estudiante listo para defender su primer caso o un maestro que busca iniciar un club de juicios simulados, este es el momento de participar. Las inscripciones están abiertas para la temporada actual.",
       "questions": "¿Preguntas?",
-      "email": "simulacro@jamun.org"
+      "email": "simulacro@jamun.org",
+      "registerNow": "Regístrese ahora",
+      "exploreResources": "Explorar recursos"
     },
     "heroPhotoAlt": "Estudiantes del juicio simulado se dan la mano después de una ronda en la sala del tribunal.",
     "aboutPhotoAlt": "Estudiantes de juicio simulado conferenciando durante una ronda de práctica.",
@@ -1672,7 +1677,7 @@
     "title": "Juicio simulado para la escuela secundaria: aprenda habilidades en la sala del tribunal",
     "description": "Experimente el drama judicial en el programa de juicios simulados de JAMUN para los grados 5 a 8. Aprenda razonamiento legal, contrainterrogatorio, declaraciones iniciales y argumentación persuasiva. Desarrollar confianza al hablar en público y el pensamiento crítico.",
     "ogTitle": "Juicio simulado para la escuela secundaria - JAMUN",
-    "ogDescription": "¡Aprenda a pensar como un abogado! Desarrollar habilidades de argumentación, análisis crítico y presentación a través de simulación en la sala del tribunal. Lanzamiento en otoño de 2026."
+    "ogDescription": "¡Aprenda a pensar como un abogado! Desarrollar habilidades de argumentación, análisis crítico y presentación a través de simulación en la sala del tribunal."
   },
   "MockTrialResourcePage": {
     "notFoundTitle": "Recurso no encontrado | Juicio simulado de JAMUN",
@@ -1699,7 +1704,8 @@
     "categoryRules": "Normas",
     "categoryReference": "Referencia",
     "categoryExamples": "Ejemplos",
-    "categoryStrategy": "Estrategia"
+    "categoryStrategy": "Estrategia",
+    "finalCtaPhotoAlt": "Estudiantes de JAMUN en discusión durante una sesión de estrategia de equipo."
   },
   "MockTrialResourcesPage": {
     "heroBadge": "Recursos para juicios simulados",
@@ -1746,7 +1752,18 @@
     "formatVideo": "Video",
     "formatWorksheet": "Hoja de trabajo",
     "readMore": "Leer",
-    "notFoundTitle": "Recurso no encontrado | Juicio simulado de JAMUN"
+    "notFoundTitle": "Recurso no encontrado | Juicio simulado de JAMUN",
+    "free": "Gratis",
+    "browseAllTitle": "Explora todos los recursos.",
+    "browseAllSubtitle": "Explore nuestra biblioteca completa de {count} guías, plantillas y ejemplos gratuitos.",
+    "filterCategory": "Categoría",
+    "all": "Todo",
+    "heroPhotoAlt": "Estudiantes de juicio simulado conferenciando durante una ronda de práctica.",
+    "testimonialHeading": "Los padres ven la transformación.",
+    "testimonialQuote": "Nunca pensé que me encantaría hablar en público, pero Mock Trial cambió eso. Ahora soy el primero en ofrecerse como voluntario para presentaciones en clase.",
+    "testimonialAttribution": "— Alicia T., séptimo grado, participante por primera vez",
+    "testimonialPhotoAlt": "Estudiantes de JAMUN celebrando después de una exitosa competencia de prueba simulada.",
+    "ctaPhotoAlt": "Estudiantes de JAMUN en discusión durante una sesión de estrategia de equipo."
   },
   "MockTrialResourcesPageMetadata": {
     "title": "Guías y plantillas de prueba simuladas gratuitas para estudiantes",
@@ -2385,7 +2402,8 @@
     "categoryRules": "Normas",
     "categoryReference": "Referencia",
     "categoryExamples": "Ejemplos",
-    "categoryStrategy": "Estrategia"
+    "categoryStrategy": "Estrategia",
+    "finalCtaPhotoAlt": "Los delegados de JAMUN celebran juntos después de un exitoso día de conferencia."
   },
   "ResourcesPage": {
     "heroBadge": "Modelo de recursos de la ONU",
@@ -2489,6 +2507,9 @@
     "boardMember2Name": "Tarea Howard",
     "boardMember2Title": "Miembro del Consejo Asesor",
     "boardMember2Bio": "Con más de 40 años de experiencia en marketing y asesoramiento empresarial, Howard es un miembro profesional de la junta directiva que ayuda a las organizaciones a crecer estratégicamente. Asesora a JAMUN sobre desarrollo empresarial y sostenibilidad a largo plazo.",
+    "boardMember3Name": "Erin Kerpel",
+    "boardMember3Title": "Miembro del Consejo Asesor",
+    "boardMember3Bio": "Erin aporta un liderazgo práctico en el sector sin fines de lucro al consejo asesor de JAMUN. Como Vicepresidenta de la Junta de Furever Home Dog Sanctuary y Directora de Eventos de Servicio en Gratitude Generation, le apasiona el servicio comunitario y la participación juvenil, y asesora a JAMUN en programas de voluntariado y operaciones sin fines de lucro.",
     "ctaTitle": "¿Quieres apoyar a JAMUN?",
     "ctaDescription": "Ya sea a través de una asociación, una donación o un servicio de asesoramiento, su apoyo nos ayuda a hacer que las competencias académicas sean accesibles para todos los estudiantes de secundaria.",
     "ctaPartnerButton": "Conviértete en socio",
@@ -2626,8 +2647,8 @@
     "faq1Answer": "¡De nada! Nuestro programa está diseñado específicamente para principiantes. Le enseñaremos todo, desde el procedimiento judicial hasta cómo interrogar a un testigo. Muchos de nuestros defensores más confiados comenzaron sin experiencia.",
     "faq2Question": "¿Qué grados pueden participar?",
     "faq2Answer": "JAMUN Mock Trial está diseñado para estudiantes de secundaria de 5º a 8º grado. Creamos casos apropiados para la edad y brindamos capacitación que se adapta a los estudiantes dondequiera que se encuentren.",
-    "faq3Question": "¿Cuándo comienza el juicio simulado?",
-    "faq3Answer": "¡El juicio simulado se lanza en el otoño de 2026! Actualmente estamos construyendo nuestro plan de estudios y materiales de casos. Únase a nuestra lista de correo para ser el primero en saber cuándo se abre el registro.",
+    "faq3Question": "¿Cuándo puedo unirme al juicio simulado?",
+    "faq3Answer": "¡El juicio simulado ya está en marcha! Las inscripciones están abiertas para la temporada actual. Regístrate para unirte a un equipo, elegir tu rol y empezar a preparar State v. Reed con nuestros recursos y capacitación gratuitos.",
     "faq4Question": "¿Qué roles puedo desempeñar?",
     "faq4Answer": "Puedes interpretar a un abogado (acusación o defensa) o a un testigo. La mayoría de los estudiantes tienen la oportunidad de probar ambos roles a lo largo de la temporada, para que puedas encontrar el que más te convenga.",
     "faq5Question": "¿Cuánto tiempo requiere el juicio simulado?",
@@ -2648,5 +2669,46 @@
     "faq5Answer": "Si se siente cómodo con los conceptos de preálgebra, ¡está listo para comenzar! Nuestra capacitación cubre temas desde aritmética básica hasta introducción a álgebra y geometría.",
     "faq6Question": "¿Tiene algún costo participar?",
     "faq6Answer": "Trabajamos duro para mantener los costos al mínimo. Muchos de nuestros recursos son GRATUITOS y ofrecemos asistencia financiera para las tarifas de inscripción a la competencia. Ningún estudiante debería no poder participar debido al costo."
+  },
+  "MockTrialCases": {
+    "allCases": "All Cases",
+    "backToMockTrial": "Back to Mock Trial",
+    "backToCase": "Back to case",
+    "readFullCase": "Read full case",
+    "downloadPacket": "Download packet (PDF)",
+    "downloadPdf": "Download PDF",
+    "printFullCase": "Print full case",
+    "saveAsPdf": "Save as PDF",
+    "fullCase": "Full case",
+    "fullCaseLabel": "Full Case Packet",
+    "caseDocuments": "Case Documents",
+    "contents": "Contents",
+    "documentsCount": "{count, plural, =0 {No documents} one {# document} other {# documents}}",
+    "componentPosition": "Document {current} of {total}",
+    "documentNav": "Document navigation",
+    "charges": "Charges",
+    "cast": "Cast of Characters",
+    "prosecution": "Prosecution",
+    "defense": "Defense",
+    "neutral": "Court",
+    "uncallable": "Uncallable",
+    "previous": "Previous",
+    "next": "Next",
+    "readDocument": "Read",
+    "indexTitle": "Mock Trial Cases",
+    "indexDescription": "Explore our Mock Trial case packets. Each case includes the indictment, statement of facts, witness affidavits, exhibits, applicable law, and jury instructions — read each document on its own or download the full packet.",
+    "browseTitle": "Browse Cases",
+    "browseSubtitle": "Pick a case to read the full packet or any individual document.",
+    "comingSoonTitle": "Cases Coming Soon",
+    "comingSoonDescription": "We're preparing our Mock Trial case packets. Check back soon.",
+    "typeIndictment": "Indictment",
+    "typeFacts": "Statement of Facts",
+    "typeAffidavit": "Affidavit",
+    "typeExhibit": "Exhibit",
+    "typeStipulations": "Stipulations",
+    "typeLaw": "Applicable Law",
+    "typeInstructions": "Jury Instructions",
+    "typeSpecial": "Special Instructions",
+    "typeOther": "Document"
   }
 }

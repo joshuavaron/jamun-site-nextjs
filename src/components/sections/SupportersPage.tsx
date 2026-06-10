@@ -31,6 +31,15 @@ const BOARD_MEMBERS = [
     initials: "HT",
     color: "#9333ea",
   },
+  {
+    nameKey: "boardMember3Name",
+    titleKey: "boardMember3Title",
+    bioKey: "boardMember3Bio",
+    linkedin: "https://www.linkedin.com/in/erin-kerpel-29a496249/",
+    initials: "EK",
+    color: "#10b981",
+    photo: "/images/board/erin-kerpel.webp",
+  },
 ] as const;
 
 export function SupportersPage() {
@@ -125,17 +134,29 @@ export function SupportersPage() {
                 className="text-center"
               >
                 {/* Avatar */}
-                <div
-                  className="mx-auto mb-5 w-28 h-28 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${member.color}1a` }}
-                >
-                  <span
-                    className="text-2xl font-semibold"
-                    style={{ color: member.color }}
+                {"photo" in member && member.photo ? (
+                  <div className="mx-auto mb-5 relative w-28 h-28 rounded-full overflow-hidden">
+                    <Image
+                      src={member.photo}
+                      alt={t(member.nameKey)}
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className="mx-auto mb-5 w-28 h-28 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: `${member.color}1a` }}
                   >
-                    {member.initials}
-                  </span>
-                </div>
+                    <span
+                      className="text-2xl font-semibold"
+                      style={{ color: member.color }}
+                    >
+                      {member.initials}
+                    </span>
+                  </div>
+                )}
 
                 <Heading size="micro" className="mb-1">
                   {t(member.nameKey)}

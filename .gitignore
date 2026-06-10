@@ -55,3 +55,6 @@ CLAUDE.md
 
 # templates
 /templates
+
+# private case source material (mock trial — keep details out of git)
+/case-source

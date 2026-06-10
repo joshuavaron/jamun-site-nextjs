@@ -48,15 +48,23 @@ const PHOTOS = {
 } as const;
 
 // ────────── Learning paths ──────────
+// Curated learning paths. The slug sets are Model-UN-specific; for any program
+// whose resources don't match these slugs, the path simply has no resources and
+// is skipped (along with its title/description translation keys) — see
+// `visiblePaths` in the component.
 const LEARNING_PATHS = [
   {
     key: "gettingStarted",
+    titleKey: "pathGettingStartedTitle",
+    descKey: "pathGettingStartedDescription",
     icon: Compass,
     color: "#10b981",
     slugs: ["delegate-handbook", "rules-of-procedure", "public-speaking-tips"],
   },
   {
     key: "writingSkills",
+    titleKey: "pathWritingSkillsTitle",
+    descKey: "pathWritingSkillsDescription",
     icon: PenTool,
     color: "#f97316",
     slugs: [
@@ -68,6 +76,8 @@ const LEARNING_PATHS = [
   },
   {
     key: "crisisCommittees",
+    titleKey: "pathCrisisCommitteesTitle",
+    descKey: "pathCrisisCommitteesDescription",
     icon: Zap,
     color: "#ef4444",
     slugs: [
@@ -80,6 +90,8 @@ const LEARNING_PATHS = [
   },
   {
     key: "levelUp",
+    titleKey: "pathLevelUpTitle",
+    descKey: "pathLevelUpDescription",
     icon: Trophy,
     color: "#9333ea",
     slugs: [
@@ -89,8 +101,6 @@ const LEARNING_PATHS = [
     ],
   },
 ];
-
-// PATH_TITLES moved inside component for i18n access
 
 // ────────── Format config ──────────
 const FORMAT_CONFIG: Record<
@@ -115,24 +125,13 @@ export default function ResourcesPageContent({
 }: ResourcesPageContentProps) {
   const t = useTranslations(programConfig.translationNamespace);
 
-  const PATH_TITLES: Record<string, { title: string; description: string }> = {
-    gettingStarted: {
-      title: t("pathGettingStartedTitle"),
-      description: t("pathGettingStartedDescription"),
-    },
-    writingSkills: {
-      title: t("pathWritingSkillsTitle"),
-      description: t("pathWritingSkillsDescription"),
-    },
-    crisisCommittees: {
-      title: t("pathCrisisCommitteesTitle"),
-      description: t("pathCrisisCommitteesDescription"),
-    },
-    levelUp: {
-      title: t("pathLevelUpTitle"),
-      description: t("pathLevelUpDescription"),
-    },
-  };
+  // Only paths with matching resources for this program render. Resolving titles
+  // lazily here (rather than eagerly up front) means programs without these
+  // Model-UN-specific paths never touch the `path*` keys or show an empty section.
+  const visiblePaths = LEARNING_PATHS.map((path) => ({
+    ...path,
+    pathResources: resources.filter((r) => path.slugs.includes(r.slug)),
+  })).filter((p) => p.pathResources.length > 0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] =
@@ -288,7 +287,8 @@ export default function ResourcesPageContent({
         </div>
       </DiagonalSpread>
 
-      {/* ───── Learning Paths ───── */}
+      {/* ───── Learning Paths (only when this program has matching paths) ───── */}
+      {visiblePaths.length > 0 && (
       <section className="bg-white">
         <Container className="py-14 md:py-20">
           <SectionIntro
@@ -298,13 +298,7 @@ export default function ResourcesPageContent({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            {LEARNING_PATHS.map((path, i) => {
-              const info = PATH_TITLES[path.key];
-              const pathResources = resources.filter((r) =>
-                path.slugs.includes(r.slug)
-              );
-              if (pathResources.length === 0) return null;
-
+            {visiblePaths.map((path, i) => {
               return (
                 <motion.div
                   key={path.key}
@@ -321,17 +315,17 @@ export default function ResourcesPageContent({
                     className="mb-5"
                   />
                   <Heading size="cardLg" className="mb-2">
-                    {info.title}
+                    {t(path.titleKey)}
                   </Heading>
                   <p
                     style={fontBody}
                     className={`${bodySize.micro} mb-5`}
                   >
-                    {info.description}
+                    {t(path.descKey)}
                   </p>
 
                   <div className="space-y-1.5 mb-6 flex-1">
-                    {pathResources.map((resource, idx) => (
+                    {path.pathResources.map((resource, idx) => (
                       <Link
                         key={resource.slug}
                         href={`${basePath}/${resource.slug}`}
@@ -366,6 +360,7 @@ export default function ResourcesPageContent({
           </div>
         </Container>
       </section>
+      )}
 
       {/* ───── Position Paper Writer Promo (Model UN only) ───── */}
       {programConfig.type === "modelun" && (
