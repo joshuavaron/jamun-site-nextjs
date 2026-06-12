@@ -10,6 +10,7 @@ import {
   Target,
 } from "lucide-react";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { RAISED_AMOUNT } from "@/config/site";
 import {
   Container,
   Heading,
@@ -148,7 +149,7 @@ export function AboutPage() {
     { value: "500+", label: t("stats.studentsImpacted") },
     { value: "30+", label: t("stats.schoolsReached") },
     { value: "80+", label: t("stats.studentVolunteers") },
-    { value: "$70K+", label: t("stats.raisedForPrograms") },
+    { value: RAISED_AMOUNT, label: t("stats.raisedForPrograms") },
   ];
 
   // ────────── Timeline ──────────

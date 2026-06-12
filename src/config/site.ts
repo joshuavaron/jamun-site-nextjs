@@ -1,3 +1,8 @@
+// Total funds raised for programs. Single source of truth — referenced by the
+// stats array below and by stat displays across the site. JSON message files
+// can't import this, so their localized copies must be updated in tandem.
+export const RAISED_AMOUNT = "$105K+";
+
 export const siteConfig = {
   name: "JAMUN",
   fullName: "The Junior Assembly of the Model United Nations",
@@ -101,7 +106,7 @@ export const siteConfig = {
     { value: "500+", label: "Students Impacted" },
     { value: "30+", label: "Schools Reached" },
     { value: "80+", label: "Volunteers" },
-    { value: "$70K+", label: "Raised for Programs" },
+    { value: RAISED_AMOUNT, label: "Raised for Programs" },
   ],
 } as const;
 

@@ -58,3 +58,24 @@ CLAUDE.md
 
 # private case source material (mock trial — keep details out of git)
 /case-source
+
+# video / promo assets (not part of the website build)
+/promo-video
+*.mp4
+*.mov
+*.avi
+*.webm
+*.mkv
+*.m4v
+
+# working docs / ops material (not part of the website)
+/BACKGROUND_GUIDE_INSTRUCTIONS.md
+/CONTENT-CREATION.md
+/PP-Writer.md
+/PPW-Audit.md
+/background-guide-revision-tracker.md
+/bg.txt
+/crawl-results.json
+/lilly-endowment-letter-of-interest.md
+/lilly-endowment-letter-of-interest.pdf
+/jamun-design-kit

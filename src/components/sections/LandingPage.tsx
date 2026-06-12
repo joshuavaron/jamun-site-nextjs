@@ -16,6 +16,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { RAISED_AMOUNT } from "@/config/site";
 import {
   Container,
   Heading,
@@ -50,7 +51,7 @@ export function LandingPage() {
     { value: "500+", label: t("statsDelegates") },
     { value: "30+", label: t("statsSchools") },
     { value: "80+", label: t("statsVolunteers") },
-    { value: "$70K+", label: t("statsRaised") },
+    { value: RAISED_AMOUNT, label: t("statsRaised") },
   ];
 
   // ────────── Programs ──────────

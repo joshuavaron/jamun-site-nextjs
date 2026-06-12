@@ -16,7 +16,7 @@ function AnimatedNumberComponent({ value, duration = 2000 }: AnimatedNumberProps
   useEffect(() => {
     if (!isInView) return;
 
-    // Extract the numeric part from strings like "500+" or "$70K+"
+    // Extract the numeric part from strings like "500+" or "$105K+"
     const numericMatch = value.match(/[\d,]+/);
     if (!numericMatch) {
       setDisplayValue(value);

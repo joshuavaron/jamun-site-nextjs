@@ -11,6 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { IconTile } from "@/components/ui";
+import { RAISED_AMOUNT } from "@/config/site";
 import { fontBody, fontHeading, fontSerif } from "@/lib/typography";
 
 // A web rendering of /public/JAMUN-Overview.pdf. Same content, same order,
@@ -30,7 +31,7 @@ const STATS = [
   { value: "500+", label: "Participants" },
   { value: "30+", label: "Schools Reached" },
   { value: "80+", label: "Volunteers" },
-  { value: "$70K+", label: "Raised" },
+  { value: RAISED_AMOUNT, label: "Raised" },
 ];
 
 const PROGRAMS = [

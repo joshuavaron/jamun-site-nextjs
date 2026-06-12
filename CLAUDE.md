@@ -75,4 +75,4 @@ See `notes.md` for:
 - Recent changes log
 
 ## Stats
-500+ Students | 30+ Schools | 80+ Volunteers | $70K+ Raised
+500+ Students | 30+ Schools | 80+ Volunteers | $105K+ Raised
