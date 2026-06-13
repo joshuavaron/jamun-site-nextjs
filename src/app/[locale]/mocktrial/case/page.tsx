@@ -3,7 +3,8 @@ import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { getActiveCase } from "@/lib/cases";
 import { CaseLandingContent } from "@/components/cases";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -22,19 +23,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Case Not Found | JAMUN Mock Trial" };
   }
 
-  const url = `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/mocktrial/case`;
-
   return {
     title: `${manifest.title} | JAMUN Mock Trial`,
     description: manifest.description,
     openGraph: {
       title: manifest.title,
       description: manifest.description,
+      url: localizedUrl(locale, "/mocktrial/case"),
       type: "article",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: { canonical: url },
+    alternates: staticAlternates(locale, "/mocktrial/case"),
   };
 }
 

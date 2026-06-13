@@ -21,3 +21,8 @@ const OG_LOCALE_MAP: Record<string, string> = {
 export function ogLocale(locale: string): string {
   return OG_LOCALE_MAP[locale] ?? "en_US";
 }
+
+/** BCP-47 language tag (hyphenated) for JSON-LD `inLanguage`. */
+export function bcp47Locale(locale: string): string {
+  return (OG_LOCALE_MAP[locale] ?? "en_US").replace("_", "-");
+}

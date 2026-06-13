@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { DonatePage } from "@/components/sections/DonatePage";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -15,25 +16,27 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
+    keywords: [
+      "donate to education nonprofit",
+      "support academic competitions",
+      "tax-deductible donation",
+      "501(c)(3) education",
+      "fund student programs",
+      "Model UN donation",
+      "educational charity",
+      "youth education nonprofit",
+      "school program funding",
+      "academic enrichment donation",
+    ],
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/donate`,
+      url: localizedUrl(locale, "/donate"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/donate`,
-      languages: {
-        en: "/donate",
-        es: "/es/donate",
-        zh: "/zh/donate",
-        ar: "/ar/donate",
-        hi: "/hi/donate",
-        tr: "/tr/donate",
-      },
-    },
+    alternates: staticAlternates(locale, "/donate"),
   };
 }
 

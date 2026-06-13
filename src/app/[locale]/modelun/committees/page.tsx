@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
 import CommitteesPageContent from "./CommitteesPageContent";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -33,22 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/modelun/committees`,
+      url: localizedUrl(locale, "/modelun/committees"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/modelun/committees`,
-      languages: {
-        en: "/modelun/committees",
-        es: "/es/modelun/committees",
-        zh: "/zh/modelun/committees",
-        ar: "/ar/modelun/committees",
-        hi: "/hi/modelun/committees",
-        tr: "/tr/modelun/committees",
-      },
-    },
+    alternates: staticAlternates(locale, "/modelun/committees"),
   };
 }
 

@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllResources, getProgramConfig } from "@/lib/program-resources";
 import { ResourcesPageContent } from "@/components/resources";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -37,22 +38,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/mathletes/resources`,
+      url: localizedUrl(locale, "/mathletes/resources"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/mathletes/resources`,
-      languages: {
-        en: "/mathletes/resources",
-        es: "/es/mathletes/resources",
-        zh: "/zh/mathletes/resources",
-        ar: "/ar/mathletes/resources",
-        hi: "/hi/mathletes/resources",
-        tr: "/tr/mathletes/resources",
-      },
-    },
+    alternates: staticAlternates(locale, "/mathletes/resources"),
   };
 }
 

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -28,22 +29,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `${siteConfig.url}/about/joshua`,
+      url: localizedUrl(locale, "/about/joshua"),
       type: "profile",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/about/joshua`,
-      languages: {
-        en: "/about/joshua",
-        es: "/es/about/joshua",
-        zh: "/zh/about/joshua",
-        ar: "/ar/about/joshua",
-        hi: "/hi/about/joshua",
-        tr: "/tr/about/joshua",
-      },
-    },
+    alternates: staticAlternates(locale, "/about/joshua"),
   };
 }
 

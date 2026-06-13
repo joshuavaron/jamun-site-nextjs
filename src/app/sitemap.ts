@@ -4,12 +4,15 @@ import path from "path";
 import { getAllSlugsAllLocales } from "@/lib/blog";
 import { getAllCommitteeSlugsAllLocales } from "@/lib/committees";
 import { getAllResourceSlugsAllLocales } from "@/lib/program-resources";
-import { getAllBackgroundGuideSlugsAllLocales } from "@/lib/background-guides";
+import { TEAM_MEMBERS } from "@/lib/team-members";
+import { siteConfig } from "@/config/site";
 import { routing } from "@/i18n/routing";
 
 export const dynamic = "force-static";
 
-const BASE_URL = "https://jamun.org";
+// Canonical origin (https://www.jamun.org, no trailing slash) — single source
+// of truth, kept in sync with every canonical/OG/hreflang URL via siteConfig.
+const BASE_URL = siteConfig.url;
 const LOCALES = routing.locales;
 const DEFAULT_LOCALE = routing.defaultLocale;
 
@@ -21,21 +24,32 @@ const STATIC_PAGES = [
   { path: "", priority: 1.0, changeFrequency: "daily" as const },
   { path: "/about", priority: 0.9, changeFrequency: "monthly" as const },
   { path: "/programs", priority: 0.9, changeFrequency: "monthly" as const },
+  { path: "/supporters", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/donate", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/grants", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/register", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/summary", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/blog", priority: 0.8, changeFrequency: "daily" as const },
   { path: "/modelun", priority: 0.9, changeFrequency: "weekly" as const },
   { path: "/modelun/resources", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/modelun/committees", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/mocktrial", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/mocktrial/resources", priority: 0.6, changeFrequency: "monthly" as const },
+  { path: "/mocktrial/case", priority: 0.6, changeFrequency: "monthly" as const },
+  { path: "/mocktrial/case/full", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/mathletes", priority: 0.8, changeFrequency: "monthly" as const },
   { path: "/mathletes/resources", priority: 0.6, changeFrequency: "monthly" as const },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/modelun/resources/position-paper-writer", priority: 0.7, changeFrequency: "monthly" as const },
 ];
+
+// Team-member bio pages (/about/<slug>) — translated across all locales.
+const TEAM_PAGES = TEAM_MEMBERS.map((m) => ({
+  path: `/about/${m.slug}`,
+  priority: 0.4,
+  changeFrequency: "yearly" as const,
+}));
 
 function getLocalizedUrl(pagePath: string, locale: string): string {
   if (locale === DEFAULT_LOCALE) {
@@ -78,11 +92,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const modelunResourceSlugs = getAllResourceSlugsAllLocales("modelun");
   const mocktrialResourceSlugs = getAllResourceSlugsAllLocales("mocktrial");
   const mathletesResourceSlugs = getAllResourceSlugsAllLocales("mathletes");
-  const backgroundGuideSlugs = getAllBackgroundGuideSlugsAllLocales();
 
-  // Generate entries for all static pages across all locales
+  // Generate entries for all static pages (+ team bios) across all locales
   const staticPageEntries: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
-    STATIC_PAGES.map((page) => ({
+    [...STATIC_PAGES, ...TEAM_PAGES].map((page) => ({
       url: getLocalizedUrl(page.path, locale),
       lastModified: BUILD_DATE,
       changeFrequency: page.changeFrequency,
@@ -130,14 +143,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  // Background guide pages with actual file modification dates
-  const backgroundGuidePages: MetadataRoute.Sitemap = backgroundGuideSlugs.map(({ slug, locale }) => ({
-    url: getLocalizedUrl(`/modelun/background-guides/${slug}`, locale),
-    lastModified: getContentModifiedDate("background-guides", slug, locale),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
   return [
     ...staticPageEntries,
     ...committeePages,
@@ -145,6 +150,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...mocktrialResourcePages,
     ...mathletesResourcePages,
     ...blogPostPages,
-    ...backgroundGuidePages,
   ];
 }

@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 import {
   generateProgramSchema,
@@ -42,22 +43,12 @@ export async function generateMetadata({
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/mocktrial`,
+      url: localizedUrl(locale, "/mocktrial"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/mocktrial`,
-      languages: {
-        en: "/mocktrial",
-        es: "/es/mocktrial",
-        zh: "/zh/mocktrial",
-        ar: "/ar/mocktrial",
-        hi: "/hi/mocktrial",
-        tr: "/tr/mocktrial",
-      },
-    },
+    alternates: staticAlternates(locale, "/mocktrial"),
   };
 }
 
@@ -91,7 +82,7 @@ export default async function MockTrialLayout({
     ],
   });
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbSchema = generateBreadcrumbSchema(locale, [
     { name: tBreadcrumbs("home"), url: "/" },
     { name: tBreadcrumbs("programs"), url: "/programs" },
     { name: tBreadcrumbs("mockTrial"), url: "/mocktrial" },

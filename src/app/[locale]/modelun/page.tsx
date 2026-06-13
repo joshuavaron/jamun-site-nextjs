@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllCommittees } from "@/lib/committees";
 import { ModelUNPage as ModelUNPageContent } from "@/components/sections/ModelUNPage";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 import {
   generateProgramSchema,
@@ -39,22 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/modelun`,
+      url: localizedUrl(locale, "/modelun"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/modelun`,
-      languages: {
-        en: "/modelun",
-        es: "/es/modelun",
-        zh: "/zh/modelun",
-        ar: "/ar/modelun",
-        hi: "/hi/modelun",
-        tr: "/tr/modelun",
-      },
-    },
+    alternates: staticAlternates(locale, "/modelun"),
   };
 }
 
@@ -88,7 +79,7 @@ export default async function ModelUNPage({ params }: Props) {
     ],
   });
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
+  const breadcrumbSchema = generateBreadcrumbSchema(locale, [
     { name: tBreadcrumbs("home"), url: "/" },
     { name: tBreadcrumbs("programs"), url: "/programs" },
     { name: tBreadcrumbs("modelUN"), url: "/modelun" },

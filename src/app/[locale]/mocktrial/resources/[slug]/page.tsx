@@ -9,8 +9,14 @@ import {
   getProgramConfig
 } from "@/lib/program-resources";
 import { ResourcePageContent } from "@/components/resources";
-import { siteConfig, defaultOgImage } from "@/config/site";
-import { ogLocale } from "@/i18n/routing";
+import { defaultOgImage } from "@/config/site";
+import { contentAlternates, localizedUrl } from "@/lib/seo";
+import {
+  generateBreadcrumbSchema,
+  generateLearningResourceSchema,
+  jsonLdScript,
+} from "@/lib/structured-data";
+import { ogLocale, bcp47Locale } from "@/i18n/routing";
 
 interface ResourcePageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -38,21 +44,17 @@ export async function generateMetadata({
     };
   }
 
-  // Build alternate languages for SEO
+  // Build content-driven alternates (only locales with a real translation) +
+  // self-canonical + x-default -> English.
   const alternates = getAlternateLanguages("mocktrial", slug, locale);
-  const languages: Record<string, string> = {};
-
-  // Add current locale
-  languages[locale] = locale === "en"
-    ? `${programConfig.basePath}/${slug}`
-    : `/${locale}${programConfig.basePath}/${slug}`;
-
-  // Add alternate locales
-  for (const alt of alternates) {
-    languages[alt.locale] = alt.locale === "en"
-      ? `${programConfig.basePath}/${alt.slug}`
-      : `/${alt.locale}${programConfig.basePath}/${alt.slug}`;
-  }
+  const seoAlternates = contentAlternates(
+    locale,
+    `${programConfig.basePath}/${slug}`,
+    alternates.map((alt) => ({
+      locale: alt.locale,
+      path: `${programConfig.basePath}/${alt.slug}`,
+    })),
+  );
 
   return {
     title: `${resource.title} | JAMUN Mock Trial Resources`,
@@ -60,14 +62,12 @@ export async function generateMetadata({
     openGraph: {
       title: resource.title,
       description: resource.description,
+      url: seoAlternates.canonical,
       type: "article",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}${programConfig.basePath}/${slug}`,
-      languages,
-    },
+    alternates: seoAlternates,
   };
 }
 
@@ -81,11 +81,34 @@ export default async function MockTrialResourcePage({ params }: ResourcePageProp
 
   const relatedResources = getRelatedResources("mocktrial", slug, 4, locale);
 
+  const canonicalUrl = localizedUrl(locale, `${programConfig.basePath}/${slug}`);
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "Breadcrumbs" });
+  const learningResourceSchema = generateLearningResourceSchema({
+    title: resource.title,
+    description: resource.description,
+    url: canonicalUrl,
+    inLanguage: bcp47Locale(locale),
+  });
+  const breadcrumbSchema = generateBreadcrumbSchema(locale, [
+    { name: tBreadcrumbs("home"), url: "/" },
+    { name: tBreadcrumbs("mockTrial"), url: "/mocktrial" },
+    { name: tBreadcrumbs("resources"), url: programConfig.basePath },
+    { name: resource.title, url: `${programConfig.basePath}/${slug}` },
+  ]);
+
   return (
-    <ResourcePageContent
-      resource={resource}
-      relatedResources={relatedResources}
-      programConfig={programConfig}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdScript([learningResourceSchema, breadcrumbSchema]),
+        }}
+      />
+      <ResourcePageContent
+        resource={resource}
+        relatedResources={relatedResources}
+        programConfig={programConfig}
+      />
+    </>
   );
 }

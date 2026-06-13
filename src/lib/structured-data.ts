@@ -1,4 +1,18 @@
 import { siteConfig } from "@/config/site";
+import { localizedUrl } from "@/lib/seo";
+
+/**
+ * Normalize a human/display date (e.g. "Aug 4, 2025") to an ISO-8601 date
+ * (YYYY-MM-DD). Schema.org / Google Rich Results require ISO dates; a display
+ * string is an invalid Date value and fails Article validation. Falls back to
+ * the original string if it can't be parsed (so we never crash a build).
+ */
+function toISODate(input: string): string {
+  const d = new Date(input);
+  if (Number.isNaN(d.getTime())) return input;
+  // Date-only form avoids timezone shifting the calendar day.
+  return d.toISOString().slice(0, 10);
+}
 
 // Organization Schema for JAMUN
 export function generateOrganizationSchema() {
@@ -9,7 +23,7 @@ export function generateOrganizationSchema() {
     name: siteConfig.fullName,
     alternateName: siteConfig.name,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/images/logos/jamun-logo.svg`,
+    logo: `${siteConfig.url}/images/logos/jamun-logo-512.png`,
     description: siteConfig.description,
     email: siteConfig.email,
     foundingDate: "2023",
@@ -103,6 +117,7 @@ export function generateProgramSchema(program: {
 export function generateArticleSchema(article: {
   title: string;
   description: string;
+  /** Absolute, locale-aware URL of the article (use the page's canonical). */
   url: string;
   image?: string;
   datePublished: string;
@@ -112,16 +127,18 @@ export function generateArticleSchema(article: {
     url?: string;
   };
   category?: string;
+  /** BCP-47 tag matching the page locale (e.g. "es-ES"). Defaults to en-US. */
+  inLanguage?: string;
 }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
     description: article.description,
-    url: `${siteConfig.url}${article.url}`,
+    url: article.url,
     image: article.image ? `${siteConfig.url}${article.image}` : undefined,
-    datePublished: article.datePublished,
-    dateModified: article.dateModified || article.datePublished,
+    datePublished: toISODate(article.datePublished),
+    dateModified: toISODate(article.dateModified || article.datePublished),
     author: {
       "@type": "Person",
       name: article.author.name,
@@ -132,15 +149,57 @@ export function generateArticleSchema(article: {
       name: siteConfig.fullName,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/images/logos/jamun-logo.svg`,
+        url: `${siteConfig.url}/images/logos/jamun-logo-512.png`,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${siteConfig.url}${article.url}`,
+      "@id": article.url,
     },
     articleSection: article.category,
-    inLanguage: "en-US",
+    inLanguage: article.inLanguage ?? "en-US",
+  };
+}
+
+// Learning resource schema for free educational guides (Model UN / Mock Trial).
+export function generateLearningResourceSchema(resource: {
+  title: string;
+  description: string;
+  /** Absolute, locale-aware URL (use the page's canonical). */
+  url: string;
+  inLanguage?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: resource.title,
+    description: resource.description,
+    url: resource.url,
+    isAccessibleForFree: true,
+    learningResourceType: "Guide",
+    educationalLevel: "Middle School (Grades 5-8)",
+    inLanguage: resource.inLanguage ?? "en-US",
+    provider: {
+      "@type": "EducationalOrganization",
+      "@id": `${siteConfig.url}/#organization`,
+    },
+  };
+}
+
+// ItemList schema (e.g. the programs index listing the 3 program offerings).
+export function generateItemListSchema(
+  locale: string,
+  items: Array<{ name: string; url: string }>,
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: localizedUrl(locale, item.url),
+    })),
   };
 }
 
@@ -162,9 +221,12 @@ export function generateFAQSchema(
   };
 }
 
-// Breadcrumb Schema
+// Breadcrumb Schema. `locale` makes the item URLs locale-aware so a breadcrumb
+// on /es/modelun points at /es/... (matching the page's canonical), not the
+// English URL. Pass item.url as the un-prefixed English path ("/", "/programs").
 export function generateBreadcrumbSchema(
-  items: Array<{ name: string; url: string }>
+  locale: string,
+  items: Array<{ name: string; url: string }>,
 ) {
   return {
     "@context": "https://schema.org",
@@ -173,7 +235,8 @@ export function generateBreadcrumbSchema(
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${siteConfig.url}${item.url}`,
+      // Treat "/" as the home root so it doesn't pick up a trailing slash.
+      item: localizedUrl(locale, item.url === "/" ? "" : item.url),
     })),
   };
 }

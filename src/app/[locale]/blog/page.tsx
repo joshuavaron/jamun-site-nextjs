@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getAllPosts, getCategories } from "@/lib/blog";
 import { BlogPage } from "@/components/sections";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -35,22 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/blog`,
+      url: localizedUrl(locale, "/blog"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/blog`,
-      languages: {
-        en: "/blog",
-        es: "/es/blog",
-        zh: "/zh/blog",
-        ar: "/ar/blog",
-        hi: "/hi/blog",
-        tr: "/tr/blog",
-      },
-    },
+    alternates: staticAlternates(locale, "/blog"),
   };
 }
 

@@ -8,9 +8,14 @@ import {
   getAlternateLanguages,
 } from "@/lib/blog";
 import { BlogPostPage } from "@/components/sections";
-import { siteConfig, defaultOgImage } from "@/config/site";
-import { generateArticleSchema, jsonLdScript } from "@/lib/structured-data";
-import { ogLocale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
+import { contentAlternates, localizedUrl } from "@/lib/seo";
+import {
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+  jsonLdScript,
+} from "@/lib/structured-data";
+import { ogLocale, bcp47Locale } from "@/i18n/routing";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string; locale: string }>;
@@ -34,16 +39,13 @@ export async function generateMetadata({
     return { title: t("notFoundTitle") };
   }
 
+  // Content-driven alternates (blog content is en + es) + self-canonical + x-default.
   const alternates = getAlternateLanguages(slug, locale);
-  const languages: Record<string, string> = {};
-  languages[locale] =
-    locale === "en" ? `/blog/${slug}` : `/${locale}/blog/${slug}`;
-  for (const alt of alternates) {
-    languages[alt.locale] =
-      alt.locale === "en"
-        ? `/blog/${alt.slug}`
-        : `/${alt.locale}/blog/${alt.slug}`;
-  }
+  const seoAlternates = contentAlternates(
+    locale,
+    `/blog/${slug}`,
+    alternates.map((alt) => ({ locale: alt.locale, path: `/blog/${alt.slug}` })),
+  );
 
   return {
     title: `${post.title} | JAMUN Blog`,
@@ -58,10 +60,11 @@ export async function generateMetadata({
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url: seoAlternates.canonical,
       type: "article",
       publishedTime: post.publishedAt,
       authors: [post.author.name],
-      images: [defaultOgImage],
+      images: [post.coverImage],
       siteName: siteConfig.seo.openGraph.siteName,
       locale: ogLocale(locale),
     },
@@ -71,10 +74,7 @@ export async function generateMetadata({
       description: post.excerpt,
       images: [post.coverImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/blog/${slug}`,
-      languages,
-    },
+    alternates: seoAlternates,
   };
 }
 
@@ -104,21 +104,33 @@ export default async function Page({ params }: BlogPostPageProps) {
       readTime: p.readTime,
     }));
 
+  const canonicalUrl = localizedUrl(locale, `/blog/${slug}`);
+
   const articleSchema = generateArticleSchema({
     title: post.title,
     description: post.excerpt,
-    url: `/blog/${slug}`,
+    url: canonicalUrl,
     image: post.coverImage,
     datePublished: post.publishedAt,
     author: { name: post.author.name },
     category: post.category,
+    inLanguage: bcp47Locale(locale),
   });
+
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "Breadcrumbs" });
+  const breadcrumbSchema = generateBreadcrumbSchema(locale, [
+    { name: tBreadcrumbs("home"), url: "/" },
+    { name: tBreadcrumbs("blog"), url: "/blog" },
+    { name: post.title, url: `/blog/${slug}` },
+  ]);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdScript(articleSchema) }}
+        dangerouslySetInnerHTML={{
+          __html: jsonLdScript([articleSchema, breadcrumbSchema]),
+        }}
       />
       <BlogPostPage post={post} relatedPosts={relatedPosts} />
     </>

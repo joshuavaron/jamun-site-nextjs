@@ -10,6 +10,7 @@ import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
 import { TranslationNotice } from "@/components/ui";
 import { siteConfig } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale, type Locale } from "@/i18n/routing";
 
 const GTM_ID = "GTM-MXCXMJ3Z";
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       type: "website",
       locale: ogLocale(locale),
-      url: siteConfig.url,
+      url: localizedUrl(locale),
       siteName: t("siteFullName"),
       title: t("defaultTitle"),
       description: t("defaultDescription"),
@@ -64,10 +65,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      site: "@JAMUNorg",
       title: t("defaultTitle"),
       description: t("defaultDescription"),
-      creator: "@JAMUNorg",
       images: [
         {
           url: "/twitter-image",
@@ -88,17 +87,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "max-snippet": -1,
       },
     },
-    alternates: {
-      canonical: siteConfig.url,
-      languages: {
-        en: siteConfig.url,
-        es: `${siteConfig.url}/es`,
-        zh: `${siteConfig.url}/zh`,
-        ar: `${siteConfig.url}/ar`,
-        hi: `${siteConfig.url}/hi`,
-        tr: `${siteConfig.url}/tr`,
-      },
-    },
+    alternates: staticAlternates(locale),
     category: "Education",
   };
 }

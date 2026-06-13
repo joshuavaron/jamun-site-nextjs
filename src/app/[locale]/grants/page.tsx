@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GrantsPage } from "@/components/sections/GrantsPage";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -15,25 +16,28 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("description"),
+    keywords: [
+      "student grants",
+      "academic competition funding",
+      "Model UN financial aid",
+      "school program grants",
+      "student scholarship",
+      "competition registration fee assistance",
+      "education grants middle school",
+      "extracurricular funding",
+      "nonprofit student grants",
+      "affordable academic programs",
+      "underserved school funding",
+    ],
     openGraph: {
-      title: t("title"),
-      description: t("description"),
-      url: `${siteConfig.url}/grants`,
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      url: localizedUrl(locale, "/grants"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/grants`,
-      languages: {
-        en: "/grants",
-        es: "/es/grants",
-        zh: "/zh/grants",
-        ar: "/ar/grants",
-        hi: "/hi/grants",
-        tr: "/tr/grants",
-      },
-    },
+    alternates: staticAlternates(locale, "/grants"),
   };
 }
 

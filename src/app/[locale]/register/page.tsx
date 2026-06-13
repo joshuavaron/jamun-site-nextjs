@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { RegisterPage } from "@/components/sections/RegisterPage";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -21,22 +22,12 @@ export async function generateMetadata({
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: `${siteConfig.url}/register`,
+      url: localizedUrl(locale, "/register"),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/register`,
-      languages: {
-        en: "/register",
-        es: "/es/register",
-        zh: "/zh/register",
-        ar: "/ar/register",
-        hi: "/hi/register",
-        tr: "/tr/register",
-      },
-    },
+    alternates: staticAlternates(locale, "/register"),
   };
 }
 

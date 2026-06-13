@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 import { getTeamMember } from "@/lib/team-members";
 
@@ -40,22 +41,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `${siteConfig.url}/about/${slug}`,
+      url: localizedUrl(locale, `/about/${slug}`),
       type: "profile",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}/about/${slug}`,
-      languages: {
-        en: `/about/${slug}`,
-        es: `/es/about/${slug}`,
-        zh: `/zh/about/${slug}`,
-        ar: `/ar/about/${slug}`,
-        hi: `/hi/about/${slug}`,
-        tr: `/tr/about/${slug}`,
-      },
-    },
+    alternates: staticAlternates(locale, `/about/${slug}`),
   };
 }
 

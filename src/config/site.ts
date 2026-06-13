@@ -9,7 +9,11 @@ export const siteConfig = {
   description:
     "Affordable academic competition programs for middle school students (grades 5-8). Build public speaking, critical thinking, debate, and leadership skills through Model UN, Mock Trial, and Mathletes competitions. Grants available.",
   motto: "Make Academics Fun",
-  url: "https://jamun.org",
+  // Canonical production origin: https, WITH www, NO trailing slash.
+  // Single source of truth for metadataBase, every canonical/OG/hreflang URL,
+  // all JSON-LD @id/url fields, the sitemap, and robots.txt. The apex
+  // jamun.org -> www.jamun.org 301 is handled at the Cloudflare edge.
+  url: "https://www.jamun.org",
   email: "contact@jamun.org",
 
   // SEO Configuration

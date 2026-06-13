@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  trailingSlash: true,
+  // No trailing slash: canonical URLs are https://www.jamun.org/about (not /about/).
+  // With output:'export' this emits out/about.html, which Cloudflare Pages serves
+  // cleanly at /about. Next also renders <link rel="canonical"> without a slash.
+  trailingSlash: false,
 };
 
 export default withNextIntl(nextConfig);

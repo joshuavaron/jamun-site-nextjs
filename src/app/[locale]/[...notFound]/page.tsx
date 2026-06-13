@@ -1,5 +1,11 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
+
+// 404s should never be indexed (prevents soft-404 indexing).
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 // Required for static export - generates paths for each locale
 export function generateStaticParams() {

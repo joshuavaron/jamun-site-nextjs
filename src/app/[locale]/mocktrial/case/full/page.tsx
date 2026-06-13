@@ -3,7 +3,8 @@ import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getActiveFullCase } from "@/lib/cases";
 import { CaseFullContent } from "@/components/cases";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { routing, ogLocale } from "@/i18n/routing";
 
 type Props = {
@@ -24,7 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const t = await getTranslations({ locale, namespace: "MockTrialCases" });
   const { manifest } = fullCase;
-  const url = `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/mocktrial/case/full`;
 
   return {
     title: `${manifest.title} — ${t("fullCaseLabel")} | JAMUN Mock Trial`,
@@ -32,11 +32,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${manifest.title} — ${t("fullCaseLabel")}`,
       description: manifest.description,
+      url: localizedUrl(locale, "/mocktrial/case/full"),
       type: "article",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: { canonical: url },
+    alternates: staticAlternates(locale, "/mocktrial/case/full"),
   };
 }
 

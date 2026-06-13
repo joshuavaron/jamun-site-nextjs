@@ -1,7 +1,7 @@
 # robots.txt for JAMUN (Junior Assembly of the Model United Nations)
-# https://jamun.org
+# https://www.jamun.org
 
 User-agent: *
 Allow: /
 
-Sitemap: https://jamun.org/sitemap.xml
+Sitemap: https://www.jamun.org/sitemap.xml

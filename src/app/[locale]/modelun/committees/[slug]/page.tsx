@@ -3,7 +3,9 @@ import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getCommitteeBySlug, getAllCommitteeSlugsAllLocales, getAlternateLanguages } from "@/lib/committees";
 import CommitteePageContent from "./CommitteePageContent";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { contentAlternates } from "@/lib/seo";
+import { generateBreadcrumbSchema, jsonLdScript } from "@/lib/structured-data";
 import { ogLocale } from "@/i18n/routing";
 
 interface CommitteePageProps {
@@ -30,17 +32,17 @@ export async function generateMetadata({
     };
   }
 
-  // Build alternate languages for SEO
+  // Build content-driven alternates (committees are EN-only today) +
+  // self-canonical + x-default -> English.
   const alternates = getAlternateLanguages(slug, locale);
-  const languages: Record<string, string> = {};
-
-  // Add current locale
-  languages[locale] = locale === "en" ? `/modelun/committees/${slug}` : `/${locale}/modelun/committees/${slug}`;
-
-  // Add alternate locales
-  for (const alt of alternates) {
-    languages[alt.locale] = alt.locale === "en" ? `/modelun/committees/${alt.slug}` : `/${alt.locale}/modelun/committees/${alt.slug}`;
-  }
+  const seoAlternates = contentAlternates(
+    locale,
+    `/modelun/committees/${slug}`,
+    alternates.map((alt) => ({
+      locale: alt.locale,
+      path: `/modelun/committees/${alt.slug}`,
+    })),
+  );
 
   return {
     title: `${committee.name} (${committee.abbreviation}) | JAMUN Model UN`,
@@ -48,14 +50,12 @@ export async function generateMetadata({
     openGraph: {
       title: `${committee.abbreviation}: ${committee.topic}`,
       description: committee.description,
+      url: seoAlternates.canonical,
       type: "website",
       images: [defaultOgImage],
       locale: ogLocale(locale),
     },
-    alternates: {
-      canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}/modelun/committees/${slug}`,
-      languages,
-    },
+    alternates: seoAlternates,
   };
 }
 
@@ -67,5 +67,21 @@ export default async function CommitteePage({ params }: CommitteePageProps) {
     notFound();
   }
 
-  return <CommitteePageContent committee={committee} />;
+  const tBreadcrumbs = await getTranslations({ locale, namespace: "Breadcrumbs" });
+  const breadcrumbSchema = generateBreadcrumbSchema(locale, [
+    { name: tBreadcrumbs("home"), url: "/" },
+    { name: tBreadcrumbs("modelUN"), url: "/modelun" },
+    { name: tBreadcrumbs("committees"), url: "/modelun/committees" },
+    { name: committee.name, url: `/modelun/committees/${slug}` },
+  ]);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbSchema) }}
+      />
+      <CommitteePageContent committee={committee} />
+    </>
+  );
 }

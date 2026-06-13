@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import BGWriterPageContent from "./BGWriterPageContent";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import { ogLocale } from "@/i18n/routing";
 
 interface BGWriterPageProps {
@@ -22,21 +23,12 @@ export async function generateMetadata({
     openGraph: {
       title: t("title"),
       description: t("description"),
+      url: localizedUrl(locale, basePath),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: `${siteConfig.url}${locale === "en" ? "" : `/${locale}`}${basePath}`,
-      languages: {
-        en: basePath,
-        es: `/es${basePath}`,
-        zh: `/zh${basePath}`,
-        ar: `/ar${basePath}`,
-        hi: `/hi${basePath}`,
-        tr: `/tr${basePath}`,
-      },
-    },
+    alternates: staticAlternates(locale, basePath),
   };
 }
 

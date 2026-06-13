@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LandingPage } from "@/components/sections/LandingPage";
-import { siteConfig, defaultOgImage } from "@/config/site";
+import { defaultOgImage } from "@/config/site";
+import { staticAlternates, localizedUrl } from "@/lib/seo";
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
@@ -23,7 +24,9 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "HomePage" });
 
   return {
-    title: t("title"),
+    // t("title") already ends with "| JAMUN"; use `absolute` so the root
+    // "%s | JAMUN" template doesn't append the brand a second time.
+    title: { absolute: t("title") },
     description: t("description"),
     keywords: [
       "Model UN middle school",
@@ -40,22 +43,12 @@ export async function generateMetadata({
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
-      url: siteConfig.url,
+      url: localizedUrl(locale),
       type: "website",
       locale: ogLocale(locale),
       images: [defaultOgImage],
     },
-    alternates: {
-      canonical: siteConfig.url,
-      languages: {
-        en: "/",
-        es: "/es",
-        zh: "/zh",
-        ar: "/ar",
-        hi: "/hi",
-        tr: "/tr",
-      },
-    },
+    alternates: staticAlternates(locale),
   };
 }
 
