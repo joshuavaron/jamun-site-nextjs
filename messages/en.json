@@ -2,8 +2,8 @@
   "Metadata": {
     "siteName": "JAMUN",
     "siteFullName": "The Junior Assembly of the Model United Nations",
-    "defaultTitle": "Model UN & Academic Competitions for Grades 5-8 | JAMUN",
-    "defaultDescription": "Affordable Model UN, Mock Trial & Mathletes competitions for grades 5-8. Build public speaking, debate, and leadership skills. Free resources and grants."
+    "defaultTitle": "Model UN, Mock Trial & Math for Grades 5-8 | JAMUN",
+    "defaultDescription": "Affordable Model UN, Mock Trial & Mathletes for grades 5-8 — build public speaking, debate and leadership. Free resources and grants. Start today."
   },
   "Breadcrumbs": {
     "home": "Home",
@@ -232,8 +232,8 @@
     "ctaPhotoAlt": "JAMUN delegates celebrating after committee."
   },
   "AboutPageMetadata": {
-    "title": "About JAMUN - Youth-Led Nonprofit for Grades 5-8",
-    "description": "JAMUN is a 501(c)(3) nonprofit run by students, making Model UN, Mock Trial, and Mathletes accessible to every middle schooler in grades 5-8.",
+    "title": "A Nonprofit Run by Students, for Students",
+    "description": "JAMUN is a 501(c)(3) nonprofit run by students, making Model UN, Mock Trial and Mathletes accessible to every middle schooler. Discover our story.",
     "ogTitle": "About JAMUN - Youth-Led Academic Competition Nonprofit",
     "ogDescription": "JAMUN is 100% youth-led and volunteer-run. With 500+ students impacted and 80+ volunteers, we're making academic competitions accessible to all middle schoolers."
   },
@@ -781,8 +781,8 @@
     }
   },
   "BGWriterMetadata": {
-    "title": "Position Paper Writer - Free Tool for Delegates",
-    "description": "Free interactive tool helping middle-school delegates write position papers — step-by-step guidance through comprehension, drafting, research, and assembly."
+    "title": "Free Position Paper Writer — Step-by-Step Tool",
+    "description": "Write a standout Model UN position paper with JAMUN's free step-by-step tool — guided comprehension, drafting and research for grades 5-8. Try it free."
   },
   "BackgroundGuidePage": {
     "notFoundTitle": "Background Guide Not Found | JAMUN Model UN",
@@ -835,8 +835,8 @@
     "questionsReachOut": "Questions? Reach out at"
   },
   "BlogPageMetadata": {
-    "title": "Tips & Guides for Academic Competitions",
-    "description": "Expert guides for Model UN position papers, Mock Trial cross-examination, and math-competition strategy, plus delegate tips and student success stories.",
+    "title": "Model UN, Mock Trial & Math Competition Tips",
+    "description": "Expert Model UN, Mock Trial and math-competition tips, plus delegate advice and student success stories. Read free guides to win your next competition.",
     "ogTitle": "JAMUN Blog - Academic Competition Tips & Resources",
     "ogDescription": "Discover strategies to excel in Model UN, Mock Trial, and Mathletes. Expert guides, student stories, and tips for middle school competitors."
   },
@@ -934,8 +934,8 @@
     "ctaContactLink": "Contact our Model UN team"
   },
   "CommitteesPageMetadata": {
-    "title": "Model UN Committees - Beginner to Advanced",
-    "description": "Explore JAMUN's beginner-friendly Model UN committees — General Assembly, Security Council, ECOSOC, and more — and find the right fit for middle schoolers.",
+    "title": "Model UN Committees for Middle School Beginners",
+    "description": "Find your fit among JAMUN's beginner-friendly Model UN committees — General Assembly, Security Council, ECOSOC and more. See which suits grades 5-8.",
     "ogTitle": "Model UN Committees - JAMUN",
     "ogDescription": "Explore our diverse Model UN committees designed for middle school delegates. From General Assembly to Security Council, find your perfect fit."
   },
@@ -1061,8 +1061,8 @@
     "ctaPhotoAlt": "JAMUN Model UN delegates raise placards to vote on a resolution."
   },
   "DonatePageMetadata": {
-    "title": "Support Middle School Academic Programs",
-    "description": "Support JAMUN's mission to make academic competitions accessible to every middle schooler. Your tax-deductible 501(c)(3) gift funds our student programs.",
+    "title": "Fund Free Academic Programs for Students",
+    "description": "Your tax-deductible gift funds free academic programs for middle schoolers who need them most. Support JAMUN, a 501(c)(3) nonprofit — donate today.",
     "ogTitle": "Donate to JAMUN - Every Gift Changes a Student's Life",
     "ogDescription": "Help bring Model UN, Mock Trial, and Mathletes to middle schoolers who might never get the chance otherwise. 100% volunteer-run nonprofit."
   },
@@ -1206,8 +1206,8 @@
     "ctaPhotoAlt": "Students celebrating at a JAMUN event"
   },
   "GrantsPageMetadata": {
-    "title": "Conference Grants for Students - Up to 100% Covered",
-    "description": "Apply for JAMUN grants covering registration, travel, and materials for Model UN, Mock Trial, and Mathletes — financial aid for students and schools.",
+    "title": "Conference Grants — Up to 100% of Costs Covered",
+    "description": "JAMUN grants cover up to 100% of conference costs — registration, travel and materials — for Model UN, Mock Trial and Mathletes. Apply now, it's free.",
     "ogTitle": "Apply for JAMUN Student Grants - Cost Shouldn't Determine Participation",
     "ogDescription": "Get financial assistance for Model UN, Mock Trial, and Mathletes competitions. 100+ students funded, $25K+ grants given. Simple application process."
   },
@@ -1308,7 +1308,8 @@
     "testimonialBluePhotoAlt": "JAMUN delegates working together at a committee table.",
     "testimonialPurplePhotoAlt": "JAMUN delegates discussing during committee.",
     "testimonialEmeraldPhotoAlt": "JAMUN delegates reviewing materials together.",
-    "ctaPhotoAlt": "JAMUN Model UN delegates raise placards to vote on a resolution."
+    "ctaPhotoAlt": "JAMUN Model UN delegates raise placards to vote on a resolution.",
+    "exploreProgram": "Explore {program}"
   },
   "MathletesPage": {
     "hero": {
@@ -1451,8 +1452,8 @@
     "finalCtaPhotoAlt": "JAMUN students working through math problems together."
   },
   "MathletesPageMetadata": {
-    "title": "Mathletes for Grades 5-8 - Math Competitions",
-    "description": "JAMUN's Mathletes for grades 5-8: team-based competitive math building problem-solving, number theory, algebra, and geometry. Great MATHCOUNTS and AMC 8 prep.",
+    "title": "Mathletes: Math Competitions & MATHCOUNTS Prep",
+    "description": "Love math? Join JAMUN Mathletes (grades 5-8) for team-based competitions plus MATHCOUNTS and AMC 8 prep. Build problem-solving skills with free resources.",
     "ogTitle": "Mathletes - Competitive Math for Middle School - JAMUN",
     "ogDescription": "Challenge yourself with competitive mathematics! Compete in JAMUN math competitions and build analytical thinking, speed, and accuracy. Great preparation for MATHCOUNTS and AMC 8."
   },
@@ -1532,8 +1533,8 @@
     "notFoundTitle": "Resource Not Found | JAMUN Mathletes"
   },
   "MathletesResourcesPageMetadata": {
-    "title": "Free Math Competition Resources - JAMUN Mathletes",
-    "description": "Free math-competition resources for middle schoolers: practice problems, strategies, and study guides. Great prep for MATHCOUNTS, AMC 8, and Math League.",
+    "title": "Free Math Competition Practice & Study Guides",
+    "description": "Free math-competition practice for middle schoolers: problems, strategies and study guides. Great MATHCOUNTS, AMC 8 and Math League prep. Start practicing.",
     "ogTitle": "Free Math Competition Resources - JAMUN Mathletes",
     "ogDescription": "Practice problems, problem-solving strategies, and topic guides for JAMUN Mathletes competitions and competitive math."
   },
@@ -1674,8 +1675,8 @@
     "finalCtaPhotoAlt": "JAMUN students in discussion during a team strategy session."
   },
   "MockTrialPageMetadata": {
-    "title": "Mock Trial for Middle School - Learn Courtroom Skills",
-    "description": "JAMUN's Mock Trial for grades 5-8: learn legal reasoning, cross-examination, and persuasive argument while building public-speaking confidence. Free guides.",
+    "title": "Mock Trial for Middle School — Beginner-Friendly",
+    "description": "Step into the courtroom with JAMUN Mock Trial for grades 5-8. Learn cross-examination, argument and confidence — no experience needed. Get free guides.",
     "ogTitle": "Mock Trial for Middle School - JAMUN",
     "ogDescription": "Learn to think like a lawyer! Develop argumentation, critical analysis, and presentation skills through courtroom simulation."
   },
@@ -1766,8 +1767,8 @@
     "ctaPhotoAlt": "JAMUN students in discussion during a team strategy session."
   },
   "MockTrialResourcesPageMetadata": {
-    "title": "Free Mock Trial Guides & Templates for Students",
-    "description": "Free Mock Trial resources for middle schoolers: cross-examination, opening and closing statements, objections, and attorney/witness preparation guides.",
+    "title": "Free Mock Trial Guides, Scripts & Templates",
+    "description": "Free Mock Trial guides for middle schoolers: cross-examination, opening and closing statements, objections and witness prep. Download and start practicing.",
     "ogTitle": "Free Mock Trial Resources & Guides - JAMUN",
     "ogDescription": "Master courtroom skills: cross-examination, opening statements, objections, and case analysis. Free guides for student attorneys and witnesses."
   },
@@ -1962,8 +1963,8 @@
     "conferenceSpreadPhotoAlt": "Delegates voting on a resolution during a JAMUN committee session."
   },
   "ModelUNPageMetadata": {
-    "title": "Model UN for Middle School - Conferences & Resources",
-    "description": "JAMUN's Model UN for grades 5-8: learn diplomacy, public speaking, and resolution writing at beginner-friendly conferences. Free position-paper guides.",
+    "title": "Model UN for Middle School — No Experience Needed",
+    "description": "New to Model UN? JAMUN's beginner-friendly conferences for grades 5-8 teach diplomacy, public speaking and resolution writing. Get free guides to start.",
     "ogTitle": "Model UN for Middle School - JAMUN",
     "ogDescription": "Step into the shoes of UN delegates and tackle real-world global issues. Develop public speaking, research, and negotiation skills. Free resources and low-cost conferences."
   },
@@ -2173,8 +2174,8 @@
     "ctaPhotoAlt": "Three JAMUN delegates beam after receiving honorable mention awards."
   },
   "ProgramsPageMetadata": {
-    "title": "Best Academic Programs for Middle School Students",
-    "description": "JAMUN's three programs for grades 5-8: Model UN (diplomacy & debate), Mock Trial (legal advocacy), and Mathletes (competitive math). Free and beginner-friendly.",
+    "title": "3 Academic Competition Programs for Grades 5-8",
+    "description": "Explore JAMUN's three programs for grades 5-8 — Model UN, Mock Trial and Mathletes. Beginner-friendly, low-cost, with free resources. Compare them now.",
     "ogTitle": "Three Academic Programs for Middle School Excellence",
     "ogDescription": "Model UN, Mock Trial, and Mathletes - three paths to developing public speaking, critical thinking, and leadership skills. Beginner-friendly programs for grades 5-8."
   },
@@ -2372,8 +2373,8 @@
     "ctaPhotoAlt": "JAMUN Model UN delegates raise placards to vote on a resolution."
   },
   "RegisterPageMetadata": {
-    "title": "Register Your School for JAMUN Conferences",
-    "description": "Register your school for JAMUN's Model UN, Mock Trial, and Mathletes conferences (grades 5-8). $15 per delegate, with grants available.",
+    "title": "Register Your School for an Academic Conference",
+    "description": "Register your school for JAMUN's low-cost Model UN, Mock Trial and Mathletes conferences (grades 5-8). Just $15 per delegate, grants available. Sign up.",
     "ogTitle": "Register for JAMUN Conferences - Model UN, Mock Trial, Mathletes",
     "ogDescription": "Register your school delegation for affordable academic competitions. Beginner-friendly conferences for grades 5-8. Financial assistance available."
   },
@@ -2484,8 +2485,8 @@
     "finalCtaPhotoAlt": "JAMUN delegates celebrating together after a successful conference day."
   },
   "ResourcesPageMetadata": {
-    "title": "Free Model UN Guides & Templates for Students",
-    "description": "Free Model UN resources for middle-school delegates: position papers, resolutions, speeches, and parliamentary procedure — beginner to advanced.",
+    "title": "Free Model UN Guides, Templates & Examples",
+    "description": "Free Model UN guides for middle schoolers: position papers, resolutions, speeches and parliamentary procedure. Beginner to advanced — start learning now.",
     "ogTitle": "Free Model UN Resources & Guides - JAMUN",
     "ogDescription": "Everything you need to succeed in Model UN: position paper templates, resolution guides, speech tips, and parliamentary procedure tutorials."
   },
@@ -2520,8 +2521,8 @@
     "ctaPhotoAlt": "JAMUN delegates working together."
   },
   "SupportersPageMetadata": {
-    "title": "Our Supporters - Partners, Donors & Advisory Board",
-    "description": "Meet the partners, donors, and advisory board who make JAMUN possible — and learn how you can support affordable academic competitions for middle schoolers.",
+    "title": "Meet Our Partners, Donors & Supporters",
+    "description": "Meet the partners, donors and advisory board who power JAMUN's mission to make academic competitions affordable for middle schoolers. Join them today.",
     "ogTitle": "Our Supporters - Partners, Donors & Advisory Board | JAMUN",
     "ogDescription": "Meet the organizations and individuals who support JAMUN's mission to make academic competitions accessible to all middle school students."
   },
@@ -2612,8 +2613,8 @@
     "ogDescription": "Will Ballis - Director of Mathletes at JAMUN."
   },
   "HomePage": {
-    "title": "Model UN & Academic Competitions for Grades 5-8 | JAMUN",
-    "description": "Affordable Model UN, Mock Trial & Mathletes competitions for grades 5-8. Build public speaking, debate, and leadership skills. Free resources and grants.",
+    "title": "Model UN, Mock Trial & Math for Grades 5-8 | JAMUN",
+    "description": "Affordable Model UN, Mock Trial & Mathletes for grades 5-8 — build public speaking, debate and leadership. Free resources and grants. Start today.",
     "ogTitle": "JAMUN — Model UN, Mock Trial & Mathletes for Grades 5-8",
     "ogDescription": "Low-cost academic competition programs for middle schoolers. Free resources, grants up to 100%, and conferences designed by students, for students."
   },

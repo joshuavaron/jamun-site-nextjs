@@ -1308,7 +1308,8 @@
     "testimonialBluePhotoAlt": "Delegados de JAMUN trabajando juntos en una mesa del comité.",
     "testimonialPurplePhotoAlt": "Delegados de JAMUN discutiendo durante el comité.",
     "testimonialEmeraldPhotoAlt": "Los delegados de JAMUN revisan los materiales juntos.",
-    "ctaPhotoAlt": "Los delegados del Modelo ONU de JAMUN levantan pancartas para votar una resolución."
+    "ctaPhotoAlt": "Los delegados del Modelo ONU de JAMUN levantan pancartas para votar una resolución.",
+    "exploreProgram": "Descubre {program}"
   },
   "MathletesPage": {
     "hero": {

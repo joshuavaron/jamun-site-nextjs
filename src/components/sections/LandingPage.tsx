@@ -62,6 +62,7 @@ export function LandingPage() {
       color: "#397bce",
       photo: PHOTOS.voting,
       alt: t("programModelUNAlt"),
+      href: "/modelun",
     },
     {
       name: t("programMockTrialName"),
@@ -69,6 +70,7 @@ export function LandingPage() {
       color: "#9333ea",
       photo: PHOTOS.studentsConvo,
       alt: t("programMockTrialAlt"),
+      href: "/mocktrial",
     },
     {
       name: t("programMathletesName"),
@@ -76,6 +78,7 @@ export function LandingPage() {
       color: "#10b981",
       photo: PHOTOS.candid5,
       alt: t("programMathletesAlt"),
+      href: "/mathletes",
     },
   ];
 
@@ -229,14 +232,14 @@ export function LandingPage() {
                   {p.body}
                 </p>
                 <PillButton
-                  href="/programs"
+                  href={p.href}
                   size="md"
                   tone="custom"
                   color={p.color}
                   withArrow
                   className="mt-auto self-start"
                 >
-                  {t("learnMore")}
+                  {t("exploreProgram", { program: p.name })}
                 </PillButton>
               </motion.div>
             ))}

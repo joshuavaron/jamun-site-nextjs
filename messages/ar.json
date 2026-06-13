@@ -1308,7 +1308,8 @@
     "testimonialBluePhotoAlt": "مندوبو JAMUN يعملون معًا على طاولة اللجنة.",
     "testimonialPurplePhotoAlt": "مندوبو JAMUN يناقشون خلال اللجنة.",
     "testimonialEmeraldPhotoAlt": "يقوم مندوبو JAMUN بمراجعة المواد معًا.",
-    "ctaPhotoAlt": "مندوبو نموذج الأمم المتحدة في JAMUN يرفعون لافتات للتصويت على القرار."
+    "ctaPhotoAlt": "مندوبو نموذج الأمم المتحدة في JAMUN يرفعون لافتات للتصويت على القرار.",
+    "exploreProgram": "استكشف {program}"
   },
   "MathletesPage": {
     "hero": {
