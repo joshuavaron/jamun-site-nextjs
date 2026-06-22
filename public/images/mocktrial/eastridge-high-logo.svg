@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" role="img" aria-label="Eastridge High School crest">
+  <defs>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f3a5f"/>
+      <stop offset="1" stop-color="#13243d"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Laurel branches -->
+  <g fill="none" stroke="#1f3a5f" stroke-width="3" stroke-linecap="round" opacity="0.9">
+    <path d="M58 60 C32 70 22 100 30 138"/>
+    <path d="M142 60 C168 70 178 100 170 138"/>
+  </g>
+  <g fill="#1f3a5f" opacity="0.9">
+    <ellipse cx="34" cy="74" rx="5.5" ry="3" transform="rotate(-35 34 74)"/>
+    <ellipse cx="28" cy="90" rx="5.5" ry="3" transform="rotate(-20 28 90)"/>
+    <ellipse cx="25" cy="108" rx="5.5" ry="3" transform="rotate(-5 25 108)"/>
+    <ellipse cx="26" cy="126" rx="5.5" ry="3" transform="rotate(10 26 126)"/>
+    <ellipse cx="166" cy="74" rx="5.5" ry="3" transform="rotate(35 166 74)"/>
+    <ellipse cx="172" cy="90" rx="5.5" ry="3" transform="rotate(20 172 90)"/>
+    <ellipse cx="175" cy="108" rx="5.5" ry="3" transform="rotate(5 175 108)"/>
+    <ellipse cx="174" cy="126" rx="5.5" ry="3" transform="rotate(-10 174 126)"/>
+  </g>
+
+  <!-- Shield -->
+  <path d="M100 22 L156 40 V104 C156 142 130 166 100 180 C70 166 44 142 44 104 V40 Z"
+        fill="url(#shield)" stroke="#0c1828" stroke-width="2"/>
+  <!-- Inner chevron band -->
+  <path d="M44 92 L100 112 L156 92 V104 C156 142 130 166 100 180 C70 166 44 142 44 104 Z"
+        fill="#ffffff" opacity="0.08"/>
+  <!-- Letter E -->
+  <text x="100" y="108" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="78" font-weight="700" fill="#ffffff">E</text>
+
+  <!-- Banner -->
+  <g>
+    <rect x="42" y="186" width="116" height="24" rx="3" fill="#1f3a5f"/>
+    <path d="M42 186 L30 198 L42 210 Z" fill="#13243d"/>
+    <path d="M158 186 L170 198 L158 210 Z" fill="#13243d"/>
+    <text x="100" y="203" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="13" letter-spacing="2" font-weight="700" fill="#ffffff">EASTRIDGE</text>
+  </g>
+</svg>
