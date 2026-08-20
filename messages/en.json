@@ -137,7 +137,7 @@
         "entry4": {
           "year": "Today",
           "title": "Looking forward.",
-          "body": "With 500+ students impacted and 30+ schools reached, we’re just getting started. Our mission remains the same: make academics fun for every student."
+          "body": "With 1,200+ students impacted and 30+ schools reached, we’re just getting started. Our mission remains the same: make academics fun for every student."
         }
       }
     },
@@ -235,7 +235,7 @@
     "title": "A Nonprofit Run by Students, for Students",
     "description": "JAMUN is a 501(c)(3) nonprofit run by students, making Model UN, Mock Trial and Mathletes accessible to every middle schooler. Discover our story.",
     "ogTitle": "About JAMUN - Youth-Led Academic Competition Nonprofit",
-    "ogDescription": "JAMUN is 100% youth-led and volunteer-run. With 500+ students impacted and 80+ volunteers, we're making academic competitions accessible to all middle schoolers."
+    "ogDescription": "JAMUN is 100% youth-led and volunteer-run. With 1,200+ students impacted and 80+ volunteers, we're making academic competitions accessible to all middle schoolers."
   },
   "BGWriter": {
     "title": "Position Paper Writer",
@@ -945,7 +945,7 @@
       "headingHighlight": "Find Their Voice",
       "description": "Your tax-deductible donation directly funds academic competitions, training materials, and grants for middle school students who might never get the chance otherwise.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Students",
         "schoolsValue": "30+",
         "schoolsLabel": "Schools",
@@ -1209,7 +1209,7 @@
     "title": "Conference Grants — Up to 100% of Costs Covered",
     "description": "JAMUN grants cover up to 100% of conference costs — registration, travel and materials — for Model UN, Mock Trial and Mathletes. Apply now, it's free.",
     "ogTitle": "Apply for JAMUN Student Grants - Cost Shouldn't Determine Participation",
-    "ogDescription": "Get financial assistance for Model UN, Mock Trial, and Mathletes competitions. 100+ students funded, $25K+ grants given. Simple application process."
+    "ogDescription": "Get financial assistance for Model UN, Mock Trial, and Mathletes competitions. 300+ students funded, $25K+ grants given. Simple application process."
   },
   "LandingPage": {
     "heroTitle1": "JAMUN Makes ",
@@ -1234,7 +1234,7 @@
     "whoWeServeTitle": "Built for students, families, and schools.",
     "whoWeServeSubtitle": "JAMUN's programs and free resources are designed for everyone in the academic journey — from first-time delegates to school administrators starting a new club.",
     "audienceStudentsTitle": "Students, grades 5–8.",
-    "audienceStudentsBody": "Whether it's your first conference or your tenth, JAMUN's beginner-friendly programs build public speaking, debate, research, and leadership skills. Join 500+ delegates who found their voice through Model UN, Mock Trial, and Mathletes.",
+    "audienceStudentsBody": "Whether it's your first conference or your tenth, JAMUN's beginner-friendly programs build public speaking, debate, research, and leadership skills. Join 1,200+ delegates who found their voice through Model UN, Mock Trial, and Mathletes.",
     "audienceStudentsCta": "Register today",
     "audienceParentsTitle": "Parents & families.",
     "audienceParentsBody": "Looking for meaningful extracurriculars that prepare your child for high school, magnet admissions, and college? Our affordable academic programs develop the leadership, communication, and analytical thinking that set students apart — with grants up to 100% for families who need them.",
@@ -2185,7 +2185,7 @@
       "headingHighlight": "School",
       "description": "Sign up your school or group for our next conference. Registration takes about five minutes and costs just $15 per delegate.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Students",
         "schoolsValue": "30+",
         "schoolsLabel": "Schools"

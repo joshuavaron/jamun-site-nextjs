@@ -146,7 +146,7 @@ export function AboutPage() {
 
   // ────────── Stats ──────────
   const STATS = [
-    { value: "500+", label: t("stats.studentsImpacted") },
+    { value: "1,200+", label: t("stats.studentsImpacted") },
     { value: "30+", label: t("stats.schoolsReached") },
     { value: "80+", label: t("stats.studentVolunteers") },
     { value: RAISED_AMOUNT, label: t("stats.raisedForPrograms") },

@@ -51,7 +51,7 @@ export function ProgramsPage() {
 
   const stats = [
     { value: "3", label: t("statPrograms") },
-    { value: "500+", label: t("statStudents") },
+    { value: "1,200+", label: t("statStudents") },
     { value: "100%", label: t("statBeginner") },
     { value: "$0", label: t("statCost") },
   ];

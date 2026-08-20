@@ -137,7 +137,7 @@
         "entry4": {
           "year": "Bugün",
           "title": "İleriye dönük.",
-          "body": "Etkilenen 500'den fazla öğrenci ve 30'dan fazla okula ulaşılmasıyla daha yeni başlıyoruz. Misyonumuz aynı: akademisyenleri her öğrenci için eğlenceli hale getirmek."
+          "body": "Etkilenen 1.200'den fazla öğrenci ve 30'dan fazla okula ulaşılmasıyla daha yeni başlıyoruz. Misyonumuz aynı: akademisyenleri her öğrenci için eğlenceli hale getirmek."
         }
       }
     },
@@ -235,7 +235,7 @@
     "title": "JAMUN Hakkında - 5-8. Sınıflar için Gençlerin Liderliğindeki Kâr Amacı Gütmeyen Kuruluş",
     "description": "Lise ve üniversite öğrencileri tarafından yönetilen, 501(c)(3) kar amacı gütmeyen bir kuruluş olan JAMUN hakkında bilgi edinin.",
     "ogTitle": "JAMUN Hakkında - Gençlerin Liderliğindeki Akademik Yarışma Kâr Amacı Gütmeyen Kuruluş",
-    "ogDescription": "JAMUN %100 gençlerin liderliğinde ve gönüllülerin yürüttüğü bir kuruluştur. Etkilenen 500'den fazla öğrenci ve 80'den fazla gönüllüyle akademik yarışmaları tüm ortaokul öğrencilerinin erişebileceği hale getiriyoruz."
+    "ogDescription": "JAMUN %100 gençlerin liderliğinde ve gönüllülerin yürüttüğü bir kuruluştur. Etkilenen 1.200'den fazla öğrenci ve 80'den fazla gönüllüyle akademik yarışmaları tüm ortaokul öğrencilerinin erişebileceği hale getiriyoruz."
   },
   "BGWriter": {
     "title": "Pozisyon Kağıdı Yazarı",
@@ -945,7 +945,7 @@
       "headingHighlight": "Onların Sesini Bul",
       "description": "Vergiden düşülebilir bağışınız doğrudan akademik yarışmaları, eğitim materyallerini ve başka türlü şansı asla bulunamayacak ortaokul öğrencilerine yönelik hibeleri finanse eder.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Öğrenciler",
         "schoolsValue": "30+",
         "schoolsLabel": "Okullar",
@@ -1209,7 +1209,7 @@
     "title": "Öğrencilere Yönelik Konferans Hibeleri - %100'e Kadar Karşılanıyor",
     "description": "Model UN, Mock Trial ve Mathletes yarışmalarına yönelik kayıt ücretlerini, seyahat masraflarını ve malzemeleri karşılamak için JAMUN hibelerine başvurun.",
     "ogTitle": "JAMUN Öğrenci Burslarına Başvurun - Katılımı Maliyet Belirlememelidir",
-    "ogDescription": "Model BM, Mock Trial ve Mathletes yarışmaları için mali yardım alın. 100'den fazla öğrenciye fon sağlandı, 25 bin ABD dolarının üzerinde hibe verildi. Basit başvuru süreci."
+    "ogDescription": "Model BM, Mock Trial ve Mathletes yarışmaları için mali yardım alın. 300'den fazla öğrenciye fon sağlandı, 25 bin ABD dolarının üzerinde hibe verildi. Basit başvuru süreci."
   },
   "LandingPage": {
     "heroTitle1": "JAMUN'un Markaları",
@@ -1234,7 +1234,7 @@
     "whoWeServeTitle": "Öğrenciler, aileler ve okullar için tasarlandı.",
     "whoWeServeSubtitle": "JAMUN'un programları ve ücretsiz kaynakları, ilk kez katılan delegelerden yeni bir kulüp kuran okul yöneticilerine kadar akademik yolculuktaki herkes için tasarlanmıştır.",
     "audienceStudentsTitle": "Öğrenciler, 5-8. Sınıflar.",
-    "audienceStudentsBody": "İster ilk konferansınız ister onuncu konferansınız olsun, JAMUN'un başlangıç ​​seviyesi dostu programları topluluk önünde konuşma, tartışma, araştırma ve liderlik becerilerini geliştirir. Model BM, Mock Trial ve Mathletes aracılığıyla seslerini bulan 500'den fazla delegeye katılın.",
+    "audienceStudentsBody": "İster ilk konferansınız ister onuncu konferansınız olsun, JAMUN'un başlangıç ​​seviyesi dostu programları topluluk önünde konuşma, tartışma, araştırma ve liderlik becerilerini geliştirir. Model BM, Mock Trial ve Mathletes aracılığıyla seslerini bulan 1.200'den fazla delegeye katılın.",
     "audienceStudentsCta": "Bugün kaydolun",
     "audienceParentsTitle": "Ebeveynler ve aileler.",
     "audienceParentsBody": "Çocuğunuzu liseye, mıknatıs kabullerine ve üniversiteye hazırlayacak anlamlı ders dışı etkinlikler mi arıyorsunuz? Uygun fiyatlı akademik programlarımız, ihtiyacı olan ailelere %100'e varan hibelerle öğrencileri diğerlerinden ayıran liderlik, iletişim ve analitik düşünceyi geliştirir.",
@@ -2185,7 +2185,7 @@
       "headingHighlight": "Okul",
       "description": "Bir sonraki konferansımız için okulunuzu veya grubunuzu kaydedin. Kayıt yaklaşık beş dakika sürer ve delege başına yalnızca 15 ABD Doları tutarında bir ücret alınır.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Öğrenciler",
         "schoolsValue": "30+",
         "schoolsLabel": "Okullar"

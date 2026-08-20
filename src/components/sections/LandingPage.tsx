@@ -48,7 +48,7 @@ export function LandingPage() {
 
   // ────────── Stats ──────────
   const STATS = [
-    { value: "500+", label: t("statsDelegates") },
+    { value: "1,200+", label: t("statsDelegates") },
     { value: "30+", label: t("statsSchools") },
     { value: "80+", label: t("statsVolunteers") },
     { value: RAISED_AMOUNT, label: t("statsRaised") },

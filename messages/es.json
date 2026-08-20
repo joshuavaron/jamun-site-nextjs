@@ -137,7 +137,7 @@
         "entry4": {
           "year": "Hoy",
           "title": "Pensando en el futuro.",
-          "body": "Con más de 500 estudiantes impactados y más de 30 escuelas alcanzadas, apenas estamos comenzando. Nuestra misión sigue siendo la misma: hacer que lo académico sea divertido para todos los estudiantes."
+          "body": "Con más de 1.200 estudiantes impactados y más de 30 escuelas alcanzadas, apenas estamos comenzando. Nuestra misión sigue siendo la misma: hacer que lo académico sea divertido para todos los estudiantes."
         }
       }
     },
@@ -235,7 +235,7 @@
     "title": "Acerca de JAMUN: organización sin fines de lucro dirigida por jóvenes para los grados 5 a 8",
     "description": "Obtenga más información sobre JAMUN, una organización sin fines de lucro 501(c)(3) dirigida por estudiantes de secundaria y universitarios.",
     "ogTitle": "Acerca de JAMUN - Competencia académica dirigida por jóvenes sin fines de lucro",
-    "ogDescription": "JAMUN está 100% dirigido por jóvenes y gestionado por voluntarios. Con más de 500 estudiantes impactados y más de 80 voluntarios, estamos haciendo que las competencias académicas sean accesibles para todos los estudiantes de secundaria."
+    "ogDescription": "JAMUN está 100% dirigido por jóvenes y gestionado por voluntarios. Con más de 1.200 estudiantes impactados y más de 80 voluntarios, estamos haciendo que las competencias académicas sean accesibles para todos los estudiantes de secundaria."
   },
   "BGWriter": {
     "title": "Redactor de artículos de posición",
@@ -945,7 +945,7 @@
       "headingHighlight": "Encuentra su voz",
       "description": "Su donación deducible de impuestos financia directamente competencias académicas, materiales de capacitación y becas para estudiantes de secundaria que de otra manera nunca tendrían la oportunidad.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Estudiantes",
         "schoolsValue": "30+",
         "schoolsLabel": "Escuelas",
@@ -1209,7 +1209,7 @@
     "title": "Becas de conferencias para estudiantes: hasta el 100 % de cobertura",
     "description": "Solicite subvenciones JAMUN para cubrir las tarifas de inscripción, los costos de viaje y los materiales para las competencias Modelo ONU, Juicio simulado y",
     "ogTitle": "Solicite becas para estudiantes JAMUN: el costo no debería determinar la participación",
-    "ogDescription": "Obtenga asistencia financiera para las competencias Modelo ONU, Juicio simulado y Mathletes. Más de 100 estudiantes financiados y becas otorgadas por más de 25.000 dólares. Proceso de solicitud sencillo."
+    "ogDescription": "Obtenga asistencia financiera para las competencias Modelo ONU, Juicio simulado y Mathletes. Más de 300 estudiantes financiados y becas otorgadas por más de 25.000 dólares. Proceso de solicitud sencillo."
   },
   "LandingPage": {
     "heroTitle1": "JAMUN hace",
@@ -1234,7 +1234,7 @@
     "whoWeServeTitle": "Diseñado para estudiantes, familias y escuelas.",
     "whoWeServeSubtitle": "Los programas y recursos gratuitos de JAMUN están diseñados para todos en el recorrido académico, desde los delegados por primera vez hasta los administradores escolares que inician un nuevo club.",
     "audienceStudentsTitle": "Estudiantes, grados 5 a 8.",
-    "audienceStudentsBody": "Ya sea su primera conferencia o la décima, los programas para principiantes de JAMUN desarrollan habilidades para hablar en público, debatir, investigar y liderar. Únase a más de 500 delegados que encontraron su voz a través del Modelo ONU, Mock Trial y Mathletes.",
+    "audienceStudentsBody": "Ya sea su primera conferencia o la décima, los programas para principiantes de JAMUN desarrollan habilidades para hablar en público, debatir, investigar y liderar. Únase a más de 1.200 delegados que encontraron su voz a través del Modelo ONU, Mock Trial y Mathletes.",
     "audienceStudentsCta": "Regístrese hoy",
     "audienceParentsTitle": "Padres y familias.",
     "audienceParentsBody": "¿Busca actividades extracurriculares significativas que preparen a su hijo para la escuela secundaria, las admisiones especializadas y la universidad? Nuestros programas académicos asequibles desarrollan el liderazgo, la comunicación y el pensamiento analítico que distinguen a los estudiantes, con subvenciones de hasta el 100 % para las familias que las necesitan.",
@@ -2185,7 +2185,7 @@
       "headingHighlight": "Escuela",
       "description": "Inscribe a tu escuela o grupo para nuestra próxima conferencia. El registro dura unos cinco minutos y cuesta sólo 15 dólares por delegado.",
       "stats": {
-        "studentsValue": "500+",
+        "studentsValue": "1,200+",
         "studentsLabel": "Estudiantes",
         "schoolsValue": "30+",
         "schoolsLabel": "Escuelas"

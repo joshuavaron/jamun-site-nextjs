@@ -28,7 +28,7 @@ const PHOTOS = {
 };
 
 const STATS = [
-  { value: "500+", label: "Participants" },
+  { value: "1,200+", label: "Participants" },
   { value: "30+", label: "Schools Reached" },
   { value: "80+", label: "Volunteers" },
   { value: RAISED_AMOUNT, label: "Raised" },

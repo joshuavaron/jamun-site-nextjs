@@ -107,7 +107,7 @@ export const siteConfig = {
   },
 
   stats: [
-    { value: "500+", label: "Students Impacted" },
+    { value: "1,200+", label: "Students Impacted" },
     { value: "30+", label: "Schools Reached" },
     { value: "80+", label: "Volunteers" },
     { value: RAISED_AMOUNT, label: "Raised for Programs" },

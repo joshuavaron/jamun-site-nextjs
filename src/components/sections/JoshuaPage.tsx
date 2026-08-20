@@ -24,7 +24,7 @@ const PHOTOS = {
 
 const STATS = [
   { value: "2023", label: "Founded JAMUN" },
-  { value: "500+", label: "Students served" },
+  { value: "1,200+", label: "Students served" },
   { value: "30+", label: "Schools reached" },
   { value: "80+", label: "Volunteers led" },
 ];
