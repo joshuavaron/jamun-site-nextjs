@@ -92,7 +92,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     testimonialPhoto: "/images/conferences/DSCF9438.webp",
     ctaPhoto: SHARED_PHOTOS.awardWinners,
     heroPhotoAlt: "Joshua Varon, founder and president of JAMUN",
-    email: "joshua@jamun.org",
+    email: "jvaron@jamun.org",
     paragraphs: [
       "When I was eleven, a Model UN conference cracked open a part of my brain I didn't know existed. Suddenly research felt like a contact sport and a room full of strangers felt like a team I'd been waiting to join.",
       "JAMUN started as a refusal to accept that those rooms were paywalled — and grew, conference by conference, into the program I wished had existed when I was eleven.",

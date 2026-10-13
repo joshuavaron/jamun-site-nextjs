@@ -333,7 +333,7 @@ export function GrantsPage() {
             <p style={fontBody} className="text-base text-neutral-700 mb-2">
               {t("faq.haveAnotherQuestion")}
             </p>
-            <ArrowLink external="mailto:grants@jamun.org">
+            <ArrowLink external="mailto:jvaron@jamun.org">
               {t("faq.emailGrantsTeam")}
             </ArrowLink>
           </div>
@@ -363,7 +363,7 @@ export function GrantsPage() {
           <PillButton href={APPLY_URL} withArrow>
             {t("finalCta.openApplicationForm")}
           </PillButton>
-          <PillButton href="mailto:grants@jamun.org" tone="outline">
+          <PillButton href="mailto:jvaron@jamun.org" tone="outline">
             {t("finalCta.contactGrantsTeam")}
           </PillButton>
         </div>
@@ -371,7 +371,7 @@ export function GrantsPage() {
         <p style={fontBody} className="mt-6 text-sm text-neutral-500">
           {t("finalCta.questionsEmailUs")}{" "}
           <a
-            href="mailto:grants@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="text-[#397bce] underline underline-offset-2 hover:text-[#2a5fa3] transition-colors"
           >
             {t("finalCta.grantsEmail")}

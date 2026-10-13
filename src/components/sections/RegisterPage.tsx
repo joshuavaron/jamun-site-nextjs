@@ -1040,7 +1040,7 @@ export function RegisterPage() {
         >
           {t("errorMessage.text")}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="underline underline-offset-2"
           >
             {t("errorMessage.contactEmail")}
@@ -1094,7 +1094,7 @@ export function RegisterPage() {
       <p style={fontBody} className="mt-4 text-sm text-neutral-500">
         {t("success.noEmailReceived")}
         <a
-          href="mailto:contact@jamun.org"
+          href="mailto:jvaron@jamun.org"
           className="text-[#397bce] underline underline-offset-2"
         >
           {t("success.contactEmail")}
@@ -1288,7 +1288,7 @@ export function RegisterPage() {
             <p style={fontBody} className="text-base text-neutral-700 mb-2">
               {t("faq.haveAnotherQuestion")}
             </p>
-            <ArrowLink external="mailto:contact@jamun.org">
+            <ArrowLink external="mailto:jvaron@jamun.org">
               {t("faq.getInTouch")}
             </ArrowLink>
           </div>
@@ -1323,7 +1323,7 @@ export function RegisterPage() {
           </PillButton>
         </div>
         <div className="mt-6">
-          <ArrowLink external="mailto:contact@jamun.org" color="#397bce">
+          <ArrowLink external="mailto:jvaron@jamun.org" color="#397bce">
             {t("finalCta.emailUsAt")}
           </ArrowLink>
         </div>

@@ -80,7 +80,7 @@ export const programConfigs: Record<ProgramType, ProgramConfig> = {
     translationNamespace: "ResourcesPage",
     detailTranslationNamespace: "ResourcePage",
     metaTranslationNamespace: "ResourcesPageMetadata",
-    contactEmail: "modelun@jamun.org",
+    contactEmail: "jvaron@jamun.org",
     colors: {
       primary: "emerald",
       primaryBg: "bg-emerald-600",
@@ -105,7 +105,7 @@ export const programConfigs: Record<ProgramType, ProgramConfig> = {
     translationNamespace: "MockTrialResourcesPage",
     detailTranslationNamespace: "MockTrialResourcePage",
     metaTranslationNamespace: "MockTrialResourcesPageMetadata",
-    contactEmail: "mocktrial@jamun.org",
+    contactEmail: "jvaron@jamun.org",
     colors: {
       primary: "purple",
       primaryBg: "bg-purple-600",
@@ -130,7 +130,7 @@ export const programConfigs: Record<ProgramType, ProgramConfig> = {
     translationNamespace: "MathletesResourcesPage",
     detailTranslationNamespace: "MathletesResourcePage",
     metaTranslationNamespace: "MathletesResourcesPageMetadata",
-    contactEmail: "mathletes@jamun.org",
+    contactEmail: "jvaron@jamun.org",
     colors: {
       primary: "emerald",
       primaryBg: "bg-emerald-600",

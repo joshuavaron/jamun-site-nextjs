@@ -405,7 +405,7 @@ export function LandingPage() {
             <p style={fontBody} className="text-base text-neutral-700 mb-2">
               {t("faqStillHaveQuestions")}
             </p>
-            <ArrowLink external="mailto:contact@jamun.org">{t("faqGetInTouch")}</ArrowLink>
+            <ArrowLink external="mailto:jvaron@jamun.org">{t("faqGetInTouch")}</ArrowLink>
           </div>
         </Container>
       </section>

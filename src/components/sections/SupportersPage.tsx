@@ -66,7 +66,7 @@ export function SupportersPage() {
         </p>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" withArrow>
             {t("ctaPartnerButton")}
           </PillButton>
           <PillButton href="/donate" tone="accent">
@@ -211,7 +211,7 @@ export function SupportersPage() {
         </p>
 
         <div className="flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" withArrow>
             {t("ctaPartnerButton")}
           </PillButton>
           <PillButton href="/donate" tone="accent">

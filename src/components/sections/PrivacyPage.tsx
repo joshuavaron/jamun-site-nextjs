@@ -207,10 +207,10 @@ export function PrivacyPage() {
             <p style={fontBody} className={bodySize.base}>
               {t("photoVideoText2")}{" "}
               <a
-                href="mailto:contact@jamun.org"
+                href="mailto:jvaron@jamun.org"
                 className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
               >
-                contact@jamun.org
+                jvaron@jamun.org
               </a>{" "}
               {t("photoVideoText3")}
             </p>
@@ -278,12 +278,12 @@ export function PrivacyPage() {
                 {t("contactText")}
               </p>
               <PillButton
-                href="mailto:contact@jamun.org"
+                href="mailto:jvaron@jamun.org"
                 tone="primary"
                 size="lg"
               >
                 <Mail className="w-5 h-5" />
-                contact@jamun.org
+                jvaron@jamun.org
               </PillButton>
             </div>
           </ProseSection>

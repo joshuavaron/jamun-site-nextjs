@@ -1198,7 +1198,7 @@
       "openApplicationForm": "Abrir formulario de solicitud",
       "contactGrantsTeam": "Contacto Equipo de Subvenciones",
       "questionsEmailUs": "¿Preguntas? Envíenos un correo electrónico a",
-      "grantsEmail": "subvenciones@jamun.org"
+      "grantsEmail": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Estudiantes durante una sesión del comité",
     "testimonialPhotoAlt": "Estudiantes colaborando en una conferencia JAMUN",
@@ -1442,7 +1442,7 @@
       "joinInterestList": "Únase a la lista de interesados",
       "exploreOtherPrograms": "Explora otros programas",
       "questions": "¿Preguntas?",
-      "email": "mathletes@jamun.org"
+      "email": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Estudiantes trabajando juntos en problemas matemáticos competitivos.",
     "aboutPhotoAlt": "Estudiantes colaborando y discutiendo estrategias de resolución de problemas.",
@@ -1663,7 +1663,7 @@
       "headingAccent": "Juicio simulado de JAMUN.",
       "description": "Ya seas un estudiante listo para defender su primer caso o un maestro que busca iniciar un club de juicios simulados, este es el momento de participar. Las inscripciones están abiertas para la temporada actual.",
       "questions": "¿Preguntas?",
-      "email": "simulacro@jamun.org",
+      "email": "jvaron@jamun.org",
       "registerNow": "Regístrese ahora",
       "exploreResources": "Explorar recursos"
     },
@@ -2315,13 +2315,13 @@
       "thankYouConfirmation": ". Recibirás un correo electrónico de confirmación en",
       "thankYouAfter": "dentro de poco.",
       "noEmailReceived": "¿No recibiste un correo electrónico? Revisa tu carpeta de spam o contáctanos al",
-      "contactEmail": "contacto@jamun.org",
+      "contactEmail": "jvaron@jamun.org",
       "explorePrograms": "Explorar programas",
       "browseResources": "Explorar recursos"
     },
     "errorMessage": {
       "text": "Algo salió mal. Inténtelo de nuevo o envíenos un correo electrónico a",
-      "contactEmail": "contacto@jamun.org"
+      "contactEmail": "jvaron@jamun.org"
     },
     "testimonial": {
       "heading": "Los educadores ven el cuidado que ponemos.",
@@ -2346,7 +2346,7 @@
         },
         "unknownCount": {
           "q": "¿Qué pasa si todavía no sé exactamente cuántos estudiantes?",
-          "a": "Ingrese su mejor estimación. Puede actualizar el número más tarde enviándonos un correo electrónico a contact@jamun.org antes de la fecha límite de inscripción."
+          "a": "Ingrese su mejor estimación. Puede actualizar el número más tarde enviándonos un correo electrónico a jvaron@jamun.org antes de la fecha límite de inscripción."
         },
         "priorExperience": {
           "q": "¿Mis alumnos necesitan experiencia previa?",
@@ -2366,7 +2366,7 @@
       "description": "Ya sea que necesite ayuda con el registro, desee obtener información sobre subvenciones o simplemente tenga una pregunta sobre nuestras conferencias, nos encantaría saber de usted.",
       "registerNow": "Regístrese ahora",
       "applyForGrant": "Solicitar una subvención",
-      "emailUsAt": "Envíenos un correo electrónico a contact@jamun.org"
+      "emailUsAt": "Envíenos un correo electrónico a jvaron@jamun.org"
     },
     "heroPhotoAlt": "Estudiantes participando en una conferencia JAMUN Modelo ONU",
     "educatorPhotoAlt": "Un educador apoya a los estudiantes durante una sesión de la conferencia JAMUN.",

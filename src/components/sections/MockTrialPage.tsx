@@ -679,7 +679,7 @@ export function MockTrialPage({ caseInfo }: { caseInfo?: MockTrialCaseInfo | nul
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("finalCta.questions")}{" "}
           <a
-            href="mailto:mocktrial@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#9333ea] hover:text-[#7e22ce] transition-colors"
           >
             {t("finalCta.email")}

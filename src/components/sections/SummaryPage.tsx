@@ -339,7 +339,7 @@ export function SummaryPage() {
             100% Volunteer-Run · Tax-Deductible · EIN on Request
           </div>
           <div className="text-[10px] md:text-[11px] uppercase tracking-[0.13em] text-neutral-600">
-            jamun.org · contact@jamun.org
+            jamun.org · jvaron@jamun.org
           </div>
         </footer>
       </article>

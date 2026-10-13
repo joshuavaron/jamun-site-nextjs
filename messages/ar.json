@@ -1198,7 +1198,7 @@
       "openApplicationForm": "افتح نموذج الطلب",
       "contactGrantsTeam": "اتصل بفريق المنح",
       "questionsEmailUs": "أسئلة؟ راسلنا عبر البريد الإلكتروني على",
-      "grantsEmail": "Grants@jamun.org"
+      "grantsEmail": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "الطلاب خلال جلسة اللجنة",
     "testimonialPhotoAlt": "الطلاب يتعاونون في مؤتمر JAMUN",
@@ -1442,7 +1442,7 @@
       "joinInterestList": "انضم إلى قائمة الاهتمامات",
       "exploreOtherPrograms": "اكتشف البرامج الأخرى",
       "questions": "أسئلة؟",
-      "email": "mathletes@jamun.org"
+      "email": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "الطلاب يعملون معًا على حل مشكلات الرياضيات التنافسية.",
     "aboutPhotoAlt": "يتعاون الطلاب ويناقشون استراتيجيات حل المشكلات.",
@@ -1663,7 +1663,7 @@
       "headingAccent": "محاكمة جامون الصورية.",
       "description": "سواء كنت طالبًا مستعدًا للترافع في قضيتك الأولى أو مدرسًا يتطلع إلى بدء نادٍ للمحاكمة الصورية، فقد حان وقت المشاركة. التسجيل مفتوح للموسم الحالي.",
       "questions": "أسئلة؟",
-      "email": "mocktrial@jamun.org",
+      "email": "jvaron@jamun.org",
       "registerNow": "سجل الآن",
       "exploreResources": "اكتشف الموارد"
     },
@@ -2315,13 +2315,13 @@
       "thankYouConfirmation": ". ستتلقى رسالة تأكيد بالبريد الإلكتروني على",
       "thankYouAfter": "قريبا.",
       "noEmailReceived": "لم تتلق بريدا إلكترونيا؟ تحقق من مجلد الرسائل غير المرغوب فيها أو اتصل بنا على",
-      "contactEmail": "contact@jamun.org",
+      "contactEmail": "jvaron@jamun.org",
       "explorePrograms": "استكشاف البرامج",
       "browseResources": "تصفح الموارد"
     },
     "errorMessage": {
       "text": "حدث خطأ ما. يرجى المحاولة مرة أخرى أو مراسلتنا عبر البريد الإلكتروني على",
-      "contactEmail": "contact@jamun.org"
+      "contactEmail": "jvaron@jamun.org"
     },
     "testimonial": {
       "heading": "يرى المعلمون الرعاية التي نقدمها.",
@@ -2346,7 +2346,7 @@
         },
         "unknownCount": {
           "q": "ماذا لو لم أكن أعرف بالضبط عدد الطلاب حتى الآن؟",
-          "a": "أدخل أفضل تقدير لديك. يمكنك تحديث الرقم لاحقًا عن طريق مراسلتنا عبر البريد الإلكتروني على contact@jamun.org قبل الموعد النهائي للتسجيل."
+          "a": "أدخل أفضل تقدير لديك. يمكنك تحديث الرقم لاحقًا عن طريق مراسلتنا عبر البريد الإلكتروني على jvaron@jamun.org قبل الموعد النهائي للتسجيل."
         },
         "priorExperience": {
           "q": "هل يحتاج طلابي إلى خبرة سابقة؟",
@@ -2366,7 +2366,7 @@
       "description": "سواء كنت بحاجة إلى مساعدة في التسجيل، أو تريد التعرف على المنح، أو لديك سؤال حول مؤتمراتنا - فنحن نحب أن نسمع منك.",
       "registerNow": "سجل الآن",
       "applyForGrant": "التقدم بطلب للحصول على منحة",
-      "emailUsAt": "راسلنا عبر البريد الإلكتروني على contact@jamun.org"
+      "emailUsAt": "راسلنا عبر البريد الإلكتروني على jvaron@jamun.org"
     },
     "heroPhotoAlt": "الطلاب المشاركون في مؤتمر JAMUN Model UN",
     "educatorPhotoAlt": "أحد المعلمين يدعم الطلاب خلال جلسة مؤتمر JAMUN.",

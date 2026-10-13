@@ -741,10 +741,10 @@ export function ModelUNPage({ committees }: ModelUNPageProps) {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("finalCta.questions")}{" "}
           <a
-            href="mailto:modelun@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            modelun@jamun.org
+            jvaron@jamun.org
           </a>
         </p>
       </DiagonalSpread>

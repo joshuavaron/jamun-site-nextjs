@@ -272,12 +272,12 @@ export function TermsPage() {
                 {t("contactText")}
               </p>
               <PillButton
-                href="mailto:contact@jamun.org"
+                href="mailto:jvaron@jamun.org"
                 tone="primary"
                 size="lg"
               >
                 <Mail className="w-5 h-5" />
-                contact@jamun.org
+                jvaron@jamun.org
               </PillButton>
             </div>
           </ProseSection>

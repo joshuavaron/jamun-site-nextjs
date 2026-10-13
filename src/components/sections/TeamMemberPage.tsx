@@ -27,7 +27,7 @@ export function TeamMemberPage({ slug }: Props) {
   const bio = t("bio");
   const firstName = name.split(" ")[0];
 
-  const email = member.email ?? "contact@jamun.org";
+  const email = member.email ?? "jvaron@jamun.org";
 
   return (
     <div className="bg-white text-[#0a0a0a]">
@@ -238,10 +238,10 @@ export function TeamMemberPage({ slug }: Props) {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           Prefer the wider team?{" "}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            contact@jamun.org
+            jvaron@jamun.org
           </a>
         </p>
         <div className="mt-6">

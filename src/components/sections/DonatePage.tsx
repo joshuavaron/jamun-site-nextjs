@@ -319,7 +319,7 @@ export function DonatePage() {
             <p style={fontBody} className="text-base text-neutral-700 mb-2">
               {t("faq.haveAnotherQuestion")}
             </p>
-            <ArrowLink external="mailto:contact@jamun.org">
+            <ArrowLink external="mailto:jvaron@jamun.org">
               {t("faq.getInTouch")}
             </ArrowLink>
           </div>

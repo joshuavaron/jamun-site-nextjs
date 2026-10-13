@@ -267,7 +267,7 @@ export function MathletesPage() {
           {t("hero.description")}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" tone="custom" color="#10b981" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" tone="custom" color="#10b981" withArrow>
             {t("hero.joinInterestList")}
           </PillButton>
           <PillButton href="/programs" tone="outline">
@@ -327,7 +327,7 @@ export function MathletesPage() {
                 {t("whatIs.paragraph2")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <PillButton href="mailto:contact@jamun.org" size="md" tone="custom" color="#10b981" withArrow>
+                <PillButton href="mailto:jvaron@jamun.org" size="md" tone="custom" color="#10b981" withArrow>
                   {t("whatIs.getNotifiedAtLaunch")}
                 </PillButton>
                 <PillButton href="/mathletes/resources" tone="outline" size="md">
@@ -641,7 +641,7 @@ export function MathletesPage() {
           {t("finalCta.description")}
         </p>
         <div className="flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" tone="custom" color="#10b981" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" tone="custom" color="#10b981" withArrow>
             {t("finalCta.joinInterestList")}
           </PillButton>
           <PillButton href="/programs" tone="outline">
@@ -651,7 +651,7 @@ export function MathletesPage() {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("finalCta.questions")}{" "}
           <a
-            href="mailto:mathletes@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#10b981] hover:text-[#059669] transition-colors"
           >
             {t("finalCta.email")}

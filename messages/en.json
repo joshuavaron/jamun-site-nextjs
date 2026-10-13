@@ -1198,7 +1198,7 @@
       "openApplicationForm": "Open Application Form",
       "contactGrantsTeam": "Contact Grants Team",
       "questionsEmailUs": "Questions? Email us at",
-      "grantsEmail": "grants@jamun.org"
+      "grantsEmail": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Students during a committee session",
     "testimonialPhotoAlt": "Students collaborating at a JAMUN conference",
@@ -1442,7 +1442,7 @@
       "joinInterestList": "Join the Interest List",
       "exploreOtherPrograms": "Explore Other Programs",
       "questions": "Questions?",
-      "email": "mathletes@jamun.org"
+      "email": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Students working together on competitive math problems.",
     "aboutPhotoAlt": "Students collaborating and discussing problem-solving strategies.",
@@ -1663,7 +1663,7 @@
       "headingAccent": "JAMUN Mock Trial.",
       "description": "Whether you're a student ready to argue your first case or a teacher looking to start a Mock Trial club, now's the time to get involved. Registration is open for the current season.",
       "questions": "Questions?",
-      "email": "mocktrial@jamun.org",
+      "email": "jvaron@jamun.org",
       "registerNow": "Register Now",
       "exploreResources": "Explore Resources"
     },
@@ -2315,13 +2315,13 @@
       "thankYouConfirmation": ". You’ll receive a confirmation email at ",
       "thankYouAfter": " shortly.",
       "noEmailReceived": "Didn’t receive an email? Check your spam folder or contact us at ",
-      "contactEmail": "contact@jamun.org",
+      "contactEmail": "jvaron@jamun.org",
       "explorePrograms": "Explore Programs",
       "browseResources": "Browse Resources"
     },
     "errorMessage": {
       "text": "Something went wrong. Please try again or email us at ",
-      "contactEmail": "contact@jamun.org"
+      "contactEmail": "jvaron@jamun.org"
     },
     "testimonial": {
       "heading": "Educators see the care we put in.",
@@ -2346,7 +2346,7 @@
         },
         "unknownCount": {
           "q": "What if I don’t know exactly how many students yet?",
-          "a": "Enter your best estimate. You can update the number later by emailing us at contact@jamun.org before the registration deadline."
+          "a": "Enter your best estimate. You can update the number later by emailing us at jvaron@jamun.org before the registration deadline."
         },
         "priorExperience": {
           "q": "Do my students need prior experience?",
@@ -2366,7 +2366,7 @@
       "description": "Whether you need help with registration, want to learn about grants, or just have a question about our conferences — we’d love to hear from you.",
       "registerNow": "Register Now",
       "applyForGrant": "Apply for a Grant",
-      "emailUsAt": "Email us at contact@jamun.org"
+      "emailUsAt": "Email us at jvaron@jamun.org"
     },
     "heroPhotoAlt": "Students participating in a JAMUN Model UN conference",
     "educatorPhotoAlt": "An educator supporting students during a JAMUN conference session.",

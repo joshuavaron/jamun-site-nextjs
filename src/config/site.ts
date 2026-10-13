@@ -14,7 +14,7 @@ export const siteConfig = {
   // all JSON-LD @id/url fields, the sitemap, and robots.txt. The apex
   // jamun.org -> www.jamun.org 301 is handled at the Cloudflare edge.
   url: "https://www.jamun.org",
-  email: "contact@jamun.org",
+  email: "jvaron@jamun.org",
 
   // SEO Configuration
   seo: {
@@ -79,7 +79,7 @@ export const siteConfig = {
       { label: "Supporters", href: "/supporters" },
       { label: "Blog", href: "/blog" },
       { label: "Resources", href: "/modelun/resources" },
-      { label: "Contact", href: "mailto:contact@jamun.org" },
+      { label: "Contact", href: "mailto:jvaron@jamun.org" },
     ],
     cta: [
       { label: "Grants", href: "/grants", variant: "ghost" as const },
@@ -97,7 +97,7 @@ export const siteConfig = {
     organization: [
       { label: "About Us", href: "/about" },
       { label: "Supporters", href: "/supporters" },
-      { label: "Contact", href: "mailto:contact@jamun.org" },
+      { label: "Contact", href: "mailto:jvaron@jamun.org" },
     ],
     resources: [
       { label: "Blog", href: "/blog" },

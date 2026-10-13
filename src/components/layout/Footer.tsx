@@ -24,7 +24,7 @@ export function Footer() {
       links: [
         { label: t("aboutUs"), href: "/about" },
         { label: t("supportersLink"), href: "/supporters" },
-        { label: t("contact"), href: "mailto:contact@jamun.org" },
+        { label: t("contact"), href: "mailto:jvaron@jamun.org" },
       ],
     },
     {

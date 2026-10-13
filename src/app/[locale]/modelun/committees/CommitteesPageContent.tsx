@@ -532,7 +532,7 @@ export default function CommitteesPageContent({
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("ctaQuestion")}{" "}
           <a
-            href="mailto:modelun@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
             {t("ctaContactLink")}

@@ -1198,7 +1198,7 @@
       "openApplicationForm": "Başvuru Formunu Aç",
       "contactGrantsTeam": "Hibe Ekibiyle İletişime Geçin",
       "questionsEmailUs": "Sorunuz mu var? Bize e-posta gönderin",
-      "grantsEmail": "grants@jamun.org"
+      "grantsEmail": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Bir komite oturumu sırasında öğrenciler",
     "testimonialPhotoAlt": "JAMUN konferansında işbirliği yapan öğrenciler",
@@ -1442,7 +1442,7 @@
       "joinInterestList": "İlgi Listesine Katılın",
       "exploreOtherPrograms": "Diğer Programları Keşfedin",
       "questions": "Sorunuz mu var?",
-      "email": "mathletes@jamun.org"
+      "email": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "Rekabetçi matematik problemleri üzerinde birlikte çalışan öğrenciler.",
     "aboutPhotoAlt": "Öğrenciler işbirliği yapıyor ve problem çözme stratejilerini tartışıyorlar.",
@@ -1663,7 +1663,7 @@
       "headingAccent": "JAMUN Sahte Denemesi.",
       "description": "İster ilk davasını savunmaya hazır bir öğrenci ol, ister Sahte Deneme kulübü kurmak isteyen bir öğretmen, katılma zamanı şimdi. Kayıtlar bu sezon için açık.",
       "questions": "Sorunuz mu var?",
-      "email": "maketrial@jamun.org",
+      "email": "jvaron@jamun.org",
       "registerNow": "Şimdi Kayıt Ol",
       "exploreResources": "Kaynakları Keşfedin"
     },
@@ -2315,13 +2315,13 @@
       "thankYouConfirmation": ". Şu adrese bir onay e-postası alacaksınız:",
       "thankYouAfter": "kısaca.",
       "noEmailReceived": "E-posta almadınız mı? Spam klasörünüzü kontrol edin veya bizimle şu adresten iletişime geçin:",
-      "contactEmail": "contact@jamun.org",
+      "contactEmail": "jvaron@jamun.org",
       "explorePrograms": "Programları Keşfedin",
       "browseResources": "Kaynaklara Göz Atın"
     },
     "errorMessage": {
       "text": "Bir şeyler ters gitti. Lütfen tekrar deneyin veya bize e-posta gönderin",
-      "contactEmail": "contact@jamun.org"
+      "contactEmail": "jvaron@jamun.org"
     },
     "testimonial": {
       "heading": "Eğitimciler gösterdiğimiz özeni görüyor.",
@@ -2346,7 +2346,7 @@
         },
         "unknownCount": {
           "q": "Henüz tam olarak kaç öğrenci olduğunu bilmiyorsam ne olur?",
-          "a": "En iyi tahmininizi girin. Numarayı daha sonra, son kayıt tarihinden önce bize contact@jamun.org adresinden e-posta göndererek güncelleyebilirsiniz."
+          "a": "En iyi tahmininizi girin. Numarayı daha sonra, son kayıt tarihinden önce bize jvaron@jamun.org adresinden e-posta göndererek güncelleyebilirsiniz."
         },
         "priorExperience": {
           "q": "Öğrencilerimin önceden deneyime ihtiyacı var mı?",
@@ -2366,7 +2366,7 @@
       "description": "Kayıt konusunda yardıma ihtiyacınız varsa, hibeler hakkında bilgi edinmek istiyorsanız veya konferanslarımızla ilgili bir sorunuz varsa, sizden haber almaktan memnuniyet duyarız.",
       "registerNow": "Şimdi Kayıt Ol",
       "applyForGrant": "Hibe Başvurusu Yapın",
-      "emailUsAt": "Bize contact@jamun.org adresinden e-posta gönderin"
+      "emailUsAt": "Bize jvaron@jamun.org adresinden e-posta gönderin"
     },
     "heroPhotoAlt": "JAMUN Model BM konferansına katılan öğrenciler",
     "educatorPhotoAlt": "JAMUN konferans oturumu sırasında öğrencileri destekleyen bir eğitimci.",

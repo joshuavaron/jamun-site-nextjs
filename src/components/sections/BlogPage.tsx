@@ -395,7 +395,7 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
         </p>
 
         <div className="flex flex-wrap gap-3">
-          <PillButton href="mailto:contact@jamun.org" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" withArrow>
             {t("submitStory")}
           </PillButton>
           <PillButton href="/modelun/resources" tone="outline">
@@ -406,10 +406,10 @@ export function BlogPage({ posts, categories }: BlogPageProps) {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("questionsReachOut")}{" "}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            contact@jamun.org
+            jvaron@jamun.org
           </a>
         </p>
       </DiagonalSpread>

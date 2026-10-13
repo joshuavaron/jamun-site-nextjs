@@ -1198,7 +1198,7 @@
       "openApplicationForm": "开放申请表",
       "contactGrantsTeam": "联系资助团队",
       "questionsEmailUs": "问题？给我们发电子邮件：",
-      "grantsEmail": "grants@jamun.org"
+      "grantsEmail": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "学生在委员会会议期间",
     "testimonialPhotoAlt": "学生在 JAMUN 会议上进行合作",
@@ -1442,7 +1442,7 @@
       "joinInterestList": "加入兴趣列表",
       "exploreOtherPrograms": "探索其他计划",
       "questions": "问题？",
-      "email": "mathletes@jamun.org"
+      "email": "jvaron@jamun.org"
     },
     "heroPhotoAlt": "学生们一起解决竞争性数学问题。",
     "aboutPhotoAlt": "学生合作并讨论解决问题的策略。",
@@ -2346,7 +2346,7 @@
         },
         "unknownCount": {
           "q": "如果我还不知道到底有多少学生怎么办？",
-          "a": "输入您的最佳估计。您可以在注册截止日期之前发送电子邮件至 contact@jamun.org 来更新号码。"
+          "a": "输入您的最佳估计。您可以在注册截止日期之前发送电子邮件至 jvaron@jamun.org 来更新号码。"
         },
         "priorExperience": {
           "q": "我的学生需要先前的经验吗？",
@@ -2366,7 +2366,7 @@
       "description": "无论您需要注册方面的帮助，想要了解资助，还是只是对我们的会议有疑问 - 我们很乐意听取您的意见。",
       "registerNow": "立即注册",
       "applyForGrant": "申请补助金",
-      "emailUsAt": "给我们发电子邮件 contact@jamun.org"
+      "emailUsAt": "给我们发电子邮件 jvaron@jamun.org"
     },
     "heroPhotoAlt": "学生参加 JAMUN 模拟联合国会议",
     "educatorPhotoAlt": "一名教育工作者在 JAMUN 会议期间为学生提供支持。",

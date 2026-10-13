@@ -112,7 +112,7 @@ export function JoshuaPage() {
           competition — and so does every kid like him.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <PillButton href="mailto:joshua@jamun.org" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" withArrow>
             Get in touch
           </PillButton>
           <PillButton href="/about" tone="outline">
@@ -363,7 +363,7 @@ export function JoshuaPage() {
           volunteer hoping to help — drop me a line. I read every message.
         </p>
         <div className="flex flex-wrap gap-3">
-          <PillButton href="mailto:joshua@jamun.org" withArrow>
+          <PillButton href="mailto:jvaron@jamun.org" withArrow>
             Email Joshua
           </PillButton>
           <PillButton href="/donate" tone="outline">
@@ -373,10 +373,10 @@ export function JoshuaPage() {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           Or reach the wider team at{" "}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            contact@jamun.org
+            jvaron@jamun.org
           </a>
           .
         </p>

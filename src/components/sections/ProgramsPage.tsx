@@ -242,7 +242,7 @@ export function ProgramsPage() {
           <PillButton href="/register" withArrow>
             {t("heroPrimaryCTA")}
           </PillButton>
-          <PillButton href="mailto:contact@jamun.org" tone="outline">
+          <PillButton href="mailto:jvaron@jamun.org" tone="outline">
             {t("heroSecondaryCTA")}
           </PillButton>
         </div>
@@ -569,10 +569,10 @@ export function ProgramsPage() {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("ctaContactText")}{" "}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            contact@jamun.org
+            jvaron@jamun.org
           </a>
         </p>
       </DiagonalSpread>

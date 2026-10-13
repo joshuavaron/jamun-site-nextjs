@@ -293,10 +293,10 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
                   <p style={fontBody} className={bodySize.micro}>
                     {t("authorBio")}{" "}
                     <a
-                      href="mailto:contact@jamun.org"
+                      href="mailto:jvaron@jamun.org"
                       className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
                     >
-                      contact@jamun.org
+                      jvaron@jamun.org
                     </a>
                   </p>
                 </div>
@@ -346,10 +346,10 @@ export function BlogPostPage({ post, relatedPosts = [] }: BlogPostPageProps) {
         <p style={fontBody} className="mt-8 text-sm text-neutral-600">
           {t("questionsReachOut")}{" "}
           <a
-            href="mailto:contact@jamun.org"
+            href="mailto:jvaron@jamun.org"
             className="font-semibold text-[#397bce] hover:text-[#2a5fa3] transition-colors"
           >
-            contact@jamun.org
+            jvaron@jamun.org
           </a>
         </p>
       </DiagonalSpread>
